@@ -2,259 +2,230 @@ import SwiftUI
 
 // MARK: - Badge Component System
 // THD App Design System - Badge Components
+//
+// This file contains Badge, BadgeAlt (Rating Badge), and BadgeIndicator components
+// that use DesignSystemGlobal tokens for consistent styling.
+//
+// Components:
+// - Badge: Standard badge with text and variant styling
+// - BadgeAlt: Rating badge with label, rating value, and star icon
+// - BadgeIndicator: Small circular indicator dot
+//
+// Design System Integration:
+// - Colors: Uses semantic color tokens from DesignSystemGlobal
+// - Spacing: Uses Spacing* tokens
+// - Border: Uses BorderRadius*, BorderWidth* tokens
+// - Typography: Uses FontFontSize* tokens
 
-// MARK: - Design Tokens
-
-/// Typography tokens from Figma design system
-struct TypographyTokens {
-    static let bodyXsBold = Font.system(size: 12, weight: .bold) // Body Xs/Bold/None
-    static let bodySmBold = Font.system(size: 14, weight: .bold) // Body Sm/Bold/None
-    static let bodyXsBoldBase = Font.system(size: 18, weight: .heavy) // Body Xs/Bold/Base (800)
-    static let bodyXsSemiboldBase = Font.system(size: 18, weight: .semibold) // Body Xs/Semibold/Base (600)
-}
-
-/// Spacing tokens from Figma
-struct SpacingTokens {
-    static let spacing0: CGFloat = 0
-    static let spacing1: CGFloat = 4
-    static let spacing30: CGFloat = 120
-}
-
-/// Badge-specific tokens from Figma
-struct BadgeTokens {
-    static let gap: CGFloat = 4
-    static let heightSmall: CGFloat = 16
-    static let heightBase: CGFloat = 20
-    static let paddingYTop: CGFloat = 0
-    static let paddingYBottom: CGFloat = 0
-    static let labelAlignTop: CGFloat = 0
-    static let labelAlignBottom: CGFloat = 1
-}
-
-/// Border tokens from Figma
-struct BorderTokens {
-    static let widthXS: CGFloat = 1
-    static let radiusLG: CGFloat = 6
-    static let radiusXL: CGFloat = 8
-}
-
-/// Indicator tokens from Figma
-struct IndicatorTokens {
-    static let padding: CGFloat = 0
-    static let sizeSmall: CGFloat = 8
-    static let sizeBase: CGFloat = 12
-    static let borderRadius: CGFloat = 9999
-}
-
-/// Color tokens from Figma design system
-struct ColorTokens {
-    // Text colors
-    static let textOnSurfacePrimary = Color(hex: "#252524")
-    static let textOnSurfaceSecondary = Color(hex: "#474545")
-    static let textOnSurfaceTertiary = Color(hex: "#6a6867")
-    static let textOnSurfaceInverse = Color(hex: "#fbfaf9")
-    
-    // Moonlight (Info/Teal)
-    static let moonlight500 = Color(hex: "#6974a5")
-    static let moonlight800 = Color(hex: "#3a446d")
-    static let moonlight100 = Color(hex: "#dfe1eb")
-    
-    // Bottle Green (Success)
-    static let bottleGreen500 = Color(hex: "#4a8165")
-    static let bottleGreen600 = Color(hex: "#397456")
-    static let bottleGreen700 = Color(hex: "#226242")
-    static let bottleGreen100 = Color(hex: "#d8e4de")
-    
-    // Lemon (Warning)
-    static let lemon500 = Color(hex: "#817747")
-    static let lemon200 = Color(hex: "#cfb73a")
-    static let lemon900 = Color(hex: "#262521")
-    static let lemon100 = Color(hex: "#f9e270")
-    static let backgroundStatusWarningSubtle = Color(hex: "#fef3d2")
-    
-    // Cinnabar (Danger/Red)
-    static let cinnabar500 = Color(hex: "#df3427")
-    static let cinnabar600 = Color(hex: "#c62e23")
-    static let cinnabar700 = Color(hex: "#a5271d")
-    static let cinnabar100 = Color(hex: "#fbdad7")
-    
-    // Greige (Medium/Gray)
-    static let greige900 = Color(hex: "#252524")
-    static let greige600 = Color(hex: "#6a6867")
-    static let greige100 = Color(hex: "#e5e1de")
-    
-    // Brand (Orange)
-    static let brand300 = Color(hex: "#f96302")
-    static let brand100 = Color(hex: "#fedac3")
-    static let backgroundBrand = Color(hex: "#f96302")
-    static let backgroundBrandSubtle = Color(hex: "#fdd0b2")
-    static let badgeColorTextRegularAccentBrand = Color(hex: "#582301")
-    
-    // Background
-    static let backgroundPrimary = Color(hex: "#ffffff")
-    static let neutralsWhite = Color(hex: "#ffffff")
-    
-    // Status backgrounds
-    static let backgroundStatusInfoStrong = Color(hex: "#61d0c8")
-    static let backgroundStatusInfoDefault = Color(hex: "#9fe5df")
-    static let backgroundStatusSuccessStrong = Color(hex: "#4cd693")
-    static let backgroundStatusSuccessDefault = Color(hex: "#9ce8c4")
-    static let backgroundStatusWarningStrong = Color(hex: "#ebb821")
-    static let backgroundStatusWarningDefault = Color(hex: "#fcd561")
-    static let backgroundStatusDangerStrongest = Color(hex: "#b72020")
-    static let backgroundStatusDangerStrong = Color(hex: "#e6b2b2")
-}
-
-/// Badge variant styles
-enum BadgeVariant {
+// MARK: - Badge Variant Styles
+/// Badge variant styles matching the design system specifications.
+///
+/// Each variant affects the badge's background and text color treatment.
+enum THDBadgeVariant {
+    /// Outline style - transparent background with colored border and text
     case outline
+
+    /// Filled subtle - light background with dark text
     case filledSubtle
+
+    /// Filled strong - dark/vibrant background with inverse text
     case filledStrong
 }
 
-/// Badge color options - mapped to Figma color tokens
-enum BadgeColor {
-    case info        // Moonlight (Teal)
-    case success     // Bottle Green
-    case warning     // Lemon (Yellow)
-    case danger      // Cinnabar (Red)
-    case medium      // Greige (Gray)
-    case primary     // Greige 900 (Black)
-    case brand       // Brand (Orange)
-    
+// MARK: - Badge Color Options
+/// Badge color options mapped to design system color palettes.
+///
+/// Each color option provides colors for outline text, subtle background/text,
+/// strong background, and indicator colors.
+enum THDBadgeColor {
+    /// Moonlight (Teal/Blue) - Informational context
+    case info
+
+    /// Bottle Green - Success context
+    case success
+
+    /// Lemon (Yellow) - Warning context
+    case warning
+
+    /// Cinnabar (Red) - Danger/Error context
+    case danger
+
+    /// Greige (Gray) - Neutral/Medium emphasis
+    case medium
+
+    /// Greige 900 (Black) - Primary/High emphasis
+    case primary
+
+    /// Brand (Orange) - Brand accent
+    case brand
+
+    // MARK: - Color Token Accessors
+
+    /// Text color for outline variant
+    /// Uses DesignSystemGlobal Moonlight/BottleGreen/Lemon/Cinnabar/Greige/Brand tokens
     func outlineTextColor() -> Color {
         switch self {
-        case .info: return ColorTokens.moonlight500
-        case .success: return ColorTokens.bottleGreen700
-        case .warning: return ColorTokens.lemon200
-        case .danger: return ColorTokens.cinnabar600
-        case .medium: return ColorTokens.greige600
-        case .primary: return ColorTokens.greige900
-        case .brand: return ColorTokens.brand300
+        case .info: return DesignSystemGlobal.MoonlightMoonlight500
+        case .success: return DesignSystemGlobal.BottleGreenBottleGreen700
+        case .warning: return DesignSystemGlobal.LemonLemon200
+        case .danger: return DesignSystemGlobal.CinnabarCinnabar600
+        case .medium: return DesignSystemGlobal.GreigeGreige600
+        case .primary: return DesignSystemGlobal.GreigeGreige900
+        case .brand: return DesignSystemGlobal.BrandBrand300
         }
     }
-    
+
+    /// Background color for filledSubtle variant
     func subtleBackgroundColor() -> Color {
         switch self {
-        case .info: return ColorTokens.moonlight100
-        case .success: return ColorTokens.bottleGreen100
-        case .warning: return ColorTokens.backgroundStatusWarningSubtle
-        case .danger: return ColorTokens.cinnabar100
-        case .medium: return ColorTokens.greige100
-        case .primary: return ColorTokens.greige100
-        case .brand: return ColorTokens.backgroundBrandSubtle
+        case .info: return DesignSystemGlobal.MoonlightMoonlight100
+        case .success: return DesignSystemGlobal.BottleGreenBottleGreen100
+        case .warning: return DesignSystemGlobal.BackgroundFeedbackColorWarningAccent1
+        case .danger: return DesignSystemGlobal.CinnabarCinnabar100
+        case .medium: return DesignSystemGlobal.GreigeGreige100
+        case .primary: return DesignSystemGlobal.GreigeGreige100
+        case .brand: return DesignSystemGlobal.BrandBrand100
         }
     }
-    
+
+    /// Text color for filledSubtle variant
     func subtleTextColor() -> Color {
         switch self {
-        case .info: return ColorTokens.moonlight800
-        case .success: return ColorTokens.bottleGreen700
-        case .warning: return ColorTokens.lemon900
-        case .danger: return ColorTokens.cinnabar700
-        case .medium: return ColorTokens.greige900
-        case .primary: return ColorTokens.greige900
-        case .brand: return ColorTokens.badgeColorTextRegularAccentBrand
+        case .info: return DesignSystemGlobal.MoonlightMoonlight800
+        case .success: return DesignSystemGlobal.BottleGreenBottleGreen700
+        case .warning: return DesignSystemGlobal.LemonLemon900
+        case .danger: return DesignSystemGlobal.CinnabarCinnabar700
+        case .medium: return DesignSystemGlobal.GreigeGreige900
+        case .primary: return DesignSystemGlobal.GreigeGreige900
+        case .brand: return DesignSystemGlobal.BrandBrand800
         }
     }
-    
+
+    /// Background color for filledStrong variant
     func strongBackgroundColor() -> Color {
         switch self {
-        case .info: return ColorTokens.moonlight500
-        case .success: return ColorTokens.bottleGreen600
-        case .warning: return ColorTokens.lemon500
-        case .danger: return ColorTokens.cinnabar600
-        case .medium: return ColorTokens.greige600
-        case .primary: return ColorTokens.greige900
-        case .brand: return ColorTokens.backgroundBrand
+        case .info: return DesignSystemGlobal.MoonlightMoonlight500
+        case .success: return DesignSystemGlobal.BottleGreenBottleGreen600
+        case .warning: return DesignSystemGlobal.LemonLemon500
+        case .danger: return DesignSystemGlobal.CinnabarCinnabar600
+        case .medium: return DesignSystemGlobal.GreigeGreige600
+        case .primary: return DesignSystemGlobal.GreigeGreige900
+        case .brand: return DesignSystemGlobal.BrandBrand300
         }
     }
-    
+
+    /// Indicator color for strong emphasis
     func indicatorStrongColor() -> Color {
         switch self {
-        case .info: return ColorTokens.backgroundStatusInfoStrong
-        case .success: return ColorTokens.backgroundStatusSuccessStrong
-        case .warning: return ColorTokens.backgroundStatusWarningStrong
-        case .danger: return ColorTokens.backgroundStatusDangerStrongest
-        case .medium: return ColorTokens.greige600
-        case .primary: return ColorTokens.greige900
-        case .brand: return ColorTokens.backgroundBrand
+        case .info: return DesignSystemGlobal.BackgroundFeedbackColorInformationalAccent2
+        case .success: return DesignSystemGlobal.BackgroundFeedbackColorSuccessAccent2
+        case .warning: return DesignSystemGlobal.BackgroundFeedbackColorWarningAccent2
+        case .danger: return DesignSystemGlobal.BackgroundFeedbackColorErrorAccent2
+        case .medium: return DesignSystemGlobal.GreigeGreige600
+        case .primary: return DesignSystemGlobal.GreigeGreige900
+        case .brand: return DesignSystemGlobal.BrandBrand300
         }
     }
-    
+
+    /// Indicator color for subtle emphasis
     func indicatorSubtleColor() -> Color {
         switch self {
-        case .info: return ColorTokens.backgroundStatusInfoDefault
-        case .success: return ColorTokens.backgroundStatusSuccessDefault
-        case .warning: return ColorTokens.backgroundStatusWarningDefault
-        case .danger: return ColorTokens.backgroundStatusDangerStrong
-        case .medium: return ColorTokens.greige100
-        case .primary: return ColorTokens.greige100
-        case .brand: return ColorTokens.backgroundBrandSubtle
+        case .info: return DesignSystemGlobal.BackgroundFeedbackColorInformationalAccent1
+        case .success: return DesignSystemGlobal.BackgroundFeedbackColorSuccessAccent1
+        case .warning: return DesignSystemGlobal.BackgroundFeedbackColorWarningAccent1
+        case .danger: return DesignSystemGlobal.BackgroundFeedbackColorErrorAccent1
+        case .medium: return DesignSystemGlobal.GreigeGreige100
+        case .primary: return DesignSystemGlobal.GreigeGreige100
+        case .brand: return DesignSystemGlobal.BrandBrand100
         }
     }
 }
 
-/// Badge size options
-enum BadgeSize {
+// MARK: - Badge Size Options
+/// Badge size options with corresponding height and typography.
+enum THDBadgeSize {
+    /// Small badge - 16pt height
     case small
+
+    /// Base/Default badge - 20pt height
     case base
-    
+
+    /// Font for badge text
     var fontSize: Font {
         switch self {
-        case .small: return TypographyTokens.bodyXsBold
-        case .base: return TypographyTokens.bodySmBold
+        case .small:
+            return .system(size: DesignSystemGlobal.FontFontSizeBodyXs, weight: .bold)
+        case .base:
+            return .system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .bold)
         }
     }
-    
+
+    /// Badge height
     var height: CGFloat {
         switch self {
-        case .small: return BadgeTokens.heightSmall
-        case .base: return BadgeTokens.heightBase
+        case .small: return 16
+        case .base: return 20
         }
     }
-    
+
+    /// Horizontal padding
     var horizontalPadding: CGFloat {
-        SpacingTokens.spacing1
+        DesignSystemGlobal.Spacing1
     }
 }
 
-
-/// Standard Badge component
+// MARK: - Badge Component
+/// Standard badge component using DesignSystemGlobal tokens.
+///
+/// Displays a small label with various styling options for categorization,
+/// status indication, or labeling content.
+///
+/// ## Usage Example:
+/// ```swift
+/// Badge("New", variant: .filledStrong, color: .brand)
+/// Badge("Sale", variant: .outline, color: .danger)
+/// ```
+///
+/// ## Design System Tokens Used:
+/// - Colors: Moonlight*, BottleGreen*, Lemon*, Cinnabar*, Greige*, Brand* palettes
+/// - Border: BorderRadiusLg, BorderWidthXs
+/// - Spacing: Spacing1
 struct Badge: View {
     let text: String
-    let variant: BadgeVariant
-    let color: BadgeColor
-    let size: BadgeSize
-    
+    let variant: THDBadgeVariant
+    let color: THDBadgeColor
+    let size: THDBadgeSize
+
     init(
         _ text: String,
-        variant: BadgeVariant = .outline,
-        color: BadgeColor = .primary,
-        size: BadgeSize = .base
+        variant: THDBadgeVariant = .outline,
+        color: THDBadgeColor = .primary,
+        size: THDBadgeSize = .base
     ) {
         self.text = text
         self.variant = variant
         self.color = color
         self.size = size
     }
-    
+
     var body: some View {
         Text(text)
             .font(size.fontSize)
             .foregroundColor(foregroundColor)
             .padding(.horizontal, size.horizontalPadding)
-            .padding(.top, BadgeTokens.paddingYTop)
-            .padding(.bottom, BadgeTokens.paddingYBottom)
+            .padding(.vertical, 0)
             .frame(height: size.height)
             .background(backgroundColor)
-            .cornerRadius(BorderTokens.radiusLG)
+            .cornerRadius(DesignSystemGlobal.BorderRadiusLg)
             .overlay(
-                RoundedRectangle(cornerRadius: BorderTokens.radiusLG)
-                    .stroke(borderColor, lineWidth: variant == .outline ? BorderTokens.widthXS : 0)
+                RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusLg)
+                    .stroke(borderColor, lineWidth: variant == .outline ? DesignSystemGlobal.BorderWidthXs : 0)
             )
     }
-    
+
+    // MARK: - Color Logic
+
+    /// Foreground/text color based on variant
     private var foregroundColor: Color {
         switch variant {
         case .outline:
@@ -262,10 +233,11 @@ struct Badge: View {
         case .filledSubtle:
             return color.subtleTextColor()
         case .filledStrong:
-            return ColorTokens.textOnSurfaceInverse
+            return DesignSystemGlobal.TextOnContainerColorInverse
         }
     }
-    
+
+    /// Background color based on variant
     private var backgroundColor: Color {
         switch variant {
         case .outline:
@@ -276,74 +248,102 @@ struct Badge: View {
             return color.strongBackgroundColor()
         }
     }
-    
+
+    /// Border color - only visible for outline variant
     private var borderColor: Color {
         variant == .outline ? color.outlineTextColor() : .clear
     }
 }
 
-/// Badge Alt - Rating badge with star
+// MARK: - BadgeAlt (Rating Badge) Component
+/// Rating badge component with label, rating value, and star icon.
+///
+/// Displays a "Top Rated" style badge with a numeric rating and star icon.
+/// Uses DesignSystemGlobal tokens for consistent styling.
+///
+/// ## Usage Example:
+/// ```swift
+/// BadgeAlt(label: "Top Rated", rating: "4.5")
+/// ```
 struct BadgeAlt: View {
     let label: String
     let rating: String
-    
+
     init(label: String = "Top Rated", rating: String = "4.5") {
         self.label = label
         self.rating = rating
     }
-    
+
     var body: some View {
-        HStack(spacing: SpacingTokens.spacing1) {
+        HStack(spacing: DesignSystemGlobal.Spacing1) {
             // Text Labels
-            HStack(spacing: SpacingTokens.spacing1) {
-                // Primary label - Body Xs/Bold/Base
+            HStack(spacing: DesignSystemGlobal.Spacing1) {
+                // Primary label - Body Xs/Bold/Base (heavy weight)
                 Text(label)
-                    .font(TypographyTokens.bodyXsBoldBase)
-                    .foregroundColor(ColorTokens.textOnSurfacePrimary)
-                
+                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodyLg, weight: .heavy))
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
                 // Rating value - Body Xs/Semibold/Base
                 Text(rating)
-                    .font(TypographyTokens.bodyXsSemiboldBase)
-                    .foregroundColor(ColorTokens.textOnSurfaceSecondary)
+                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodyLg, weight: .semibold))
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
             }
-            
+
             // Star Filled icon
             Image(systemName: "star.fill")
                 .resizable()
                 .frame(width: 16, height: 16)
-                .foregroundColor(ColorTokens.brand300)
+                .foregroundColor(DesignSystemGlobal.BrandBrand300)
         }
         .padding(.vertical, 6)
         .frame(height: 32)
-        .background(ColorTokens.greige100.opacity(0.5))
+        .background(DesignSystemGlobal.GreigeGreige100.opacity(0.5))
     }
 }
 
-/// Indicator - Small circular badge indicator
+// MARK: - BadgeIndicator Component
+/// Small circular indicator dot component.
+///
+/// A simple dot indicator for showing status or notifications.
+/// Uses DesignSystemGlobal color tokens.
+///
+/// ## Usage Example:
+/// ```swift
+/// BadgeIndicator(color: .brand, size: .base, emphasis: .strong)
+/// BadgeIndicator(color: .success, size: .regular, emphasis: .subtle)
+/// ```
 struct BadgeIndicator: View {
-    let color: BadgeColor
+    let color: THDBadgeColor
     let size: IndicatorSize
     let emphasis: BadgeEmphasis
-    
+
+    /// Indicator size options
     enum IndicatorSize {
+        /// Small indicator - 8pt diameter
         case base
+
+        /// Regular indicator - 12pt diameter
         case regular
-        
+
         var diameter: CGFloat {
             switch self {
-            case .base: return IndicatorTokens.sizeSmall
-            case .regular: return IndicatorTokens.sizeBase
+            case .base: return 8
+            case .regular: return 12
             }
         }
     }
-    
+
+    /// Indicator emphasis level
     enum BadgeEmphasis {
+        /// Strong/vibrant color
         case strong
+
+        /// Subtle/muted color
         case subtle
     }
-    
+
     init(
-        color: BadgeColor = .brand,
+        color: THDBadgeColor = .brand,
         size: IndicatorSize = .base,
         emphasis: BadgeEmphasis = .strong
     ) {
@@ -351,13 +351,14 @@ struct BadgeIndicator: View {
         self.size = size
         self.emphasis = emphasis
     }
-    
+
     var body: some View {
         Circle()
             .fill(fillColor)
             .frame(width: size.diameter, height: size.diameter)
     }
-    
+
+    /// Fill color based on color option and emphasis
     private var fillColor: Color {
         switch emphasis {
         case .strong:
@@ -368,33 +369,6 @@ struct BadgeIndicator: View {
     }
 }
 
-// MARK: - Color Extension
-extension Color {
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (255, 0, 0, 0)
-        }
-        self.init(
-            .sRGB,
-            red: Double(r) / 255,
-            green: Double(g) / 255,
-            blue: Double(b) / 255,
-            opacity: Double(a) / 255
-        )
-    }
-}
-
 // MARK: - Previews
 #Preview("Badge Variants") {
     ScrollView {
@@ -402,13 +376,15 @@ extension Color {
             // Title
             Text("Badge")
                 .font(.system(size: 48, weight: .medium))
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
-            
+
             // Indicators
             VStack(alignment: .leading, spacing: 12) {
                 Text("Indicators")
                     .font(.headline)
-                
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
                 HStack(spacing: 16) {
                     BadgeIndicator(color: .info, size: .base, emphasis: .strong)
                     BadgeIndicator(color: .info, size: .regular, emphasis: .strong)
@@ -416,82 +392,86 @@ extension Color {
                     BadgeIndicator(color: .info, size: .regular, emphasis: .subtle)
                 }
             }
-            
+
             // Badge Alt
             VStack(alignment: .leading, spacing: 12) {
                 Text("Rating Badge")
                     .font(.headline)
-                
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
                 BadgeAlt()
             }
-            
+
             // Outline Badges
             VStack(alignment: .leading, spacing: 12) {
                 Text("Outline Badges")
                     .font(.headline)
-                
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
                 HStack(spacing: 12) {
                     Badge("Badge", variant: .outline, color: .info, size: .small)
                     Badge("Badge", variant: .outline, color: .info, size: .base)
                 }
-                
+
                 HStack(spacing: 12) {
                     Badge("Badge", variant: .outline, color: .success, size: .small)
                     Badge("Badge", variant: .outline, color: .success, size: .base)
                 }
-                
+
                 HStack(spacing: 12) {
                     Badge("Badge", variant: .outline, color: .warning, size: .small)
                     Badge("Badge", variant: .outline, color: .warning, size: .base)
                 }
-                
+
                 HStack(spacing: 12) {
                     Badge("Badge", variant: .outline, color: .danger, size: .small)
                     Badge("Badge", variant: .outline, color: .danger, size: .base)
                 }
-                
+
                 HStack(spacing: 12) {
                     Badge("Badge", variant: .outline, color: .brand, size: .small)
                     Badge("Badge", variant: .outline, color: .brand, size: .base)
                 }
             }
-            
+
             // Filled Subtle Badges
             VStack(alignment: .leading, spacing: 12) {
                 Text("Filled Subtle Badges")
                     .font(.headline)
-                
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
                 HStack(spacing: 12) {
                     Badge("Badge", variant: .filledSubtle, color: .info, size: .small)
                     Badge("Badge", variant: .filledSubtle, color: .info, size: .base)
                 }
-                
+
                 HStack(spacing: 12) {
                     Badge("Badge", variant: .filledSubtle, color: .success, size: .small)
                     Badge("Badge", variant: .filledSubtle, color: .success, size: .base)
                 }
-                
+
                 HStack(spacing: 12) {
                     Badge("Badge", variant: .filledSubtle, color: .brand, size: .small)
                     Badge("Badge", variant: .filledSubtle, color: .brand, size: .base)
                 }
             }
-            
+
             // Filled Strong Badges
             VStack(alignment: .leading, spacing: 12) {
                 Text("Filled Strong Badges")
                     .font(.headline)
-                
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
                 HStack(spacing: 12) {
                     Badge("Badge", variant: .filledStrong, color: .info, size: .small)
                     Badge("Badge", variant: .filledStrong, color: .info, size: .base)
                 }
-                
+
                 HStack(spacing: 12) {
                     Badge("Badge", variant: .filledStrong, color: .danger, size: .small)
                     Badge("Badge", variant: .filledStrong, color: .danger, size: .base)
                 }
-                
+
                 HStack(spacing: 12) {
                     Badge("Badge", variant: .filledStrong, color: .brand, size: .small)
                     Badge("Badge", variant: .filledStrong, color: .brand, size: .base)
@@ -500,5 +480,5 @@ extension Color {
         }
         .padding()
     }
-    .background(Color.white)
+    .background(DesignSystemGlobal.BackgroundContainerColorWhite)
 }

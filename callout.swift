@@ -2,102 +2,96 @@ import SwiftUI
 
 // MARK: - Callout & Alert Component System
 // THD App Design System - Callout and Alert Components
+//
+// This file contains Callout and Alert components that use DesignSystemGlobal tokens
+// for consistent styling across the application.
+//
+// Components:
+// - Callout: Promotional/informational callout with optional button
+// - Alert: Feedback alert with variant-based styling (informational, success, warning, error)
+//
+// Design System Integration:
+// - Colors: Uses BackgroundContainerColor*, BackgroundFeedbackColor*, TextOnContainerColor*, IconOnSurfaceColor* tokens
+// - Spacing: Uses Spacing* tokens
+// - Border: Uses BorderRadius*, BorderWidthXs tokens
+// - Typography: Uses FontFontSize* tokens
+// - Shadow: Uses ElevationMed for floating variants
 
-// MARK: - Design Tokens (Extended from Badge/Pill/Button/Quantity/Tile)
-
-/// Typography tokens from Figma design system
-struct TypographyTokens {
-    static let headingH5ExtraBoldTight = Font.system(size: 18, weight: .heavy).leading(.tight) // Heading h5/ExtraBold/Tight (800 weight)
-    static let headingH6SemiboldNone = Font.system(size: 16, weight: .medium) // Heading h6/Semibold/None (500 weight)
-    static let bodyMdRegularTight = Font.system(size: 16, weight: .regular).leading(.tight) // Body Md/Regular/Tight
-    static let bodySmRegularTight = Font.system(size: 14, weight: .regular).leading(.tight) // Body Sm/Regular/Tight
-    static let bodySmBoldNone = Font.system(size: 14, weight: .bold) // Body Sm/Bold/None
-}
-
-/// Spacing tokens from Figma
-struct SpacingTokens {
-    static let spacing0: CGFloat = 0
-    static let spacing1: CGFloat = 4
-    static let spacing2: CGFloat = 8
-    static let spacing3: CGFloat = 12
-    static let spacing4: CGFloat = 16
-}
-
-/// Border tokens from Figma
-struct BorderTokens {
-    static let borderWidthXs: CGFloat = 1
-    static let radius5: CGFloat = 6
-    static let radius999: CGFloat = 9999
-    static let radius2xl: CGFloat = 12
-}
-
-/// Callout & Alert color tokens from Figma
-struct CalloutColorTokens {
-    // Callout variants
-    static let backgroundContainerTransparent05 = Color(hex: "#0000000d")
-    static let backgroundSurfaceInverse = Color(hex: "#0d0d0d")
-    static let backgroundContainerBrandAccent = Color(hex: "#fef2e9")
-    
-    // Alert variants
-    static let backgroundFeedbackInformationalAccent1 = Color(hex: "#f3f4f8")
-    static let backgroundFeedbackSuccessAccent1 = Color(hex: "#f0f5f3")
-    static let backgroundFeedbackWarningAccent1 = Color(hex: "#fdf6d2")
-    static let backgroundFeedbackErrorAccent1 = Color(hex: "#fdf1f0")
-    
-    // Text colors
-    static let textOnContainerPrimary = Color(hex: "#252524")
-    static let textOnContainerSecondary = Color(hex: "#474545")
-    static let textOnContainerInverse = Color(hex: "#fbfaf9")
-    static let textOnSurfacePrimary = Color(hex: "#252524")
-    
-    // Icon colors
-    static let iconOnSurfacePrimary = Color(hex: "#252524")
-    static let moonlight500 = Color(hex: "#6974a5")
-    static let lemon200 = Color(hex: "#cfb73a")
-    static let cinnabar500 = Color(hex: "#df3427")
-    
-    // Button
-    static let backgroundActionPrimary = Color(hex: "#f96302")
-    static let textButtonOrangeFilledDefault = Color(hex: "#ffffff")
-    
-    // Border
-    static let borderOnContainerDefault = Color(hex: "#bab7b4")
-    
-    // Shadow
-    static let shadow200 = Color(hex: "#0000001f")
-}
-
-/// Callout variant styles
-enum CalloutVariant {
+// MARK: - Callout Variant Styles
+/// Callout variant styles affecting background and text treatment.
+enum THDCalloutVariant {
+    /// Neutral - transparent black 5% background
+    /// Background: BackgroundContainerColorTransparent05
     case neutral
+
+    /// Inverse - dark background with light text
+    /// Background: BackgroundSurfaceColorInverse
     case inverse
+
+    /// Brand - brand accent background (light orange)
+    /// Background: BackgroundContainerColorBrandAccent
     case brand
 }
 
-/// Alert variant styles
-enum AlertVariant {
+// MARK: - Alert Variant Styles
+/// Alert variant styles mapped to feedback contexts.
+enum THDAlertVariant {
+    /// Informational - blue/teal accent for neutral information
+    /// Uses BackgroundFeedbackColorInformationalAccent1, MoonlightMoonlight500
     case informational
+
+    /// Success - green accent for positive outcomes
+    /// Uses BackgroundFeedbackColorSuccessAccent1, IconOnSurfaceColorPrimary
     case success
+
+    /// Warning - yellow accent for cautionary messages
+    /// Uses BackgroundFeedbackColorWarningAccent1, LemonLemon200
     case warning
+
+    /// Error - red accent for error states
+    /// Uses BackgroundFeedbackColorErrorAccent1, CinnabarCinnabar500
     case error
 }
 
-/// Callout Component
-struct Callout: View {
+// MARK: - Callout Component
+/// Promotional/informational callout component using DesignSystemGlobal tokens.
+///
+/// Displays contextual information with optional title, subtitle, description,
+/// leading icon, and action button. Supports floating style with shadow.
+///
+/// ## Usage Example:
+/// ```swift
+/// THDCallout(
+///     title: "Special Offer",
+///     description: "Get 20% off your next purchase",
+///     variant: .brand,
+///     buttonText: "Shop Now"
+/// ) {
+///     // Handle button tap
+/// }
+/// ```
+///
+/// ## Design System Tokens Used:
+/// - Background: BackgroundContainerColorTransparent05, BackgroundSurfaceColorInverse, BackgroundContainerColorBrandAccent
+/// - Text: TextOnContainerColorPrimary, TextOnContainerColorInverse, TextOnContainerColorSecondary
+/// - Icons: IconOnSurfaceColorPrimary
+/// - Border: BorderRadius2xl
+/// - Shadow: ElevationMed for floating style
+struct THDCallout: View {
     let title: String?
     let subtitle: String?
     let description: String
-    let variant: CalloutVariant
+    let variant: THDCalloutVariant
     let leadingIcon: String?
     let buttonText: String?
     let isFloating: Bool
     let onButtonTap: (() -> Void)?
-    
+
     init(
         title: String? = nil,
         subtitle: String? = nil,
         description: String,
-        variant: CalloutVariant = .neutral,
+        variant: THDCalloutVariant = .neutral,
         leadingIcon: String? = "tag",
         buttonText: String? = nil,
         isFloating: Bool = false,
@@ -112,131 +106,163 @@ struct Callout: View {
         self.isFloating = isFloating
         self.onButtonTap = onButtonTap
     }
-    
+
     var body: some View {
-        HStack(alignment: .top, spacing: SpacingTokens.spacing2) {
+        HStack(alignment: .top, spacing: DesignSystemGlobal.Spacing2) {
             // Leading icon
             if let iconName = leadingIcon {
                 Image(systemName: iconName)
                     .resizable()
                     .frame(width: 16, height: 16)
                     .foregroundColor(iconColor)
-                    .padding(.top, SpacingTokens.spacing4)
+                    .padding(.top, DesignSystemGlobal.Spacing4)
             }
-            
+
             // Content
-            VStack(alignment: .leading, spacing: SpacingTokens.spacing4) {
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
                 if title != nil || subtitle != nil {
-                    VStack(alignment: .leading, spacing: SpacingTokens.spacing2) {
+                    VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                         if let title = title {
+                            // Heading h5/ExtraBold/Tight
                             Text(title)
-                                .font(TypographyTokens.headingH5ExtraBoldTight)
+                                .font(.system(size: DesignSystemGlobal.FontFontSizeH5, weight: .heavy))
+                                .lineSpacing(DesignSystemGlobal.FontLineHeightTight)
                                 .foregroundColor(primaryTextColor)
                         }
-                        
+
                         if let subtitle = subtitle {
+                            // Body Md/Regular/Tight
                             Text(subtitle)
-                                .font(TypographyTokens.bodyMdRegularTight)
+                                .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .regular))
+                                .lineSpacing(DesignSystemGlobal.FontLineHeightTight)
                                 .foregroundColor(secondaryTextColor)
                         }
                     }
                 }
-                
+
+                // Body Sm/Regular/Tight
                 Text(description)
-                    .font(TypographyTokens.bodySmRegularTight)
+                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .regular))
+                    .lineSpacing(DesignSystemGlobal.FontLineHeightTight)
                     .foregroundColor(primaryTextColor)
             }
-            .padding(.top, SpacingTokens.spacing4)
+            .padding(.top, DesignSystemGlobal.Spacing4)
             .padding(.bottom, 6)
             .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             // Button
             if let buttonText = buttonText {
                 Button(action: {
                     onButtonTap?()
                 }) {
                     Text(buttonText)
-                        .font(TypographyTokens.bodySmBoldNone)
-                        .foregroundColor(CalloutColorTokens.textButtonOrangeFilledDefault)
-                        .padding(.horizontal, SpacingTokens.spacing4)
-                        .padding(.vertical, SpacingTokens.spacing2)
-                        .frame(height: 28)
-                        .background(CalloutColorTokens.backgroundActionPrimary)
-                        .cornerRadius(BorderTokens.radius999)
+                        .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .bold))
+                        .foregroundColor(DesignSystemGlobal.TextButtonColorOrangeFilledDefault)
+                        .padding(.horizontal, DesignSystemGlobal.Spacing4)
+                        .padding(.vertical, DesignSystemGlobal.Spacing2)
+                        .frame(height: DesignSystemGlobal.Spacing7)
+                        .background(DesignSystemGlobal.BackgroundButtonColorBrandFilledDefault)
+                        .cornerRadius(DesignSystemGlobal.BorderRadiusFull)
                 }
-                .frame(maxHeight: 44)
-                .padding(.vertical, SpacingTokens.spacing2)
+                .frame(maxHeight: DesignSystemGlobal.Spacing11)
+                .padding(.vertical, DesignSystemGlobal.Spacing2)
             }
         }
-        .padding(.leading, SpacingTokens.spacing4)
-        .padding(.trailing, buttonText != nil ? SpacingTokens.spacing4 : SpacingTokens.spacing4)
-        .padding(.top, SpacingTokens.spacing0)
-        .padding(.bottom, SpacingTokens.spacing3)
+        .padding(.leading, DesignSystemGlobal.Spacing4)
+        .padding(.trailing, DesignSystemGlobal.Spacing4)
+        .padding(.top, DesignSystemGlobal.Spacing0)
+        .padding(.bottom, DesignSystemGlobal.Spacing3)
         .background(backgroundColor)
-        .cornerRadius(BorderTokens.radius2xl)
+        .cornerRadius(DesignSystemGlobal.BorderRadius2xl)
         .shadow(
-            color: isFloating ? CalloutColorTokens.shadow200 : .clear,
+            color: isFloating ? DesignSystemGlobal.ElevationMed : .clear,
             radius: isFloating ? 12 : 0,
             x: 0,
             y: isFloating ? 4 : 0
         )
     }
-    
+
     // MARK: - Color Logic
-    
+
+    /// Background color based on variant
+    /// Uses DesignSystemGlobal BackgroundContainerColor* tokens
     private var backgroundColor: Color {
         switch variant {
         case .neutral:
-            return CalloutColorTokens.backgroundContainerTransparent05
+            return DesignSystemGlobal.BackgroundContainerColorTransparent05
         case .inverse:
-            return CalloutColorTokens.backgroundSurfaceInverse
+            return DesignSystemGlobal.BackgroundSurfaceColorInverse
         case .brand:
-            return CalloutColorTokens.backgroundContainerBrandAccent
+            return DesignSystemGlobal.BackgroundContainerColorBrandAccent
         }
     }
-    
+
+    /// Primary text color based on variant
     private var primaryTextColor: Color {
         switch variant {
         case .neutral, .brand:
-            return CalloutColorTokens.textOnContainerPrimary
+            return DesignSystemGlobal.TextOnContainerColorPrimary
         case .inverse:
-            return CalloutColorTokens.textOnContainerInverse
+            return DesignSystemGlobal.TextOnContainerColorInverse
         }
     }
-    
+
+    /// Secondary text color based on variant
     private var secondaryTextColor: Color {
         switch variant {
         case .neutral:
-            return CalloutColorTokens.textOnContainerSecondary
+            return DesignSystemGlobal.TextOnContainerColorSecondary
         case .inverse:
-            return CalloutColorTokens.textOnContainerInverse
+            return DesignSystemGlobal.TextOnContainerColorInverse
         case .brand:
-            return CalloutColorTokens.textOnSurfacePrimary
+            return DesignSystemGlobal.TextOnSurfaceColorPrimary
         }
     }
-    
+
+    /// Icon color based on variant
     private var iconColor: Color {
         switch variant {
         case .neutral, .brand:
-            return CalloutColorTokens.iconOnSurfacePrimary
+            return DesignSystemGlobal.IconOnSurfaceColorPrimary
         case .inverse:
-            return CalloutColorTokens.textOnContainerInverse
+            return DesignSystemGlobal.TextOnContainerColorInverse
         }
     }
 }
 
-/// Alert Component
-struct Alert: View {
+// MARK: - Alert Component
+/// Feedback alert component using DesignSystemGlobal tokens.
+///
+/// Displays contextual feedback messages with variant-based styling.
+/// Supports optional title, dismiss button, and floating style.
+///
+/// ## Usage Example:
+/// ```swift
+/// THDAlert(
+///     title: "Success",
+///     message: "Your order has been placed",
+///     variant: .success
+/// ) {
+///     // Handle dismiss
+/// }
+/// ```
+///
+/// ## Design System Tokens Used:
+/// - Background: BackgroundFeedbackColorInformationalAccent1, BackgroundFeedbackColorSuccessAccent1, etc.
+/// - Text: TextOnContainerColorPrimary
+/// - Icons: MoonlightMoonlight500, IconOnSurfaceColorPrimary, LemonLemon200, CinnabarCinnabar500
+/// - Border: BorderOnContainerColorDefault, BorderRadius2xl
+struct THDAlert: View {
     let title: String?
     let message: String
-    let variant: AlertVariant
+    let variant: THDAlertVariant
     let isFloating: Bool
     let onDismiss: (() -> Void)?
-    
+
     init(
         title: String? = nil,
         message: String,
-        variant: AlertVariant = .informational,
+        variant: THDAlertVariant = .informational,
         isFloating: Bool = false,
         onDismiss: (() -> Void)? = nil
     ) {
@@ -246,92 +272,99 @@ struct Alert: View {
         self.isFloating = isFloating
         self.onDismiss = onDismiss
     }
-    
+
     var body: some View {
-        HStack(alignment: .top, spacing: SpacingTokens.spacing2) {
+        HStack(alignment: .top, spacing: DesignSystemGlobal.Spacing2) {
             // Leading icon
             Image(systemName: iconName)
                 .resizable()
                 .frame(width: 16, height: 16)
                 .foregroundColor(iconColor)
-                .padding(.top, SpacingTokens.spacing4)
-            
+                .padding(.top, DesignSystemGlobal.Spacing4)
+
             // Content
-            VStack(alignment: .leading, spacing: SpacingTokens.spacing2) {
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                 if let title = title {
+                    // Heading h6/Semibold/None
                     Text(title)
-                        .font(TypographyTokens.headingH6SemiboldNone)
-                        .foregroundColor(CalloutColorTokens.textOnContainerPrimary)
+                        .font(.system(size: DesignSystemGlobal.FontFontSizeH6, weight: .medium))
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
                 }
-                
+
+                // Body Sm/Regular/Tight
                 Text(message)
-                    .font(TypographyTokens.bodySmRegularTight)
-                    .foregroundColor(CalloutColorTokens.textOnContainerPrimary)
+                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .regular))
+                    .lineSpacing(DesignSystemGlobal.FontLineHeightTight)
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
             }
-            .padding(.top, SpacingTokens.spacing4)
+            .padding(.top, DesignSystemGlobal.Spacing4)
             .padding(.bottom, 6)
             .frame(maxWidth: .infinity, alignment: .leading)
-            
+
             // Close button
             if let onDismiss = onDismiss {
                 Button(action: onDismiss) {
                     Image(systemName: "xmark")
                         .resizable()
                         .frame(width: 16, height: 16)
-                        .foregroundColor(CalloutColorTokens.iconOnSurfacePrimary)
-                        .frame(width: 36, height: 36)
+                        .foregroundColor(DesignSystemGlobal.IconOnSurfaceColorPrimary)
+                        .frame(width: DesignSystemGlobal.Spacing9, height: DesignSystemGlobal.Spacing9)
                         .background(Color.clear)
-                        .cornerRadius(BorderTokens.radius999)
+                        .cornerRadius(DesignSystemGlobal.BorderRadiusFull)
                 }
-                .padding(SpacingTokens.spacing1)
+                .padding(DesignSystemGlobal.Spacing1)
             }
         }
-        .padding(.leading, SpacingTokens.spacing2)
-        .padding(.trailing, SpacingTokens.spacing0)
-        .padding(.top, SpacingTokens.spacing0)
-        .padding(.bottom, SpacingTokens.spacing3)
+        .padding(.leading, DesignSystemGlobal.Spacing2)
+        .padding(.trailing, DesignSystemGlobal.Spacing0)
+        .padding(.top, DesignSystemGlobal.Spacing0)
+        .padding(.bottom, DesignSystemGlobal.Spacing3)
         .background(backgroundColor)
         .overlay(
-            RoundedRectangle(cornerRadius: BorderTokens.radius2xl)
-                .stroke(CalloutColorTokens.borderOnContainerDefault, lineWidth: BorderTokens.borderWidthXs)
+            RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadius2xl)
+                .stroke(DesignSystemGlobal.BorderOnContainerDefault, lineWidth: DesignSystemGlobal.BorderWidthXs)
         )
-        .cornerRadius(BorderTokens.radius2xl)
+        .cornerRadius(DesignSystemGlobal.BorderRadius2xl)
         .shadow(
-            color: isFloating ? CalloutColorTokens.shadow200 : .clear,
+            color: isFloating ? DesignSystemGlobal.ElevationMed : .clear,
             radius: isFloating ? 12 : 0,
             x: 0,
             y: isFloating ? 4 : 0
         )
     }
-    
+
     // MARK: - Color & Icon Logic
-    
+
+    /// Background color based on variant
+    /// Uses DesignSystemGlobal BackgroundFeedbackColor* tokens
     private var backgroundColor: Color {
         switch variant {
         case .informational:
-            return CalloutColorTokens.backgroundFeedbackInformationalAccent1
+            return DesignSystemGlobal.BackgroundFeedbackColorInformationalAccent1
         case .success:
-            return CalloutColorTokens.backgroundFeedbackSuccessAccent1
+            return DesignSystemGlobal.BackgroundFeedbackColorSuccessAccent1
         case .warning:
-            return CalloutColorTokens.backgroundFeedbackWarningAccent1
+            return DesignSystemGlobal.BackgroundFeedbackColorWarningAccent1
         case .error:
-            return CalloutColorTokens.backgroundFeedbackErrorAccent1
+            return DesignSystemGlobal.BackgroundFeedbackColorErrorAccent1
         }
     }
-    
+
+    /// Icon color based on variant
     private var iconColor: Color {
         switch variant {
         case .informational:
-            return CalloutColorTokens.moonlight500
+            return DesignSystemGlobal.MoonlightMoonlight500
         case .success:
-            return CalloutColorTokens.iconOnSurfacePrimary
+            return DesignSystemGlobal.IconOnSurfaceColorPrimary
         case .warning:
-            return CalloutColorTokens.lemon200
+            return DesignSystemGlobal.LemonLemon200
         case .error:
-            return CalloutColorTokens.cinnabar500
+            return DesignSystemGlobal.CinnabarCinnabar500
         }
     }
-    
+
+    /// System icon name based on variant
     private var iconName: String {
         switch variant {
         case .informational:
@@ -346,302 +379,156 @@ struct Alert: View {
     }
 }
 
-// MARK: - Convenience Variants
 
-/// Informational Alert
-struct InformationalAlert: View {
-    let title: String?
-    let message: String
-    let isFloating: Bool
-    let onDismiss: (() -> Void)?
-    
-    init(
-        title: String? = nil,
-        message: String,
-        isFloating: Bool = false,
-        onDismiss: (() -> Void)? = nil
-    ) {
-        self.title = title
-        self.message = message
-        self.isFloating = isFloating
-        self.onDismiss = onDismiss
-    }
-    
-    var body: some View {
-        Alert(
-            title: title,
-            message: message,
-            variant: .informational,
-            isFloating: isFloating,
-            onDismiss: onDismiss
-        )
-    }
-}
-
-/// Success Alert
-struct SuccessAlert: View {
-    let title: String?
-    let message: String
-    let isFloating: Bool
-    let onDismiss: (() -> Void)?
-    
-    init(
-        title: String? = nil,
-        message: String,
-        isFloating: Bool = false,
-        onDismiss: (() -> Void)? = nil
-    ) {
-        self.title = title
-        self.message = message
-        self.isFloating = isFloating
-        self.onDismiss = onDismiss
-    }
-    
-    var body: some View {
-        Alert(
-            title: title,
-            message: message,
-            variant: .success,
-            isFloating: isFloating,
-            onDismiss: onDismiss
-        )
-    }
-}
-
-/// Warning Alert
-struct WarningAlert: View {
-    let title: String?
-    let message: String
-    let isFloating: Bool
-    let onDismiss: (() -> Void)?
-    
-    init(
-        title: String? = nil,
-        message: String,
-        isFloating: Bool = false,
-        onDismiss: (() -> Void)? = nil
-    ) {
-        self.title = title
-        self.message = message
-        self.isFloating = isFloating
-        self.onDismiss = onDismiss
-    }
-    
-    var body: some View {
-        Alert(
-            title: title,
-            message: message,
-            variant: .warning,
-            isFloating: isFloating,
-            onDismiss: onDismiss
-        )
-    }
-}
-
-/// Error Alert
-struct ErrorAlert: View {
-    let title: String?
-    let message: String
-    let isFloating: Bool
-    let onDismiss: (() -> Void)?
-    
-    init(
-        title: String? = nil,
-        message: String,
-        isFloating: Bool = false,
-        onDismiss: (() -> Void)? = nil
-    ) {
-        self.title = title
-        self.message = message
-        self.isFloating = isFloating
-        self.onDismiss = onDismiss
-    }
-    
-    var body: some View {
-        Alert(
-            title: title,
-            message: message,
-            variant: .error,
-            isFloating: isFloating,
-            onDismiss: onDismiss
-        )
-    }
-}
-
-// MARK: - Color Extension
-extension Color {
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (255, 0, 0, 0)
-        }
-        self.init(
-            .sRGB,
-            red: Double(r) / 255,
-            green: Double(g) / 255,
-            blue: Double(b) / 255,
-            opacity: Double(a) / 255
-        )
-    }
-}
 
 // MARK: - Previews
 #Preview("Callouts & Alerts") {
-    ScrollView {
+    
+    func sectionHeader(_ title: String, description: String) -> some View {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
+            Text(title)
+                .font(.headline)
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+            
+            Text(description)
+                .font(.caption)
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+        }
+    }
+    
+    return ScrollView {
         VStack(alignment: .leading, spacing: 24) {
             // Alerts Section
             Text("Alert")
                 .font(.system(size: 48, weight: .medium))
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
-            
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Informational")
-                    .font(.headline)
-                
-                InformationalAlert(
-                    title: "Alert title (optional)",
-                    message: "This is helpful information you should know.",
-                    onDismiss: {}
-                )
-                
-                InformationalAlert(
-                    title: "Alert title (optional)",
-                    message: "This is helpful information you should know.",
-                    isFloating: true,
-                    onDismiss: {}
-                )
-            }
-            
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Success")
-                    .font(.headline)
-                
-                SuccessAlert(
-                    title: "Alert title (optional)",
-                    message: "Whatever you did worked.",
-                    onDismiss: {}
-                )
-            }
-            
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Warning")
-                    .font(.headline)
-                
-                WarningAlert(
-                    title: "Alert title (optional)",
-                    message: "There's an issue that you should know about.",
-                    onDismiss: {}
-                )
-                
-                WarningAlert(
-                    title: "Alert title (optional)",
-                    message: "There's an issue that you should know about.",
-                    isFloating: true,
-                    onDismiss: {}
-                )
-            }
-            
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Error")
-                    .font(.headline)
-                
-                ErrorAlert(
-                    title: "Alert title (optional)",
-                    message: "You cannot proceed until you resolve this issue.",
-                    onDismiss: {}
-                )
-            }
-            
+
+            // MARK: - Informational Alerts
+            sectionHeader("Informational", description: "Informational alerts for helpful information")
+
+            InformationalAlert(
+                title: "Alert title (optional)",
+                message: "This is helpful information you should know.",
+                onDismiss: {}
+            )
+
+            InformationalAlert(
+                title: "Alert title (optional)",
+                message: "This is helpful information you should know.",
+                isFloating: true,
+                onDismiss: {}
+            )
+
+            // MARK: - Success Alerts
+            sectionHeader("Success", description: "Success alerts for completed actions")
+
+            SuccessAlert(
+                title: "Alert title (optional)",
+                message: "Whatever you did worked.",
+                onDismiss: {}
+            )
+
+            // MARK: - Warning Alerts
+            sectionHeader("Warning", description: "Warning alerts for issues that need attention")
+
+            WarningAlert(
+                title: "Alert title (optional)",
+                message: "There's an issue that you should know about.",
+                onDismiss: {}
+            )
+
+            WarningAlert(
+                title: "Alert title (optional)",
+                message: "There's an issue that you should know about.",
+                isFloating: true,
+                onDismiss: {}
+            )
+
+            // MARK: - Error Alerts
+            sectionHeader("Error", description: "Error alerts for critical issues")
+
+            ErrorAlert(
+                title: "Alert title (optional)",
+                message: "You cannot proceed until you resolve this issue.",
+                onDismiss: {}
+            )
+
             Divider().padding(.vertical, 20)
-            
+
             // Callouts Section
             Text("Callout")
                 .font(.system(size: 48, weight: .medium))
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
-            
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Neutral")
-                    .font(.headline)
-                
-                Callout(
-                    title: "Callout Title (Optional)",
-                    subtitle: "Subtitle",
-                    description: "This is supplementary information.",
-                    variant: .neutral,
-                    buttonText: "Button Text",
-                    onButtonTap: {}
-                )
-                
-                Callout(
-                    title: "Callout Title (Optional)",
-                    subtitle: "Subtitle",
-                    description: "This is supplementary information.",
-                    variant: .neutral,
-                    buttonText: "Button Text",
-                    isFloating: true,
-                    onButtonTap: {}
-                )
-            }
-            
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Inverse")
-                    .font(.headline)
-                
-                Callout(
-                    title: "Callout Title (Optional)",
-                    subtitle: "Subtitle",
-                    description: "This is supplementary information.",
-                    variant: .inverse,
-                    buttonText: "Button Text",
-                    onButtonTap: {}
-                )
-                
-                Callout(
-                    title: "Callout Title (Optional)",
-                    subtitle: "Subtitle",
-                    description: "This is supplementary information.",
-                    variant: .inverse,
-                    buttonText: "Button Text",
-                    isFloating: true,
-                    onButtonTap: {}
-                )
-            }
-            
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Brand")
-                    .font(.headline)
-                
-                Callout(
-                    title: "Callout Title (Optional)",
-                    subtitle: "Subtitle",
-                    description: "This is supplementary information.",
-                    variant: .brand,
-                    buttonText: "Button Text",
-                    onButtonTap: {}
-                )
-                
-                Callout(
-                    title: "Callout Title (Optional)",
-                    subtitle: "Subtitle",
-                    description: "This is supplementary information.",
-                    variant: .brand,
-                    buttonText: "Button Text",
-                    isFloating: true,
-                    onButtonTap: {}
-                )
-            }
+
+            // MARK: - Neutral Callouts
+            sectionHeader("Neutral", description: "Neutral callouts with subtle background")
+
+            THDCallout(
+                title: "Callout Title (Optional)",
+                subtitle: "Subtitle",
+                description: "This is supplementary information.",
+                variant: .neutral,
+                buttonText: "Button Text",
+                onButtonTap: {}
+            )
+
+            THDCallout(
+                title: "Callout Title (Optional)",
+                subtitle: "Subtitle",
+                description: "This is supplementary information.",
+                variant: .neutral,
+                buttonText: "Button Text",
+                isFloating: true,
+                onButtonTap: {}
+            )
+
+            // MARK: - Inverse Callouts
+            sectionHeader("Inverse", description: "Dark background callouts with light text")
+
+            THDCallout(
+                title: "Callout Title (Optional)",
+                subtitle: "Subtitle",
+                description: "This is supplementary information.",
+                variant: .inverse,
+                buttonText: "Button Text",
+                onButtonTap: {}
+            )
+
+            THDCallout(
+                title: "Callout Title (Optional)",
+                subtitle: "Subtitle",
+                description: "This is supplementary information.",
+                variant: .inverse,
+                buttonText: "Button Text",
+                isFloating: true,
+                onButtonTap: {}
+            )
+
+            // MARK: - Brand Callouts
+            sectionHeader("Brand", description: "Orange accent callouts for promotions")
+
+            THDCallout(
+                title: "Callout Title (Optional)",
+                subtitle: "Subtitle",
+                description: "This is supplementary information.",
+                variant: .brand,
+                buttonText: "Button Text",
+                onButtonTap: {}
+            )
+
+            THDCallout(
+                title: "Callout Title (Optional)",
+                subtitle: "Subtitle",
+                description: "This is supplementary information.",
+                variant: .brand,
+                buttonText: "Button Text",
+                isFloating: true,
+                onButtonTap: {}
+            )
         }
         .padding()
     }
-    .background(Color.white)
+    .background(DesignSystemGlobal.BackgroundContainerColorWhite)
 }
