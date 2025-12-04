@@ -315,26 +315,22 @@ struct ProductCard: View {
     private var actionButtons: some View {
         VStack(spacing: DesignSystemGlobal.Spacing2) {
             // Add to Cart Button (Primary)
-            ButtondemoView(
-                label: "Add to Cart",
-                action: { onAddToCart?() },
-                state: .default,
-                size: .sm,
-                style: .orange_filled,
-                width: .fullWidth,
-                hasBorder: false
+            THDButton(
+                "Add to Cart",
+                style: .orangeFilled,
+                size: .small,
+                action: { onAddToCart?() }
             )
+            .frame(maxWidth: .infinity)
             
             // Add to List Button (Secondary - Outlined)
-            ButtondemoView(
-                label: "Add to ...",
-                action: { onAddToList?() },
-                state: .default,
-                size: .sm,
-                style: .orange_outlined,
-                width: .fullWidth,
-                hasBorder: true
+            THDButton(
+                "Add to ...",
+                style: .outlined,
+                size: .small,
+                action: { onAddToList?() }
             )
+            .frame(maxWidth: .infinity)
         }
         .padding(.top, DesignSystemGlobal.Spacing3)
     }

@@ -12,20 +12,28 @@ struct QuantityDemoView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
-                // Header
-                Text("Quantity Picker")
-                    .font(.system(size: 32, weight: .bold))
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
+                // Header Card
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
+                    Text("Quantity Picker")
+                        .font(.system(size: 32, weight: .bold))
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
-                Text("Expandable quantity selectors with +/- controls.")
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .regular))
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    Text("Expandable quantity selectors with +/- controls.")
+                        .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .regular))
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                }
+                .padding(DesignSystemGlobal.Spacing4)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
+                        .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+                )
 
-                Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
-
-                // MARK: - Orange Variant
-                sectionHeader("Orange Variant", description: "Primary brand quantity picker")
+                // Content Card
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
+                    // MARK: - Orange Variant
+                    sectionHeader("Orange Variant", description: "Primary brand quantity picker")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Sizes - Expands Right")
@@ -97,8 +105,8 @@ struct QuantityDemoView: View {
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
 
-                // MARK: - Grey Variant
-                sectionHeader("Grey Variant", description: "Neutral quantity picker")
+                    // MARK: - Grey Variant
+                    sectionHeader("Grey Variant", description: "Neutral quantity picker")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Sizes - Expands Right")
@@ -163,8 +171,8 @@ struct QuantityDemoView: View {
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
 
-                // MARK: - Standalone Buttons
-                sectionHeader("Standalone Buttons", description: "Individual +/-/delete buttons")
+                    // MARK: - Standalone Buttons
+                    sectionHeader("Standalone Buttons", description: "Individual +/-/delete buttons")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Small Size")
@@ -233,8 +241,8 @@ struct QuantityDemoView: View {
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
 
-                // MARK: - Size Comparison
-                sectionHeader("Size Comparison", description: "All sizes side by side")
+                    // MARK: - Size Comparison
+                    sectionHeader("Size Comparison", description: "All sizes side by side")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Orange")
@@ -282,8 +290,8 @@ struct QuantityDemoView: View {
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
 
-                // MARK: - Interactive Demo
-                sectionHeader("Interactive Demo", description: "Try tapping to expand")
+                    // MARK: - Interactive Demo
+                    sectionHeader("Interactive Demo", description: "Try tapping to expand")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Tap the quantity to expand and use +/- buttons")
@@ -317,8 +325,8 @@ struct QuantityDemoView: View {
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
 
-                // MARK: - Use Cases
-                sectionHeader("Common Use Cases", description: "Real-world quantity picker applications")
+                    // MARK: - Use Cases
+                    sectionHeader("Common Use Cases", description: "Real-world quantity picker applications")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Product Card")
@@ -370,12 +378,18 @@ struct QuantityDemoView: View {
                 }
             }
             .padding(DesignSystemGlobal.Spacing4)
+            .background(
+                RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
+                    .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+            )
+            }
+            .padding(DesignSystemGlobal.Spacing4)
         }
-        .background(DesignSystemGlobal.BackgroundContainerColorWhite)
+        .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
     }
-
+    
     // MARK: - Helper Views
-
+    
     private func sectionHeader(_ title: String, description: String) -> some View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)

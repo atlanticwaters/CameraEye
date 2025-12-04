@@ -13,15 +13,14 @@ struct ComponentCatalogView: View {
                 Section {
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                         Text("THD App Design System")
-                            .font(.system(size: DesignSystemGlobal.FontFontSizeH5, weight: .bold))
-                            .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                            .thdFont(.h3).fontWeight(.bold)
 
                         Text("A comprehensive component library using DesignSystemGlobal tokens for consistent styling.")
-                            .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .regular))
+                            .thdFont(.bodyMd)
                             .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                         HStack(spacing: DesignSystemGlobal.Spacing2) {
-                            Badge("7 Components", variant: .filledSubtle, color: .brand, size: .small)
+                            Badge("8 Components", variant: .filledSubtle, color: .brand, size: .small)
                             Badge("SwiftUI", variant: .outline, color: .info, size: .small)
                         }
                         .padding(.top, DesignSystemGlobal.Spacing1)
@@ -30,7 +29,7 @@ struct ComponentCatalogView: View {
                 }
 
                 // MARK: - Action Components
-                Section("Actions") {
+                Section {
                     NavigationLink(destination: ButtonDemoView()) {
                         ComponentRow(
                             icon: "hand.tap",
@@ -40,10 +39,12 @@ struct ComponentCatalogView: View {
                             variants: ["Orange Filled", "Outlined", "Ghost", "Icon Buttons"]
                         )
                     }
+                } header: {
+                    sectionHeader("Actions", description: "Interactive components for user actions")
                 }
 
                 // MARK: - Display Components
-                Section("Display") {
+                Section {
                     NavigationLink(destination: BadgeDemoView()) {
                         ComponentRow(
                             icon: "tag",
@@ -73,10 +74,12 @@ struct ComponentCatalogView: View {
                             variants: ["Neutral", "Inverse", "Brand"]
                         )
                     }
+                } header: {
+                    sectionHeader("Display", description: "Components for presenting information and feedback")
                 }
 
                 // MARK: - Selection Components
-                Section("Selection") {
+                Section {
                     NavigationLink(destination: PillDemoView()) {
                         ComponentRow(
                             icon: "capsule",
@@ -96,10 +99,12 @@ struct ComponentCatalogView: View {
                             variants: ["Outlined", "Filled", "Ghost", "Layouts"]
                         )
                     }
+                } header: {
+                    sectionHeader("Selection", description: "Components for user choices and options")
                 }
 
                 // MARK: - Input Components
-                Section("Input") {
+                Section {
                     NavigationLink(destination: QuantityDemoView()) {
                         ComponentRow(
                             icon: "plusminus",
@@ -109,10 +114,22 @@ struct ComponentCatalogView: View {
                             variants: ["Orange", "Grey", "Standalone Buttons"]
                         )
                     }
+                } header: {
+                    sectionHeader("Input", description: "Components for user data entry")
                 }
 
-                // MARK: - Design Tokens
-                Section("Design System") {
+                // MARK: - Design System
+                Section {
+                    NavigationLink(destination: TypographyDemoView()) {
+                        ComponentRow(
+                            icon: "textformat",
+                            iconColor: DesignSystemGlobal.MoonlightMoonlight500,
+                            title: "Typography",
+                            description: "Custom font families and type scale",
+                            variants: ["Display Font", "Informational Font", "Heroes", "Body Text"]
+                        )
+                    }
+                    
                     NavigationLink(destination: DesignSystemDemoView()) {
                         ComponentRow(
                             icon: "paintpalette",
@@ -122,11 +139,34 @@ struct ComponentCatalogView: View {
                             variants: ["Colors", "Typography", "Spacing", "Borders", "Elevation"]
                         )
                     }
+                } header: {
+                    sectionHeader("Design System", description: "Foundation tokens and typography system")
                 }
             }
             .navigationTitle("Component Catalog")
-            .navigationBarTitleDisplayMode(.large)
+            .navigationBarTitleDisplayMode(.inline)
+            .padding(.top, 60) // Extra padding for top navigation
+            .padding(.bottom, 80) // Extra padding for bottom navigation
         }
+    }
+    
+    // MARK: - Section Header Helper
+    
+    /// Custom section header matching the pattern used across demo views
+    @ViewBuilder
+    private func sectionHeader(_ title: String, description: String) -> some View {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
+            Text(title)
+                .font(.headline)
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .textCase(nil)
+            
+            Text(description)
+                .font(.caption)
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .textCase(nil)
+        }
+        .padding(.top, DesignSystemGlobal.Spacing2)
     }
 }
 
@@ -152,11 +192,11 @@ struct ComponentRow: View {
             // Content
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
                 Text(title)
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .semibold))
+                    .thdFont(.bodyMd)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                 Text(description)
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .regular))
+                    .thdFont(.bodySm)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 // Variant tags
@@ -164,7 +204,7 @@ struct ComponentRow: View {
                     HStack(spacing: DesignSystemGlobal.Spacing1) {
                         ForEach(variants, id: \.self) { variant in
                             Text(variant)
-                                .font(.system(size: 10, weight: .medium))
+                                .thdFont(.caption)
                                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 2)

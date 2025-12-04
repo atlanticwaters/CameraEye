@@ -34,37 +34,37 @@ struct BorderTokens {
 /// Callout & Alert color tokens from Figma
 struct CalloutColorTokens {
     // Callout variants
-    static let backgroundContainerTransparent05 = Color(hex: "#0000000d")
-    static let backgroundSurfaceInverse = Color(hex: "#0d0d0d")
-    static let backgroundContainerBrandAccent = Color(hex: "#fef2e9")
+    static let backgroundContainerTransparent05 = colorFromHex("#0000000d")
+    static let backgroundSurfaceInverse = colorFromHex("#0d0d0d")
+    static let backgroundContainerBrandAccent = colorFromHex("#fef2e9")
     
     // Alert variants
-    static let backgroundFeedbackInformationalAccent1 = Color(hex: "#f3f4f8")
-    static let backgroundFeedbackSuccessAccent1 = Color(hex: "#f0f5f3")
-    static let backgroundFeedbackWarningAccent1 = Color(hex: "#fdf6d2")
-    static let backgroundFeedbackErrorAccent1 = Color(hex: "#fdf1f0")
+    static let backgroundFeedbackInformationalAccent1 = colorFromHex("#f3f4f8")
+    static let backgroundFeedbackSuccessAccent1 = colorFromHex("#f0f5f3")
+    static let backgroundFeedbackWarningAccent1 = colorFromHex("#fdf6d2")
+    static let backgroundFeedbackErrorAccent1 = colorFromHex("#fdf1f0")
     
     // Text colors
-    static let textOnContainerPrimary = Color(hex: "#252524")
-    static let textOnContainerSecondary = Color(hex: "#474545")
-    static let textOnContainerInverse = Color(hex: "#fbfaf9")
-    static let textOnSurfacePrimary = Color(hex: "#252524")
+    static let textOnContainerPrimary = colorFromHex("#252524")
+    static let textOnContainerSecondary = colorFromHex("#474545")
+    static let textOnContainerInverse = colorFromHex("#fbfaf9")
+    static let textOnSurfacePrimary = colorFromHex("#252524")
     
     // Icon colors
-    static let iconOnSurfacePrimary = Color(hex: "#252524")
-    static let moonlight500 = Color(hex: "#6974a5")
-    static let lemon200 = Color(hex: "#cfb73a")
-    static let cinnabar500 = Color(hex: "#df3427")
+    static let iconOnSurfacePrimary = colorFromHex("#252524")
+    static let moonlight500 = colorFromHex("#6974a5")
+    static let lemon200 = colorFromHex("#cfb73a")
+    static let cinnabar500 = colorFromHex("#df3427")
     
     // Button
-    static let backgroundActionPrimary = Color(hex: "#f96302")
-    static let textButtonOrangeFilledDefault = Color(hex: "#ffffff")
+    static let backgroundActionPrimary = colorFromHex("#f96302")
+    static let textButtonOrangeFilledDefault = colorFromHex("#ffffff")
     
     // Border
-    static let borderOnContainerDefault = Color(hex: "#bab7b4")
+    static let borderOnContainerDefault = colorFromHex("#bab7b4")
     
     // Shadow
-    static let shadow200 = Color(hex: "#0000001f")
+    static let shadow200 = colorFromHex("#0000001f")
 }
 
 /// Callout variant styles
@@ -468,99 +468,104 @@ struct ErrorAlert: View {
     }
 }
 
-// MARK: - Color Extension
-extension Color {
-    init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-        var int: UInt64 = 0
-        Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
-        switch hex.count {
-        case 3: // RGB (12-bit)
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-        case 6: // RGB (24-bit)
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-        case 8: // ARGB (32-bit)
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-        default:
-            (a, r, g, b) = (255, 0, 0, 0)
-        }
-        self.init(
-            .sRGB,
-            red: Double(r) / 255,
-            green: Double(g) / 255,
-            blue: Double(b) / 255,
-            opacity: Double(a) / 255
-        )
+// MARK: - Color Hex Helper
+// Note: If you have a shared Color(hex:) extension elsewhere in your project,
+// consider removing this and using that instead to avoid duplication.
+private func colorFromHex(_ hex: String) -> Color {
+    let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+    var int: UInt64 = 0
+    Scanner(string: hex).scanHexInt64(&int)
+    let a, r, g, b: UInt64
+    switch hex.count {
+    case 3: // RGB (12-bit)
+        (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+    case 6: // RGB (24-bit)
+        (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+    case 8: // ARGB (32-bit)
+        (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+    default:
+        (a, r, g, b) = (255, 0, 0, 0)
     }
+    return Color(
+        .sRGB,
+        red: Double(r) / 255,
+        green: Double(g) / 255,
+        blue: Double(b) / 255,
+        opacity: Double(a) / 255
+    )
 }
 
 // MARK: - Previews
 #Preview("Callouts & Alerts") {
-    ScrollView {
+    
+    func sectionHeader(_ title: String, description: String) -> some View {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
+            Text(title)
+                .font(.headline)
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+            
+            Text(description)
+                .font(.caption)
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+        }
+    }
+    
+    return ScrollView {
         VStack(alignment: .leading, spacing: 24) {
             // Alerts Section
             Text("Alert")
                 .font(.system(size: 48, weight: .medium))
                 .padding(.bottom, 20)
             
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Informational")
-                    .font(.headline)
+            // MARK: - Informational Alerts
+            sectionHeader("Informational", description: "Informational alerts for helpful information")
                 
-                InformationalAlert(
-                    title: "Alert title (optional)",
-                    message: "This is helpful information you should know.",
-                    onDismiss: {}
-                )
-                
-                InformationalAlert(
-                    title: "Alert title (optional)",
-                    message: "This is helpful information you should know.",
-                    isFloating: true,
-                    onDismiss: {}
-                )
-            }
+            InformationalAlert(
+                title: "Alert title (optional)",
+                message: "This is helpful information you should know.",
+                onDismiss: {}
+            )
             
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Success")
-                    .font(.headline)
+            InformationalAlert(
+                title: "Alert title (optional)",
+                message: "This is helpful information you should know.",
+                isFloating: true,
+                onDismiss: {}
+            )
+
+            // MARK: - Success Alerts
+            sectionHeader("Success", description: "Success alerts for completed actions")
                 
-                SuccessAlert(
-                    title: "Alert title (optional)",
-                    message: "Whatever you did worked.",
-                    onDismiss: {}
-                )
-            }
+            SuccessAlert(
+                title: "Alert title (optional)",
+                message: "Whatever you did worked.",
+                onDismiss: {}
+            )
+
+            // MARK: - Warning Alerts
+            sectionHeader("Warning", description: "Warning alerts for issues that need attention")
+                
+            WarningAlert(
+                title: "Alert title (optional)",
+                message: "There's an issue that you should know about.",
+                onDismiss: {}
+            )
             
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Warning")
-                    .font(.headline)
+            WarningAlert(
+                title: "Alert title (optional)",
+                message: "There's an issue that you should know about.",
+                isFloating: true,
+                onDismiss: {}
+            )
+
+            // MARK: - Error Alerts
+            sectionHeader("Error", description: "Error alerts for critical issues")
                 
-                WarningAlert(
-                    title: "Alert title (optional)",
-                    message: "There's an issue that you should know about.",
-                    onDismiss: {}
-                )
-                
-                WarningAlert(
-                    title: "Alert title (optional)",
-                    message: "There's an issue that you should know about.",
-                    isFloating: true,
-                    onDismiss: {}
-                )
-            }
-            
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Error")
-                    .font(.headline)
-                
-                ErrorAlert(
-                    title: "Alert title (optional)",
-                    message: "You cannot proceed until you resolve this issue.",
-                    onDismiss: {}
-                )
-            }
+            ErrorAlert(
+                title: "Alert title (optional)",
+                message: "You cannot proceed until you resolve this issue.",
+                onDismiss: {}
+            )
             
             Divider().padding(.vertical, 20)
             
@@ -569,77 +574,71 @@ extension Color {
                 .font(.system(size: 48, weight: .medium))
                 .padding(.bottom, 20)
             
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Neutral")
-                    .font(.headline)
+            // MARK: - Neutral Callouts
+            sectionHeader("Neutral", description: "Neutral callouts with subtle background")
                 
-                Callout(
-                    title: "Callout Title (Optional)",
-                    subtitle: "Subtitle",
-                    description: "This is supplementary information.",
-                    variant: .neutral,
-                    buttonText: "Button Text",
-                    onButtonTap: {}
-                )
-                
-                Callout(
-                    title: "Callout Title (Optional)",
-                    subtitle: "Subtitle",
-                    description: "This is supplementary information.",
-                    variant: .neutral,
-                    buttonText: "Button Text",
-                    isFloating: true,
-                    onButtonTap: {}
-                )
-            }
+            Callout(
+                title: "Callout Title (Optional)",
+                subtitle: "Subtitle",
+                description: "This is supplementary information.",
+                variant: .neutral,
+                buttonText: "Button Text",
+                onButtonTap: {}
+            )
             
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Inverse")
-                    .font(.headline)
+            Callout(
+                title: "Callout Title (Optional)",
+                subtitle: "Subtitle",
+                description: "This is supplementary information.",
+                variant: .neutral,
+                buttonText: "Button Text",
+                isFloating: true,
+                onButtonTap: {}
+            )
+
+            // MARK: - Inverse Callouts
+            sectionHeader("Inverse", description: "Dark background callouts with light text")
                 
-                Callout(
-                    title: "Callout Title (Optional)",
-                    subtitle: "Subtitle",
-                    description: "This is supplementary information.",
-                    variant: .inverse,
-                    buttonText: "Button Text",
-                    onButtonTap: {}
-                )
-                
-                Callout(
-                    title: "Callout Title (Optional)",
-                    subtitle: "Subtitle",
-                    description: "This is supplementary information.",
-                    variant: .inverse,
-                    buttonText: "Button Text",
-                    isFloating: true,
-                    onButtonTap: {}
-                )
-            }
+            Callout(
+                title: "Callout Title (Optional)",
+                subtitle: "Subtitle",
+                description: "This is supplementary information.",
+                variant: .inverse,
+                buttonText: "Button Text",
+                onButtonTap: {}
+            )
             
-            VStack(alignment: .leading, spacing: 12) {
-                Text("Brand")
-                    .font(.headline)
-                
-                Callout(
-                    title: "Callout Title (Optional)",
-                    subtitle: "Subtitle",
-                    description: "This is supplementary information.",
-                    variant: .brand,
-                    buttonText: "Button Text",
-                    onButtonTap: {}
-                )
-                
-                Callout(
-                    title: "Callout Title (Optional)",
-                    subtitle: "Subtitle",
-                    description: "This is supplementary information.",
-                    variant: .brand,
-                    buttonText: "Button Text",
-                    isFloating: true,
-                    onButtonTap: {}
-                )
-            }
+            Callout(
+                title: "Callout Title (Optional)",
+                subtitle: "Subtitle",
+                description: "This is supplementary information.",
+                variant: .inverse,
+                buttonText: "Button Text",
+                isFloating: true,
+                onButtonTap: {}
+            )
+
+            // MARK: - Brand Callouts
+            sectionHeader("Brand", description: "Orange accent callouts for promotions")
+            
+            Callout(
+                title: "Callout Title (Optional)",
+                subtitle: "Subtitle",
+                description: "This is supplementary information.",
+                variant: .brand,
+                buttonText: "Button Text",
+                onButtonTap: {}
+            )
+            
+            Callout(
+                title: "Callout Title (Optional)",
+                subtitle: "Subtitle",
+                description: "This is supplementary information.",
+                variant: .brand,
+                buttonText: "Button Text",
+                isFloating: true,
+                onButtonTap: {}
+            )
         }
         .padding()
     }

@@ -6,22 +6,44 @@ import SwiftUI
 /// This view provides a complete inventory of alert components for design review
 /// and development reference.
 struct AlertDemoView: View {
+    // MARK: - Helper Views
+    
+    private func sectionHeader(_ title: String, description: String) -> some View {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
+            Text(title)
+                .font(.headline)
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
+            Text(description)
+                .font(.caption)
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+        }
+    }
+    
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
-                // Header
-                Text("Alert")
-                    .font(.system(size: 32, weight: .bold))
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
+                // Header Card
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
+                    Text("Alert")
+                        .font(.system(size: 32, weight: .bold))
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
-                Text("Feedback messages for informational, success, warning, and error states.")
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .regular))
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    Text("Feedback messages for informational, success, warning, and error states.")
+                        .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .regular))
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                }
+                .padding(DesignSystemGlobal.Spacing4)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
+                        .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+                )
 
-                Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
-
-                // MARK: - Informational Alerts
-                sectionHeader("Informational", description: "Neutral information alerts (teal/blue)")
+                // Content Card
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
+                    // MARK: - Informational Alerts
+                    sectionHeader("Informational", description: "Neutral information alerts (teal/blue)")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Standard")
@@ -240,24 +262,16 @@ struct AlertDemoView: View {
                         onDismiss: {}
                     )
                 }
+                }
+                .padding(DesignSystemGlobal.Spacing4)
+                .background(
+                    RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
+                        .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+                )
             }
             .padding(DesignSystemGlobal.Spacing4)
         }
-        .background(DesignSystemGlobal.BackgroundContainerColorWhite)
-    }
-
-    // MARK: - Helper Views
-
-    private func sectionHeader(_ title: String, description: String) -> some View {
-        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
-            Text(title)
-                .font(.headline)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
-
-            Text(description)
-                .font(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
-        }
+        .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
     }
 }
 

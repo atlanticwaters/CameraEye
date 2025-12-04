@@ -6,26 +6,49 @@ import SwiftUI
 /// This view provides a complete inventory of the pill/chip component for design review
 /// and development reference.
 struct PillDemoView: View {
+    // MARK: - Helper Views
+    
+    private func sectionHeader(_ title: String, description: String) -> some View {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
+            Text(title)
+                .thdFont(.h6)
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
+            Text(description)
+                .thdFont(.caption)
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+        }
+    }
+    
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
-                // Header
-                Text("Pill")
-                    .font(.system(size: 32, weight: .bold))
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
+                // Header Card
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
+    
+                    Text("Pill")
+                        .font(.system(size: 32, weight: .bold))
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
-                Text("Selectable chips for filters, tags, and selection options.")
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .regular))
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    Text("Selectable chips for filters, tags, and selection options.")
+                        .thdFont(.bodyMd)
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                }
+                .padding(DesignSystemGlobal.Spacing4)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
+                        .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+                )
 
-                Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
-
-                // MARK: - Outlined Style
-                sectionHeader("Outlined Style", description: "Pills with visible border")
+                // Content Card
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
+                    // MARK: - Outlined Style
+                    sectionHeader("Outlined Style", description: "Pills with visible border")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Sizes")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
@@ -35,7 +58,7 @@ struct PillDemoView: View {
                     }
 
                     Text("With Icons")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
@@ -46,7 +69,7 @@ struct PillDemoView: View {
                     }
 
                     Text("States")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -59,12 +82,12 @@ struct PillDemoView: View {
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
 
-                // MARK: - Filled Style
-                sectionHeader("Filled Style", description: "Pills without visible border")
+                    // MARK: - Filled Style
+                    sectionHeader("Filled Style", description: "Pills without visible border")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Sizes")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
@@ -74,7 +97,7 @@ struct PillDemoView: View {
                     }
 
                     Text("With Icons")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
@@ -83,7 +106,7 @@ struct PillDemoView: View {
                     }
 
                     Text("States")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -96,12 +119,12 @@ struct PillDemoView: View {
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
 
-                // MARK: - Background Options
-                sectionHeader("Background Options", description: "With or without subtle background")
+                    // MARK: - Background Options
+                    sectionHeader("Background Options", description: "With or without subtle background")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("With Background")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -109,7 +132,7 @@ struct PillDemoView: View {
                     }
 
                     Text("Without Background")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -119,12 +142,12 @@ struct PillDemoView: View {
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
 
-                // MARK: - Size Comparison
-                sectionHeader("Size Comparison", description: "All sizes side by side")
+                    // MARK: - Size Comparison
+                    sectionHeader("Size Comparison", description: "All sizes side by side")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Outlined")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(alignment: .center, spacing: DesignSystemGlobal.Spacing2) {
@@ -134,7 +157,7 @@ struct PillDemoView: View {
                     }
 
                     Text("Filled")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(alignment: .center, spacing: DesignSystemGlobal.Spacing2) {
@@ -146,12 +169,12 @@ struct PillDemoView: View {
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
 
-                // MARK: - Use Cases
-                sectionHeader("Common Use Cases", description: "Real-world pill applications")
+                    // MARK: - Use Cases
+                    sectionHeader("Common Use Cases", description: "Real-world pill applications")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Filter Bar")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -165,13 +188,13 @@ struct PillDemoView: View {
                     }
 
                     Text("Location Selector")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Pill("Cumberland Mall", style: .outlined, size: .medium, leadingIcon: "storefront", hasChevron: true)
 
                     Text("Category Tags")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -184,24 +207,16 @@ struct PillDemoView: View {
                         }
                     }
                 }
+                }
+                .padding(DesignSystemGlobal.Spacing4)
+                .background(
+                    RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
+                        .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+                )
             }
             .padding(DesignSystemGlobal.Spacing4)
         }
-        .background(DesignSystemGlobal.BackgroundContainerColorWhite)
-    }
-
-    // MARK: - Helper Views
-
-    private func sectionHeader(_ title: String, description: String) -> some View {
-        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
-            Text(title)
-                .font(.headline)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
-
-            Text(description)
-                .font(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
-        }
+        .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
     }
 }
 

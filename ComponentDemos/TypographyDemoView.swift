@@ -57,10 +57,9 @@ struct TypographyDemoView: View {
                 
             }
             .padding(DesignSystemGlobal.Spacing4)
+            .padding(.top, 60) // Extra padding for top navigation
+            .padding(.bottom, 80) // Extra padding for bottom navigation
         }
-        .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
-        .navigationTitle("Typography")
-        .navigationBarTitleDisplayMode(.large)
     }
     
     // MARK: - Font Families Section

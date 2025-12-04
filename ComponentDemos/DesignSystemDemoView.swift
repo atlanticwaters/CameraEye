@@ -393,10 +393,10 @@ struct ColorPaletteSection: View {
         VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeH5, weight: .semibold))
+                    .thdFont(.h6)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
                 Text(subtitle)
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm))
+                    .thdFont(.bodySm)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
             }
 
@@ -421,7 +421,7 @@ struct ColorPaletteSection: View {
                             }
 
                             Text(name)
-                                .font(.system(size: 10))
+                                .thdFont(.caption)
                                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
                                 .lineLimit(1)
                                 .frame(width: 56)
@@ -448,7 +448,7 @@ struct SemanticColorsSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(title)
-                .font(.system(size: DesignSystemGlobal.FontFontSizeH6, weight: .semibold))
+                .thdFont(.h6)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             LazyVGrid(columns: [
@@ -467,7 +467,7 @@ struct SemanticColorsSection: View {
                             )
 
                         Text(name)
-                            .font(.system(size: DesignSystemGlobal.FontFontSizeBodyXs))
+                            .thdFont(.bodyXs)
                             .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
                             .lineLimit(2)
                             .minimumScaleFactor(0.8)
@@ -490,11 +490,11 @@ struct ElevationSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Elevation / Shadows")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeH5, weight: .semibold))
+                .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("Shadow colors with blur radius and position offsets")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm))
+                .thdFont(.bodySm)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
             ScrollView(.horizontal, showsIndicators: false) {
@@ -564,11 +564,11 @@ struct ElevationCard: View {
                 .shadow(color: shadowColor, radius: blur, x: x, y: y)
 
             Text(title)
-                .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .medium))
+                .thdFont(.bodySm)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("Blur: \(Int(blur))")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeCaption))
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
@@ -579,13 +579,13 @@ struct TypographySection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Typography")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeH5, weight: .semibold))
+                .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             // Hero Sizes
             VStack(alignment: .leading, spacing: 12) {
                 Text("Hero Sizes")
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .medium))
+                    .thdFont(.bodySm)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 TypographyRow(name: "Hero 1", size: DesignSystemGlobal.FontFontSizeHero1)
@@ -603,7 +603,7 @@ struct TypographySection: View {
             // Heading Sizes
             VStack(alignment: .leading, spacing: 12) {
                 Text("Heading Sizes")
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .medium))
+                    .thdFont(.bodySm)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 TypographyRow(name: "H1", size: DesignSystemGlobal.FontFontSizeH1)
@@ -622,7 +622,7 @@ struct TypographySection: View {
             // Body Sizes
             VStack(alignment: .leading, spacing: 12) {
                 Text("Body Sizes")
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .medium))
+                    .thdFont(.bodySm)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 TypographyRow(name: "Body XL", size: DesignSystemGlobal.FontFontSizeBodyXl)
@@ -641,7 +641,7 @@ struct TypographySection: View {
             // Line Height
             VStack(alignment: .leading, spacing: 12) {
                 Text("Line Heights")
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .medium))
+                    .thdFont(.bodySm)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 HStack(spacing: 16) {
@@ -666,14 +666,13 @@ struct TypographyRow: View {
     var body: some View {
         HStack {
             Text(name)
-                .font(.system(size: size, weight: .semibold))
+                .thdFont(.bodySm)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
-                .lineLimit(1)
 
             Spacer()
 
             Text("\(Int(size))pt")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm))
+                .thdFont(.bodySm)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
                 .padding(.horizontal, 8)
                 .padding(.vertical, 4)
@@ -692,17 +691,17 @@ struct LineHeightDemo: View {
     var body: some View {
         VStack(spacing: 4) {
             Text("Aa\nBb")
-                .font(.system(size: 16))
+                .thdFont(.bodyMd)
                 .lineSpacing(16 * (multiplier - 1))
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .multilineTextAlignment(.center)
 
             Text(name)
-                .font(.system(size: DesignSystemGlobal.FontFontSizeCaption))
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
 
             Text("\(String(format: "%.2f", multiplier))x")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeCaption))
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
         }
         .frame(maxWidth: .infinity)
@@ -719,11 +718,11 @@ struct SpacingSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Spacing")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeH5, weight: .semibold))
+                .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("Consistent spacing scale for margins, padding, and gaps")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm))
+                .thdFont(.bodySm)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
             VStack(alignment: .leading, spacing: 8) {
@@ -760,7 +759,7 @@ struct SpacingRow: View {
     var body: some View {
         HStack(spacing: 12) {
             Text(name)
-                .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm))
+                .thdFont(.bodySm)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .frame(width: 100, alignment: .leading)
 
@@ -772,7 +771,7 @@ struct SpacingRow: View {
             Spacer()
 
             Text("\(Int(value))pt")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeBodyXs))
+                .thdFont(.bodyXs)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
                 .frame(width: 40, alignment: .trailing)
         }
@@ -784,11 +783,11 @@ struct BorderRadiusSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Border Radius")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeH5, weight: .semibold))
+                .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("Corner radius values for rounded elements")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm))
+                .thdFont(.bodySm)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
             ScrollView(.horizontal, showsIndicators: false) {
@@ -824,11 +823,11 @@ struct BorderRadiusCard: View {
                 .frame(width: 64, height: 64)
 
             Text(name)
-                .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .medium))
+                .thdFont(.bodySm)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("\(Int(value))pt")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeCaption))
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
@@ -839,11 +838,11 @@ struct BorderWidthSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Border Width")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeH5, weight: .semibold))
+                .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("Stroke widths for borders and outlines")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm))
+                .thdFont(.bodySm)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
             ScrollView(.horizontal, showsIndicators: false) {
@@ -881,11 +880,11 @@ struct BorderWidthCard: View {
                 )
 
             Text(name)
-                .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .medium))
+                .thdFont(.bodySm)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("\(Int(value))pt")
-                .font(.system(size: DesignSystemGlobal.FontFontSizeCaption))
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }

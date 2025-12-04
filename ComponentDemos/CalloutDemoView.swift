@@ -6,22 +6,44 @@ import SwiftUI
 /// This view provides a complete inventory of callout components for design review
 /// and development reference.
 struct CalloutDemoView: View {
+    // MARK: - Helper Views
+    
+    private func sectionHeader(_ title: String, description: String) -> some View {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
+            Text(title)
+                .font(.headline)
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
+            Text(description)
+                .font(.caption)
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+        }
+    }
+    
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
-                // Header
-                Text("Callout")
-                    .font(.system(size: 32, weight: .bold))
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
+                // Header Card
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
+                    Text("Callout")
+                        .font(.system(size: 32, weight: .bold))
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
-                Text("Promotional and informational callouts with optional actions.")
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .regular))
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    Text("Promotional and informational callouts with optional actions.")
+                        .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .regular))
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                }
+                .padding(DesignSystemGlobal.Spacing4)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
+                        .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+                )
 
-                Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
-
-                // MARK: - Neutral Callouts
-                sectionHeader("Neutral", description: "Subtle transparent background")
+                // Content Card
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
+                    // MARK: - Neutral Callouts
+                    sectionHeader("Neutral", description: "Subtle transparent background")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Full Featured")
@@ -72,8 +94,8 @@ struct CalloutDemoView: View {
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
 
-                // MARK: - Inverse Callouts
-                sectionHeader("Inverse", description: "Dark background with light text")
+                    // MARK: - Inverse Callouts
+                    sectionHeader("Inverse", description: "Dark background with light text")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Full Featured")
@@ -114,8 +136,8 @@ struct CalloutDemoView: View {
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
 
-                // MARK: - Brand Callouts
-                sectionHeader("Brand", description: "Orange accent background")
+                    // MARK: - Brand Callouts
+                    sectionHeader("Brand", description: "Orange accent background")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Full Featured")
@@ -157,8 +179,8 @@ struct CalloutDemoView: View {
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
 
-                // MARK: - Icon Variations
-                sectionHeader("Icon Options", description: "Different leading icons")
+                    // MARK: - Icon Variations
+                    sectionHeader("Icon Options", description: "Different leading icons")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Callout(
@@ -194,8 +216,8 @@ struct CalloutDemoView: View {
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
 
-                // MARK: - All Variants Comparison
-                sectionHeader("All Variants", description: "Side-by-side comparison")
+                    // MARK: - All Variants Comparison
+                    sectionHeader("All Variants", description: "Side-by-side comparison")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Callout(
@@ -225,8 +247,8 @@ struct CalloutDemoView: View {
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
 
-                // MARK: - Use Cases
-                sectionHeader("Common Use Cases", description: "Real-world callout applications")
+                    // MARK: - Use Cases
+                    sectionHeader("Common Use Cases", description: "Real-world callout applications")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Callout(
@@ -257,24 +279,16 @@ struct CalloutDemoView: View {
                         onButtonTap: {}
                     )
                 }
+                }
+                .padding(DesignSystemGlobal.Spacing4)
+                .background(
+                    RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
+                        .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+                )
             }
             .padding(DesignSystemGlobal.Spacing4)
         }
-        .background(DesignSystemGlobal.BackgroundContainerColorWhite)
-    }
-
-    // MARK: - Helper Views
-
-    private func sectionHeader(_ title: String, description: String) -> some View {
-        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
-            Text(title)
-                .font(.headline)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
-
-            Text(description)
-                .font(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
-        }
+        .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
     }
 }
 

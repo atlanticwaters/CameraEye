@@ -97,19 +97,49 @@ extension Font {
 // Call this early in your app lifecycle to register custom fonts
 struct CustomFontRegistration {
     static func registerFonts() {
-        // Font names from the design system
-        let fontNames = [
+        // Font file names (without extension) that should be in your bundle
+        let fontFiles = [
             "THD LgVar Beta",
             "THD SmVar Beta"
         ]
         
-        // Note: In a real app, you would register fonts from the bundle here
-        // This is a placeholder since we're working with design tokens
-        // Actual implementation would use CTFontManagerRegisterFontsForURL
-        
-        for fontName in fontNames {
-            print("Custom font registered: \(fontName)")
+        for fontFile in fontFiles {
+            registerFont(named: fontFile)
         }
+    }
+    
+    private static func registerFont(named fontName: String) {
+        // Try different font file extensions
+        let extensions = ["ttf", "otf"]
+        
+        for ext in extensions {
+            if let fontURL = Bundle.main.url(forResource: fontName, withExtension: ext) {
+                var errorRef: Unmanaged<CFError>?
+                
+                if CTFontManagerRegisterFontsForURL(fontURL as CFURL, .process, &errorRef) {
+                    print("✅ Successfully registered font: \(fontName).\(ext)")
+                    return
+                } else if let error = errorRef?.takeRetainedValue() {
+                    print("❌ Failed to register font \(fontName).\(ext): \(error)")
+                }
+            }
+        }
+        
+        // If we get here, font file wasn't found
+        print("⚠️ Font file not found: \(fontName) (tried .ttf and .otf)")
+        print("   Make sure the font file is added to your Xcode project target.")
+    }
+    
+    /// Lists all available fonts in the bundle for debugging
+    static func listAvailableFonts() {
+        print("\n📋 Available Font Families:")
+        for family in UIFont.familyNames.sorted() {
+            print("  • \(family)")
+            for name in UIFont.fontNames(forFamilyName: family) {
+                print("    - \(name)")
+            }
+        }
+        print("\n")
     }
 }
 

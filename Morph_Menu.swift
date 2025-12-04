@@ -194,8 +194,7 @@ struct CircleButton: View {
                 .frame(width: buttonSize, height: buttonSize)
                 .background(
                     Circle()
-                        .fill(.clear)
-                        .glassEffect(.regular, in: .circle)
+                        .fill(backgroundColor)
                         .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
                 )
         }

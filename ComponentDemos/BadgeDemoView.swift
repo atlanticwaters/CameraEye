@@ -8,88 +8,96 @@ import SwiftUI
 struct BadgeDemoView: View {
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
-                // Header
-                Text("Badge")
-                    .font(.system(size: 32, weight: .bold))
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
+                // Header Card
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
+                    Text("Badge")
+                        .thdFont(.hero5)
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
-                Text("Labels for categorization, status indication, and notifications.")
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .regular))
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    Text("Labels for categorization, status indication, and notifications.")
+                        .thdFont(.bodyMd)
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                }
+                .padding(DesignSystemGlobal.Spacing4)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
+                        .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+                )
 
-                Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
-
-                // MARK: - Badge Indicators
-                sectionHeader("Indicators", description: "Small circular status dots")
+                // Content Card
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
+                    // MARK: - Badge Indicators
+                    sectionHeader("Indicators", description: "Small circular status dots")
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Strong Emphasis")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing4) {
                         VStack {
                             BadgeIndicator(color: .info, size: .base, emphasis: .strong)
-                            Text("Info").font(.caption2)
+                            Text("Info").thdFont(.caption)
                         }
                         VStack {
                             BadgeIndicator(color: .success, size: .base, emphasis: .strong)
-                            Text("Success").font(.caption2)
+                            Text("Success").thdFont(.caption)
                         }
                         VStack {
                             BadgeIndicator(color: .warning, size: .base, emphasis: .strong)
-                            Text("Warning").font(.caption2)
+                            Text("Warning").thdFont(.caption)
                         }
                         VStack {
                             BadgeIndicator(color: .danger, size: .base, emphasis: .strong)
-                            Text("Danger").font(.caption2)
+                            Text("Danger").thdFont(.caption)
                         }
                         VStack {
                             BadgeIndicator(color: .brand, size: .base, emphasis: .strong)
-                            Text("Brand").font(.caption2)
+                            Text("Brand").thdFont(.caption)
                         }
                     }
 
                     Text("Subtle Emphasis")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing4) {
                         VStack {
                             BadgeIndicator(color: .info, size: .regular, emphasis: .subtle)
-                            Text("Info").font(.caption2)
+                            Text("Info").thdFont(.caption)
                         }
                         VStack {
                             BadgeIndicator(color: .success, size: .regular, emphasis: .subtle)
-                            Text("Success").font(.caption2)
+                            Text("Success").thdFont(.caption)
                         }
                         VStack {
                             BadgeIndicator(color: .warning, size: .regular, emphasis: .subtle)
-                            Text("Warning").font(.caption2)
+                            Text("Warning").thdFont(.caption)
                         }
                         VStack {
                             BadgeIndicator(color: .danger, size: .regular, emphasis: .subtle)
-                            Text("Danger").font(.caption2)
+                            Text("Danger").thdFont(.caption)
                         }
                         VStack {
                             BadgeIndicator(color: .brand, size: .regular, emphasis: .subtle)
-                            Text("Brand").font(.caption2)
+                            Text("Brand").thdFont(.caption)
                         }
                     }
 
                     Text("Sizes")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing4) {
                         VStack {
                             BadgeIndicator(color: .brand, size: .base, emphasis: .strong)
-                            Text("Base (8pt)").font(.caption2)
+                            Text("Base (8pt)").thdFont(.caption)
                         }
                         VStack {
                             BadgeIndicator(color: .brand, size: .regular, emphasis: .strong)
-                            Text("Regular (12pt)").font(.caption2)
+                            Text("Regular (12pt)").thdFont(.caption)
                         }
                     }
                 }
@@ -109,7 +117,7 @@ struct BadgeDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Colors - Small")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -121,7 +129,7 @@ struct BadgeDemoView: View {
                     }
 
                     Text("Colors - Base")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -133,7 +141,7 @@ struct BadgeDemoView: View {
                     }
 
                     Text("Neutral Colors")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -149,7 +157,7 @@ struct BadgeDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Colors - Small")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -161,7 +169,7 @@ struct BadgeDemoView: View {
                     }
 
                     Text("Colors - Base")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -180,7 +188,7 @@ struct BadgeDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Colors - Small")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -192,7 +200,7 @@ struct BadgeDemoView: View {
                     }
 
                     Text("Colors - Base")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -204,7 +212,7 @@ struct BadgeDemoView: View {
                     }
 
                     Text("Neutral Colors")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -237,10 +245,21 @@ struct BadgeDemoView: View {
                         Badge("Updated", variant: .filledSubtle, color: .success, size: .small)
                     }
                 }
+                .padding(DesignSystemGlobal.Spacing4)
+                .background(
+                    RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
+                        .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+                )
+                }
+                .padding(DesignSystemGlobal.Spacing4)
+                .background(
+                    RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
+                        .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+                )
             }
             .padding(DesignSystemGlobal.Spacing4)
         }
-        .background(DesignSystemGlobal.BackgroundContainerColorWhite)
+        .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
     }
 
     // MARK: - Helper Views
@@ -248,11 +267,11 @@ struct BadgeDemoView: View {
     private func sectionHeader(_ title: String, description: String) -> some View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
-                .font(.headline)
+                .thdFont(.h6)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text(description)
-                .font(.caption)
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }

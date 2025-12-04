@@ -93,46 +93,24 @@ struct ProductListingPage: View {
     private let filterOptions = ["Pickup", "Delivery", "Ship to Home"]
     
     var body: some View {
-        ZStack {
-            // Background
-            DS.BackgroundSurfaceColorGreige
-                .ignoresSafeArea()
-            
-            // Scrollable Content - extends edge to edge
-            ScrollView {
-                VStack(alignment: .leading, spacing: DS.Spacing4) {
-                    // Category header
-                    categoryHeader
-                    
-                    // Filter chips
-                    filterChipsRow
-                    
-                    // Results bar (count + sort + view toggle)
-                    resultsBar
-                    
-                    // Product list using ProductCard from ProductSystem
-                    productList
-                }
-                .padding(.horizontal, DS.Spacing4)
+        // Scrollable Content
+        ScrollView {
+            VStack(alignment: .leading, spacing: DS.Spacing4) {
+                // Category header
+                categoryHeader
+                
+                // Filter chips
+                filterChipsRow
+                
+                // Results bar (count + sort + view toggle)
+                resultsBar
+                
+                // Product list using ProductCard from ProductSystem
+                productList
             }
-            .safeAreaInset(edge: .top) {
-                // Top Navigation with Liquid Glass effect
-                MorphingNavHeader()
-                    //.background {
-                      //  Rectangle()
-                        //    .fill(.clear)
-                          //  .glassEffect(.regular, in: .rect)
-                    //}
-            }
-            .safeAreaInset(edge: .bottom) {
-                // Bottom Navigation with Liquid Glass effect
-                MorphingTabBar()
-                    //.background {
-                       //Rectangle()
-                            //.fill(.clear)
-                            //.glassEffect(.regular, in: .rect)
-                    //}
-            }
+            .padding(.horizontal, DS.Spacing4)
+            .padding(.top, 60) // Extra padding for top navigation
+            .padding(.bottom, 80) // Extra padding for bottom navigation
         }
         .onAppear {
             loadSampleProducts()

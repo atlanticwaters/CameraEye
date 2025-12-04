@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10D8C9932EE0A4B1002D4F05 /* TypographyDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8C9922EE0A4B1002D4F05 /* TypographyDemoView.swift */; };
+		10D8C9A42EE0C9D7002D4F05 /* SearchSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8C99F2EE0C9D7002D4F05 /* SearchSheet.swift */; };
+		10D8C9A62EE0C9D7002D4F05 /* Bottom_Nav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8C9972EE0C9D7002D4F05 /* Bottom_Nav.swift */; };
+		10D8C9A72EE0C9D7002D4F05 /* Morph_Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8C99A2EE0C9D7002D4F05 /* Morph_Menu.swift */; };
+		10D8C9A82EE0C9D7002D4F05 /* ProductSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8C99D2EE0C9D7002D4F05 /* ProductSystem.swift */; };
+		10D8C9AB2EE0C9D7002D4F05 /* ProductCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8C99C2EE0C9D7002D4F05 /* ProductCard.swift */; };
+		10D8C9AC2EE0C9D7002D4F05 /* AddToSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8C9942EE0C9D7002D4F05 /* AddToSheet.swift */; };
+		10D8C9CB2EE0F842002D4F05 /* ProductListingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8C9CA2EE0F842002D4F05 /* ProductListingPage.swift */; };
+		10D8C9CD2EE0F9EA002D4F05 /* AppNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8C9CC2EE0F9EA002D4F05 /* AppNavigationView.swift */; };
+		10D8C9CF2EE0FA14002D4F05 /* NAVIGATION_README.md in Resources */ = {isa = PBXBuildFile; fileRef = 10D8C9CE2EE0FA14002D4F05 /* NAVIGATION_README.md */; };
 		A1000001230F0001 /* ComponentTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001230F0000 /* ComponentTestApp.swift */; };
 		A1000002230F0001 /* buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002230F0000 /* buttons.swift */; };
 		A1000003230F0001 /* badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000003230F0000 /* badge.swift */; };
@@ -36,6 +46,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		10D8C9922EE0A4B1002D4F05 /* TypographyDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyDemoView.swift; sourceTree = "<group>"; };
+		10D8C9942EE0C9D7002D4F05 /* AddToSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToSheet.swift; sourceTree = "<group>"; };
+		10D8C9972EE0C9D7002D4F05 /* Bottom_Nav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bottom_Nav.swift; sourceTree = "<group>"; };
+		10D8C99A2EE0C9D7002D4F05 /* Morph_Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Morph_Menu.swift; sourceTree = "<group>"; };
+		10D8C99C2EE0C9D7002D4F05 /* ProductCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCard.swift; sourceTree = "<group>"; };
+		10D8C99D2EE0C9D7002D4F05 /* ProductSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductSystem.swift; sourceTree = "<group>"; };
+		10D8C99F2EE0C9D7002D4F05 /* SearchSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSheet.swift; sourceTree = "<group>"; };
+		10D8C9CA2EE0F842002D4F05 /* ProductListingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingPage.swift; sourceTree = "<group>"; };
+		10D8C9CC2EE0F9EA002D4F05 /* AppNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationView.swift; sourceTree = "<group>"; };
+		10D8C9CE2EE0FA14002D4F05 /* NAVIGATION_README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NAVIGATION_README.md; sourceTree = "<group>"; };
 		A1000000230F0000 /* ComponentTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComponentTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1000001230F0000 /* ComponentTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentTestApp.swift; sourceTree = "<group>"; };
 		A1000002230F0000 /* buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buttons.swift; sourceTree = "<group>"; };
@@ -83,7 +103,7 @@
 				A1000051230F0000 /* Components */,
 				A1000052230F0000 /* DesignSystem */,
 				A1000053230F0000 /* ComponentDemos */,
-				A1000054230F0000 /* Resources */,
+				A1000054230F0000 /* Assets */,
 				A1000055230F0000 /* Preview Content */,
 				A1000056230F0000 /* Products */,
 			);
@@ -92,15 +112,21 @@
 		A1000051230F0000 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				A1000002230F0000 /* buttons.swift */,
-				A1000003230F0000 /* badge.swift */,
-				A1000004230F0000 /* pill.swift */,
-				A1000005230F0000 /* callout.swift */,
-				A1000006230F0000 /* quantity.swift */,
-				A1000007230F0000 /* tile.swift */,
+				10D8C9942EE0C9D7002D4F05 /* AddToSheet.swift */,
 				A1000008230F0000 /* alerts.swift */,
+				A1000003230F0000 /* badge.swift */,
+				10D8C9972EE0C9D7002D4F05 /* Bottom_Nav.swift */,
+				A1000002230F0000 /* buttons.swift */,
+				A1000005230F0000 /* callout.swift */,
+				10D8C99A2EE0C9D7002D4F05 /* Morph_Menu.swift */,
+				A1000004230F0000 /* pill.swift */,
+				10D8C99C2EE0C9D7002D4F05 /* ProductCard.swift */,
+				10D8C99D2EE0C9D7002D4F05 /* ProductSystem.swift */,
+				A1000006230F0000 /* quantity.swift */,
+				10D8C99F2EE0C9D7002D4F05 /* SearchSheet.swift */,
+				A1000007230F0000 /* tile.swift */,
 			);
-			path = "";
+			name = Components;
 			sourceTree = "<group>";
 		};
 		A1000052230F0000 /* DesignSystem */ = {
@@ -129,16 +155,20 @@
 				A1000026230F0000 /* QuantityDemoView.swift */,
 				A1000027230F0000 /* TileDemoView.swift */,
 				A1000028230F0000 /* DesignSystemDemoView.swift */,
+				10D8C9922EE0A4B1002D4F05 /* TypographyDemoView.swift */,
+				10D8C9CA2EE0F842002D4F05 /* ProductListingPage.swift */,
+				10D8C9CC2EE0F9EA002D4F05 /* AppNavigationView.swift */,
+				10D8C9CE2EE0FA14002D4F05 /* NAVIGATION_README.md */,
 			);
 			path = ComponentDemos;
 			sourceTree = "<group>";
 		};
-		A1000054230F0000 /* Resources */ = {
+		A1000054230F0000 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
 				A1000030230F0000 /* Assets.xcassets */,
 			);
-			path = "";
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		A1000055230F0000 /* Preview Content */ = {
@@ -185,7 +215,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 2610;
 				TargetAttributes = {
 					A1000060230F0000 = {
 						CreatedOnToolsVersion = 15.0;
@@ -215,6 +245,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10D8C9CF2EE0FA14002D4F05 /* NAVIGATION_README.md in Resources */,
 				A1000030230F0001 /* Assets.xcassets in Resources */,
 				A1000031230F0001 /* Preview Assets.xcassets in Resources */,
 			);
@@ -232,12 +263,21 @@
 				A1000003230F0001 /* badge.swift in Sources */,
 				A1000004230F0001 /* pill.swift in Sources */,
 				A1000005230F0001 /* callout.swift in Sources */,
+				10D8C9CD2EE0F9EA002D4F05 /* AppNavigationView.swift in Sources */,
 				A1000006230F0001 /* quantity.swift in Sources */,
 				A1000007230F0001 /* tile.swift in Sources */,
 				A1000008230F0001 /* alerts.swift in Sources */,
 				A1000010230F0001 /* DesignSystemGlobal.swift in Sources */,
 				A1000011230F0001 /* DesignSystemDarkLarge.swift in Sources */,
 				A1000012230F0001 /* DesignSystemDarkMedium.swift in Sources */,
+				10D8C9CB2EE0F842002D4F05 /* ProductListingPage.swift in Sources */,
+				10D8C9932EE0A4B1002D4F05 /* TypographyDemoView.swift in Sources */,
+				10D8C9A42EE0C9D7002D4F05 /* SearchSheet.swift in Sources */,
+				10D8C9A62EE0C9D7002D4F05 /* Bottom_Nav.swift in Sources */,
+				10D8C9A72EE0C9D7002D4F05 /* Morph_Menu.swift in Sources */,
+				10D8C9A82EE0C9D7002D4F05 /* ProductSystem.swift in Sources */,
+				10D8C9AB2EE0C9D7002D4F05 /* ProductCard.swift in Sources */,
+				10D8C9AC2EE0C9D7002D4F05 /* AddToSheet.swift in Sources */,
 				A1000013230F0001 /* DesignSystemLightLarge.swift in Sources */,
 				A1000014230F0001 /* DesignSystemLightMedium.swift in Sources */,
 				A1000015230F0001 /* AppBackground.swift in Sources */,
@@ -309,12 +349,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -366,11 +407,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};

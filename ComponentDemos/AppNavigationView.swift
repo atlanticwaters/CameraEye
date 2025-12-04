@@ -23,43 +23,45 @@ struct AppNavigationView: View {
     
     var body: some View {
         ZStack {
-            // Background
-            DS.BackgroundSurfaceColorGreige
+            // Content area - fills entire screen including safe areas
+            contentView
                 .ignoresSafeArea()
             
-            // Content based on selected tab
-            contentView
-                .safeAreaInset(edge: .top) {
-                    // Top Navigation with back button functionality
-                    AppTopNavigation(
-                        showBackButton: !navigationPath.isEmpty,
-                        onBackTapped: {
-                            if !navigationPath.isEmpty {
-                                withAnimation {
-                                    navigationPath.removeLast()
-                                    if let lastTab = navigationPath.last {
-                                        selectedTab = lastTab
-                                    }
-                                }
-                            }
-                        }
-                    )
-                }
-                .safeAreaInset(edge: .bottom) {
-                    // Bottom Navigation
-                    AppBottomNavigation(
-                        selectedTab: $selectedTab,
-                        onTabSelected: { newTab in
+            // Navigation overlays
+            VStack(spacing: 0) {
+                // Top Navigation with blur material
+                AppTopNavigation(
+                    showBackButton: !navigationPath.isEmpty,
+                    onBackTapped: {
+                        if !navigationPath.isEmpty {
                             withAnimation {
-                                // Add current tab to navigation path if switching tabs
-                                if selectedTab != newTab && !navigationPath.contains(selectedTab) {
-                                    navigationPath.append(selectedTab)
+                                navigationPath.removeLast()
+                                if let lastTab = navigationPath.last {
+                                    selectedTab = lastTab
                                 }
-                                selectedTab = newTab
                             }
                         }
-                    )
-                }
+                    }
+                )
+                .background(.regularMaterial)
+                
+                Spacer()
+                
+                // Bottom Navigation with blur material
+                AppBottomNavigation(
+                    selectedTab: $selectedTab,
+                    onTabSelected: { newTab in
+                        withAnimation {
+                            // Add current tab to navigation path if switching tabs
+                            if selectedTab != newTab && !navigationPath.contains(selectedTab) {
+                                navigationPath.append(selectedTab)
+                            }
+                            selectedTab = newTab
+                        }
+                    }
+                )
+                .background(.regularMaterial)
+            }
         }
     }
     
@@ -69,23 +71,23 @@ struct AppNavigationView: View {
         switch selectedTab {
         case .home:
             TypographyDemoView()
-                .transition(.opacity.combined(with: .move(edge: .leading)))
+                .id(AppTab.home)
             
         case .deals:
             ProductListingPage()
-                .transition(.opacity.combined(with: .move(edge: .trailing)))
+                .id(AppTab.deals)
             
         case .catalog:
             ComponentCatalogView()
-                .transition(.opacity.combined(with: .move(edge: .trailing)))
+                .id(AppTab.catalog)
             
         case .other:
             PlaceholderView(title: "Other", icon: "plus")
-                .transition(.opacity)
+                .id(AppTab.other)
             
         case .profile:
             PlaceholderView(title: "Profile", icon: "person")
-                .transition(.opacity)
+                .id(AppTab.profile)
         }
     }
 }
@@ -161,8 +163,7 @@ struct AppTopNavigation: View {
                 .frame(width: buttonSize, height: buttonSize)
                 .background(
                     Circle()
-                        .fill(.clear)
-                        .glassEffect(.regular, in: .circle)
+                        .fill(.white.opacity(0.3))
                         .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
                 )
         }
@@ -249,8 +250,7 @@ struct AppTopNavigation: View {
         .frame(height: buttonSize)
         .background(
             Capsule()
-                .fill(.clear)
-                .glassEffect(.regular, in: .capsule)
+                .fill(.white.opacity(0.3))
                 .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
         )
         .matchedGeometryEffect(id: "searchContainer", in: morphNamespace)
@@ -321,7 +321,7 @@ struct AppBottomNavigation: View {
         .padding(indicatorPadding)
         .background(
             Capsule()
-                .fill(pillBackground)
+                .fill(.white.opacity(0.15))
         )
     }
     
@@ -346,7 +346,7 @@ struct AppBottomNavigation: View {
             .background {
                 if isSelected {
                     Capsule()
-                        .fill(backgroundColor)
+                        .fill(.white.opacity(0.5))
                         .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
                         .matchedGeometryEffect(id: "tabIndicator", in: tabNamespace)
                 }
@@ -368,7 +368,7 @@ struct AppBottomNavigation: View {
                 .frame(width: profileButtonSize, height: profileButtonSize)
                 .background(
                     Circle()
-                        .fill(pillBackground)
+                        .fill(.white.opacity(0.15))
                 )
         }
         .buttonStyle(.plain)
