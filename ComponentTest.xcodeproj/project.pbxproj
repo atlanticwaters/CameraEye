@@ -17,7 +17,9 @@
 		10D8C9CB2EE0F842002D4F05 /* ProductListingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8C9CA2EE0F842002D4F05 /* ProductListingPage.swift */; };
 		10D8C9CD2EE0F9EA002D4F05 /* AppNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8C9CC2EE0F9EA002D4F05 /* AppNavigationView.swift */; };
 		10D8C9CF2EE0FA14002D4F05 /* NAVIGATION_README.md in Resources */ = {isa = PBXBuildFile; fileRef = 10D8C9CE2EE0FA14002D4F05 /* NAVIGATION_README.md */; };
-		A1000001230F0001 /* ComponentTestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001230F0000 /* ComponentTestApp.swift */; };
+		10F74F8C2EE22E3D007DA5FE /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F74F8A2EE22DFA007DA5FE /* CustomFonts.swift */; };
+		10F74F8E2EE22EA1007DA5FE /* THDComponentCatalogApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F74F8D2EE22EA1007DA5FE /* THDComponentCatalogApp.swift */; };
+		10F74F902EE233F6007DA5FE /* TileDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F74F8F2EE233F6007DA5FE /* TileDemoView.swift */; };
 		A1000002230F0001 /* buttons.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000002230F0000 /* buttons.swift */; };
 		A1000003230F0001 /* badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000003230F0000 /* badge.swift */; };
 		A1000004230F0001 /* pill.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000004230F0000 /* pill.swift */; };
@@ -31,7 +33,6 @@
 		A1000013230F0001 /* DesignSystemLightLarge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000013230F0000 /* DesignSystemLightLarge.swift */; };
 		A1000014230F0001 /* DesignSystemLightMedium.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000014230F0000 /* DesignSystemLightMedium.swift */; };
 		A1000015230F0001 /* AppBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000015230F0000 /* AppBackground.swift */; };
-		A1000016230F0001 /* CustomFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000016230F0000 /* CustomFonts.swift */; };
 		A1000020230F0001 /* ComponentCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000020230F0000 /* ComponentCatalogView.swift */; };
 		A1000021230F0001 /* ButtonDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000021230F0000 /* ButtonDemoView.swift */; };
 		A1000022230F0001 /* BadgeDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000022230F0000 /* BadgeDemoView.swift */; };
@@ -39,7 +40,6 @@
 		A1000024230F0001 /* AlertDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000024230F0000 /* AlertDemoView.swift */; };
 		A1000025230F0001 /* CalloutDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000025230F0000 /* CalloutDemoView.swift */; };
 		A1000026230F0001 /* QuantityDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000026230F0000 /* QuantityDemoView.swift */; };
-		A1000027230F0001 /* TileDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000027230F0000 /* TileDemoView.swift */; };
 		A1000028230F0001 /* DesignSystemDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000028230F0000 /* DesignSystemDemoView.swift */; };
 		A1000030230F0001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000030230F0000 /* Assets.xcassets */; };
 		A1000031230F0001 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000031230F0000 /* Preview Assets.xcassets */; };
@@ -56,8 +56,10 @@
 		10D8C9CA2EE0F842002D4F05 /* ProductListingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingPage.swift; sourceTree = "<group>"; };
 		10D8C9CC2EE0F9EA002D4F05 /* AppNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppNavigationView.swift; sourceTree = "<group>"; };
 		10D8C9CE2EE0FA14002D4F05 /* NAVIGATION_README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NAVIGATION_README.md; sourceTree = "<group>"; };
+		10F74F8A2EE22DFA007DA5FE /* CustomFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
+		10F74F8D2EE22EA1007DA5FE /* THDComponentCatalogApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = THDComponentCatalogApp.swift; sourceTree = "<group>"; };
+		10F74F8F2EE233F6007DA5FE /* TileDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileDemoView.swift; sourceTree = "<group>"; };
 		A1000000230F0000 /* ComponentTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ComponentTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1000001230F0000 /* ComponentTestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentTestApp.swift; sourceTree = "<group>"; };
 		A1000002230F0000 /* buttons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = buttons.swift; sourceTree = "<group>"; };
 		A1000003230F0000 /* badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = badge.swift; sourceTree = "<group>"; };
 		A1000004230F0000 /* pill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pill.swift; sourceTree = "<group>"; };
@@ -71,7 +73,6 @@
 		A1000013230F0000 /* DesignSystemLightLarge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystemLightLarge.swift; sourceTree = "<group>"; };
 		A1000014230F0000 /* DesignSystemLightMedium.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystemLightMedium.swift; sourceTree = "<group>"; };
 		A1000015230F0000 /* AppBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBackground.swift; sourceTree = "<group>"; };
-		A1000016230F0000 /* CustomFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFonts.swift; sourceTree = "<group>"; };
 		A1000020230F0000 /* ComponentCatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentCatalogView.swift; sourceTree = "<group>"; };
 		A1000021230F0000 /* ButtonDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonDemoView.swift; sourceTree = "<group>"; };
 		A1000022230F0000 /* BadgeDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeDemoView.swift; sourceTree = "<group>"; };
@@ -79,7 +80,6 @@
 		A1000024230F0000 /* AlertDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDemoView.swift; sourceTree = "<group>"; };
 		A1000025230F0000 /* CalloutDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutDemoView.swift; sourceTree = "<group>"; };
 		A1000026230F0000 /* QuantityDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityDemoView.swift; sourceTree = "<group>"; };
-		A1000027230F0000 /* TileDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileDemoView.swift; sourceTree = "<group>"; };
 		A1000028230F0000 /* DesignSystemDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystemDemoView.swift; sourceTree = "<group>"; };
 		A1000030230F0000 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1000031230F0000 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -99,7 +99,6 @@
 		A1000050230F0000 = {
 			isa = PBXGroup;
 			children = (
-				A1000001230F0000 /* ComponentTestApp.swift */,
 				A1000051230F0000 /* Components */,
 				A1000052230F0000 /* DesignSystem */,
 				A1000053230F0000 /* ComponentDemos */,
@@ -132,13 +131,15 @@
 		A1000052230F0000 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				10F74F8A2EE22DFA007DA5FE /* CustomFonts.swift */,
 				A1000010230F0000 /* DesignSystemGlobal.swift */,
 				A1000011230F0000 /* DesignSystemDarkLarge.swift */,
 				A1000012230F0000 /* DesignSystemDarkMedium.swift */,
 				A1000013230F0000 /* DesignSystemLightLarge.swift */,
 				A1000014230F0000 /* DesignSystemLightMedium.swift */,
 				A1000015230F0000 /* AppBackground.swift */,
-				A1000016230F0000 /* CustomFonts.swift */,
+				10F74F8D2EE22EA1007DA5FE /* THDComponentCatalogApp.swift */,
+				10F74F8F2EE233F6007DA5FE /* TileDemoView.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -153,7 +154,6 @@
 				A1000024230F0000 /* AlertDemoView.swift */,
 				A1000025230F0000 /* CalloutDemoView.swift */,
 				A1000026230F0000 /* QuantityDemoView.swift */,
-				A1000027230F0000 /* TileDemoView.swift */,
 				A1000028230F0000 /* DesignSystemDemoView.swift */,
 				10D8C9922EE0A4B1002D4F05 /* TypographyDemoView.swift */,
 				10D8C9CA2EE0F842002D4F05 /* ProductListingPage.swift */,
@@ -258,10 +258,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A1000001230F0001 /* ComponentTestApp.swift in Sources */,
 				A1000002230F0001 /* buttons.swift in Sources */,
 				A1000003230F0001 /* badge.swift in Sources */,
 				A1000004230F0001 /* pill.swift in Sources */,
+				10F74F8E2EE22EA1007DA5FE /* THDComponentCatalogApp.swift in Sources */,
 				A1000005230F0001 /* callout.swift in Sources */,
 				10D8C9CD2EE0F9EA002D4F05 /* AppNavigationView.swift in Sources */,
 				A1000006230F0001 /* quantity.swift in Sources */,
@@ -281,15 +281,15 @@
 				A1000013230F0001 /* DesignSystemLightLarge.swift in Sources */,
 				A1000014230F0001 /* DesignSystemLightMedium.swift in Sources */,
 				A1000015230F0001 /* AppBackground.swift in Sources */,
-				A1000016230F0001 /* CustomFonts.swift in Sources */,
 				A1000020230F0001 /* ComponentCatalogView.swift in Sources */,
 				A1000021230F0001 /* ButtonDemoView.swift in Sources */,
+				10F74F902EE233F6007DA5FE /* TileDemoView.swift in Sources */,
 				A1000022230F0001 /* BadgeDemoView.swift in Sources */,
 				A1000023230F0001 /* PillDemoView.swift in Sources */,
 				A1000024230F0001 /* AlertDemoView.swift in Sources */,
 				A1000025230F0001 /* CalloutDemoView.swift in Sources */,
 				A1000026230F0001 /* QuantityDemoView.swift in Sources */,
-				A1000027230F0001 /* TileDemoView.swift in Sources */,
+				10F74F8C2EE22E3D007DA5FE /* CustomFonts.swift in Sources */,
 				A1000028230F0001 /* DesignSystemDemoView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
