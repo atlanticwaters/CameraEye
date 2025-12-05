@@ -83,7 +83,7 @@
 				A1000051230F0000 /* Components */,
 				A1000052230F0000 /* DesignSystem */,
 				A1000053230F0000 /* ComponentDemos */,
-				A1000054230F0000 /* Resources */,
+				A1000054230F0000 /* Assets */,
 				A1000055230F0000 /* Preview Content */,
 				A1000056230F0000 /* Products */,
 			);
@@ -100,7 +100,7 @@
 				A1000007230F0000 /* tile.swift */,
 				A1000008230F0000 /* alerts.swift */,
 			);
-			path = "";
+			name = Components;
 			sourceTree = "<group>";
 		};
 		A1000052230F0000 /* DesignSystem */ = {
@@ -133,12 +133,12 @@
 			path = ComponentDemos;
 			sourceTree = "<group>";
 		};
-		A1000054230F0000 /* Resources */ = {
+		A1000054230F0000 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
 				A1000030230F0000 /* Assets.xcassets */,
 			);
-			path = "";
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		A1000055230F0000 /* Preview Content */ = {

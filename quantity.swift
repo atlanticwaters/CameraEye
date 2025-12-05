@@ -29,6 +29,26 @@ enum THDQuantityPickerColor {
     /// Background: BackgroundInputColorTransparent10Default
     /// Text: TextInputColorTransparent10Default
     case grey
+
+    /// Orange gradient - light to dark direction
+    /// Background: LinearGradient from brand-200 to brand-400
+    /// Text: TextButtonColorOrangeFilledDefault (white)
+    case orangeGradientLightToDark
+
+    /// Orange gradient - dark to light direction
+    /// Background: LinearGradient from brand-400 to brand-200
+    /// Text: TextButtonColorOrangeFilledDefault (white)
+    case orangeGradientDarkToLight
+
+    /// Grey gradient - light to dark direction
+    /// Background: LinearGradient from greige-050 to greige-100
+    /// Text: TextInputColorTransparent10Default
+    case greyGradientLightToDark
+
+    /// Grey gradient - dark to light direction
+    /// Background: LinearGradient from greige-100 to greige-050
+    /// Text: TextInputColorTransparent10Default
+    case greyGradientDarkToLight
 }
 
 // MARK: - Quantity Picker Size Options
@@ -84,6 +104,9 @@ enum THDQuantityPickerExpansion {
 
     /// Controls appear on the right side
     case right
+
+    /// Controls appear on both sides (expands from center)
+    case center
 }
 
 // MARK: - Quantity Button Use Cases
@@ -155,22 +178,44 @@ struct QuantityPicker: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            // Left expansion controls
-            if expansion == .left && isExpanded {
-                buttonControls
+            // Left side controls
+            if isExpanded {
+                switch expansion {
+                case .left:
+                    // Both buttons on left: subtract then add
+                    subtractButton
+                    addButton
+                case .center:
+                    // Only subtract on left
+                    subtractButton
+                case .right:
+                    // Nothing on left for right expansion
+                    EmptyView()
+                }
             }
 
-            // Quantity display
+            // Quantity display (always in center)
             quantityDisplay
 
-            // Right expansion controls
-            if expansion == .right && isExpanded {
-                buttonControls
+            // Right side controls
+            if isExpanded {
+                switch expansion {
+                case .left:
+                    // Nothing on right for left expansion
+                    EmptyView()
+                case .center:
+                    // Only add on right
+                    addButton
+                case .right:
+                    // Both buttons on right: subtract then add
+                    subtractButton
+                    addButton
+                }
             }
         }
         .padding(.horizontal, size.horizontalPadding)
         .padding(.vertical, size.verticalPadding)
-        .background(backgroundColor)
+        .background(backgroundView)
         .cornerRadius(size == .large ? DesignSystemGlobal.BorderRadiusFull : DesignSystemGlobal.BorderRadiusLg)
         .onTapGesture {
             withAnimation(.easeInOut(duration: 0.2)) {
@@ -194,68 +239,126 @@ struct QuantityPicker: View {
         .frame(height: size.height)
     }
 
-    /// +/- control buttons
+    /// Subtract or Delete button
+    private var subtractButton: some View {
+        QuantityButton(
+            icon: quantity <= minQuantity + 1 ? "trash" : "minus",
+            size: size,
+            isDisabled: quantity <= minQuantity,
+            action: {
+                if quantity <= minQuantity + 1 {
+                    onDelete?()
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        isExpanded = false
+                    }
+                } else {
+                    quantity -= 1
+                }
+            }
+        )
+    }
+
+    /// Add button
+    private var addButton: some View {
+        QuantityButton(
+            icon: "plus",
+            size: size,
+            isDisabled: quantity >= maxQuantity,
+            action: {
+                if quantity < maxQuantity {
+                    quantity += 1
+                }
+            }
+        )
+    }
+
+    /// +/- control buttons (legacy - kept for reference)
     @ViewBuilder
     private var buttonControls: some View {
         HStack(spacing: DesignSystemGlobal.Spacing0) {
-            // Subtract or Delete button
-            QuantityButton(
-                icon: quantity <= minQuantity + 1 ? "trash" : "minus",
-                size: size,
-                isDisabled: quantity <= minQuantity,
-                action: {
-                    if quantity <= minQuantity + 1 {
-                        onDelete?()
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            isExpanded = false
-                        }
-                    } else {
-                        quantity -= 1
-                    }
-                }
-            )
-
-            // Add button
-            QuantityButton(
-                icon: "plus",
-                size: size,
-                isDisabled: quantity >= maxQuantity,
-                action: {
-                    if quantity < maxQuantity {
-                        quantity += 1
-                    }
-                }
-            )
+            subtractButton
+            addButton
         }
     }
 
     // MARK: - Color Logic
 
     /// Font based on color variant
-    /// Orange uses bold, grey uses regular
+    /// Orange variants use bold, grey variants use regular
     private var textFont: Font {
-        color == .orange
-            ? .system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .bold)
-            : .system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .regular)
+        switch color {
+        case .orange, .orangeGradientLightToDark, .orangeGradientDarkToLight:
+            return .system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .bold)
+        case .grey, .greyGradientLightToDark, .greyGradientDarkToLight:
+            return .system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .regular)
+        }
     }
 
     /// Text color based on color variant
     private var textColor: Color {
         switch color {
-        case .orange:
+        case .orange, .orangeGradientLightToDark, .orangeGradientDarkToLight:
             return DesignSystemGlobal.TextButtonColorOrangeFilledDefault
-        case .grey:
+        case .grey, .greyGradientLightToDark, .greyGradientDarkToLight:
             return DesignSystemGlobal.TextInputColorTransparent10Default
         }
     }
 
-    /// Background color based on color variant
-    private var backgroundColor: Color {
+    /// Whether the color variant uses a gradient background
+    private var isGradient: Bool {
+        switch color {
+        case .orangeGradientLightToDark, .orangeGradientDarkToLight,
+             .greyGradientLightToDark, .greyGradientDarkToLight:
+            return true
+        case .orange, .grey:
+            return false
+        }
+    }
+
+    /// Background view - solid color or gradient based on variant
+    @ViewBuilder
+    private var backgroundView: some View {
         switch color {
         case .orange:
-            return DesignSystemGlobal.BackgroundInputColorBrandFilledDefault
+            DesignSystemGlobal.BackgroundInputColorBrandFilledDefault
         case .grey:
-            return DesignSystemGlobal.BackgroundInputColorTransparent10Default
+            DesignSystemGlobal.BackgroundInputColorTransparent10Default
+        case .orangeGradientLightToDark:
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    DesignSystemGlobal.BrandBrand200,
+                    DesignSystemGlobal.BrandBrand400
+                ]),
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        case .orangeGradientDarkToLight:
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    DesignSystemGlobal.BrandBrand400,
+                    DesignSystemGlobal.BrandBrand200
+                ]),
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        case .greyGradientLightToDark:
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    DesignSystemGlobal.GreigeGreige050,
+                    DesignSystemGlobal.GreigeGreige100
+                ]),
+                startPoint: .leading,
+                endPoint: .trailing
+            )
+        case .greyGradientDarkToLight:
+            LinearGradient(
+                gradient: Gradient(colors: [
+                    DesignSystemGlobal.GreigeGreige100,
+                    DesignSystemGlobal.GreigeGreige050
+                ]),
+                startPoint: .leading,
+                endPoint: .trailing
+            )
         }
     }
 }
@@ -541,6 +644,190 @@ struct StandaloneQuantityButton: View {
                     QuantityPicker(
                         quantity: .constant(5),
                         color: .grey,
+                        size: .large,
+                        expansion: .right
+                    )
+                }
+            }
+
+            Divider().padding(.vertical)
+
+            // Orange - Expands from Center
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Orange - Expands from Center")
+                    .font(.headline)
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
+                VStack(alignment: .leading, spacing: 8) {
+                    QuantityPicker(
+                        quantity: .constant(1),
+                        color: .orange,
+                        size: .small,
+                        expansion: .center
+                    )
+
+                    QuantityPicker(
+                        quantity: .constant(3),
+                        color: .orange,
+                        size: .medium,
+                        expansion: .center
+                    )
+
+                    QuantityPicker(
+                        quantity: .constant(5),
+                        color: .orange,
+                        size: .large,
+                        expansion: .center
+                    )
+                }
+            }
+
+            // Grey - Expands from Center
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Grey - Expands from Center")
+                    .font(.headline)
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
+                VStack(alignment: .leading, spacing: 8) {
+                    QuantityPicker(
+                        quantity: .constant(1),
+                        color: .grey,
+                        size: .small,
+                        expansion: .center
+                    )
+
+                    QuantityPicker(
+                        quantity: .constant(3),
+                        color: .grey,
+                        size: .medium,
+                        expansion: .center
+                    )
+
+                    QuantityPicker(
+                        quantity: .constant(5),
+                        color: .grey,
+                        size: .large,
+                        expansion: .center
+                    )
+                }
+            }
+
+            Divider().padding(.vertical)
+
+            // Orange Gradient - Light to Dark
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Orange Gradient - Light to Dark")
+                    .font(.headline)
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
+                VStack(alignment: .leading, spacing: 8) {
+                    QuantityPicker(
+                        quantity: .constant(1),
+                        color: .orangeGradientLightToDark,
+                        size: .small,
+                        expansion: .right
+                    )
+
+                    QuantityPicker(
+                        quantity: .constant(3),
+                        color: .orangeGradientLightToDark,
+                        size: .medium,
+                        expansion: .right
+                    )
+
+                    QuantityPicker(
+                        quantity: .constant(5),
+                        color: .orangeGradientLightToDark,
+                        size: .large,
+                        expansion: .right
+                    )
+                }
+            }
+
+            // Orange Gradient - Dark to Light
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Orange Gradient - Dark to Light")
+                    .font(.headline)
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
+                VStack(alignment: .leading, spacing: 8) {
+                    QuantityPicker(
+                        quantity: .constant(1),
+                        color: .orangeGradientDarkToLight,
+                        size: .small,
+                        expansion: .right
+                    )
+
+                    QuantityPicker(
+                        quantity: .constant(3),
+                        color: .orangeGradientDarkToLight,
+                        size: .medium,
+                        expansion: .right
+                    )
+
+                    QuantityPicker(
+                        quantity: .constant(5),
+                        color: .orangeGradientDarkToLight,
+                        size: .large,
+                        expansion: .right
+                    )
+                }
+            }
+
+            // Grey Gradient - Light to Dark
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Grey Gradient - Light to Dark")
+                    .font(.headline)
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
+                VStack(alignment: .leading, spacing: 8) {
+                    QuantityPicker(
+                        quantity: .constant(1),
+                        color: .greyGradientLightToDark,
+                        size: .small,
+                        expansion: .right
+                    )
+
+                    QuantityPicker(
+                        quantity: .constant(3),
+                        color: .greyGradientLightToDark,
+                        size: .medium,
+                        expansion: .right
+                    )
+
+                    QuantityPicker(
+                        quantity: .constant(5),
+                        color: .greyGradientLightToDark,
+                        size: .large,
+                        expansion: .right
+                    )
+                }
+            }
+
+            // Grey Gradient - Dark to Light
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Grey Gradient - Dark to Light")
+                    .font(.headline)
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
+                VStack(alignment: .leading, spacing: 8) {
+                    QuantityPicker(
+                        quantity: .constant(1),
+                        color: .greyGradientDarkToLight,
+                        size: .small,
+                        expansion: .right
+                    )
+
+                    QuantityPicker(
+                        quantity: .constant(3),
+                        color: .greyGradientDarkToLight,
+                        size: .medium,
+                        expansion: .right
+                    )
+
+                    QuantityPicker(
+                        quantity: .constant(5),
+                        color: .greyGradientDarkToLight,
                         size: .large,
                         expansion: .right
                     )
