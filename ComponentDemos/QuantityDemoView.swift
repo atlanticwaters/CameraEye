@@ -101,6 +101,42 @@ struct QuantityDemoView: View {
                             )
                         }
                     }
+
+                    Text("Expands Center")
+                        .font(.subheadline)
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+
+                    VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
+                        HStack {
+                            Text("Small").frame(width: 100, alignment: .leading)
+                            QuantityPicker(
+                                quantity: .constant(2),
+                                color: .orange,
+                                size: .small,
+                                expansion: .center
+                            )
+                        }
+
+                        HStack {
+                            Text("Medium").frame(width: 100, alignment: .leading)
+                            QuantityPicker(
+                                quantity: .constant(4),
+                                color: .orange,
+                                size: .medium,
+                                expansion: .center
+                            )
+                        }
+
+                        HStack {
+                            Text("Large").frame(width: 100, alignment: .leading)
+                            QuantityPicker(
+                                quantity: .constant(6),
+                                color: .orange,
+                                size: .large,
+                                expansion: .center
+                            )
+                        }
+                    }
                 }
 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
@@ -165,6 +201,132 @@ struct QuantityDemoView: View {
                                 size: .medium,
                                 expansion: .left
                             )
+                        }
+                    }
+
+                    Text("Expands Center")
+                        .font(.subheadline)
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+
+                    VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
+                        HStack {
+                            Text("Small").frame(width: 100, alignment: .leading)
+                            QuantityPicker(
+                                quantity: .constant(2),
+                                color: .grey,
+                                size: .small,
+                                expansion: .center
+                            )
+                        }
+
+                        HStack {
+                            Text("Medium").frame(width: 100, alignment: .leading)
+                            QuantityPicker(
+                                quantity: .constant(4),
+                                color: .grey,
+                                size: .medium,
+                                expansion: .center
+                            )
+                        }
+
+                        HStack {
+                            Text("Large").frame(width: 100, alignment: .leading)
+                            QuantityPicker(
+                                quantity: .constant(6),
+                                color: .grey,
+                                size: .large,
+                                expansion: .center
+                            )
+                        }
+                    }
+                }
+
+                Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
+
+                    // MARK: - Orange Gradient Variants
+                    sectionHeader("Orange Gradient Variants", description: "Brand gradients expanding to the right")
+
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
+                    Text("Light to Dark")
+                        .font(.subheadline)
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+
+                    VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
+                        HStack {
+                            Text("Small").frame(width: 100, alignment: .leading)
+                            QuantityPicker(quantity: .constant(1), color: .orangeGradientLightToDark, size: .small, expansion: .right)
+                        }
+                        HStack {
+                            Text("Medium").frame(width: 100, alignment: .leading)
+                            QuantityPicker(quantity: .constant(3), color: .orangeGradientLightToDark, size: .medium, expansion: .right)
+                        }
+                        HStack {
+                            Text("Large").frame(width: 100, alignment: .leading)
+                            QuantityPicker(quantity: .constant(5), color: .orangeGradientLightToDark, size: .large, expansion: .right)
+                        }
+                    }
+
+                    Text("Dark to Light")
+                        .font(.subheadline)
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+
+                    VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
+                        HStack {
+                            Text("Small").frame(width: 100, alignment: .leading)
+                            QuantityPicker(quantity: .constant(1), color: .orangeGradientDarkToLight, size: .small, expansion: .right)
+                        }
+                        HStack {
+                            Text("Medium").frame(width: 100, alignment: .leading)
+                            QuantityPicker(quantity: .constant(3), color: .orangeGradientDarkToLight, size: .medium, expansion: .right)
+                        }
+                        HStack {
+                            Text("Large").frame(width: 100, alignment: .leading)
+                            QuantityPicker(quantity: .constant(5), color: .orangeGradientDarkToLight, size: .large, expansion: .right)
+                        }
+                    }
+                }
+
+                Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
+
+                    // MARK: - Grey Gradient Variants
+                    sectionHeader("Grey Gradient Variants", description: "Neutral gradients expanding to the right")
+
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
+                    Text("Light to Dark")
+                        .font(.subheadline)
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+
+                    VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
+                        HStack {
+                            Text("Small").frame(width: 100, alignment: .leading)
+                            QuantityPicker(quantity: .constant(1), color: .greyGradientLightToDark, size: .small, expansion: .right)
+                        }
+                        HStack {
+                            Text("Medium").frame(width: 100, alignment: .leading)
+                            QuantityPicker(quantity: .constant(3), color: .greyGradientLightToDark, size: .medium, expansion: .right)
+                        }
+                        HStack {
+                            Text("Large").frame(width: 100, alignment: .leading)
+                            QuantityPicker(quantity: .constant(5), color: .greyGradientLightToDark, size: .large, expansion: .right)
+                        }
+                    }
+
+                    Text("Dark to Light")
+                        .font(.subheadline)
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+
+                    VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
+                        HStack {
+                            Text("Small").frame(width: 100, alignment: .leading)
+                            QuantityPicker(quantity: .constant(1), color: .greyGradientDarkToLight, size: .small, expansion: .right)
+                        }
+                        HStack {
+                            Text("Medium").frame(width: 100, alignment: .leading)
+                            QuantityPicker(quantity: .constant(3), color: .greyGradientDarkToLight, size: .medium, expansion: .right)
+                        }
+                        HStack {
+                            Text("Large").frame(width: 100, alignment: .leading)
+                            QuantityPicker(quantity: .constant(5), color: .greyGradientDarkToLight, size: .large, expansion: .right)
                         }
                     }
                 }
