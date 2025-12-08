@@ -38,6 +38,7 @@ struct TileDemoView: View {
                 .padding()
             }
         }
+        .applySoftScrollEdges()
         .navigationTitle("Tiles")
     }
 }

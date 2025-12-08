@@ -80,6 +80,7 @@ struct TypographyDemoView: View {
             .padding(.top, 60) // Extra padding for top navigation
             .padding(.bottom, 80) // Extra padding for bottom navigation
         }
+        .applySoftScrollEdges()
         .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
         .onAppear {
             verifyCustomFonts()
@@ -97,7 +98,7 @@ struct TypographyDemoView: View {
     // MARK: - Font Families Section
     
     private var fontFamiliesSection: some View {
-        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
             Text("Font Families")
                 .thdFont(.h3)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)

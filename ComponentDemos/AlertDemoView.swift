@@ -271,6 +271,7 @@ struct AlertDemoView: View {
             }
             .padding(DesignSystemGlobal.Spacing4)
         }
+        .applySoftScrollEdges()
         .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
     }
 }

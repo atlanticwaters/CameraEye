@@ -23,13 +23,14 @@ struct AppNavigationView: View {
     
     var body: some View {
         ZStack {
-            // Content area - fills entire screen including safe areas
+            // Content area - fills entire screen with top padding
             contentView
-                .ignoresSafeArea()
+                .padding(.top, 60)
+                .ignoresSafeArea() // Allow content to extend to all edges
             
-            // Navigation overlays
+            // Navigation overlays - transparent, floating on top of content
             VStack(spacing: 0) {
-                // Top Navigation with blur material
+                // Top Navigation - transparent with glass effect buttons
                 AppTopNavigation(
                     showBackButton: !navigationPath.isEmpty,
                     onBackTapped: {
@@ -43,11 +44,10 @@ struct AppNavigationView: View {
                         }
                     }
                 )
-                .background(.regularMaterial)
                 
                 Spacer()
                 
-                // Bottom Navigation with blur material
+                // Bottom Navigation - transparent
                 AppBottomNavigation(
                     selectedTab: $selectedTab,
                     onTabSelected: { newTab in
@@ -60,7 +60,6 @@ struct AppNavigationView: View {
                         }
                     }
                 )
-                .background(.regularMaterial)
             }
         }
     }
@@ -163,7 +162,8 @@ struct AppTopNavigation: View {
                 .frame(width: buttonSize, height: buttonSize)
                 .background(
                     Circle()
-                        .fill(.white.opacity(0.3))
+                        .fill(.clear)
+                        .glassEffect(.regular, in: .circle)
                         .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
                 )
         }
@@ -250,7 +250,8 @@ struct AppTopNavigation: View {
         .frame(height: buttonSize)
         .background(
             Capsule()
-                .fill(.white.opacity(0.3))
+                .fill(.clear)
+                .glassEffect(.regular, in: .capsule)
                 .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
         )
         .matchedGeometryEffect(id: "searchContainer", in: morphNamespace)
@@ -382,21 +383,58 @@ struct PlaceholderView: View {
     let icon: String
     
     var body: some View {
-        VStack(spacing: DS.Spacing4) {
-            Image(systemName: icon)
-                .font(.system(size: 64, weight: .light))
-                .foregroundStyle(DS.TextOnSurfaceColorTertiary)
-            
-            Text(title)
-                .font(.system(size: DS.FontFontSizeH2, weight: .bold))
-                .foregroundStyle(DS.TextOnSurfaceColorPrimary)
-            
-            Text("Content coming soon")
-                .font(.system(size: DS.FontFontSizeBodyMd))
-                .foregroundStyle(DS.TextOnSurfaceColorSecondary)
+        ScrollView {
+            VStack(spacing: DS.Spacing4) {
+                Image(systemName: icon)
+                    .font(.system(size: 64, weight: .light))
+                    .foregroundStyle(DS.TextOnSurfaceColorTertiary)
+                
+                Text(title)
+                    .font(.system(size: DS.FontFontSizeH2, weight: .bold))
+                    .foregroundStyle(DS.TextOnSurfaceColorPrimary)
+                
+                Text("Content coming soon")
+                    .font(.system(size: DS.FontFontSizeBodyMd))
+                    .foregroundStyle(DS.TextOnSurfaceColorSecondary)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(.top, 60) // Extra padding for top navigation
+            .padding(.bottom, 80) // Extra padding for bottom navigation
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .applySoftScrollEdges()
         .background(DS.BackgroundSurfaceColorGreige)
+    }
+}
+
+// MARK: - Circle Button Component
+/// A reusable circular button with glass effect background
+struct CircleButton: View {
+    let icon: String
+    let iconColor: Color
+    let backgroundColor: Color
+    let buttonSize: CGFloat
+    let iconSize: CGFloat
+    let shadowColor: Color
+    let shadowRadius: CGFloat
+    let shadowY: CGFloat
+    let namespace: Namespace.ID
+    let id: String
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: icon)
+                .font(.system(size: iconSize, weight: .medium))
+                .foregroundStyle(iconColor)
+                .frame(width: buttonSize, height: buttonSize)
+                .background(
+                    Circle()
+                        .fill(.clear)
+                        .glassEffect(.regular, in: .circle)
+                        .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
+                )
+        }
+        .matchedGeometryEffect(id: id, in: namespace)
     }
 }
 

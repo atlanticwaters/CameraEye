@@ -391,6 +391,7 @@ struct DesignSystemDemoView: View {
             }
             .padding(DesignSystemGlobal.Spacing4)
         }
+        .applySoftScrollEdges()
         .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
     }
 }

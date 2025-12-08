@@ -85,7 +85,7 @@ struct MorphingNavHeader: View {
     private var actionButtons: some View {
         HStack(spacing: buttonSpacing) {
             // Favorite button
-            CircleButton(
+            MorphCircleButton(
                 icon: "heart",
                 iconColor: iconColor,
                 backgroundColor: backgroundColor,
@@ -101,7 +101,7 @@ struct MorphingNavHeader: View {
             }
             
             // Share button
-            CircleButton(
+            MorphCircleButton(
                 icon: "square.and.arrow.up",
                 iconColor: iconColor,
                 backgroundColor: backgroundColor,
@@ -117,7 +117,7 @@ struct MorphingNavHeader: View {
             }
             
             // Search button - this morphs into the search bar
-            CircleButton(
+            MorphCircleButton(
                 icon: "magnifyingglass",
                 iconColor: iconColor,
                 backgroundColor: backgroundColor,
@@ -173,7 +173,7 @@ struct MorphingNavHeader: View {
 
 // MARK: - Circle Button Component
 /// A reusable circular button with shadow and optional matched geometry.
-struct CircleButton: View {
+private struct MorphCircleButton: View {
     let icon: String
     let iconColor: Color
     let backgroundColor: Color

@@ -288,6 +288,7 @@ struct CalloutDemoView: View {
             }
             .padding(DesignSystemGlobal.Spacing4)
         }
+        .applySoftScrollEdges()
         .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
     }
 }
