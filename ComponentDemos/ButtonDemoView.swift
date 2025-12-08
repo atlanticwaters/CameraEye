@@ -14,11 +14,11 @@ struct ButtonDemoView: View {
                 // Header Card
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Button")
-                        .font(.system(size: 32, weight: .bold))
+                        .thdFont(.hero5)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text("Primary action buttons with multiple style variants, sizes, and states.")
-                        .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .regular))
+                        .thdFont(.bodyMd)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
                 }
                 .padding(DesignSystemGlobal.Spacing4)
@@ -35,7 +35,7 @@ struct ButtonDemoView: View {
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Sizes")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -45,7 +45,7 @@ struct ButtonDemoView: View {
                     }
 
                     Text("With Icons")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
@@ -55,7 +55,7 @@ struct ButtonDemoView: View {
                     }
 
                     Text("States")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -91,7 +91,7 @@ struct ButtonDemoView: View {
                     }
 
                     Text("States")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -163,7 +163,7 @@ struct ButtonDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Orange Filled")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -173,7 +173,7 @@ struct ButtonDemoView: View {
                     }
 
                     Text("Outlined")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -183,7 +183,7 @@ struct ButtonDemoView: View {
                     }
 
                     Text("Various Styles")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -193,7 +193,7 @@ struct ButtonDemoView: View {
                     }
 
                     Text("States")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -218,11 +218,11 @@ struct ButtonDemoView: View {
     private func sectionHeader(_ title: String, description: String) -> some View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
-                .font(.headline)
+                .thdFont(.h6)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
-            
+
             Text(description)
-                .font(.caption)
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }

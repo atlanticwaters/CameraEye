@@ -27,7 +27,7 @@ struct PillDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
     
                     Text("Pill")
-                        .font(.system(size: 32, weight: .bold))
+                        .thdFont(.hero5)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text("Selectable chips for filters, tags, and selection options.")

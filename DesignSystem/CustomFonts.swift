@@ -7,15 +7,13 @@ extension Font {
     // MARK: - Display Font Family (THD LgVar Beta)
     // Used for large, attention-grabbing text like heroes and headers
     static func thdDisplay(size: CGFloat, weight: Font.Weight = .regular) -> Font {
-        let fontName = "THD LgVar Beta"
-        return .custom(fontName, size: size)
+        return .custom(DesignSystemGlobal.FontFontFamilyDisplay, size: size)
     }
     
     // MARK: - Informational Font Family (THD SmVar Beta)
     // Used for body text, captions, and informational content
     static func thdInformational(size: CGFloat, weight: Font.Weight = .regular) -> Font {
-        let fontName = "THD SmVar Beta"
-        return .custom(fontName, size: size)
+        return .custom(DesignSystemGlobal.FontFontFamilyInformational, size: size)
     }
     
     // MARK: - Design System Typography Scale
@@ -99,8 +97,8 @@ struct CustomFontRegistration {
     static func registerFonts() {
         // Font file names (without extension) that should be in your bundle
         let fontFiles = [
-            "THD LgVar Beta",
-            "THD SmVar Beta"
+            DesignSystemGlobal.FontFontFamilyDisplay,       // "THD LgVar Beta"
+            DesignSystemGlobal.FontFontFamilyInformational  // "THD SmVar Beta"
         ]
         
         for fontFile in fontFiles {
@@ -118,6 +116,16 @@ struct CustomFontRegistration {
                 
                 if CTFontManagerRegisterFontsForURL(fontURL as CFURL, .process, &errorRef) {
                     print("✅ Successfully registered font: \(fontName).\(ext)")
+                    
+                    // Verify the font is actually available
+                    if let uiFont = UIFont(name: fontName, size: 16) {
+                        print("   ✅ Font is accessible as: '\(fontName)'")
+                        print("   📝 PostScript name: \(uiFont.fontName)")
+                        print("   👨‍👩‍👧‍👦 Family name: \(uiFont.familyName)")
+                    } else {
+                        print("   ⚠️ Font registered but not accessible with name '\(fontName)'")
+                        print("   💡 Check the font's PostScript name in Font Book.app")
+                    }
                     return
                 } else if let error = errorRef?.takeRetainedValue() {
                     print("❌ Failed to register font \(fontName).\(ext): \(error)")
@@ -128,6 +136,7 @@ struct CustomFontRegistration {
         // If we get here, font file wasn't found
         print("⚠️ Font file not found: \(fontName) (tried .ttf and .otf)")
         print("   Make sure the font file is added to your Xcode project target.")
+        print("   Also ensure it's listed in Info.plist under UIAppFonts array.")
     }
     
     /// Lists all available fonts in the bundle for debugging

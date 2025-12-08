@@ -7,8 +7,8 @@ struct THDComponentCatalogApp: App {
         // Register custom fonts on app launch
         CustomFontRegistration.registerFonts()
         
-        // Uncomment below to debug font registration issues
-        // CustomFontRegistration.listAvailableFonts()
+        // Enable font debugging during development
+        CustomFontRegistration.listAvailableFonts()
     }
     
     var body: some Scene {

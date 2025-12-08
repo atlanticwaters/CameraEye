@@ -7,7 +7,24 @@ import SwiftUI
 struct DesignSystemDemoView: View {
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 32) {
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
+
+                // MARK: - Header Card
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
+                    Text("Design System")
+                        .thdFont(.hero5)
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
+                    Text("Complete showcase of all design tokens including colors, typography, spacing, and borders.")
+                        .thdFont(.bodyMd)
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                }
+                .padding(DesignSystemGlobal.Spacing4)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
+                        .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+                )
 
                 // MARK: - Brand Colors
                 ColorPaletteSection(
@@ -351,31 +368,29 @@ struct DesignSystemDemoView: View {
                 // MARK: - Elevation / Shadows
                 ElevationSection()
 
-                Divider().padding(.vertical, 16)
+                Divider().padding(.vertical, DesignSystemGlobal.Spacing3)
 
                 // MARK: - Typography
                 TypographySection()
 
-                Divider().padding(.vertical, 16)
+                Divider().padding(.vertical, DesignSystemGlobal.Spacing3)
 
                 // MARK: - Spacing
                 SpacingSection()
 
-                Divider().padding(.vertical, 16)
+                Divider().padding(.vertical, DesignSystemGlobal.Spacing3)
 
                 // MARK: - Border Radius
                 BorderRadiusSection()
 
-                Divider().padding(.vertical, 16)
+                Divider().padding(.vertical, DesignSystemGlobal.Spacing3)
 
                 // MARK: - Border Width
                 BorderWidthSection()
 
             }
-            .padding(16)
+            .padding(DesignSystemGlobal.Spacing4)
         }
-        .navigationTitle("Design System")
-        .navigationBarTitleDisplayMode(.large)
         .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
     }
 }
@@ -390,8 +405,8 @@ struct ColorPaletteSection: View {
     var darkBackground: Bool = false
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            VStack(alignment: .leading, spacing: 4) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
                 Text(title)
                     .thdFont(.h6)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
@@ -401,9 +416,9 @@ struct ColorPaletteSection: View {
             }
 
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 8) {
+                HStack(spacing: DesignSystemGlobal.Spacing2) {
                     ForEach(colors, id: \.0) { name, color in
-                        VStack(spacing: 6) {
+                        VStack(spacing: DesignSystemGlobal.Spacing1) {
                             ZStack {
                                 if showCheckerboard {
                                     CheckerboardPattern()
@@ -428,9 +443,9 @@ struct ColorPaletteSection: View {
                         }
                     }
                 }
-                .padding(.vertical, 4)
+                .padding(.vertical, DesignSystemGlobal.Spacing1)
             }
-            .padding(12)
+            .padding(DesignSystemGlobal.Spacing3)
             .background(
                 RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
                     .fill(darkBackground ? DesignSystemGlobal.GreigeGreige900 : DesignSystemGlobal.BackgroundContainerColorWhite)
@@ -446,7 +461,7 @@ struct SemanticColorsSection: View {
     let colors: [(String, Color)]
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
             Text(title)
                 .thdFont(.h6)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
@@ -455,9 +470,9 @@ struct SemanticColorsSection: View {
                 GridItem(.flexible()),
                 GridItem(.flexible()),
                 GridItem(.flexible())
-            ], spacing: 8) {
+            ], spacing: DesignSystemGlobal.Spacing2) {
                 ForEach(colors, id: \.0) { name, color in
-                    HStack(spacing: 8) {
+                    HStack(spacing: DesignSystemGlobal.Spacing2) {
                         RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusMd)
                             .fill(color)
                             .frame(width: 32, height: 32)
@@ -474,7 +489,7 @@ struct SemanticColorsSection: View {
 
                         Spacer()
                     }
-                    .padding(8)
+                    .padding(DesignSystemGlobal.Spacing2)
                     .background(
                         RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusLg)
                             .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
@@ -488,7 +503,7 @@ struct SemanticColorsSection: View {
 // MARK: - Elevation Section
 struct ElevationSection: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
             Text("Elevation / Shadows")
                 .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
@@ -498,7 +513,7 @@ struct ElevationSection: View {
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 24) {
+                HStack(spacing: DesignSystemGlobal.Spacing5) {
                     ElevationCard(
                         title: "Lowest",
                         shadowColor: DesignSystemGlobal.ElevationLowest,
@@ -539,7 +554,7 @@ struct ElevationSection: View {
                         y: DesignSystemGlobal.ElevationPositionY5
                     )
                 }
-                .padding(20)
+                .padding(DesignSystemGlobal.Spacing4)
             }
             .background(
                 RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
@@ -557,7 +572,7 @@ struct ElevationCard: View {
     let y: CGFloat
 
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: DesignSystemGlobal.Spacing2) {
             RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
                 .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
                 .frame(width: 80, height: 80)
@@ -577,13 +592,13 @@ struct ElevationCard: View {
 // MARK: - Typography Section
 struct TypographySection: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
             Text("Typography")
                 .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             // Hero Sizes
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                 Text("Hero Sizes")
                     .thdFont(.bodySm)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
@@ -594,14 +609,14 @@ struct TypographySection: View {
                 TypographyRow(name: "Hero 4", size: DesignSystemGlobal.FontFontSizeHero4)
                 TypographyRow(name: "Hero 5", size: DesignSystemGlobal.FontFontSizeHero5)
             }
-            .padding(12)
+            .padding(DesignSystemGlobal.Spacing3)
             .background(
                 RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
                     .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
             )
 
             // Heading Sizes
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                 Text("Heading Sizes")
                     .thdFont(.bodySm)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
@@ -613,14 +628,14 @@ struct TypographySection: View {
                 TypographyRow(name: "H5", size: DesignSystemGlobal.FontFontSizeH5)
                 TypographyRow(name: "H6", size: DesignSystemGlobal.FontFontSizeH6)
             }
-            .padding(12)
+            .padding(DesignSystemGlobal.Spacing3)
             .background(
                 RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
                     .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
             )
 
             // Body Sizes
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                 Text("Body Sizes")
                     .thdFont(.bodySm)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
@@ -632,25 +647,25 @@ struct TypographySection: View {
                 TypographyRow(name: "Body XS", size: DesignSystemGlobal.FontFontSizeBodyXs)
                 TypographyRow(name: "Caption", size: DesignSystemGlobal.FontFontSizeCaption)
             }
-            .padding(12)
+            .padding(DesignSystemGlobal.Spacing3)
             .background(
                 RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
                     .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
             )
 
             // Line Height
-            VStack(alignment: .leading, spacing: 12) {
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                 Text("Line Heights")
                     .thdFont(.bodySm)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
-                HStack(spacing: 16) {
+                HStack(spacing: DesignSystemGlobal.Spacing4) {
                     LineHeightDemo(name: "None", multiplier: DesignSystemGlobal.FontLineHeightNone)
                     LineHeightDemo(name: "Tight", multiplier: DesignSystemGlobal.FontLineHeightTight)
                     LineHeightDemo(name: "Base", multiplier: DesignSystemGlobal.FontLineHeightBase)
                 }
             }
-            .padding(12)
+            .padding(DesignSystemGlobal.Spacing3)
             .background(
                 RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
                     .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
@@ -674,8 +689,8 @@ struct TypographyRow: View {
             Text("\(Int(size))pt")
                 .thdFont(.bodySm)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
+                .padding(.horizontal, DesignSystemGlobal.Spacing2)
+                .padding(.vertical, DesignSystemGlobal.Spacing1)
                 .background(
                     RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusSm)
                         .fill(DesignSystemGlobal.BackgroundContainerColorGreige)
@@ -689,7 +704,7 @@ struct LineHeightDemo: View {
     let multiplier: CGFloat
 
     var body: some View {
-        VStack(spacing: 4) {
+        VStack(spacing: DesignSystemGlobal.Spacing1) {
             Text("Aa\nBb")
                 .thdFont(.bodyMd)
                 .lineSpacing(16 * (multiplier - 1))
@@ -705,7 +720,7 @@ struct LineHeightDemo: View {
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
         }
         .frame(maxWidth: .infinity)
-        .padding(8)
+        .padding(DesignSystemGlobal.Spacing2)
         .background(
             RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusLg)
                 .fill(DesignSystemGlobal.BackgroundContainerColorGreige)
@@ -716,7 +731,7 @@ struct LineHeightDemo: View {
 // MARK: - Spacing Section
 struct SpacingSection: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
             Text("Spacing")
                 .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
@@ -725,7 +740,7 @@ struct SpacingSection: View {
                 .thdFont(.bodySm)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                 SpacingRow(name: "Spacing 0", value: DesignSystemGlobal.Spacing0)
                 SpacingRow(name: "Spacing 1", value: DesignSystemGlobal.Spacing1)
                 SpacingRow(name: "Spacing 1px", value: DesignSystemGlobal.Spacing1px)
@@ -743,7 +758,7 @@ struct SpacingSection: View {
                 SpacingRow(name: "Spacing 16", value: DesignSystemGlobal.Spacing16)
                 SpacingRow(name: "Spacing 20", value: DesignSystemGlobal.Spacing20)
             }
-            .padding(12)
+            .padding(DesignSystemGlobal.Spacing3)
             .background(
                 RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
                     .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
@@ -757,7 +772,7 @@ struct SpacingRow: View {
     let value: CGFloat
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: DesignSystemGlobal.Spacing3) {
             Text(name)
                 .thdFont(.bodySm)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
@@ -781,7 +796,7 @@ struct SpacingRow: View {
 // MARK: - Border Radius Section
 struct BorderRadiusSection: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
             Text("Border Radius")
                 .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
@@ -791,7 +806,7 @@ struct BorderRadiusSection: View {
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
+                HStack(spacing: DesignSystemGlobal.Spacing4) {
                     BorderRadiusCard(name: "None", value: DesignSystemGlobal.BorderRadiusNone)
                     BorderRadiusCard(name: "XS", value: DesignSystemGlobal.BorderRadiusXs)
                     BorderRadiusCard(name: "SM", value: DesignSystemGlobal.BorderRadiusSm)
@@ -802,7 +817,7 @@ struct BorderRadiusSection: View {
                     BorderRadiusCard(name: "3XL", value: DesignSystemGlobal.BorderRadius3xl)
                     BorderRadiusCard(name: "Full", value: DesignSystemGlobal.BorderRadiusFull)
                 }
-                .padding(12)
+                .padding(DesignSystemGlobal.Spacing3)
             }
             .background(
                 RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
@@ -817,7 +832,7 @@ struct BorderRadiusCard: View {
     let value: CGFloat
 
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: DesignSystemGlobal.Spacing2) {
             RoundedRectangle(cornerRadius: min(value, 32))
                 .fill(DesignSystemGlobal.BrandBrand300)
                 .frame(width: 64, height: 64)
@@ -836,7 +851,7 @@ struct BorderRadiusCard: View {
 // MARK: - Border Width Section
 struct BorderWidthSection: View {
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
             Text("Border Width")
                 .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
@@ -846,7 +861,7 @@ struct BorderWidthSection: View {
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
+                HStack(spacing: DesignSystemGlobal.Spacing4) {
                     BorderWidthCard(name: "None", value: DesignSystemGlobal.BorderWidthNone)
                     BorderWidthCard(name: "XS", value: DesignSystemGlobal.BorderWidthXs)
                     BorderWidthCard(name: "SM", value: DesignSystemGlobal.BorderWidthSm)
@@ -855,7 +870,7 @@ struct BorderWidthSection: View {
                     BorderWidthCard(name: "XL", value: DesignSystemGlobal.BorderWidthXl)
                     BorderWidthCard(name: "2XL", value: DesignSystemGlobal.BorderWidth2xl)
                 }
-                .padding(12)
+                .padding(DesignSystemGlobal.Spacing3)
             }
             .background(
                 RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
@@ -870,7 +885,7 @@ struct BorderWidthCard: View {
     let value: CGFloat
 
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: DesignSystemGlobal.Spacing2) {
             RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusLg)
                 .stroke(DesignSystemGlobal.BrandBrand300, lineWidth: value)
                 .frame(width: 64, height: 64)

@@ -150,13 +150,13 @@ enum THDBadgeSize {
     /// Base/Default badge - 20pt height
     case base
 
-    /// Font for badge text
+    /// Font for badge text using design system custom fonts
     var fontSize: Font {
         switch self {
         case .small:
-            return .system(size: DesignSystemGlobal.FontFontSizeBodyXs, weight: .bold)
+            return .thdBodyXs
         case .base:
-            return .system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .bold)
+            return .thdBodySm
         }
     }
 
@@ -278,14 +278,14 @@ struct BadgeAlt: View {
         HStack(spacing: DesignSystemGlobal.Spacing1) {
             // Text Labels
             HStack(spacing: DesignSystemGlobal.Spacing1) {
-                // Primary label - Body Xs/Bold/Base (heavy weight)
+                // Primary label - Body Lg with custom font
                 Text(label)
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodyLg, weight: .heavy))
+                    .font(.thdBodyLg)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
-                // Rating value - Body Xs/Semibold/Base
+                // Rating value - Body Lg with custom font
                 Text(rating)
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodyLg, weight: .semibold))
+                    .font(.thdBodyLg)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
             }
 
@@ -377,20 +377,20 @@ struct BadgeIndicator: View {
     func sectionHeader(_ title: String, description: String) -> some View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
-                .font(.headline)
+                .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
-            
+
             Text(description)
-                .font(.caption)
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
-    
+
     return ScrollView {
         VStack(alignment: .leading, spacing: 24) {
             // Title
             Text("Badge")
-                .font(.system(size: 48, weight: .medium))
+                .thdFont(.hero3)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
 

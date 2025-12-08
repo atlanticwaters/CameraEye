@@ -101,7 +101,7 @@ enum THDButtonSize {
 
     /// Font for button text using design system typography
     var font: Font {
-        .system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .bold)
+        .thdBodySm
     }
 }
 
@@ -209,12 +209,9 @@ struct THDButton: View {
     // MARK: - Typography
 
     /// Returns the appropriate font based on button style
-    /// Ghost buttons use semibold weight, others use bold
+    /// Uses design system custom fonts via .thdFont() modifier
     private var textFont: Font {
-        if style == .ghost {
-            return .system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .semibold)
-        }
-        return size.font
+        .thdBodySm
     }
 
     // MARK: - Color Logic
@@ -497,20 +494,20 @@ struct THDIconButton: View {
     func sectionHeader(_ title: String, description: String) -> some View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
-                .font(.headline)
+                .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
-            
+
             Text(description)
-                .font(.caption)
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
-    
+
     return ScrollView {
         VStack(alignment: .leading, spacing: 24) {
             // Title
             Text("Button")
-                .font(.system(size: 48, weight: .medium))
+                .thdFont(.hero3)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
 

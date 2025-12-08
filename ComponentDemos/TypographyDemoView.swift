@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 // MARK: - Typography Demo View
 /// Comprehensive showcase of the THD typography system using custom fonts
@@ -12,18 +13,37 @@ import SwiftUI
 /// - Practical usage examples
 
 struct TypographyDemoView: View {
+    
+    // MARK: - Font Verification State
+    @State private var fontVerificationResults: [String: Bool] = [:]
+    @State private var showFontDebugInfo = false
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
                 
-                // MARK: - Header
-                Text("Typography")
-                    .thdFont(.h1)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                // MARK: - Header Card
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
+                    Text("Typography")
+                        .thdFont(.hero5)
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+
+                    Text("The THD App Design System uses two custom font families for a distinct, modern typographic voice.")
+                        .thdFont(.bodyMd)
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                }
+                .padding(DesignSystemGlobal.Spacing4)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(
+                    RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
+                        .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+                )
                 
-                Text("The THD App Design System uses two custom font families for a distinct, modern typographic voice.")
-                    .thdFont(.bodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                // MARK: - Font Verification Section (Debug)
+                if showFontDebugInfo {
+                    fontVerificationSection
+                    Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
+                }
                 
                 Divider().padding(.vertical, DesignSystemGlobal.Spacing2)
                 
@@ -59,6 +79,18 @@ struct TypographyDemoView: View {
             .padding(DesignSystemGlobal.Spacing4)
             .padding(.top, 60) // Extra padding for top navigation
             .padding(.bottom, 80) // Extra padding for bottom navigation
+        }
+        .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
+        .onAppear {
+            verifyCustomFonts()
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(showFontDebugInfo ? "Hide Debug" : "Show Debug") {
+                    showFontDebugInfo.toggle()
+                }
+                .thdFont(.caption)
+            }
         }
     }
     
@@ -634,6 +666,81 @@ struct TypographyDemoView: View {
             RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
                 .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
         )
+    }
+    
+    // MARK: - Font Verification Section
+    
+    private var fontVerificationSection: some View {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
+            Text("Font Loading Status (Debug)")
+                .thdFont(.h5)
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+            
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
+                ForEach(Array(fontVerificationResults.keys.sorted()), id: \.self) { fontName in
+                    HStack {
+                        Image(systemName: fontVerificationResults[fontName] == true ? "checkmark.circle.fill" : "xmark.circle.fill")
+                            .foregroundColor(fontVerificationResults[fontName] == true ? DesignSystemGlobal.IconOnContainerColorSuccess : DesignSystemGlobal.IconOnContainerColorError)
+                        
+                        Text(fontName)
+                            .thdFont(.bodySm)
+                            .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        
+                        Spacer()
+                        
+                        if fontVerificationResults[fontName] == true {
+                            Text("Loaded")
+                                .thdFont(.caption)
+                                .foregroundColor(DesignSystemGlobal.TextOnContainerColorSuccess)
+                        } else {
+                            Text("Missing")
+                                .thdFont(.caption)
+                                .foregroundColor(DesignSystemGlobal.TextOnContainerColorError)
+                        }
+                    }
+                }
+                
+                // Test display of actual fonts
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
+                    Text("Font Display Test:")
+                        .thdFont(.bodySm)
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    
+                    Text("Display Font: The Quick Brown Fox")
+                        .font(.custom(DesignSystemGlobal.FontFontFamilyDisplay, size: 20))
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    
+                    Text("Informational Font: The Quick Brown Fox Jumps Over")
+                        .font(.custom(DesignSystemGlobal.FontFontFamilyInformational, size: 16))
+                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                }
+            }
+            .padding(DesignSystemGlobal.Spacing3)
+            .background(
+                RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
+                    .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+            )
+        }
+    }
+    
+    // MARK: - Font Verification Function
+    
+    private func verifyCustomFonts() {
+        let customFontNames = [
+            DesignSystemGlobal.FontFontFamilyDisplay,       // "THD LgVar Beta"
+            DesignSystemGlobal.FontFontFamilyInformational  // "THD SmVar Beta"
+        ]
+        
+        fontVerificationResults.removeAll()
+        
+        for fontName in customFontNames {
+            // Check if the font is available by trying to create it
+            let testFont = UIFont(name: fontName, size: 16)
+            fontVerificationResults[fontName] = testFont != nil
+            
+            // Print debug information
+            print("\(testFont != nil ? "✅" : "❌") Font '\(fontName)' is \(testFont != nil ? "available" : "missing")")
+        }
     }
 }
 

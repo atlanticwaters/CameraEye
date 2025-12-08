@@ -11,11 +11,11 @@ struct CalloutDemoView: View {
     private func sectionHeader(_ title: String, description: String) -> some View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
-                .font(.headline)
+                .thdFont(.h6)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text(description)
-                .font(.caption)
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
@@ -26,11 +26,11 @@ struct CalloutDemoView: View {
                 // Header Card
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Callout")
-                        .font(.system(size: 32, weight: .bold))
+                        .thdFont(.hero5)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text("Promotional and informational callouts with optional actions.")
-                        .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .regular))
+                        .thdFont(.bodyMd)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
                 }
                 .padding(DesignSystemGlobal.Spacing4)
@@ -47,7 +47,7 @@ struct CalloutDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Full Featured")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
@@ -60,7 +60,7 @@ struct CalloutDemoView: View {
                     )
 
                     Text("Title Only")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
@@ -70,7 +70,7 @@ struct CalloutDemoView: View {
                     )
 
                     Text("Description Only")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
@@ -81,7 +81,7 @@ struct CalloutDemoView: View {
                     )
 
                     Text("Floating (with shadow)")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
@@ -99,7 +99,7 @@ struct CalloutDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Full Featured")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
@@ -112,7 +112,7 @@ struct CalloutDemoView: View {
                     )
 
                     Text("Simple")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
@@ -123,7 +123,7 @@ struct CalloutDemoView: View {
                     )
 
                     Text("Floating")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
@@ -141,7 +141,7 @@ struct CalloutDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Full Featured")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
@@ -154,7 +154,7 @@ struct CalloutDemoView: View {
                     )
 
                     Text("Promotion")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
@@ -164,7 +164,7 @@ struct CalloutDemoView: View {
                     )
 
                     Text("Floating")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(

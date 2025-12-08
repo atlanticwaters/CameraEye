@@ -11,11 +11,11 @@ struct AlertDemoView: View {
     private func sectionHeader(_ title: String, description: String) -> some View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
-                .font(.headline)
+                .thdFont(.h6)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text(description)
-                .font(.caption)
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
@@ -26,11 +26,11 @@ struct AlertDemoView: View {
                 // Header Card
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Alert")
-                        .font(.system(size: 32, weight: .bold))
+                        .thdFont(.hero5)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text("Feedback messages for informational, success, warning, and error states.")
-                        .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .regular))
+                        .thdFont(.bodyMd)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
                 }
                 .padding(DesignSystemGlobal.Spacing4)
@@ -47,7 +47,7 @@ struct AlertDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Standard")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     InformationalAlert(
@@ -57,7 +57,7 @@ struct AlertDemoView: View {
                     )
 
                     Text("Without Title")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     InformationalAlert(
@@ -66,7 +66,7 @@ struct AlertDemoView: View {
                     )
 
                     Text("Floating (with shadow)")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     InformationalAlert(
@@ -77,7 +77,7 @@ struct AlertDemoView: View {
                     )
 
                     Text("Non-dismissible")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     InformationalAlert(
@@ -93,7 +93,7 @@ struct AlertDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Standard")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     SuccessAlert(
@@ -103,7 +103,7 @@ struct AlertDemoView: View {
                     )
 
                     Text("Without Title")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     SuccessAlert(
@@ -112,7 +112,7 @@ struct AlertDemoView: View {
                     )
 
                     Text("Floating")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     SuccessAlert(
@@ -130,7 +130,7 @@ struct AlertDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Standard")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     WarningAlert(
@@ -140,7 +140,7 @@ struct AlertDemoView: View {
                     )
 
                     Text("Without Title")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     WarningAlert(
@@ -149,7 +149,7 @@ struct AlertDemoView: View {
                     )
 
                     Text("Floating")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     WarningAlert(
@@ -167,7 +167,7 @@ struct AlertDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Standard")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     ErrorAlert(
@@ -177,7 +177,7 @@ struct AlertDemoView: View {
                     )
 
                     Text("Without Title")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     ErrorAlert(
@@ -186,7 +186,7 @@ struct AlertDemoView: View {
                     )
 
                     Text("Floating")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     ErrorAlert(

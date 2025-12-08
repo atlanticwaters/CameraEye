@@ -157,12 +157,12 @@ struct ComponentCatalogView: View {
     private func sectionHeader(_ title: String, description: String) -> some View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
-                .font(.headline)
+                .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .textCase(nil)
-            
+
             Text(description)
-                .font(.caption)
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
                 .textCase(nil)
         }
@@ -181,13 +181,14 @@ struct ComponentRow: View {
 
     var body: some View {
         HStack(alignment: .top, spacing: DesignSystemGlobal.Spacing3) {
-            // Icon
+            // Icon with glass background
             Image(systemName: icon)
-                .font(.system(size: 20))
+                .font(.thdBodyLg)
                 .foregroundColor(iconColor)
-                .frame(width: 32, height: 32)
-                .background(iconColor.opacity(0.1))
-                .cornerRadius(DesignSystemGlobal.BorderRadiusLg)
+                .frame(width: 36, height: 36)
+                .background(iconColor.opacity(0.15))
+                .background(Material.ultraThinMaterial)
+                .cornerRadius(DesignSystemGlobal.BorderRadiusXl)
 
             // Content
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {

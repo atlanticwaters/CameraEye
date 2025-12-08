@@ -16,11 +16,11 @@ struct QuantityDemoView: View {
                 // Header Card
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Quantity Picker")
-                        .font(.system(size: 32, weight: .bold))
+                        .thdFont(.hero5)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text("Expandable quantity selectors with +/- controls.")
-                        .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .regular))
+                        .thdFont(.bodyMd)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
                 }
                 .padding(DesignSystemGlobal.Spacing4)
@@ -37,7 +37,7 @@ struct QuantityDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Sizes - Expands Right")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
@@ -73,7 +73,7 @@ struct QuantityDemoView: View {
                     }
 
                     Text("Expands Left")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack {
@@ -103,7 +103,7 @@ struct QuantityDemoView: View {
                     }
 
                     Text("Expands Center")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
@@ -146,7 +146,7 @@ struct QuantityDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Sizes - Expands Right")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
@@ -182,7 +182,7 @@ struct QuantityDemoView: View {
                     }
 
                     Text("Expands Left")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack {
@@ -205,7 +205,7 @@ struct QuantityDemoView: View {
                     }
 
                     Text("Expands Center")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
@@ -248,7 +248,7 @@ struct QuantityDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Light to Dark")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
@@ -267,7 +267,7 @@ struct QuantityDemoView: View {
                     }
 
                     Text("Dark to Light")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
@@ -293,7 +293,7 @@ struct QuantityDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Light to Dark")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
@@ -312,7 +312,7 @@ struct QuantityDemoView: View {
                     }
 
                     Text("Dark to Light")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
@@ -338,65 +338,65 @@ struct QuantityDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Small Size")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing3) {
                         VStack {
                             StandaloneQuantityButton(useCase: .add, size: .small)
-                            Text("Add").font(.caption2)
+                            Text("Add").thdFont(.caption)
                         }
 
                         VStack {
                             StandaloneQuantityButton(useCase: .subtract, size: .small)
-                            Text("Subtract").font(.caption2)
+                            Text("Subtract").thdFont(.caption)
                         }
 
                         VStack {
                             StandaloneQuantityButton(useCase: .delete, size: .small)
-                            Text("Delete").font(.caption2)
+                            Text("Delete").thdFont(.caption)
                         }
                     }
 
                     Text("Large Size")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing3) {
                         VStack {
                             StandaloneQuantityButton(useCase: .add, size: .large)
-                            Text("Add").font(.caption2)
+                            Text("Add").thdFont(.caption)
                         }
 
                         VStack {
                             StandaloneQuantityButton(useCase: .subtract, size: .large)
-                            Text("Subtract").font(.caption2)
+                            Text("Subtract").thdFont(.caption)
                         }
 
                         VStack {
                             StandaloneQuantityButton(useCase: .delete, size: .large)
-                            Text("Delete").font(.caption2)
+                            Text("Delete").thdFont(.caption)
                         }
                     }
 
                     Text("Disabled State")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing3) {
                         VStack {
                             StandaloneQuantityButton(useCase: .add, size: .small, isDisabled: true)
-                            Text("Disabled").font(.caption2)
+                            Text("Disabled").thdFont(.caption)
                         }
 
                         VStack {
                             StandaloneQuantityButton(useCase: .subtract, size: .small, isDisabled: true)
-                            Text("Disabled").font(.caption2)
+                            Text("Disabled").thdFont(.caption)
                         }
 
                         VStack {
                             StandaloneQuantityButton(useCase: .delete, size: .small, isDisabled: true)
-                            Text("Disabled").font(.caption2)
+                            Text("Disabled").thdFont(.caption)
                         }
                     }
                 }
@@ -408,44 +408,44 @@ struct QuantityDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Orange")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(alignment: .center, spacing: DesignSystemGlobal.Spacing4) {
                         VStack {
                             QuantityPicker(quantity: .constant(1), color: .orange, size: .small)
-                            Text("Small").font(.caption2)
+                            Text("Small").thdFont(.caption)
                         }
 
                         VStack {
                             QuantityPicker(quantity: .constant(2), color: .orange, size: .medium)
-                            Text("Medium").font(.caption2)
+                            Text("Medium").thdFont(.caption)
                         }
 
                         VStack {
                             QuantityPicker(quantity: .constant(3), color: .orange, size: .large)
-                            Text("Large").font(.caption2)
+                            Text("Large").thdFont(.caption)
                         }
                     }
 
                     Text("Grey")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(alignment: .center, spacing: DesignSystemGlobal.Spacing4) {
                         VStack {
                             QuantityPicker(quantity: .constant(1), color: .grey, size: .small)
-                            Text("Small").font(.caption2)
+                            Text("Small").thdFont(.caption)
                         }
 
                         VStack {
                             QuantityPicker(quantity: .constant(2), color: .grey, size: .medium)
-                            Text("Medium").font(.caption2)
+                            Text("Medium").thdFont(.caption)
                         }
 
                         VStack {
                             QuantityPicker(quantity: .constant(3), color: .grey, size: .large)
-                            Text("Large").font(.caption2)
+                            Text("Large").thdFont(.caption)
                         }
                     }
                 }
@@ -457,7 +457,7 @@ struct QuantityDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Tap the quantity to expand and use +/- buttons")
-                        .font(.caption)
+                        .thdFont(.caption)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing4) {
@@ -469,7 +469,7 @@ struct QuantityDemoView: View {
                                 expansion: .right,
                                 onDelete: { quantity1 = 0 }
                             )
-                            Text("Qty: \(quantity1)").font(.caption)
+                            Text("Qty: \(quantity1)").thdFont(.caption)
                         }
 
                         VStack {
@@ -480,7 +480,7 @@ struct QuantityDemoView: View {
                                 expansion: .right,
                                 onDelete: { quantity2 = 0 }
                             )
-                            Text("Qty: \(quantity2)").font(.caption)
+                            Text("Qty: \(quantity2)").thdFont(.caption)
                         }
                     }
                 }
@@ -492,15 +492,15 @@ struct QuantityDemoView: View {
 
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Product Card")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack {
                         VStack(alignment: .leading) {
                             Text("Milwaukee M18 Drill")
-                                .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .semibold))
+                                .thdFont(.bodyMd)
                             Text("$199.00")
-                                .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm))
+                                .thdFont(.bodySm)
                                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
                         }
                         Spacer()
@@ -516,7 +516,7 @@ struct QuantityDemoView: View {
                     .cornerRadius(DesignSystemGlobal.BorderRadiusXl)
 
                     Text("Cart Item")
-                        .font(.subheadline)
+                        .thdFont(.bodySm)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack {
@@ -528,9 +528,9 @@ struct QuantityDemoView: View {
                         )
                         VStack(alignment: .leading) {
                             Text("2x DeWalt Circular Saw")
-                                .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd))
+                                .thdFont(.bodyMd)
                             Text("$358.00")
-                                .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .semibold))
+                                .thdFont(.bodySm)
                         }
                         Spacer()
                     }
@@ -555,11 +555,11 @@ struct QuantityDemoView: View {
     private func sectionHeader(_ title: String, description: String) -> some View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
-                .font(.headline)
+                .thdFont(.h6)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text(description)
-                .font(.caption)
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }

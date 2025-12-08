@@ -43,6 +43,9 @@
 		A1000028230F0001 /* DesignSystemDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000028230F0000 /* DesignSystemDemoView.swift */; };
 		A1000030230F0001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000030230F0000 /* Assets.xcassets */; };
 		A1000031230F0001 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000031230F0000 /* Preview Assets.xcassets */; };
+		ADA2EC0A2EE63DCF00F8D447 /* FontVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA2EC092EE63DCF00F8D447 /* FontVerificationView.swift */; };
+		ADA2EC9B2EE63FBC00F8D447 /* THD LgVar Beta.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ADA2EC992EE63FBC00F8D447 /* THD LgVar Beta.ttf */; };
+		ADA2EC9C2EE63FBC00F8D447 /* THD SmVar Beta.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ADA2EC9A2EE63FBC00F8D447 /* THD SmVar Beta.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +86,9 @@
 		A1000028230F0000 /* DesignSystemDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystemDemoView.swift; sourceTree = "<group>"; };
 		A1000030230F0000 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A1000031230F0000 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		ADA2EC092EE63DCF00F8D447 /* FontVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontVerificationView.swift; sourceTree = "<group>"; };
+		ADA2EC992EE63FBC00F8D447 /* THD LgVar Beta.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "THD LgVar Beta.ttf"; sourceTree = "<group>"; };
+		ADA2EC9A2EE63FBC00F8D447 /* THD SmVar Beta.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "THD SmVar Beta.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +165,7 @@
 				10D8C9CA2EE0F842002D4F05 /* ProductListingPage.swift */,
 				10D8C9CC2EE0F9EA002D4F05 /* AppNavigationView.swift */,
 				10D8C9CE2EE0FA14002D4F05 /* NAVIGATION_README.md */,
+				ADA2EC092EE63DCF00F8D447 /* FontVerificationView.swift */,
 			);
 			path = ComponentDemos;
 			sourceTree = "<group>";
@@ -167,6 +174,8 @@
 			isa = PBXGroup;
 			children = (
 				A1000030230F0000 /* Assets.xcassets */,
+				ADA2EC992EE63FBC00F8D447 /* THD LgVar Beta.ttf */,
+				ADA2EC9A2EE63FBC00F8D447 /* THD SmVar Beta.ttf */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -246,6 +255,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				10D8C9CF2EE0FA14002D4F05 /* NAVIGATION_README.md in Resources */,
+				ADA2EC9B2EE63FBC00F8D447 /* THD LgVar Beta.ttf in Resources */,
+				ADA2EC9C2EE63FBC00F8D447 /* THD SmVar Beta.ttf in Resources */,
 				A1000030230F0001 /* Assets.xcassets in Resources */,
 				A1000031230F0001 /* Preview Assets.xcassets in Resources */,
 			);
@@ -288,6 +299,7 @@
 				A1000023230F0001 /* PillDemoView.swift in Sources */,
 				A1000024230F0001 /* AlertDemoView.swift in Sources */,
 				A1000025230F0001 /* CalloutDemoView.swift in Sources */,
+				ADA2EC0A2EE63DCF00F8D447 /* FontVerificationView.swift in Sources */,
 				A1000026230F0001 /* QuantityDemoView.swift in Sources */,
 				10F74F8C2EE22E3D007DA5FE /* CustomFonts.swift in Sources */,
 				A1000028230F0001 /* DesignSystemDemoView.swift in Sources */,

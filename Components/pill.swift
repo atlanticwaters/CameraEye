@@ -130,7 +130,7 @@ struct Pill: View {
 
             // Text label
             Text(text)
-                .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .regular))
+                .font(.thdBodySm)
                 .foregroundColor(textColor)
                 .lineLimit(1)
 
@@ -242,20 +242,20 @@ struct Pill: View {
     func sectionHeader(_ title: String, description: String) -> some View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
-                .font(.headline)
+                .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
-            
+
             Text(description)
-                .font(.caption)
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
-    
+
     return ScrollView {
         VStack(alignment: .leading, spacing: 24) {
             // Title
             Text("Pill")
-                .font(.system(size: 48, weight: .medium))
+                .thdFont(.hero3)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
 

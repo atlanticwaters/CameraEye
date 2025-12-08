@@ -501,20 +501,20 @@ extension Color {
     func sectionHeader(_ title: String, description: String) -> some View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
-                .font(.headline)
+                .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
-            
+
             Text(description)
-                .font(.caption)
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
-    
+
     return ScrollView {
         VStack(alignment: .leading, spacing: 24) {
             // Alerts Section
             Text("Alert")
-                .font(.system(size: 48, weight: .medium))
+                .thdFont(.hero3)
                 .padding(.bottom, 20)
             
             // MARK: - Informational Alerts
@@ -571,7 +571,7 @@ extension Color {
             
             // Callouts Section
             Text("Callout")
-                .font(.system(size: 48, weight: .medium))
+                .thdFont(.hero3)
                 .padding(.bottom, 20)
             
             // MARK: - Neutral Callouts

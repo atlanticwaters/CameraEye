@@ -123,26 +123,26 @@ struct THDCallout: View {
                 if title != nil || subtitle != nil {
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                         if let title = title {
-                            // Heading h5/ExtraBold/Tight
+                            // Heading h5 with custom font
                             Text(title)
-                                .font(.system(size: DesignSystemGlobal.FontFontSizeH5, weight: .heavy))
+                                .font(.thdH5)
                                 .lineSpacing(DesignSystemGlobal.FontLineHeightTight)
                                 .foregroundColor(primaryTextColor)
                         }
 
                         if let subtitle = subtitle {
-                            // Body Md/Regular/Tight
+                            // Body Md with custom font
                             Text(subtitle)
-                                .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd, weight: .regular))
+                                .font(.thdBodyMd)
                                 .lineSpacing(DesignSystemGlobal.FontLineHeightTight)
                                 .foregroundColor(secondaryTextColor)
                         }
                     }
                 }
 
-                // Body Sm/Regular/Tight
+                // Body Sm with custom font
                 Text(description)
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .regular))
+                    .font(.thdBodySm)
                     .lineSpacing(DesignSystemGlobal.FontLineHeightTight)
                     .foregroundColor(primaryTextColor)
             }
@@ -156,7 +156,7 @@ struct THDCallout: View {
                     onButtonTap?()
                 }) {
                     Text(buttonText)
-                        .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .bold))
+                        .font(.thdBodySm)
                         .foregroundColor(DesignSystemGlobal.TextButtonColorOrangeFilledDefault)
                         .padding(.horizontal, DesignSystemGlobal.Spacing4)
                         .padding(.vertical, DesignSystemGlobal.Spacing2)
@@ -285,15 +285,15 @@ struct THDAlert: View {
             // Content
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                 if let title = title {
-                    // Heading h6/Semibold/None
+                    // Heading h6 with custom font
                     Text(title)
-                        .font(.system(size: DesignSystemGlobal.FontFontSizeH6, weight: .medium))
+                        .font(.thdH6)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
                 }
 
-                // Body Sm/Regular/Tight
+                // Body Sm with custom font
                 Text(message)
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodySm, weight: .regular))
+                    .font(.thdBodySm)
                     .lineSpacing(DesignSystemGlobal.FontLineHeightTight)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
             }
@@ -387,20 +387,20 @@ struct THDAlert: View {
     func sectionHeader(_ title: String, description: String) -> some View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
-                .font(.headline)
+                .thdFont(.h5)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
-            
+
             Text(description)
-                .font(.caption)
+                .thdFont(.caption)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
-    
+
     return ScrollView {
         VStack(alignment: .leading, spacing: 24) {
             // Alerts Section
             Text("Alert")
-                .font(.system(size: 48, weight: .medium))
+                .thdFont(.hero3)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
 
@@ -458,7 +458,7 @@ struct THDAlert: View {
 
             // Callouts Section
             Text("Callout")
-                .font(.system(size: 48, weight: .medium))
+                .thdFont(.hero3)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
 
