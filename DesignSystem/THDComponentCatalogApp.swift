@@ -13,7 +13,7 @@ struct THDComponentCatalogApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ComponentCatalogView()
+            AppNavigationView()
         }
     }
 }

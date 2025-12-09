@@ -390,8 +390,9 @@ struct DesignSystemDemoView: View {
 
             }
             .padding(DesignSystemGlobal.Spacing4)
+            .padding(.top, 60) // Padding for top navigation
+            .padding(.bottom, 80) // Padding for bottom navigation
         }
-        .applySoftScrollEdges()
         .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
     }
 }

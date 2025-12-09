@@ -80,7 +80,6 @@ struct TypographyDemoView: View {
             .padding(.top, 60) // Extra padding for top navigation
             .padding(.bottom, 80) // Extra padding for bottom navigation
         }
-        .applySoftScrollEdges()
         .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
         .onAppear {
             verifyCustomFonts()
@@ -127,7 +126,7 @@ struct TypographyDemoView: View {
                     Text("Used for large, attention-grabbing text like heroes, headlines, and section headers. This font family brings personality and prominence to key messaging.")
                         .thdFont(.bodyMd)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
-                    
+                    Spacer()
                     Text("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
                         .thdFont(.h4)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
@@ -169,7 +168,7 @@ struct TypographyDemoView: View {
                     Text("Used for body text, captions, and informational content. This font family prioritizes readability and clarity for extended reading.")
                         .thdFont(.bodyMd)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
-                    
+                    Spacer()
                     Text("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
                         .thdFont(.bodyLg)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)

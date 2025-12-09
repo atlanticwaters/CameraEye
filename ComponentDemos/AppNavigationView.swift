@@ -5,12 +5,35 @@ private typealias DS = DesignSystemGlobal
 
 // MARK: - Tab Selection Enum
 /// Represents the available tabs in the bottom navigation
-enum AppTab: Int {
+enum AppTab: Int, CaseIterable, Identifiable, TabBarItem {
     case home = 0
-    case deals = 1
-    case catalog = 2
-    case other = 3
-    case profile = 4
+    case shop = 1
+    case name = 2
+    case storeMode = 3
+    case cart = 4
+    
+    var id: Int { rawValue }
+    
+    var title: String {
+        switch self {
+        case .home: return "Home"
+        case .shop: return "Shop"
+        case .name: return "Name"
+        case .storeMode: return "Store Mode"
+        case .cart: return "Cart"
+        }
+    }
+    
+    /// The name of the icon in the asset catalog
+    var iconName: String {
+        switch self {
+        case .home: return "logo"
+        case .shop: return "Bucket"
+        case .name: return "Profile"
+        case .storeMode: return "Store"
+        case .cart: return "Cart"
+        }
+    }
 }
 
 // MARK: - App Navigation View
@@ -19,47 +42,36 @@ enum AppTab: Int {
 struct AppNavigationView: View {
     // MARK: - State
     @State private var selectedTab: AppTab = .home
-    @State private var navigationPath: [AppTab] = []
+    @State private var showBackButton: Bool = false
     
     var body: some View {
         ZStack {
-            // Content area - fills entire screen with top padding
+            // Content area - fills entire screen
             contentView
-                .padding(.top, 60)
                 .ignoresSafeArea() // Allow content to extend to all edges
             
             // Navigation overlays - transparent, floating on top of content
             VStack(spacing: 0) {
                 // Top Navigation - transparent with glass effect buttons
                 AppTopNavigation(
-                    showBackButton: !navigationPath.isEmpty,
+                    showBackButton: showBackButton,
                     onBackTapped: {
-                        if !navigationPath.isEmpty {
-                            withAnimation {
-                                navigationPath.removeLast()
-                                if let lastTab = navigationPath.last {
-                                    selectedTab = lastTab
-                                }
-                            }
+                        withAnimation {
+                            showBackButton = false
                         }
                     }
                 )
                 
                 Spacer()
                 
-                // Bottom Navigation - transparent
-                AppBottomNavigation(
-                    selectedTab: $selectedTab,
-                    onTabSelected: { newTab in
-                        withAnimation {
-                            // Add current tab to navigation path if switching tabs
-                            if selectedTab != newTab && !navigationPath.contains(selectedTab) {
-                                navigationPath.append(selectedTab)
-                            }
-                            selectedTab = newTab
-                        }
-                    }
-                )
+                // Bottom Navigation - liquid glass tab bar
+                BottomTabBar(selectedTab: $selectedTab)
+            }
+        }
+        .onChange(of: selectedTab) { oldValue, newValue in
+            // Reset back button when switching tabs
+            withAnimation {
+                showBackButton = false
             }
         }
     }
@@ -67,26 +79,33 @@ struct AppNavigationView: View {
     // MARK: - Content View
     @ViewBuilder
     private var contentView: some View {
-        switch selectedTab {
-        case .home:
-            TypographyDemoView()
-                .id(AppTab.home)
-            
-        case .deals:
-            ProductListingPage()
-                .id(AppTab.deals)
-            
-        case .catalog:
-            ComponentCatalogView()
-                .id(AppTab.catalog)
-            
-        case .other:
-            PlaceholderView(title: "Other", icon: "plus")
-                .id(AppTab.other)
-            
-        case .profile:
-            PlaceholderView(title: "Profile", icon: "person")
-                .id(AppTab.profile)
+        ZStack {
+            switch selectedTab {
+            case .home:
+                TypographyDemoView()
+                    .id(AppTab.home)
+                    .applyEnhancedScrollEdges()
+                
+            case .shop:
+                ProductListingPage()
+                    .id(AppTab.shop)
+                    .applyEnhancedScrollEdges()
+                
+            case .name:
+                ComponentCatalogView(showBackButton: $showBackButton)
+                    .id(AppTab.name)
+                    // ComponentCatalogView applies its own scroll edges to its NavigationStack
+                
+            case .storeMode:
+                PlaceholderView(title: "Store Mode", icon: "storefront")
+                    .id(AppTab.storeMode)
+                    .applyEnhancedScrollEdges()
+                
+            case .cart:
+                PlaceholderView(title: "Cart", icon: "cart")
+                    .id(AppTab.cart)
+                    .applyEnhancedScrollEdges()
+            }
         }
     }
 }
@@ -258,7 +277,7 @@ struct AppTopNavigation: View {
     }
 }
 
-// MARK: - App Bottom Navigation
+// MARK: - App Bottom Navigation (Legacy - Kept for reference)
 /// Custom bottom navigation that manages tab selection
 struct AppBottomNavigation: View {
     @Binding var selectedTab: AppTab
@@ -269,9 +288,9 @@ struct AppBottomNavigation: View {
     // MARK: - Tab Data
     private let tabs: [(tab: AppTab, icon: String, label: String)] = [
         (.home, "house", "Home"),
-        (.deals, "tag", "Deals"),
-        (.catalog, "list.bullet", "Label"),
-        (.other, "plus", "Label")
+        (.shop, "tag", "Shop"),
+        (.name, "list.bullet", "Name"),
+        (.storeMode, "storefront", "Store Mode")
     ]
     
     // MARK: - Colors from Design System
@@ -360,12 +379,12 @@ struct AppBottomNavigation: View {
     private var profileButton: some View {
         Button(action: {
             withAnimation(.spring(response: 0.35, dampingFraction: 0.75)) {
-                onTabSelected(.profile)
+                onTabSelected(.cart)
             }
         }) {
-            Image(systemName: "person")
+            Image(systemName: "cart")
                 .font(.system(size: iconSize, weight: .medium))
-                .foregroundStyle(selectedTab == .profile ? activeColor : inactiveColor)
+                .foregroundStyle(selectedTab == .cart ? activeColor : inactiveColor)
                 .frame(width: profileButtonSize, height: profileButtonSize)
                 .background(
                     Circle()
@@ -401,7 +420,6 @@ struct PlaceholderView: View {
             .padding(.top, 60) // Extra padding for top navigation
             .padding(.bottom, 80) // Extra padding for bottom navigation
         }
-        .applySoftScrollEdges()
         .background(DS.BackgroundSurfaceColorGreige)
     }
 }

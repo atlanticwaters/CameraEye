@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10BAEF4F2EE72ACC00C8435B /* BottomTabBar_Standard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10BAEF4E2EE72ACB00C8435B /* BottomTabBar_Standard.swift */; };
+		10BAEF562EE72B0800C8435B /* Profile.svg in Resources */ = {isa = PBXBuildFile; fileRef = 10BAEF532EE72B0800C8435B /* Profile.svg */; };
+		10BAEF572EE72B0800C8435B /* Cart.svg in Resources */ = {isa = PBXBuildFile; fileRef = 10BAEF512EE72B0800C8435B /* Cart.svg */; };
+		10BAEF582EE72B0800C8435B /* ProX.svg in Resources */ = {isa = PBXBuildFile; fileRef = 10BAEF542EE72B0800C8435B /* ProX.svg */; };
+		10BAEF592EE72B0800C8435B /* Store.svg in Resources */ = {isa = PBXBuildFile; fileRef = 10BAEF552EE72B0800C8435B /* Store.svg */; };
+		10BAEF5A2EE72B0800C8435B /* Bucket.svg in Resources */ = {isa = PBXBuildFile; fileRef = 10BAEF502EE72B0800C8435B /* Bucket.svg */; };
+		10BAEF5B2EE72B0800C8435B /* logo.svg in Resources */ = {isa = PBXBuildFile; fileRef = 10BAEF522EE72B0800C8435B /* logo.svg */; };
+		10BAEF5D2EE7547200C8435B /* hammer.icon in Resources */ = {isa = PBXBuildFile; fileRef = 10BAEF5C2EE7547200C8435B /* hammer.icon */; };
+		10BB48D12EE761960000B150 /* hammerIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = 10BB48D02EE761960000B150 /* hammerIcon.icon */; };
+		10BB48D32EE761B70000B150 /* COMPONENT_CATALOG_STATUS.md in Resources */ = {isa = PBXBuildFile; fileRef = 10BB48D22EE761B70000B150 /* COMPONENT_CATALOG_STATUS.md */; };
 		10D8C9932EE0A4B1002D4F05 /* TypographyDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8C9922EE0A4B1002D4F05 /* TypographyDemoView.swift */; };
 		10D8C9A42EE0C9D7002D4F05 /* SearchSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8C99F2EE0C9D7002D4F05 /* SearchSheet.swift */; };
 		10D8C9A62EE0C9D7002D4F05 /* Bottom_Nav.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D8C9972EE0C9D7002D4F05 /* Bottom_Nav.swift */; };
@@ -56,6 +66,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		10BAEF4E2EE72ACB00C8435B /* BottomTabBar_Standard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabBar_Standard.swift; sourceTree = "<group>"; };
+		10BAEF502EE72B0800C8435B /* Bucket.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = Bucket.svg; sourceTree = "<group>"; };
+		10BAEF512EE72B0800C8435B /* Cart.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cart.svg; sourceTree = "<group>"; };
+		10BAEF522EE72B0800C8435B /* logo.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = logo.svg; sourceTree = "<group>"; };
+		10BAEF532EE72B0800C8435B /* Profile.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = Profile.svg; sourceTree = "<group>"; };
+		10BAEF542EE72B0800C8435B /* ProX.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = ProX.svg; sourceTree = "<group>"; };
+		10BAEF552EE72B0800C8435B /* Store.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = Store.svg; sourceTree = "<group>"; };
+		10BAEF5C2EE7547200C8435B /* hammer.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = hammer.icon; sourceTree = SOURCE_ROOT; };
+		10BB48D02EE761960000B150 /* hammerIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = hammerIcon.icon; sourceTree = "<group>"; };
+		10BB48D22EE761B70000B150 /* COMPONENT_CATALOG_STATUS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = COMPONENT_CATALOG_STATUS.md; sourceTree = "<group>"; };
+		10BB48D42EE767D80000B150 /* ComponentTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ComponentTest-Info.plist"; sourceTree = "<group>"; };
 		10D8C9922EE0A4B1002D4F05 /* TypographyDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyDemoView.swift; sourceTree = "<group>"; };
 		10D8C9942EE0C9D7002D4F05 /* AddToSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToSheet.swift; sourceTree = "<group>"; };
 		10D8C9972EE0C9D7002D4F05 /* Bottom_Nav.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bottom_Nav.swift; sourceTree = "<group>"; };
@@ -91,7 +112,7 @@
 		A1000025230F0000 /* CalloutDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutDemoView.swift; sourceTree = "<group>"; };
 		A1000026230F0000 /* QuantityDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityDemoView.swift; sourceTree = "<group>"; };
 		A1000028230F0000 /* DesignSystemDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystemDemoView.swift; sourceTree = "<group>"; };
-		A1000030230F0000 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A1000030230F0000 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		A1000031230F0000 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		AD3B142B2EE66AD3008CBC4D /* SoftScrollEdgeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftScrollEdgeModifier.swift; sourceTree = "<group>"; };
 		AD3B142D2EE66B57008CBC4D /* SCROLL_EDGE_IMPLEMENTATION.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = SCROLL_EDGE_IMPLEMENTATION.md; sourceTree = "<group>"; };
@@ -119,6 +140,7 @@
 		A1000050230F0000 = {
 			isa = PBXGroup;
 			children = (
+				10BB48D42EE767D80000B150 /* ComponentTest-Info.plist */,
 				A1000051230F0000 /* Components */,
 				A1000052230F0000 /* DesignSystem */,
 				A1000053230F0000 /* ComponentDemos */,
@@ -144,6 +166,7 @@
 				A1000006230F0000 /* quantity.swift */,
 				10D8C99F2EE0C9D7002D4F05 /* SearchSheet.swift */,
 				A1000007230F0000 /* tile.swift */,
+				10BAEF4E2EE72ACB00C8435B /* BottomTabBar_Standard.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -160,6 +183,7 @@
 				A1000015230F0000 /* AppBackground.swift */,
 				10F74F8D2EE22EA1007DA5FE /* THDComponentCatalogApp.swift */,
 				10F74F8F2EE233F6007DA5FE /* TileDemoView.swift */,
+				10BB48D22EE761B70000B150 /* COMPONENT_CATALOG_STATUS.md */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -168,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				A1000020230F0000 /* ComponentCatalogView.swift */,
+				10BB48D02EE761960000B150 /* hammerIcon.icon */,
 				A1000021230F0000 /* ButtonDemoView.swift */,
 				A1000022230F0000 /* BadgeDemoView.swift */,
 				A1000023230F0000 /* PillDemoView.swift */,
@@ -197,6 +222,13 @@
 				A1000030230F0000 /* Assets.xcassets */,
 				ADA2EC992EE63FBC00F8D447 /* THD LgVar Beta.ttf */,
 				ADA2EC9A2EE63FBC00F8D447 /* THD SmVar Beta.ttf */,
+				10BAEF502EE72B0800C8435B /* Bucket.svg */,
+				10BAEF512EE72B0800C8435B /* Cart.svg */,
+				10BAEF522EE72B0800C8435B /* logo.svg */,
+				10BAEF532EE72B0800C8435B /* Profile.svg */,
+				10BAEF542EE72B0800C8435B /* ProX.svg */,
+				10BAEF552EE72B0800C8435B /* Store.svg */,
+				10BAEF5C2EE7547200C8435B /* hammer.icon */,
 			);
 			name = Assets;
 			sourceTree = "<group>";
@@ -277,6 +309,15 @@
 			files = (
 				AD3B142E2EE66B57008CBC4D /* SCROLL_EDGE_IMPLEMENTATION.md in Resources */,
 				AD3B14362EE66F5A008CBC4D /* NAVIGATION_CONFIG_GUIDE.md in Resources */,
+				10BAEF562EE72B0800C8435B /* Profile.svg in Resources */,
+				10BAEF572EE72B0800C8435B /* Cart.svg in Resources */,
+				10BAEF582EE72B0800C8435B /* ProX.svg in Resources */,
+				10BB48D12EE761960000B150 /* hammerIcon.icon in Resources */,
+				10BAEF592EE72B0800C8435B /* Store.svg in Resources */,
+				10BAEF5D2EE7547200C8435B /* hammer.icon in Resources */,
+				10BAEF5A2EE72B0800C8435B /* Bucket.svg in Resources */,
+				10BAEF5B2EE72B0800C8435B /* logo.svg in Resources */,
+				10BB48D32EE761B70000B150 /* COMPONENT_CATALOG_STATUS.md in Resources */,
 				AD3B14322EE66CEB008CBC4D /* NAVIGATION_VISUAL_GUIDE.md in Resources */,
 				AD3B14302EE66CBA008CBC4D /* SCROLL_EDGE_ARCHITECTURE.md in Resources */,
 				10D8C9CF2EE0FA14002D4F05 /* NAVIGATION_README.md in Resources */,
@@ -307,6 +348,7 @@
 				A1000008230F0001 /* alerts.swift in Sources */,
 				A1000010230F0001 /* DesignSystemGlobal.swift in Sources */,
 				A1000011230F0001 /* DesignSystemDarkLarge.swift in Sources */,
+				10BAEF4F2EE72ACC00C8435B /* BottomTabBar_Standard.swift in Sources */,
 				A1000012230F0001 /* DesignSystemDarkMedium.swift in Sources */,
 				10D8C9CB2EE0F842002D4F05 /* ProductListingPage.swift in Sources */,
 				10D8C9932EE0A4B1002D4F05 /* TypographyDemoView.swift in Sources */,
@@ -461,13 +503,17 @@
 		A1000092230F0000 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = hammerIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Preview Content\"";
+				DEVELOPMENT_TEAM = PXW75HBGNQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ComponentTest-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -480,22 +526,30 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.thd.ComponentTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		A1000093230F0000 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = hammerIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Preview Content\"";
+				DEVELOPMENT_TEAM = PXW75HBGNQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ComponentTest-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -508,9 +562,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.thd.ComponentTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

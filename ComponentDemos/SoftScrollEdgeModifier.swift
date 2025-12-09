@@ -18,7 +18,7 @@ struct EnhancedSoftScrollEdgeModifier: ViewModifier {
     let topFadeHeight: CGFloat
     let bottomFadeHeight: CGFloat
     
-    init(topFadeHeight: CGFloat = 120, bottomFadeHeight: CGFloat = 150) {
+    init(topFadeHeight: CGFloat = 50, bottomFadeHeight: CGFloat = 150) {
         self.topFadeHeight = topFadeHeight
         self.bottomFadeHeight = bottomFadeHeight
     }
@@ -38,6 +38,7 @@ struct EnhancedSoftScrollEdgeModifier: ViewModifier {
                     endPoint: .bottom
                 )
                 .frame(height: topFadeHeight)
+                .ignoresSafeArea()
                 .allowsHitTesting(false)
             }
             .overlay(alignment: .bottom) {
@@ -52,6 +53,7 @@ struct EnhancedSoftScrollEdgeModifier: ViewModifier {
                     endPoint: .bottom
                 )
                 .frame(height: bottomFadeHeight)
+                .ignoresSafeArea()
                 .allowsHitTesting(false)
             }
     }

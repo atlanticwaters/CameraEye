@@ -6,6 +6,8 @@ import SwiftUI
 /// This view serves as the main entry point for browsing the complete inventory
 /// of THD App Design System components.
 struct ComponentCatalogView: View {
+    @Binding var showBackButton: Bool
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -40,7 +42,11 @@ struct ComponentCatalogView: View {
 
                     // MARK: - Action Components
                     ComponentSection(title: "Actions", description: "Interactive components for user actions") {
-                        NavigationLink(destination: ButtonDemoView()) {
+                        NavigationLink(destination: 
+                            DemoViewWrapper(showBackButton: $showBackButton) {
+                                ButtonDemoView()
+                            }
+                        ) {
                             ComponentRow(
                                 icon: "hand.tap",
                                 iconColor: DesignSystemGlobal.BrandBrand300,
@@ -49,11 +55,16 @@ struct ComponentCatalogView: View {
                                 variants: ["Orange Filled", "Outlined", "Ghost", "Icon Buttons"]
                             )
                         }
+                        .buttonStyle(.plain)
                     }
 
                     // MARK: - Display Components
                     ComponentSection(title: "Display", description: "Components for presenting information and feedback") {
-                        NavigationLink(destination: BadgeDemoView()) {
+                        NavigationLink(destination: 
+                            DemoViewWrapper(showBackButton: $showBackButton) {
+                                BadgeDemoView()
+                            }
+                        ) {
                             ComponentRow(
                                 icon: "tag",
                                 iconColor: DesignSystemGlobal.MoonlightMoonlight500,
@@ -62,8 +73,13 @@ struct ComponentCatalogView: View {
                                 variants: ["Outline", "Filled Subtle", "Filled Strong", "Indicator"]
                             )
                         }
+                        .buttonStyle(.plain)
 
-                        NavigationLink(destination: AlertDemoView()) {
+                        NavigationLink(destination: 
+                            DemoViewWrapper(showBackButton: $showBackButton) {
+                                AlertDemoView()
+                            }
+                        ) {
                             ComponentRow(
                                 icon: "exclamationmark.triangle",
                                 iconColor: DesignSystemGlobal.LemonLemon500,
@@ -72,8 +88,13 @@ struct ComponentCatalogView: View {
                                 variants: ["Informational", "Success", "Warning", "Error"]
                             )
                         }
+                        .buttonStyle(.plain)
 
-                        NavigationLink(destination: CalloutDemoView()) {
+                        NavigationLink(destination: 
+                            DemoViewWrapper(showBackButton: $showBackButton) {
+                                CalloutDemoView()
+                            }
+                        ) {
                             ComponentRow(
                                 icon: "megaphone",
                                 iconColor: DesignSystemGlobal.BottleGreenBottleGreen500,
@@ -82,11 +103,16 @@ struct ComponentCatalogView: View {
                                 variants: ["Neutral", "Inverse", "Brand"]
                             )
                         }
+                        .buttonStyle(.plain)
                     }
 
                     // MARK: - Selection Components
                     ComponentSection(title: "Selection", description: "Components for user choices and options") {
-                        NavigationLink(destination: PillDemoView()) {
+                        NavigationLink(destination: 
+                            DemoViewWrapper(showBackButton: $showBackButton) {
+                                PillDemoView()
+                            }
+                        ) {
                             ComponentRow(
                                 icon: "capsule",
                                 iconColor: DesignSystemGlobal.CinnabarCinnabar500,
@@ -95,8 +121,13 @@ struct ComponentCatalogView: View {
                                 variants: ["Outlined", "Filled", "With Icons"]
                             )
                         }
+                        .buttonStyle(.plain)
 
-                        NavigationLink(destination: TileDemoView()) {
+                        NavigationLink(destination: 
+                            DemoViewWrapper(showBackButton: $showBackButton) {
+                                TileDemoView()
+                            }
+                        ) {
                             ComponentRow(
                                 icon: "square.grid.2x2",
                                 iconColor: DesignSystemGlobal.MoonlightMoonlight600,
@@ -105,11 +136,16 @@ struct ComponentCatalogView: View {
                                 variants: ["Outlined", "Filled", "Ghost", "Layouts"]
                             )
                         }
+                        .buttonStyle(.plain)
                     }
 
                     // MARK: - Input Components
                     ComponentSection(title: "Input", description: "Components for user data entry") {
-                        NavigationLink(destination: QuantityDemoView()) {
+                        NavigationLink(destination: 
+                            DemoViewWrapper(showBackButton: $showBackButton) {
+                                QuantityDemoView()
+                            }
+                        ) {
                             ComponentRow(
                                 icon: "plusminus",
                                 iconColor: DesignSystemGlobal.BrandBrand400,
@@ -118,11 +154,16 @@ struct ComponentCatalogView: View {
                                 variants: ["Orange", "Grey", "Standalone Buttons"]
                             )
                         }
+                        .buttonStyle(.plain)
                     }
 
                     // MARK: - Design System
                     ComponentSection(title: "Design System", description: "Foundation tokens and typography system") {
-                        NavigationLink(destination: TypographyDemoView()) {
+                        NavigationLink(destination: 
+                            DemoViewWrapper(showBackButton: $showBackButton) {
+                                TypographyDemoView()
+                            }
+                        ) {
                             ComponentRow(
                                 icon: "textformat",
                                 iconColor: DesignSystemGlobal.MoonlightMoonlight500,
@@ -131,8 +172,13 @@ struct ComponentCatalogView: View {
                                 variants: ["Display Font", "Informational Font", "Heroes", "Body Text"]
                             )
                         }
+                        .buttonStyle(.plain)
                         
-                        NavigationLink(destination: DesignSystemDemoView()) {
+                        NavigationLink(destination: 
+                            DemoViewWrapper(showBackButton: $showBackButton) {
+                                DesignSystemDemoView()
+                            }
+                        ) {
                             ComponentRow(
                                 icon: "paintpalette",
                                 iconColor: DesignSystemGlobal.BrandBrand300,
@@ -141,15 +187,22 @@ struct ComponentCatalogView: View {
                                 variants: ["Colors", "Typography", "Spacing", "Borders", "Elevation"]
                             )
                         }
+                        .buttonStyle(.plain)
                     }
                 }
                 .padding(DesignSystemGlobal.Spacing4)
+                .padding(.top, 60) // Extra padding for top navigation
+                .padding(.bottom, 80) // Extra padding for bottom navigation
             }
-            .applyEnhancedScrollEdges() // Enhanced fade with taller gradients
+            .applyEnhancedScrollEdges() // Apply scroll edges to catalog ScrollView
             .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
-            //.navigationTitle("Component Catalog")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarHidden(true) // Hide the NavigationStack's built-in bar
+            .onAppear {
+                // Hide back button when on catalog view
+                showBackButton = false
+            }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity) // Ensure NavigationStack fills viewport
     }
 }
 
@@ -197,7 +250,7 @@ struct ComponentRow: View {
     let variants: [String]
 
     var body: some View {
-        HStack(alignment: .top, spacing: DesignSystemGlobal.Spacing3) {
+        HStack(alignment: .center, spacing: DesignSystemGlobal.Spacing3) {
             // Icon with glass background
             Image(systemName: icon)
                 .font(.thdBodyLg)
@@ -225,21 +278,68 @@ struct ComponentRow: View {
                                 .thdFont(.caption)
                                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
                                 .padding(.horizontal, 6)
-                                .padding(.vertical, 2)
-                                .background(DesignSystemGlobal.GreigeGreige100)
+                                .padding(.vertical, 5)
+                                .background(DesignSystemGlobal.GreigeGreige050)
                                 .cornerRadius(DesignSystemGlobal.BorderRadiusSm)
                         }
                     }
                 }
                 .padding(.top, 2)
             }
+            
+            Spacer()
+            
+            // Chevron indicator
+            Image(systemName: "chevron.right")
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
+        .padding(DesignSystemGlobal.Spacing2)
+        .background(DesignSystemGlobal.BackgroundContainerColorWhite)
+        .cornerRadius(DesignSystemGlobal.BorderRadiusLg)
+    }
+}
+
+// MARK: - Demo View Wrapper
+/// Wrapper that handles showing/hiding back button and navigation bar for demo views
+struct DemoViewWrapper<Content: View>: View {
+    @Binding var showBackButton: Bool
+    @Environment(\.dismiss) private var dismiss
+    @State private var isAppearing = false
+    @ViewBuilder let content: () -> Content
+    
+    var body: some View {
+        content()
+            .frame(maxWidth: .infinity, maxHeight: .infinity) // Ensure full viewport size
+            .background(DesignSystemGlobal.BackgroundSurfaceColorGreige) // Add background
+            .applyEnhancedScrollEdges() // Apply scroll edges to each demo view
+            .navigationBarHidden(true)
+            .opacity(isAppearing ? 1.0 : 0.0)
+            .onAppear {
+                showBackButton = true
+                withAnimation(.easeOut(duration: 0.3)) {
+                    isAppearing = true
+                }
+            }
+            .onChange(of: showBackButton) { oldValue, newValue in
+                // Fade out and dismiss when back button is tapped (showBackButton goes from true to false)
+                if oldValue && !newValue {
+                    withAnimation(.easeIn(duration: 0.25)) {
+                        isAppearing = false
+                    }
+                    // Delay dismiss to allow fade out animation to complete
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+                        dismiss()
+                    }
+                }
+            }
     }
 }
 
 // MARK: - Previews
 #Preview("Component Catalog") {
-    ComponentCatalogView()
+    @Previewable @State var showBackButton = false
+    ComponentCatalogView(showBackButton: $showBackButton)
 }
 
 #Preview("Component Row") {

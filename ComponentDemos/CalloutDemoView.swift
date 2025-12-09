@@ -11,7 +11,7 @@ struct CalloutDemoView: View {
     private func sectionHeader(_ title: String, description: String) -> some View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
-                .thdFont(.h6)
+                .thdFont(.h3)
                 .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text(description)
@@ -287,8 +287,9 @@ struct CalloutDemoView: View {
                 )
             }
             .padding(DesignSystemGlobal.Spacing4)
+            .padding(.top, 60) // Padding for top navigation
+            .padding(.bottom, 80) // Padding for bottom navigation
         }
-        .applySoftScrollEdges()
         .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
     }
 }
