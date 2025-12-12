@@ -1,0 +1,49 @@
+import SwiftUI
+
+/// A component that visualizes border radius values
+struct BorderRadiusDemo: View {
+    let name: String
+    let radius: CGFloat
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            // Name and value
+            HStack {
+                Text(name)
+                    .font(.system(size: TokensCoreLight.FontSizeBodySm, weight: .medium))
+                    .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                
+                Spacer()
+                
+                Text(radius == 9999 ? "Full" : "\(Int(radius))pt")
+                    .font(.system(size: TokensCoreLight.FontSizeBodyXs, weight: .semibold))
+                    .foregroundColor(TokensSemanticLight.TextOnSurfaceColorSecondary)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(TokensSemanticLight.BackgroundContainerColorGreige)
+                    .cornerRadius(4)
+            }
+            
+            // Visual representation
+            RoundedRectangle(cornerRadius: radius)
+                .fill(TokensSemanticLight.Brand300)
+                .frame(height: 60)
+                .overlay(
+                    Text(radius == 9999 ? "Pill Shape" : "")
+                        .font(.system(size: TokensCoreLight.FontSizeBodySm, weight: .medium))
+                        .foregroundColor(.white)
+                )
+        }
+    }
+}
+
+#Preview {
+    VStack(spacing: 16) {
+        BorderRadiusDemo(name: "None", radius: TokensSemanticLight.BorderRadiusNone)
+        BorderRadiusDemo(name: "SM", radius: TokensSemanticLight.BorderRadiusSm)
+        BorderRadiusDemo(name: "MD", radius: TokensSemanticLight.BorderRadiusMd)
+        BorderRadiusDemo(name: "LG", radius: TokensSemanticLight.BorderRadiusLg)
+        BorderRadiusDemo(name: "Full", radius: TokensSemanticLight.BorderRadiusFull)
+    }
+    .padding()
+}
