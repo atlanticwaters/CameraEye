@@ -315,22 +315,34 @@ struct ProductCard: View {
     private var actionButtons: some View {
         VStack(spacing: DesignSystemGlobal.Spacing2) {
             // Add to Cart Button (Primary)
-            THDButton(
-                "Add to Cart",
-                style: .orangeFilled,
-                size: .small,
-                action: { onAddToCart?() }
-            )
-            .frame(maxWidth: .infinity)
+            Button {
+                onAddToCart?()
+            } label: {
+                Text("Add to Cart")
+                    .font(.system(size: DesignSystemGlobal.FontSizeBodySm, weight: .semibold))
+                    .foregroundColor(DesignSystemGlobal.NeutralsWhite)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: DesignSystemGlobal.Spacing10)
+                    .background(DesignSystemGlobal.BackgroundButtonColorBrandFilledDefault)
+                    .cornerRadius(DesignSystemGlobal.BorderRadiusLg)
+            }
             
             // Add to List Button (Secondary - Outlined)
-            THDButton(
-                "Add to ...",
-                style: .outlined,
-                size: .small,
-                action: { onAddToList?() }
-            )
-            .frame(maxWidth: .infinity)
+            Button {
+                onAddToList?()
+            } label: {
+                Text("Add to ...")
+                    .font(.system(size: DesignSystemGlobal.FontSizeBodySm, weight: .semibold))
+                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: DesignSystemGlobal.Spacing10)
+                    .background(DesignSystemGlobal.BackgroundContainerColorWhite)
+                    .cornerRadius(DesignSystemGlobal.BorderRadiusLg)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusLg)
+                            .stroke(DesignSystemGlobal.BorderButtonColorDefault, lineWidth: DesignSystemGlobal.BorderWidthXs)
+                    )
+            }
         }
         .padding(.top, DesignSystemGlobal.Spacing3)
     }
@@ -376,7 +388,7 @@ struct RatingStars: View {
             ForEach(0..<5) { index in
                 starImage(for: index)
                     .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
-                    .font(.system(size: DesignSystemGlobal.FontFontSizeBodyMd))
+                    .font(.system(size: DesignSystemGlobal.FontSizeBodyMd))
             }
         }
     }

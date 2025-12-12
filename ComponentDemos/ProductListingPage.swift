@@ -25,7 +25,7 @@ private struct FilterChip: View {
     let isSelected: Bool
     let action: () -> Void
     
-    private let fontSize = DS.FontFontSizeBodySm
+    private let fontSize = DS.FontSizeBodySm
     private let horizontalPadding = DS.Spacing3
     private let verticalPadding = DS.Spacing2
     private let cornerRadius = DS.BorderRadius3xl
@@ -34,7 +34,7 @@ private struct FilterChip: View {
         Button(action: action) {
             Text(title)
                 .font(.system(size: fontSize, weight: isSelected ? .semibold : .regular))
-                .foregroundStyle(isSelected ? DS.TextButtonColorOrangeFilledDefault : DS.TextOnSurfaceColorPrimary)
+                .foregroundStyle(isSelected ? DS.NeutralsWhite : DS.TextOnSurfaceColorPrimary)
                 .padding(.horizontal, horizontalPadding)
                 .padding(.vertical, verticalPadding)
                 .background(
@@ -43,7 +43,7 @@ private struct FilterChip: View {
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: cornerRadius)
-                        .stroke(isSelected ? Color.clear : DS.BorderOnContainerDefault, lineWidth: DS.BorderWidthXs)
+                        .stroke(isSelected ? Color.clear : DS.BorderButtonColorDefault, lineWidth: DS.BorderWidthXs)
                 )
         }
     }
@@ -72,7 +72,7 @@ struct ViewToggle: View {
                     .foregroundStyle(mode == .grid ? DS.TextOnSurfaceColorPrimary : DS.TextOnSurfaceColorTertiary)
             }
         }
-        .font(.system(size: DS.FontFontSizeBodyLg))
+        .font(.system(size: DS.FontSizeBodyLg))
     }
 }
 
@@ -93,7 +93,7 @@ struct ProductListingPage: View {
     private let filterOptions = ["Pickup", "Delivery", "Ship to Home"]
     
     var body: some View {
-        // Scrollable Content
+        // Scrollable Content with fade effects
         ScrollView {
             VStack(alignment: .leading, spacing: DS.Spacing4) {
                 // Category header
@@ -112,6 +112,7 @@ struct ProductListingPage: View {
             .padding(.top, 60) // Extra padding for top navigation
             .padding(.bottom, 80) // Extra padding for bottom navigation
         }
+        .scrollIndicators(.hidden) // Hide scroll indicators for cleaner look
         .onAppear {
             loadSampleProducts()
         }
@@ -120,7 +121,7 @@ struct ProductListingPage: View {
     // MARK: - Category Header
     private var categoryHeader: some View {
         Text(categoryTitle)
-            .font(.system(size: DS.FontFontSizeH2, weight: .bold))
+            .font(.system(size: DS.FontSizeH2, weight: .bold))
             .foregroundStyle(DS.TextOnSurfaceColorPrimary)
             .padding(.top, DS.Spacing4)
     }
@@ -150,7 +151,7 @@ struct ProductListingPage: View {
     private var resultsBar: some View {
         HStack {
             Text("\(products.count) Results")
-                .font(.system(size: DS.FontFontSizeBodySm, weight: .medium))
+                .font(.system(size: DS.FontSizeBodySm, weight: .medium))
                 .foregroundStyle(DS.TextOnSurfaceColorSecondary)
             
             Spacer()
@@ -176,7 +177,7 @@ struct ProductListingPage: View {
                     Image(systemName: "chevron.down")
                         .foregroundStyle(DS.TextOnSurfaceColorPrimary)
                 }
-                .font(.system(size: DS.FontFontSizeBodySm))
+                .font(.system(size: DS.FontSizeBodySm))
             }
             
             Divider()

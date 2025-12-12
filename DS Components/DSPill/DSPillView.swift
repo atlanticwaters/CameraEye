@@ -295,7 +295,7 @@ struct DSPillView: View {
                 mediaExample(
                     "Image",
                     description: "Photo or product image",
-                    media: .image(Image(systemName: "photo.fill"))
+                    media: .image(Image("Fridge"))
                 )
                 
                 mediaExample(
@@ -307,7 +307,7 @@ struct DSPillView: View {
         }
     }
     
-    private func mediaExample(_ title: String, description: String, media: DSPill.LeadingMedia) -> some View {
+    private func mediaExample(_ title: String, description: String, media: PillMedia) -> some View {
         VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
             VStack(alignment: .leading, spacing: TokensSpacing.Spacing1) {
                 Text(title)

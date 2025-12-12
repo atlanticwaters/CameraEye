@@ -5,28 +5,46 @@ struct BorderRadiusDemo: View {
     let name: String
     let radius: CGFloat
     
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             // Name and value
             HStack {
                 Text(name)
                     .font(.system(size: TokensCoreLight.FontSizeBodySm, weight: .medium))
-                    .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                    .foregroundColor(
+                        colorScheme == .dark
+                            ? TokensSemanticDark.TextOnSurfaceColorPrimary
+                            : TokensSemanticLight.TextOnSurfaceColorPrimary
+                    )
                 
                 Spacer()
                 
                 Text(radius == 9999 ? "Full" : "\(Int(radius))pt")
                     .font(.system(size: TokensCoreLight.FontSizeBodyXs, weight: .semibold))
-                    .foregroundColor(TokensSemanticLight.TextOnSurfaceColorSecondary)
+                    .foregroundColor(
+                        colorScheme == .dark
+                            ? TokensSemanticDark.TextOnSurfaceColorSecondary
+                            : TokensSemanticLight.TextOnSurfaceColorSecondary
+                    )
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
-                    .background(TokensSemanticLight.BackgroundContainerColorGreige)
+                    .background(
+                        colorScheme == .dark
+                            ? TokensSemanticDark.BackgroundContainerColorGreige
+                            : TokensSemanticLight.BackgroundContainerColorGreige
+                    )
                     .cornerRadius(4)
             }
             
             // Visual representation
             RoundedRectangle(cornerRadius: radius)
-                .fill(TokensSemanticLight.Brand300)
+                .fill(
+                    colorScheme == .dark
+                        ? TokensSemanticDark.Brand300
+                        : TokensSemanticLight.Brand300
+                )
                 .frame(height: 60)
                 .overlay(
                     Text(radius == 9999 ? "Pill Shape" : "")

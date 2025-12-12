@@ -34,23 +34,23 @@ struct MorphingTabBar: View {
     // MARK: - Colors from Design System
     private let activeColor = DS.BackgroundButtonColorBrandFilledDefault   // Orange primary
     private let inactiveColor = DS.TextOnSurfaceColorTertiary              // Gray for inactive icons
-    private let backgroundColor = DS.TransparentBlackTransparentBlack050          // White for indicator
-    private let pillBackground = DS.GreigeGreige100                         // Warm gray for pill container
+    private let backgroundColor = DS.NeutralsWhite                         // White for indicator
+    private let pillBackground = DS.Greige100                              // Warm gray for pill container
     
     // MARK: - Spacing from Design System
     private let tabHeight = DS.Spacing14           // 56pt - tab container height
     private let profileButtonSize = DS.Spacing12   // 48pt - profile button size
-    private let iconSize = DS.FontFontSizeBodyXl   // 20pt - icon size
-    private let labelSize = DS.FontFontSizeCaption // 11pt - label text size
+    private let iconSize = DS.FontSizeBodyXl       // 20pt - icon size
+    private let labelSize = DS.FontSizeCaption     // 11pt - label text size
     private let indicatorPadding = DS.Spacing1     // 4pt - padding inside pill (using 1 which is 4pt based on comment)
-    private let tabWidth = DS.Spacing18            // 60pt - individual tab width
-    private let horizontalPadding = DS.Spacing5    // 16pt - outer horizontal padding
+    private let tabWidth = DS.Spacing18            // 72pt - individual tab width
+    private let horizontalPadding = DS.Spacing5    // 20pt - outer horizontal padding
     private let verticalPadding = DS.Spacing3      // 12pt - outer vertical padding
-    private let containerSpacing = DS.Spacing1     // 12pt - space between pill and profile button
-    private let labelSpacing = DS.Spacing2px       // 2pt - space between icon and label
+    private let containerSpacing = DS.Spacing1     // 4pt - space between pill and profile button
+    private let labelSpacing = CGFloat(2)          // 2pt - space between icon and label (not in DS tokens)
     
     // MARK: - Elevation from Design System
-    private let shadowColor = DS.Shadow100         // 10% black shadow
+    private let shadowColor = DS.TransparentBlack100  // 10% black shadow
     private let shadowRadius = DS.ElevationBlurRadiusBlur2  // 8pt blur
     private let shadowY = DS.ElevationPositionY2   // 3pt y offset
     

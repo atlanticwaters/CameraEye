@@ -63,7 +63,7 @@ struct BottomTabBar_iOS<TabType: TabBarItem, Content: View>: View {
 
 // MARK: - Tab Bar Item Protocol
 /// Protocol that tab enums must conform to for use with BottomTabBar_iOS
-protocol TabBarItem: CaseIterable, Identifiable, Equatable {
+protocol TabBarItem: CaseIterable, Identifiable, Hashable {
     var title: String { get }
     var iconName: String { get }
 }

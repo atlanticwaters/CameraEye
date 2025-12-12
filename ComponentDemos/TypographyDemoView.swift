@@ -221,7 +221,7 @@ struct TypographyDemoView: View {
             sectionHeader("Informational Font Scale", description: "Body text and labels (THD SmVar Beta)")
             
             VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
-                typographyExample("Body XL", style: .bodyXl, size: 20)
+                typographyExample("Body XL", style: .bodyXL, size: 20)
                 typographyExample("Body Large", style: .bodyLg, size: 18)
                 typographyExample("Body Medium", style: .bodyMd, size: 16)
                 typographyExample("Body Small", style: .bodySm, size: 14)
@@ -341,7 +341,7 @@ struct TypographyDemoView: View {
         }
     }
     
-    private func typographyExample(_ text: String, style: THDTypographyStyle, size: CGFloat) -> some View {
+    private func typographyExample(_ text: String, style: CustomFontModifier.TextStyle, size: CGFloat) -> some View {
         HStack(alignment: .top) {
             Text(text)
                 .thdFont(style)
@@ -400,7 +400,15 @@ struct TypographyDemoView: View {
                 
                 Spacer()
                 
-                Badge("New", variant: .filledStrong, color: .brand, size: .small)
+                Text("New")
+                    .thdFont(.caption)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, TokensSpacing.Spacing2)
+                    .padding(.vertical, TokensSpacing.Spacing1)
+                    .background(
+                        RoundedRectangle(cornerRadius: borderRadiusSm)
+                            .fill(tokens.BackgroundButtonColorBrandFilledDefault)
+                    )
             }
         }
         .padding(TokensSpacing.Spacing3)
@@ -413,7 +421,7 @@ struct TypographyDemoView: View {
     private var alertExample: some View {
         HStack(spacing: TokensSpacing.Spacing2) {
             Image(systemName: "checkmark.circle")
-                .foregroundColor(tokens.IconOnSurfaceColorSuccess)
+                .foregroundColor(tokens.BackgroundFeedbackColorSuccessAccent2)
             
             VStack(alignment: .leading, spacing: TokensSpacing.Spacing1) {
                 Text("Item Added")
@@ -562,11 +570,12 @@ private protocol TokenSemanticProtocol {
     static var BackgroundContainerColorGreige: Color { get }
     static var BackgroundSurfaceColorGreige: Color { get }
     static var BackgroundFeedbackColorSuccessAccent1: Color { get }
+    static var BackgroundFeedbackColorSuccessAccent2: Color { get }
+    static var BackgroundButtonColorBrandFilledDefault: Color { get }
     static var BorderRadiusSm: CGFloat { get }
     static var BorderRadiusLg: CGFloat { get }
     static var BorderRadiusXl: CGFloat { get }
     static var BorderInputColorDefault: Color { get }
-    static var IconOnSurfaceColorSuccess: Color { get }
 }
 
 extension TokensSemanticLight: TokenSemanticProtocol {}

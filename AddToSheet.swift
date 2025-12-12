@@ -52,21 +52,21 @@ struct AddToSheet: View {
     // MARK: - Colors from Design System
     private let textColor = DS.TextOnSurfaceColorPrimary
     private let secondaryTextColor = DS.TextOnSurfaceColorSecondary
-    private let backgroundColor = DS.GreigeGreige050
+    private let backgroundColor = DS.Greige050
     private let cardBackground = DS.BackgroundContainerColorWhite
-    private let closeButtonBackground = DS.GreigeGreige100
-    private let indicatorColor = DS.GreigeGreige400
+    private let closeButtonBackground = DS.Greige100
+    private let indicatorColor = DS.Greige400
     private let selectedBorderColor = DS.BorderButtonColorAccent
     private let defaultBorderColor = Color.clear
     
     // MARK: - Sizing from Design System
     private let closeButtonSize = DS.Spacing11         // 44pt
-    private let closeIconSize = DS.FontFontSizeBodyLg  // 18pt
-    private let titleSize = DS.FontFontSizeBodyLg      // 18pt
+    private let closeIconSize = DS.FontSizeBodyLg      // 18pt
+    private let titleSize = DS.FontSizeBodyLg          // 18pt
     private let productImageSize = DS.Spacing16        // 64pt
-    private let optionTitleSize = DS.FontFontSizeBodyMd    // 16pt
-    private let optionDescSize = DS.FontFontSizeBodySm     // 14pt
-    private let radioSize = DS.FontFontSizeBodyXl      // 20pt
+    private let optionTitleSize = DS.FontSizeBodyMd    // 16pt
+    private let optionDescSize = DS.FontSizeBodySm     // 14pt
+    private let radioSize = DS.FontSizeBodyXl          // 20pt
     private let cardCornerRadius = DS.BorderRadius3xl  // 16pt
     private let borderWidth = DS.BorderWidthSm         // 2pt
     
@@ -83,7 +83,7 @@ struct AddToSheet: View {
     private let productInfoSpacing = DS.Spacing3       // 12pt
     
     var body: some View {
-        VStack(spacing: DS.Spacing0) {
+        VStack(spacing: 0) {
             // Drag indicator
             dragIndicator
             
@@ -135,9 +135,9 @@ struct AddToSheet: View {
     
     // MARK: - Close Button
     private var closeButton: some View {
-        Button(action: {
+        Button {
             isPresented = false
-        }) {
+        } label: {
             Image(systemName: "xmark")
                 .font(.system(size: closeIconSize, weight: .medium))
                 .foregroundStyle(textColor)
@@ -161,7 +161,7 @@ struct AddToSheet: View {
             // Product title
             VStack(alignment: .leading, spacing: DS.Spacing1) {
                 Text("\(product.brand) \(product.name)")
-                    .font(.system(size: DS.FontFontSizeBodySm, weight: .regular))
+                    .font(.system(size: DS.FontSizeBodySm, weight: .regular))
                     .foregroundStyle(textColor)
             }
             .lineLimit(3)
@@ -186,12 +186,12 @@ struct AddToSheet: View {
     private func optionCard(for option: AddToDestinationType) -> some View {
         let isSelected = selectedOption == option
         
-        return Button(action: {
+        return Button {
             withAnimation(.easeInOut(duration: 0.2)) {
                 selectedOption = option
             }
             onOptionSelected?(option)
-        }) {
+        } label: {
             HStack(alignment: .top, spacing: cardSpacing) {
                 // Radio button
                 radioButton(isSelected: isSelected)
@@ -229,7 +229,7 @@ struct AddToSheet: View {
     // MARK: - Radio Button
     private func radioButton(isSelected: Bool) -> some View {
         Circle()
-            .stroke(isSelected ? selectedBorderColor : DS.GreigeGreige300, lineWidth: isSelected ? borderWidth : DS.BorderWidthXs)
+            .stroke(isSelected ? selectedBorderColor : DS.Greige300, lineWidth: isSelected ? borderWidth : DS.BorderWidthXs)
             .frame(width: radioSize, height: radioSize)
             .overlay {
                 if isSelected {
@@ -261,7 +261,7 @@ struct AddToSheetModifier: ViewModifier {
                 )
                 .presentationDetents([.medium])
                 .presentationDragIndicator(.hidden)
-                .presentationBackground(DesignSystemGlobal.GreigeGreige050)
+                .presentationBackground(DesignSystemGlobal.Greige050)
             }
     }
 }
@@ -314,11 +314,16 @@ private let sampleProduct = Product(
                 VStack {
                     Spacer()
                     
-                    Button("Show Add To Sheet") {
+                    Button {
                         showSheet = true
+                    } label: {
+                        Text("Show Add To Sheet")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundStyle(DesignSystemGlobal.BackgroundContainerColorWhite)
+                            .padding()
+                            .background(DesignSystemGlobal.BackgroundButtonColorBrandFilledDefault)
+                            .cornerRadius(DesignSystemGlobal.BorderRadiusLg)
                     }
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(DesignSystemGlobal.BackgroundButtonColorBrandFilledDefault)
                     
                     Spacer()
                 }

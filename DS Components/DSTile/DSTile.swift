@@ -178,11 +178,16 @@ public struct DSTile: View {
     @ViewBuilder
     private func imageView(_ img: Image) -> some View {
         ZStack(alignment: .bottomTrailing) {
-            // Main image
-            img
-                .resizable()
-                .aspectRatio(contentMode: .fill)
+            // Main image container
+            RoundedRectangle(cornerRadius: 4)
+                .fill(Color.gray.opacity(0.1))
                 .frame(width: size.imageSize, height: size.imageSize)
+                .overlay(
+                    img
+                        .resizable()
+                        .scaledToFit()
+                        .padding(2)
+                )
                 .clipShape(RoundedRectangle(cornerRadius: 4))
 
             // Diagonal strikethrough if not available

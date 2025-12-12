@@ -3,7 +3,7 @@ import SwiftUI
 /// Main navigation view for the Token Showcase app
 struct MainView: View {
     @State private var selectedTab: Tab = .core
-    @State private var preferredColorScheme: ColorScheme = .light
+    @State private var preferredColorScheme: ColorScheme? = nil
     
     enum Tab: String, CaseIterable {
         case core = "Core"
@@ -21,91 +21,77 @@ struct MainView: View {
         }
     }
     
+    @Environment(\.colorScheme) var systemColorScheme
+    
+    var effectiveColorScheme: ColorScheme {
+        preferredColorScheme ?? systemColorScheme
+    }
+    
     var body: some View {
-        NavigationView {
-            ZStack {
-                // Background
-                TokensSemanticLight.BackgroundSurfaceColorGreige
-                    .ignoresSafeArea()
-                
-                VStack(spacing: 0) {
-                    // Content area
-                    TabView(selection: $selectedTab) {
-                        CoreTokensView()
-                            .tag(Tab.core)
-                        
-                        SemanticTokensView()
-                            .tag(Tab.semantic)
-                        
-                        ComponentTokensView()
-                            .tag(Tab.components)
-                        
-                        SurfacesView()
-                            .tag(Tab.surfaces)
-                    }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
-                    
-                    // Custom tab bar
-                    HStack(spacing: 0) {
-                        ForEach(Tab.allCases, id: \.self) { tab in
-                            Button(action: { 
-                                withAnimation(.easeInOut(duration: 0.2)) {
-                                    selectedTab = tab
-                                }
-                            }) {
-                                VStack(spacing: 4) {
-                                    Image(systemName: tab.icon)
-                                        .font(.system(size: 20))
-                                        .foregroundColor(
-                                            selectedTab == tab 
-                                                ? TokensSemanticLight.Brand300 
-                                                : TokensSemanticLight.TextOnSurfaceColorTertiary
-                                        )
-                                    
-                                    Text(tab.rawValue)
-                                        .font(.system(size: TokensCoreLight.FontSizeBodyXs, weight: .medium))
-                                        .foregroundColor(
-                                            selectedTab == tab 
-                                                ? TokensSemanticLight.Brand300 
-                                                : TokensSemanticLight.TextOnSurfaceColorTertiary
-                                        )
-                                }
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 12)
-                            }
-                        }
-                    }
-                    .background(
-                        TokensSemanticLight.BackgroundContainerColorWhite
-                            .shadow(
-                                color: TokensCoreLight.ElevationAbove2.color,
-                                radius: TokensCoreLight.ElevationAbove2.blur / 2,
-                                x: TokensCoreLight.ElevationAbove2.x,
-                                y: TokensCoreLight.ElevationAbove2.y
-                            )
-                    )
-                }
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    VStack(spacing: 2) {
-                        Text("Design System")
-                            .font(.system(size: TokensCoreLight.FontSizeBodyMd, weight: .bold))
-                            .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
-                        
-                        Text("Token Showcase")
-                            .font(.system(size: TokensCoreLight.FontSizeBodyXs))
-                            .foregroundColor(TokensSemanticLight.TextOnSurfaceColorSecondary)
-                    }
-                }
-                
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    ThemeSwitcher(colorScheme: $preferredColorScheme)
-                }
-            }
+        TabView(selection: $selectedTab) {
+            tabContent(for: .core, view: CoreTokensView())
+            tabContent(for: .semantic, view: SemanticTokensView())
+            tabContent(for: .components, view: ComponentTokensView())
+            tabContent(for: .surfaces, view: SurfacesView())
         }
         .preferredColorScheme(preferredColorScheme)
+    }
+    
+    @ViewBuilder
+    private func tabContent<Content: View>(for tab: Tab, view: Content) -> some View {
+        NavigationView {
+            view
+                .navigationTitle("Design System Tokens")
+                .navigationBarTitleDisplayMode(.large)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Menu {
+                            Button {
+                                preferredColorScheme = nil
+                            } label: {
+                                Label("Auto", systemImage: "circle.lefthalf.filled")
+                            }
+                            
+                            Button {
+                                preferredColorScheme = .light
+                            } label: {
+                                Label("Light", systemImage: "sun.max.fill")
+                            }
+                            
+                            Button {
+                                preferredColorScheme = .dark
+                            } label: {
+                                Label("Dark", systemImage: "moon.fill")
+                            }
+                        } label: {
+                            Image(systemName: themeIcon)
+                                .font(.system(size: 16))
+                                .foregroundColor(
+                                    effectiveColorScheme == .dark 
+                                        ? TokensSemanticDark.TextOnSurfaceColorPrimary 
+                                        : TokensSemanticLight.TextOnSurfaceColorPrimary
+                                )
+                        }
+                    }
+                }
+        }
+        .tabItem {
+            Label(tab.rawValue, systemImage: tab.icon)
+        }
+        .tag(tab)
+    }
+    
+    private var themeIcon: String {
+        switch preferredColorScheme {
+        case .light:
+            return "sun.max.fill"
+        case .dark:
+            return "moon.fill"
+        case nil:
+            return "circle.lefthalf.filled"
+        @unknown default:
+            return "circle.lefthalf.filled"
+        }
     }
 }
 

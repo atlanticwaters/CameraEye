@@ -1,0 +1,284 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "name": "DeWalt 20V MAX Cordless Drill",
+            "category": "Tools",
+            "thumbnail": "dewalt_drill.jpeg",
+            "price": 129.00
+        },
+        {
+            "id": 2,
+            "name": "Milwaukee M18 Impact Driver",
+            "category": "Tools",
+            "thumbnail": "milwaukee_impact.jpg",
+            "price": 159.00
+        },
+        {
+            "id": 3,
+            "name": "Ryobi 18V Circular Saw",
+            "category": "Tools",
+            "thumbnail": "ryobi_saw.jpg",
+            "price": 54.98
+        },
+        {
+            "id": 4,
+            "name": "Makita Angle Grinder",
+            "category": "Tools",
+            "thumbnail": "makita_grinder.jpg",
+            "price": 69.00
+        },
+        {
+            "id": 5,
+            "name": "RIDGID Shop Vacuum 16 Gallon",
+            "category": "Tools",
+            "thumbnail": "ridgid_vacuum.jpg",
+            "price": 119.00
+        },
+        {
+            "id": 6,
+            "name": "Husky Mechanics Tool Set 230-Piece",
+            "category": "Tools",
+            "thumbnail": "husky_toolset.jpg",
+            "price": 199.00
+        },
+        {
+            "id": 7,
+            "name": "Behr Premium Plus Interior Paint",
+            "category": "Paint",
+            "thumbnail": "behr_paint.jpg",
+            "price": 34.98
+        },
+        {
+            "id": 8,
+            "name": "Rust-Oleum Spray Paint",
+            "category": "Paint",
+            "thumbnail": "rustoleum_spray.jpeg",
+            "price": 5.98
+        },
+        {
+            "id": 9,
+            "name": "Wagner Paint Sprayer",
+            "category": "Paint",
+            "thumbnail": "wagner_sprayer.jpg",
+            "price": 89.00
+        },
+        {
+            "id": 10,
+            "name": "Wooster Pro Paint Roller Kit",
+            "category": "Paint",
+            "thumbnail": "wooster_roller.jpg",
+            "price": 24.98
+        },
+        {
+            "id": 11,
+            "name": "Hampton Bay Ceiling Fan 52 inch",
+            "category": "Lighting",
+            "thumbnail": "hampton_fan.jpg",
+            "price": 139.00
+        },
+        {
+            "id": 12,
+            "name": "Philips LED Bulb 4-Pack",
+            "category": "Lighting",
+            "thumbnail": "philips_led.jpeg",
+            "price": 12.97
+        },
+        {
+            "id": 13,
+            "name": "Commercial Electric Recessed Light",
+            "category": "Lighting",
+            "thumbnail": "recessed_light.jpg",
+            "price": 29.97
+        },
+        {
+            "id": 14,
+            "name": "Ring Floodlight Security Camera",
+            "category": "Lighting",
+            "thumbnail": "ring_floodlight.jpg",
+            "price": 249.99
+        },
+        {
+            "id": 15,
+            "name": "Kohler Bathroom Faucet Chrome",
+            "category": "Plumbing",
+            "thumbnail": "kohler_faucet.jpeg",
+            "price": 189.00
+        },
+        {
+            "id": 16,
+            "name": "Delta Kitchen Faucet Stainless",
+            "category": "Plumbing",
+            "thumbnail": "delta_faucet.jpg",
+            "price": 274.00
+        },
+        {
+            "id": 17,
+            "name": "American Standard Toilet",
+            "category": "Plumbing",
+            "thumbnail": "american_toilet.jpg",
+            "price": 229.00
+        },
+        {
+            "id": 18,
+            "name": "Rheem Water Heater 50 Gallon",
+            "category": "Plumbing",
+            "thumbnail": "rheem_heater.jpeg",
+            "price": 629.00
+        },
+        {
+            "id": 19,
+            "name": "SharkBite Push-to-Connect Fittings",
+            "category": "Plumbing",
+            "thumbnail": "sharkbite_fitting.jpg",
+            "price": 8.98
+        },
+        {
+            "id": 20,
+            "name": "Leviton Decora Smart Switch",
+            "category": "Electrical",
+            "thumbnail": "leviton_switch.jpeg",
+            "price": 34.97
+        },
+        {
+            "id": 21,
+            "name": "Square D Circuit Breaker Panel",
+            "category": "Electrical",
+            "thumbnail": "squared_panel.jpg",
+            "price": 189.00
+        },
+        {
+            "id": 22,
+            "name": "Southwire Electrical Wire 12/2",
+            "category": "Electrical",
+            "thumbnail": "southwire_cable.jpeg",
+            "price": 89.00
+        },
+        {
+            "id": 23,
+            "name": "GE Smart Outlet Plug",
+            "category": "Electrical",
+            "thumbnail": "ge_outlet.jpg",
+            "price": 24.98
+        },
+        {
+            "id": 24,
+            "name": "Vigoro Premium Lawn Fertilizer",
+            "category": "Garden",
+            "thumbnail": "vigoro_fertilizer.jpeg",
+            "price": 24.98
+        },
+        {
+            "id": 25,
+            "name": "Miracle-Gro Potting Soil",
+            "category": "Garden",
+            "thumbnail": "miraclegro_soil.jpg",
+            "price": 14.47
+        },
+        {
+            "id": 26,
+            "name": "Toro Electric Lawn Mower",
+            "category": "Garden",
+            "thumbnail": "toro_mower.jpg",
+            "price": 349.00
+        },
+        {
+            "id": 27,
+            "name": "EGO Power+ String Trimmer",
+            "category": "Garden",
+            "thumbnail": "ego_trimmer.jpg",
+            "price": 219.00
+        },
+        {
+            "id": 28,
+            "name": "Keter Outdoor Storage Shed",
+            "category": "Garden",
+            "thumbnail": "keter_shed.jpg",
+            "price": 899.00
+        },
+        {
+            "id": 29,
+            "name": "GE Profile French Door Refrigerator",
+            "category": "Appliances",
+            "thumbnail": "ge_fridge.jpg",
+            "price": 2799.00
+        },
+        {
+            "id": 30,
+            "name": "Samsung Front Load Washer",
+            "category": "Appliances",
+            "thumbnail": "samsung_washer.jpg",
+            "price": 899.00
+        },
+        {
+            "id": 31,
+            "name": "LG Electric Dryer",
+            "category": "Appliances",
+            "thumbnail": "lg_dryer.jpg",
+            "price": 849.00
+        },
+        {
+            "id": 32,
+            "name": "Whirlpool Dishwasher Stainless Steel",
+            "category": "Appliances",
+            "thumbnail": "whirlpool_dishwasher.jpg",
+            "price": 599.00
+        },
+        {
+            "id": 33,
+            "name": "Owens Corning R-13 Insulation",
+            "category": "Building Materials",
+            "thumbnail": "owens_insulation.jpeg",
+            "price": 49.98
+        },
+        {
+            "id": 34,
+            "name": "2x4x8 Premium Lumber Stud",
+            "category": "Building Materials",
+            "thumbnail": "lumber_2x4.jpeg",
+            "price": 5.48
+        },
+        {
+            "id": 35,
+            "name": "Quikrete Concrete Mix 80lb",
+            "category": "Building Materials",
+            "thumbnail": "quikrete_concrete.jpg",
+            "price": 6.47
+        },
+        {
+            "id": 36,
+            "name": "GAF Timberline Roof Shingles",
+            "category": "Building Materials",
+            "thumbnail": "gaf_shingles.jpeg",
+            "price": 34.97
+        },
+        {
+            "id": 37,
+            "name": "LifeProof Vinyl Plank Flooring",
+            "category": "Flooring",
+            "thumbnail": "lifeproof_vinyl.jpeg",
+            "price": 3.69
+        },
+        {
+            "id": 38,
+            "name": "TrafficMaster Laminate Flooring",
+            "category": "Flooring",
+            "thumbnail": "trafficmaster_laminate.jpg",
+            "price": 1.49
+        },
+        {
+            "id": 39,
+            "name": "Gorilla Glue Construction Adhesive",
+            "category": "Hardware",
+            "thumbnail": "gorilla_glue.jpg",
+            "price": 7.98
+        },
+        {
+            "id": 40,
+            "name": "3M Command Strips Variety Pack",
+            "category": "Hardware",
+            "thumbnail": "command_strips.jpg",
+            "price": 14.98
+        }
+    ]
+}

@@ -4,5 +4,10 @@
 <dict>
 	<key>CFBundleIconFile</key>
 	<string>hammerIcon</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>THD LgVar Beta.ttf</string>
+		<string>THD SmVar Beta.ttf</string>
+	</array>
 </dict>
 </plist>

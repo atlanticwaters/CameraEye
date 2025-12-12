@@ -10,7 +10,7 @@ struct CoreTokensView: View {
                 // Page header
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Core Tokens")
-                        .font(.system(size: 28, weight: .bold))
+                        .font(.system(size: 22, weight: .bold))
                         .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
                     
                     Text("Foundational design primitives that inform semantic tokens")

@@ -41,16 +41,16 @@ struct SortFilterSheet: View {
     private let textColor = DS.TextOnSurfaceColorPrimary                   // Primary text
     private let secondaryTextColor = DS.TextOnSurfaceColorTertiary         // Secondary text
     private let backgroundColor = DS.BackgroundSurfaceColorGreige          // Sheet background
-    private let rowBackground = DS.BackgroundContainerColorWhite         // Row background
-    private let closeButtonBackground = DS.GreigeGreige100                 // Close button bg
-    private let indicatorColor = DS.GreigeGreige200                        // Drag indicator
+    private let rowBackground = DS.BackgroundContainerColorWhite           // Row background
+    private let closeButtonBackground = DS.Greige100                       // Close button bg
+    private let indicatorColor = DS.Greige200                              // Drag indicator
     
     // MARK: - Sizing from Design System
     private let closeButtonSize = DS.Spacing11         // 44pt - close button dimensions
-    private let closeIconSize = DS.FontFontSizeBodyLg  // 18pt - close icon size
-    private let titleSize = DS.FontFontSizeBodyLg      // 18pt - title size
-    private let labelSize = DS.FontFontSizeBodyMd      // 16pt - row label size
-    private let secondaryLabelSize = DS.FontFontSizeBodySm // 14pt - secondary label size
+    private let closeIconSize = DS.FontSizeBodyLg      // 18pt - close icon size
+    private let titleSize = DS.FontSizeBodyLg          // 18pt - title size
+    private let labelSize = DS.FontSizeBodyMd          // 16pt - row label size
+    private let secondaryLabelSize = DS.FontSizeBodySm // 14pt - secondary label size
     private let rowCornerRadius = DS.BorderRadius3xl   // 16pt - row corner radius
     
     // MARK: - Spacing from Design System
@@ -70,7 +70,7 @@ struct SortFilterSheet: View {
     private let standardRowHeight = DS.Spacing10       // 56pt - standard row height
     
     var body: some View {
-        VStack(spacing: DS.Spacing0) {
+        VStack(spacing: 0) {
             // Drag indicator
             dragIndicator
             
@@ -219,20 +219,31 @@ extension View {
                     .ignoresSafeArea()
                 
                 VStack(spacing: 0) {
-                    MorphingNavHeader()
+                    // Placeholder for MorphingNavHeader
+                    Rectangle()
+                        .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+                        .frame(height: 100)
                     
                     Spacer()
                     
                     // Demo button to trigger sheet
-                    Button("Show Sort & Filter") {
+                    Button {
                         showSheet = true
+                    } label: {
+                        Text("Show Sort & Filter")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundStyle(DesignSystemGlobal.BackgroundContainerColorWhite)
+                            .padding()
+                            .background(DesignSystemGlobal.BackgroundButtonColorBrandFilledDefault)
+                            .cornerRadius(DesignSystemGlobal.BorderRadiusLg)
                     }
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundStyle(DesignSystemGlobal.BackgroundButtonColorBrandFilledDefault)
                     
                     Spacer()
                     
-                    MorphingTabBar()
+                    // Placeholder for MorphingTabBar
+                    Rectangle()
+                        .fill(DesignSystemGlobal.BackgroundContainerColorWhite)
+                        .frame(height: 80)
                 }
             }
             .sortFilterSheet(isPresented: $showSheet)

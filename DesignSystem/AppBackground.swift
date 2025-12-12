@@ -5,7 +5,7 @@ import SwiftUI
 struct AppBackgroundModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .background(DesignSystemGlobal.TransparentBlackTransparentBlack050.ignoresSafeArea())
+            .background(DesignSystemGlobal.Greige050.ignoresSafeArea())
     }
 }
 

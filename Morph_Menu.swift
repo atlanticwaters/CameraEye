@@ -2,6 +2,7 @@ import SwiftUI
 
 // MARK: - Design System Type Alias
 /// Using a typealias for cleaner access to design tokens
+// Note: Remove duplicate DesignSystemGlobal files to resolve ambiguity
 private typealias DS = DesignSystemGlobal
 
 // MARK: - Main Header View
@@ -18,9 +19,9 @@ struct MorphingNavHeader: View {
     
     // MARK: - Sizing from Design System
     private let buttonSize = DS.Spacing11          // 44pt - button dimensions
-    private let iconSize = DS.FontFontSizeBodyXl   // 20pt - icon size
+    private let iconSize = DS.FontSizeBodyXl       // 20pt - icon size
     private let searchIconSize = DS.Spacing4       // 16pt - smaller search bar icons
-    private let closeIconSize = DS.FontFontSizeBodyLg // 18pt - close button icon
+    private let closeIconSize = DS.FontSizeBodyLg  // 18pt - close button icon
     
     // MARK: - Spacing from Design System
     private let buttonSpacing = DS.Spacing2        // 8pt - space between action buttons
@@ -36,9 +37,9 @@ struct MorphingNavHeader: View {
     private let backgroundColor = DS.BackgroundContainerColorWhite
     
     // MARK: - Elevation from Design System
-    private let shadowColor = DS.Shadow100         // 10% black shadow
-    private let shadowRadius = DS.ElevationBlurRadiusBlur2  // 8pt blur
-    private let shadowY = DS.ElevationPositionY2   // 3pt y offset
+    private let shadowColor = DS.NeutralsBlack.opacity(0.1)  // 10% black shadow
+    private let shadowRadius = DS.ElevationBlurRadiusBlur2   // 8pt blur
+    private let shadowY = DS.ElevationPositionY2              // 3pt y offset
     
     var body: some View {
         HStack(spacing: containerSpacing) {
@@ -64,18 +65,17 @@ struct MorphingNavHeader: View {
     
     // MARK: - Back Button
     private var backButton: some View {
-        Button(action: {
+        Button {
             // Handle back navigation
             print("Back tapped")
-        }) {
+        } label: {
             Image(systemName: "chevron.left")
                 .font(.system(size: iconSize, weight: .medium))
                 .foregroundStyle(iconColor)
                 .frame(width: buttonSize, height: buttonSize)
                 .background(
                     Circle()
-                        .fill(.clear)
-                        .glassEffect(.regular, in: .circle)
+                        .fill(backgroundColor)
                         .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
                 )
         }
@@ -149,10 +149,10 @@ struct MorphingNavHeader: View {
                 .foregroundStyle(iconColor)
             
             // Close button
-            Button(action: {
+            Button {
                 searchText = ""
                 isSearching = false
-            }) {
+            } label: {
                 Image(systemName: "xmark.circle.fill")
                     .font(.system(size: closeIconSize))
                     .foregroundStyle(iconColorSecondary)
@@ -162,8 +162,7 @@ struct MorphingNavHeader: View {
         .frame(height: buttonSize)
         .background(
             Capsule()
-                .fill(.clear)
-                .glassEffect(.regular, in: .capsule)
+                .fill(backgroundColor)
                 .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
         )
         // This matches with the search button's geometry
@@ -187,7 +186,9 @@ private struct MorphCircleButton: View {
     let action: () -> Void
     
     var body: some View {
-        Button(action: action) {
+        Button {
+            action()
+        } label: {
             Image(systemName: icon)
                 .font(.system(size: iconSize, weight: .medium))
                 .foregroundStyle(iconColor)

@@ -5,7 +5,7 @@ private typealias DS = DesignSystemGlobal
 
 // MARK: - Bottom Tab Bar View (Liquid Glass)
 /// Custom bottom navigation with liquid glass design and delayed color transitions
-struct BottomTabBar<TabType: TabBarItem>: View {
+struct BottomTabBar<TabType: StandardTabBarItem>: View {
     @Binding var selectedTab: TabType
     @State private var animatedTab: TabType?
     
@@ -13,14 +13,14 @@ struct BottomTabBar<TabType: TabBarItem>: View {
     @Namespace private var tabNamespace
     
     // MARK: - Design System Values
-    private let activeColor = DS.BrandBrand300 // Orange for active state
+    private let activeColor = DS.Brand300 // Orange for active state
     private let inactiveColor = DS.IconOnContainerColorInactive // Gray for inactive state
     private let pillBackground = Color.white.opacity(0.5) // Translucent white for pill container
-    private let glassBackground = DS.GreigeGreige200.opacity(0.5) // Darker greige for active indicator
+    private let glassBackground = DS.Greige200.opacity(0.5) // Darker greige for active indicator
     private let strokeColor = Color.white.opacity(0.6) // Reflective white stroke
     
     private let iconSize: CGFloat = DS.Spacing6 // 24pt - icon size
-    private let labelSize: CGFloat = DS.FontFontSizeCaption // 11pt - label text size
+    private let labelSize: CGFloat = DS.FontSizeCaption // 11pt - label text size
     private let tabHeight: CGFloat = DS.Spacing18 // 72pt - tab container height
     private let indicatorPadding: CGFloat = DS.Spacing3 // 12pt - padding inside pill
     private let horizontalPadding: CGFloat = DS.Spacing4 // 16pt - outer horizontal padding
@@ -111,7 +111,7 @@ struct BottomTabBar<TabType: TabBarItem>: View {
 
 // MARK: - Tab Bar Item Protocol
 /// Protocol that tab enums must conform to for use with BottomTabBar
-protocol TabBarItem: CaseIterable, Identifiable, Equatable {
+protocol StandardTabBarItem: CaseIterable, Identifiable, Equatable {
     var title: String { get }
     var iconName: String { get }
 }
@@ -119,7 +119,7 @@ protocol TabBarItem: CaseIterable, Identifiable, Equatable {
 // MARK: - Preview
 #Preview("Bottom Tab Bar") {
     // Example tab enum for preview
-    enum PreviewTab: Int, TabBarItem {
+    enum PreviewTab: Int, StandardTabBarItem {
         case home = 0
         case shop = 1
         case profile = 2
@@ -192,7 +192,7 @@ protocol TabBarItem: CaseIterable, Identifiable, Equatable {
  - All spacing and sizing uses DesignSystemGlobal tokens
  
  🔄 GENERIC IMPLEMENTATION:
- - Works with any enum conforming to TabBarItem protocol
+ - Works with any enum conforming to StandardTabBarItem protocol
  - Requires: CaseIterable, Identifiable, Equatable
  - Provides: title and iconName properties
  
@@ -204,7 +204,7 @@ protocol TabBarItem: CaseIterable, Identifiable, Equatable {
  USAGE EXAMPLE:
  
  ```swift
- enum AppTab: Int, TabBarItem {
+ enum AppTab: Int, StandardTabBarItem {
      case home = 0
      case shop = 1
      

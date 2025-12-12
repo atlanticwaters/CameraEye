@@ -5,27 +5,27 @@ import SwiftUI
 // Variant Previews
 #Preview("Outlined") {
     VStack(spacing: 16) {
-        DSTile("Wacky", variant: .outlined, image: Image(systemName: "photo"))
-        DSTile("Wacky", variant: .outlined, isSelected: true, image: Image(systemName: "photo"))
-        DSTile("Wacky", variant: .outlined, isAvailable: false, image: Image(systemName: "photo"))
+        DSTile("Raccoon", variant: .outlined, image: Image("Acorn"))
+        DSTile("Raccoon", variant: .outlined, isSelected: true, image: Image("Acorn"))
+        DSTile("Raccoon", variant: .outlined, isAvailable: false, image: Image("Acorn"))
     }
     .padding()
 }
 
 #Preview("Filled") {
     VStack(spacing: 16) {
-        DSTile("Wacky", variant: .filled, image: Image(systemName: "photo"))
-        DSTile("Wacky", variant: .filled, isSelected: true, image: Image(systemName: "photo"))
-        DSTile("Wacky", variant: .filled, isAvailable: false, image: Image(systemName: "photo"))
+        DSTile("Raccoon", variant: .filled, image: Image("Acorn"))
+        DSTile("Raccoon", variant: .filled, isSelected: true, image: Image("Acorn"))
+        DSTile("Raccoon", variant: .filled, isAvailable: false, image: Image("Acorn"))
     }
     .padding()
 }
 
 #Preview("Ghost") {
     VStack(spacing: 16) {
-        DSTile("Wacky", variant: .ghost, image: Image(systemName: "photo"))
-        DSTile("Wacky", variant: .ghost, isSelected: true, image: Image(systemName: "photo"))
-        DSTile("Wacky", variant: .ghost, isAvailable: false, image: Image(systemName: "photo"))
+        DSTile("Raccoon", variant: .ghost, image: Image("Acorn"))
+        DSTile("Raccoon", variant: .ghost, isSelected: true, image: Image("Acorn"))
+        DSTile("Raccoon", variant: .ghost, isAvailable: false, image: Image("Acorn"))
     }
     .padding()
 }
@@ -33,8 +33,8 @@ import SwiftUI
 // Size Previews
 #Preview("Sizes") {
     VStack(spacing: 16) {
-        DSTile("Regular", variant: .outlined, size: .regular, image: Image(systemName: "photo"))
-        DSTile("Small", variant: .outlined, size: .small, image: Image(systemName: "photo"))
+        DSTile("Regular", variant: .outlined, size: .regular, image: Image("Acorn"))
+        DSTile("Small", variant: .outlined, size: .small, image: Image("Acorn"))
     }
     .padding()
 }
@@ -42,10 +42,10 @@ import SwiftUI
 // State Previews
 #Preview("States") {
     VStack(spacing: 16) {
-        DSTile("Default", variant: .outlined, interaction: .default, image: Image(systemName: "photo"))
-        DSTile("Pressed", variant: .outlined, interaction: .pressed, image: Image(systemName: "photo"))
-        DSTile("Loading", variant: .outlined, interaction: .loading, image: Image(systemName: "photo"))
-        DSTile("Inactive", variant: .outlined, interaction: .inactive, image: Image(systemName: "photo"))
+        DSTile("Default", variant: .outlined, interaction: .default, image: Image("Acorn"))
+        DSTile("Pressed", variant: .outlined, interaction: .pressed, image: Image("Acorn"))
+        DSTile("Loading", variant: .outlined, interaction: .loading, image: Image("Acorn"))
+        DSTile("Inactive", variant: .outlined, interaction: .inactive, image: Image("Acorn"))
     }
     .padding()
 }
@@ -56,14 +56,14 @@ import SwiftUI
         DSTile(
             "Orange",
             variant: .outlined,
-            image: Image(systemName: "photo"),
+            image: Image("Acorn"),
             swatch: Color.orange
         )
         DSTile(
             "Blue",
             variant: .filled,
             isSelected: true,
-            image: Image(systemName: "photo"),
+            image: Image("Acorn"),
             swatch: Color.blue
         )
     }
@@ -105,12 +105,12 @@ private struct TileVariantGrid: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
-                DSTile("Default", variant: variant, isSelected: false, image: Image(systemName: "photo"))
-                DSTile("Selected", variant: variant, isSelected: true, image: Image(systemName: "photo"))
+                DSTile("Default", variant: variant, isSelected: false, image: Image("Acorn"))
+                DSTile("Selected", variant: variant, isSelected: true, image: Image("Acorn"))
             }
             HStack(spacing: 12) {
-                DSTile("Available", variant: variant, isAvailable: true, image: Image(systemName: "photo"))
-                DSTile("Unavailable", variant: variant, isAvailable: false, image: Image(systemName: "photo"))
+                DSTile("Available", variant: variant, isAvailable: true, image: Image("Acorn"))
+                DSTile("Unavailable", variant: variant, isAvailable: false, image: Image("Acorn"))
             }
         }
     }
@@ -124,13 +124,13 @@ private struct TileInteractivePreview: View {
             Text("Select a tile:").font(.headline)
 
             HStack(spacing: 12) {
-                ForEach(["Wacky", "Wild", "Crazy"], id: \.self) { tile in
+                ForEach(["Raccoon", "Wild", "Crazy"], id: \.self) { tile in
                     DSTile(
                         tile,
                         variant: .outlined,
                         isSelected: selectedTile == tile,
-                        image: Image(systemName: "photo"),
-                        swatch: tile == "Wacky" ? Color.orange : (tile == "Wild" ? Color.blue : Color.green)
+                        image: Image("Acorn"),
+                        swatch: tile == "Raccoon" ? Color.orange : (tile == "Wild" ? Color.blue : Color.green)
                     ) {
                         selectedTile = tile
                     }
@@ -149,8 +149,8 @@ private struct TileInteractivePreview: View {
 // Dark Mode Previews
 #Preview("Dark Mode - Outlined") {
     VStack(spacing: 16) {
-        DSTile("Wacky", variant: .outlined, image: Image(systemName: "photo"))
-        DSTile("Wacky", variant: .outlined, isSelected: true, image: Image(systemName: "photo"))
+        DSTile("Raccoon", variant: .outlined, image: Image("Acorn"))
+        DSTile("Raccoon", variant: .outlined, isSelected: true, image: Image("Acorn"))
     }
     .padding()
     .preferredColorScheme(.dark)
@@ -158,8 +158,8 @@ private struct TileInteractivePreview: View {
 
 #Preview("Dark Mode - Filled") {
     VStack(spacing: 16) {
-        DSTile("Wacky", variant: .filled, image: Image(systemName: "photo"))
-        DSTile("Wacky", variant: .filled, isSelected: true, image: Image(systemName: "photo"))
+        DSTile("Raccoon", variant: .filled, image: Image("Acorn"))
+        DSTile("Raccoon", variant: .filled, isSelected: true, image: Image("Acorn"))
     }
     .padding()
     .preferredColorScheme(.dark)
@@ -167,8 +167,8 @@ private struct TileInteractivePreview: View {
 
 #Preview("Dark Mode - Ghost") {
     VStack(spacing: 16) {
-        DSTile("Wacky", variant: .ghost, image: Image(systemName: "photo"))
-        DSTile("Wacky", variant: .ghost, isSelected: true, image: Image(systemName: "photo"))
+        DSTile("Raccoon", variant: .ghost, image: Image("Acorn"))
+        DSTile("Raccoon", variant: .ghost, isSelected: true, image: Image("Acorn"))
     }
     .padding()
     .preferredColorScheme(.dark)
@@ -177,9 +177,9 @@ private struct TileInteractivePreview: View {
 // Factory Methods
 #Preview("Factory Methods") {
     VStack(spacing: 16) {
-        DSTile.outlined("Outlined", image: Image(systemName: "photo"))
-        DSTile.filled("Filled", image: Image(systemName: "photo"), isSelected: true)
-        DSTile.ghost("Ghost", image: Image(systemName: "photo"))
+        DSTile.outlined("Outlined", image: Image("Acorn"))
+        DSTile.filled("Filled", image: Image("Acorn"), isSelected: true)
+        DSTile.ghost("Ghost", image: Image("Acorn"))
     }
     .padding()
 }

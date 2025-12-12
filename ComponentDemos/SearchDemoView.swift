@@ -1,8 +1,9 @@
 import SwiftUI
+import Combine
 
 // MARK: - Data Models
 
-struct Product: Codable, Identifiable {
+struct SearchProduct: Codable, Identifiable {
     let id: Int
     let name: String
     let category: String
@@ -36,8 +37,8 @@ struct Product: Codable, Identifiable {
     }
 }
 
-struct ProductsData: Codable {
-    let products: [Product]
+struct SearchProductsData: Codable {
+    let products: [SearchProduct]
 }
 
 // MARK: - Search Suggestion Model
@@ -47,7 +48,7 @@ struct SearchSuggestion: Identifiable {
     let text: String
     let category: String?
     let isProductMatch: Bool
-    let product: Product?
+    let product: SearchProduct?
 
     init(text: String, category: String? = nil) {
         self.text = text
@@ -56,7 +57,7 @@ struct SearchSuggestion: Identifiable {
         self.product = nil
     }
 
-    init(product: Product) {
+    init(product: SearchProduct) {
         self.text = product.name
         self.category = product.category
         self.isProductMatch = true
@@ -67,7 +68,7 @@ struct SearchSuggestion: Identifiable {
 // MARK: - Product Image View
 
 struct ProductImageView: View {
-    let product: Product
+    let product: SearchProduct
     let size: CGFloat
 
     var body: some View {
@@ -119,36 +120,34 @@ struct ProductImageView: View {
 
 class SearchViewModel: ObservableObject {
     @Published var searchText: String = ""
-    @Published var products: [Product] = []
-    @Published var recentlyViewed: [Product] = []
+    @Published var products: [SearchProduct] = []
+    @Published var recentlyViewed: [SearchProduct] = []
+    @Published var recentSearches: [String] = []
     @Published var isSearchFocused: Bool = false
 
     init() {
         loadProducts()
-        // Simulate some recently viewed products (first 4)
-        recentlyViewed = Array(products.prefix(4))
+        // Start with empty state - no recently viewed or recent searches
     }
 
     func loadProducts() {
         // Try loading from bundle first (for production)
         if let url = Bundle.main.url(forResource: "products", withExtension: "json"),
            let data = try? Data(contentsOf: url),
-           let decoded = try? JSONDecoder().decode(ProductsData.self, from: data) {
+           let decoded = try? JSONDecoder().decode(SearchProductsData.self, from: data) {
             products = decoded.products
-            recentlyViewed = Array(products.prefix(4))
             return
         }
 
         // Fallback: load from file path (for development/preview)
         let fileURL = URL(fileURLWithPath: "/Users/awaters/Desktop/Search Demo/products.json")
         if let data = try? Data(contentsOf: fileURL),
-           let decoded = try? JSONDecoder().decode(ProductsData.self, from: data) {
+           let decoded = try? JSONDecoder().decode(SearchProductsData.self, from: data) {
             products = decoded.products
-            recentlyViewed = Array(products.prefix(4))
         }
     }
 
-    var filteredProducts: [Product] {
+    var filteredProducts: [SearchProduct] {
         guard !searchText.isEmpty else { return [] }
         return products.filter {
             $0.name.localizedCaseInsensitiveContains(searchText) ||
@@ -175,7 +174,7 @@ class SearchViewModel: ObservableObject {
         return suggestions
     }
 
-    var matchedProduct: Product? {
+    var matchedProduct: SearchProduct? {
         // Return a product if there's a strong match
         return filteredProducts.first
     }
@@ -184,6 +183,52 @@ class SearchViewModel: ObservableObject {
         // Generate related search terms based on query
         let suffixes = ["drill", "drill rental", "drill bit", "stapler", "handle"]
         return suffixes.prefix(5).map { "\(query) \($0)" }
+    }
+
+    func addRecentSearch(_ query: String) {
+        let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedQuery.isEmpty else { return }
+        
+        // Remove if already exists
+        recentSearches.removeAll { $0.lowercased() == trimmedQuery.lowercased() }
+        
+        // Add to front
+        recentSearches.insert(trimmedQuery, at: 0)
+        
+        // Keep only the most recent 10 searches
+        if recentSearches.count > 10 {
+            recentSearches = Array(recentSearches.prefix(10))
+        }
+    }
+    
+    func removeRecentSearch(_ query: String) {
+        recentSearches.removeAll { $0 == query }
+    }
+    
+    func clearAllRecentSearches() {
+        recentSearches.removeAll()
+    }
+    
+    func addRecentlyViewedProduct(_ product: SearchProduct) {
+        // Remove if already exists
+        recentlyViewed.removeAll { $0.id == product.id }
+        
+        // Add to front
+        recentlyViewed.insert(product, at: 0)
+        
+        // Keep only the most recent 10 items
+        if recentlyViewed.count > 10 {
+            recentlyViewed = Array(recentlyViewed.prefix(10))
+        }
+    }
+    
+    func selectSearchSuggestion(_ suggestion: SearchSuggestion) {
+        addRecentSearch(suggestion.text)
+        if let product = suggestion.product {
+            addRecentlyViewedProduct(product)
+        } else if let product = matchedProduct {
+            addRecentlyViewedProduct(product)
+        }
     }
 
     func clearSearch() {
@@ -213,8 +258,35 @@ struct SearchDemoView: View {
             .padding(.top, 8)
 
             if viewModel.searchText.isEmpty {
-                // Empty State - Recently Viewed
-                RecentlyViewedSection(products: viewModel.recentlyViewed)
+                // Empty State - Recently Viewed and Recent Searches
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 0) {
+                        // Recently Viewed Section
+                        if !viewModel.recentlyViewed.isEmpty {
+                            RecentlyViewedSection(
+                                products: viewModel.recentlyViewed,
+                                showCompactMode: viewModel.recentSearches.count > 5
+                            )
+                            .padding(.bottom, 24)
+                        }
+                        
+                        // Recent Searches Section
+                        if !viewModel.recentSearches.isEmpty {
+                            RecentSearchesSection(
+                                searches: viewModel.recentSearches,
+                                onRemove: { query in
+                                    viewModel.removeRecentSearch(query)
+                                },
+                                onClearAll: {
+                                    viewModel.clearAllRecentSearches()
+                                },
+                                onSelect: { query in
+                                    viewModel.searchText = query
+                                }
+                            )
+                        }
+                    }
+                }
                 Spacer()
             } else {
                 // Search Results
@@ -228,8 +300,8 @@ struct SearchDemoView: View {
                 .padding(.bottom, 8)
         }
         .background(Color(.systemGroupedBackground))
-        .onChange(of: isSearchFieldFocused) { focused in
-            viewModel.isSearchFocused = focused
+        .onChange(of: isSearchFieldFocused) { oldValue, newValue in
+            viewModel.isSearchFocused = newValue
         }
     }
 }
@@ -285,12 +357,13 @@ struct SearchBarView: View {
 // MARK: - Recently Viewed Section
 
 struct RecentlyViewedSection: View {
-    let products: [Product]
+    let products: [SearchProduct]
+    let showCompactMode: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Recently Viewed")
-                .font(.system(size: 16, weight: .semibold))
+                .font(.thdH5)
                 .foregroundColor(.primary)
                 .padding(.horizontal, 16)
                 .padding(.top, 20)
@@ -298,7 +371,7 @@ struct RecentlyViewedSection: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
                     ForEach(products) { product in
-                        RecentlyViewedCard(product: product)
+                        RecentlyViewedCard(product: product, showCompactMode: showCompactMode)
                     }
                 }
                 .padding(.horizontal, 16)
@@ -308,7 +381,8 @@ struct RecentlyViewedSection: View {
 }
 
 struct RecentlyViewedCard: View {
-    let product: Product
+    let product: SearchProduct
+    let showCompactMode: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -316,23 +390,101 @@ struct RecentlyViewedCard: View {
             ProductImageView(product: product, size: 100)
                 .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
 
-            // Product Name with bold brand
-            VStack(alignment: .leading, spacing: 2) {
-                Text(product.brandName)
-                    .font(.system(size: 12, weight: .semibold))
-                +
-                Text(" " + product.productDescription)
-                    .font(.system(size: 12))
-            }
-            .foregroundColor(.primary)
-            .lineLimit(2)
-            .frame(width: 100, alignment: .leading)
+            if !showCompactMode {
+                // Product Name with bold brand
+                Text("\(Text(product.brandName).fontWeight(.semibold)) \(product.productDescription)")
+                    .font(.thdBodySm)
+                    .foregroundColor(.primary)
+                    .lineLimit(2)
+                    .frame(width: 100, alignment: .leading)
 
-            // Price
-            Text(product.formattedPrice)
-                .font(.system(size: 13, weight: .semibold))
-                .foregroundColor(.primary)
+                // Price
+                Text(product.formattedPrice)
+                    .font(.thdH6)
+                    .foregroundColor(.primary)
+            }
         }
+    }
+}
+
+// MARK: - Recent Searches Section
+
+struct RecentSearchesSection: View {
+    let searches: [String]
+    let onRemove: (String) -> Void
+    let onClearAll: () -> Void
+    let onSelect: (String) -> Void
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            // Header with Clear All button
+            HStack {
+                Text("Recent Searches")
+                    .font(.thdH5)
+                    .foregroundColor(.primary)
+                
+                Spacer()
+                
+                Button(action: onClearAll) {
+                    Text("Clear All")
+                        .font(.thdBodySm)
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(Color(.systemBackground))
+                        .cornerRadius(16)
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 20)
+            .padding(.bottom, 12)
+            
+            // Search items
+            VStack(alignment: .leading, spacing: 0) {
+                ForEach(searches, id: \.self) { search in
+                    RecentSearchRow(
+                        searchText: search,
+                        onRemove: { onRemove(search) },
+                        onSelect: { onSelect(search) }
+                    )
+                }
+            }
+        }
+    }
+}
+
+struct RecentSearchRow: View {
+    let searchText: String
+    let onRemove: () -> Void
+    let onSelect: () -> Void
+    
+    var body: some View {
+        Button(action: onSelect) {
+            HStack(spacing: 12) {
+                Image(systemName: "clock")
+                    .font(.system(size: 16))
+                    .foregroundColor(.secondary)
+                    .frame(width: 24)
+                
+                Text(searchText)
+                    .font(.thdBodyMd)
+                    .foregroundColor(.primary)
+                
+                Spacer()
+                
+                Button(action: onRemove) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.secondary)
+                        .frame(width: 24, height: 24)
+                }
+                .buttonStyle(PlainButtonStyle())
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
@@ -346,15 +498,26 @@ struct SearchResultsView: View {
             VStack(alignment: .leading, spacing: 0) {
                 // Matched Product Card (if exists)
                 if let product = viewModel.matchedProduct {
-                    MatchedProductCard(product: product)
-                        .padding(.horizontal, 16)
-                        .padding(.top, 16)
+                    Button(action: {
+                        viewModel.addRecentlyViewedProduct(product)
+                        viewModel.addRecentSearch(viewModel.searchText)
+                    }) {
+                        MatchedProductCard(product: product)
+                            .padding(.horizontal, 16)
+                            .padding(.top, 16)
+                    }
+                    .buttonStyle(PlainButtonStyle())
                 }
 
                 // Search Suggestions
                 VStack(alignment: .leading, spacing: 0) {
                     ForEach(viewModel.searchSuggestions) { suggestion in
-                        SearchSuggestionRow(suggestion: suggestion, searchText: viewModel.searchText)
+                        Button(action: {
+                            viewModel.selectSearchSuggestion(suggestion)
+                        }) {
+                            SearchSuggestionRow(suggestion: suggestion, searchText: viewModel.searchText)
+                        }
+                        .buttonStyle(PlainButtonStyle())
                     }
                 }
                 .padding(.top, 8)
@@ -366,7 +529,7 @@ struct SearchResultsView: View {
 // MARK: - Matched Product Card
 
 struct MatchedProductCard: View {
-    let product: Product
+    let product: SearchProduct
 
     var body: some View {
         HStack(spacing: 12) {
@@ -375,14 +538,12 @@ struct MatchedProductCard: View {
 
             VStack(alignment: .leading, spacing: 4) {
                 Text("Purchased September 24, 2025")
-                    .font(.system(size: 12))
+                    .font(.thdBodySm)
                     .foregroundColor(.secondary)
 
-                Text(product.brandName)
-                    .font(.system(size: 14, weight: .semibold))
-                +
-                Text(" " + product.productDescription)
-                    .font(.system(size: 14))
+                Text("\(Text(product.brandName).fontWeight(.semibold)) \(product.productDescription)")
+                    .font(.thdBodyMd)
+                    .foregroundColor(.primary)
             }
             .foregroundColor(.primary)
 
@@ -412,7 +573,7 @@ struct SearchSuggestionRow: View {
                 VStack(alignment: .leading, spacing: 2) {
                     // Highlight matching text
                     highlightedText(suggestion.text, highlight: searchText)
-                        .font(.system(size: 16))
+                        .font(.thdBodyMd)
 
                     // Category link (if available and first suggestion)
                     if let category = suggestion.category, suggestion.text.lowercased() == searchText.lowercased() {
@@ -422,7 +583,7 @@ struct SearchSuggestionRow: View {
                                 .foregroundColor(.secondary)
 
                             Text("in \(category)")
-                                .font(.system(size: 14))
+                                .font(.thdBodySm)
                                 .underline()
                                 .foregroundColor(.secondary)
                         }
@@ -444,14 +605,8 @@ struct SearchSuggestionRow: View {
             let match = String(text[range])
             let after = String(text[range.upperBound...])
 
-            Text(before)
-                .foregroundColor(.primary)
-            +
-            Text(match)
-                .foregroundColor(.primary)
-            +
-            Text(after)
-                .fontWeight(.semibold)
+            Text("\(before)\(match)\(Text(after).fontWeight(.semibold))")
+                .font(.body)
                 .foregroundColor(.primary)
         } else {
             Text(text)
@@ -482,7 +637,8 @@ struct ActionButton: View {
                 Image(systemName: icon)
                     .font(.system(size: 14))
                 Text(title)
-                    .font(.system(size: 14, weight: .medium))
+                    .font(.thdBodySm)
+                    .fontWeight(.medium)
             }
             .foregroundColor(.primary)
             .padding(.horizontal, 16)

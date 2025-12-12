@@ -16,6 +16,12 @@ struct IconColorDemo: View {
             ZStack {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(backgroundColor)
+                    .stroke(
+                        colorScheme == .dark
+                            ? TokensSemanticDark.BorderOnContainerDefault
+                            : TokensSemanticLight.BorderOnContainerDefault,
+                        lineWidth: 1
+                    )
                 
                 Image(systemName: "star.fill")
                     .font(.system(size: 32))
@@ -51,13 +57,13 @@ struct IconColorDemo: View {
         IconColorDemo(
             name: "Ghost Default",
             iconColor: TokensComponentsLight.IconActionColorGhostFilledDefault,
-            backgroundColor: TokensSemanticLight.BackgroundActionColorGhostFilledDefault,
+            backgroundColor: TokensSemanticLight.BackgroundButtonColorGhostFilledDefault,
             description: "Icon on Ghost button"
         )
         IconColorDemo(
             name: "Orange Default",
             iconColor: TokensComponentsLight.IconActionColorOrangeFilledDefault,
-            backgroundColor: TokensSemanticLight.BackgroundActionColorOrangeFilledDefault,
+            backgroundColor: TokensSemanticLight.BackgroundButtonColorBrandFilledDefault,
             description: "Icon on Orange button"
         )
     }

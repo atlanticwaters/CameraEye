@@ -40,6 +40,25 @@ public struct DesignSystemGlobal {
     public static let FontSizeBodyLg = TokensCoreLight.FontSizeBodyLg      // 18pt
     public static let FontSizeBodyXl = TokensCoreLight.FontSizeBodyXl      // 20pt
     
+    // MARK: - Font Family Tokens (from TokensCoreLight)
+    public static let FontFamilyDisplay = TokensCoreLight.FontFamilyDisplay             // "THD LgVar Beta"
+    public static let FontFamilyInformational = TokensCoreLight.FontFamilyInformational // "THD SmVar Beta"
+    
+    // MARK: - Extended Font Sizes (for Headings and Hero Text)
+    // These are not in TokensCoreLight but are needed for the design system
+    public static let FontSizeCaption = CGFloat(10)    // Caption text
+    public static let FontSizeH6 = CGFloat(16)         // Smallest heading
+    public static let FontSizeH5 = CGFloat(18)         // Small heading
+    public static let FontSizeH4 = CGFloat(20)         // Medium-small heading
+    public static let FontSizeH3 = CGFloat(24)         // Medium heading
+    public static let FontSizeH2 = CGFloat(28)         // Large heading
+    public static let FontSizeH1 = CGFloat(32)         // Largest heading
+    public static let FontSizeHero5 = CGFloat(36)      // Small hero
+    public static let FontSizeHero4 = CGFloat(40)      // Medium-small hero
+    public static let FontSizeHero3 = CGFloat(48)      // Medium hero
+    public static let FontSizeHero2 = CGFloat(56)      // Large hero
+    public static let FontSizeHero1 = CGFloat(64)      // Largest hero
+    
     // MARK: - Color Tokens - Background
     public static let BackgroundSurfaceColorGreige = TokensSemanticLight.BackgroundSurfaceColorGreige
     public static let BackgroundSurfaceColorInverse = TokensSemanticLight.BackgroundSurfaceColorInverse
@@ -175,4 +194,37 @@ public struct DesignSystemGlobal {
     public static let NeutralsWhite = TokensSemanticLight.NeutralsWhite
     public static let NeutralsBlack = TokensSemanticLight.NeutralsBlack
     public static let NeutralsTransparent = TokensSemanticLight.NeutralsTransparent
+    
+    // MARK: - Transparent Black Scale
+    public static let TransparentBlack025 = TokensSemanticLight.TransparentBlackTransparentBlack025
+    public static let TransparentBlack050 = TokensSemanticLight.TransparentBlackTransparentBlack050
+    public static let TransparentBlack075 = TokensSemanticLight.TransparentBlackTransparentBlack075
+    public static let TransparentBlack100 = TokensSemanticLight.TransparentBlackTransparentBlack100
+    public static let TransparentBlack200 = TokensSemanticLight.TransparentBlackTransparentBlack200
+    public static let TransparentBlack300 = TokensSemanticLight.TransparentBlackTransparentBlack300
+    public static let TransparentBlack400 = TokensSemanticLight.TransparentBlackTransparentBlack400
+    public static let TransparentBlack500 = TokensSemanticLight.TransparentBlackTransparentBlack500
+    public static let TransparentBlack600 = TokensSemanticLight.TransparentBlackTransparentBlack600
+    public static let TransparentBlack700 = TokensSemanticLight.TransparentBlackTransparentBlack700
+    public static let TransparentBlack800 = TokensSemanticLight.TransparentBlackTransparentBlack800
+    public static let TransparentBlack900 = TokensSemanticLight.TransparentBlackTransparentBlack900
+    public static let TransparentBlack950 = TokensSemanticLight.TransparentBlackTransparentBlack950
+    
+    // MARK: - Transparent White Scale
+    public static let TransparentWhite025 = TokensSemanticLight.TransparentWhiteTransparentWhite025
+    public static let TransparentWhite050 = TokensSemanticLight.TransparentWhiteTransparentWhite050
+    public static let TransparentWhite075 = TokensSemanticLight.TransparentWhiteTransparentWhite075
+    public static let TransparentWhite100 = TokensSemanticLight.TransparentWhiteTransparentWhite100
+    public static let TransparentWhite200 = TokensSemanticLight.TransparentWhiteTransparentWhite200
+    public static let TransparentWhite300 = TokensSemanticLight.TransparentWhiteTransparentWhite300
+    public static let TransparentWhite400 = TokensSemanticLight.TransparentWhiteTransparentWhite400
+    public static let TransparentWhite500 = TokensSemanticLight.TransparentWhiteTransparentWhite500
+    public static let TransparentWhite600 = TokensSemanticLight.TransparentWhiteTransparentWhite600
+    public static let TransparentWhite700 = TokensSemanticLight.TransparentWhiteTransparentWhite700
+    public static let TransparentWhite800 = TokensSemanticLight.TransparentWhiteTransparentWhite800
+    public static let TransparentWhite900 = TokensSemanticLight.TransparentWhiteTransparentWhite900
+    public static let TransparentWhite950 = TokensSemanticLight.TransparentWhiteTransparentWhite950
+    
+    // MARK: - Icon Tokens (from TokensComponentsLight)
+    public static let IconOnContainerColorInactive = TokensComponentsLight.IconOnContainerColorInactive
 }

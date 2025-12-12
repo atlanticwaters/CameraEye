@@ -9,6 +9,12 @@ import SwiftUI
 
 @main
 struct CameraEyeApp: App {
+    
+    init() {
+        // Register custom fonts at app launch
+        CustomFontRegistration.registerFonts()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
