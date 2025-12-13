@@ -60,6 +60,14 @@ public struct DSBadge: View {
         var horizontalPadding: CGFloat {
             return 4  // Figma: spacing-1 (no token available)
         }
+        
+        var topPadding: CGFloat {
+            return 4  // 2px base + 2px additional
+        }
+        
+        var bottomPadding: CGFloat {
+            return 2  // 2px base
+        }
     }
     
     /// Badge visual variant
@@ -135,6 +143,8 @@ public struct DSBadge: View {
                 .lineLimit(1)
         }
         .padding(.horizontal, size.horizontalPadding)
+        .padding(.top, size.topPadding)
+        .padding(.bottom, size.bottomPadding)
         .background(backgroundColor)
         .overlay(
             RoundedRectangle(cornerRadius: 4)  // Figma: border-radius-md (4px, no exact token)

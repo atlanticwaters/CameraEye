@@ -105,12 +105,9 @@ public struct DSPlpPodDetails: View {
                             .frame(width: 14, height: 14)
                             .foregroundColor(isDark ? TokensSemanticDark.TextOnSurfaceColorTertiary : TokensSemanticLight.TextOnSurfaceColorTertiary)
                         
-                        Text("Delivery: ")
-                            .font(.system(size: TokensCoreLight.FontSizeBodySm, weight: .bold))
-                            .foregroundColor(isDark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary) +
-                        Text(deliveryInfo)
+                        Text(deliveryText(for: deliveryInfo))
                             .font(.system(size: TokensCoreLight.FontSizeBodySm))
-                            .foregroundColor(isDark ? TokensSemanticDark.TextOnSurfaceColorTertiary : TokensSemanticLight.TextOnSurfaceColorTertiary)
+                            .foregroundColor(isDark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary)
                     }
                 }
             }
@@ -143,6 +140,19 @@ public struct DSPlpPodDetails: View {
         titleText.font = .system(size: TokensCoreLight.FontSizeBodySm)
         
         result.append(titleText)
+        return result
+    }
+    
+    private func deliveryText(for info: String) -> AttributedString {
+        var result = AttributedString("Delivery: ")
+        result.font = .system(size: TokensCoreLight.FontSizeBodySm, weight: .bold)
+        result.foregroundColor = isDark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary
+        
+        var infoText = AttributedString(info)
+        infoText.font = .system(size: TokensCoreLight.FontSizeBodySm)
+        infoText.foregroundColor = isDark ? TokensSemanticDark.TextOnSurfaceColorTertiary : TokensSemanticLight.TextOnSurfaceColorTertiary
+        
+        result.append(infoText)
         return result
     }
 }
@@ -232,15 +242,26 @@ private struct AtYourStoreView: View {
     let isDark: Bool
     
     var body: some View {
-        Text("At Your Store: ")
-            .font(.system(size: TokensCoreLight.FontSizeBodySm, weight: .bold))
-            .foregroundColor(isDark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary) +
-        Text(storeStock)
+        Text(storeStockText)
             .font(.system(size: TokensCoreLight.FontSizeBodySm))
-            .foregroundColor(isDark ? TokensSemanticDark.TextOnContainerColorSuccess : TokensSemanticLight.TextOnContainerColorSuccess) +
-        Text(" in stock,")
-            .font(.system(size: TokensCoreLight.FontSizeBodySm))
-            .foregroundColor(isDark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary)
+    }
+    
+    private var storeStockText: AttributedString {
+        var result = AttributedString("At Your Store: ")
+        result.font = .system(size: TokensCoreLight.FontSizeBodySm, weight: .bold)
+        result.foregroundColor = isDark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary
+        
+        var stockText = AttributedString(storeStock)
+        stockText.font = .system(size: TokensCoreLight.FontSizeBodySm)
+        stockText.foregroundColor = isDark ? TokensSemanticDark.TextOnContainerColorSuccess : TokensSemanticLight.TextOnContainerColorSuccess
+        
+        var inStockText = AttributedString(" in stock,")
+        inStockText.font = .system(size: TokensCoreLight.FontSizeBodySm)
+        inStockText.foregroundColor = isDark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary
+        
+        result.append(stockText)
+        result.append(inStockText)
+        return result
     }
 }
 
