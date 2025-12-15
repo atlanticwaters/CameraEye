@@ -1,0 +1,413 @@
+{
+  "pageInfo": {
+    "categoryId": "N-5yc1vZc25m",
+    "categoryName": "Power Saws",
+    "categorySlug": "power-saws",
+    "breadcrumbs": [
+      {
+        "label": "Home",
+        "url": "/"
+      },
+      {
+        "label": "Tools",
+        "url": "/b/Tools/N-5yc1vZc1xy"
+      },
+      {
+        "label": "Power Tools",
+        "url": "/b/Tools-Power-Tools/N-5yc1vZc1xr"
+      },
+      {
+        "label": "Power Saws",
+        "url": "/b/Tools-Power-Tools-Saws/N-5yc1vZc25m"
+      }
+    ],
+    "totalResults": 342,
+    "heroImage": {
+      "url": "https://dam.thdstatic.com/contentful/heroflattenimage/power-saws-hero.png",
+      "alt": "Power Saws",
+      "promoText": "Cut Through Any Project with Professional-Grade Saws"
+    },
+    "seoDescription": "Shop Power Saws at The Home Depot. Find circular saws, miter saws, table saws, and jig saws from top brands like DeWalt, Milwaukee, and Makita."
+  },
+  "featuredBrands": [
+    {
+      "brandId": "DeWalt",
+      "brandName": "DeWalt",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/dewalt-logo.svg",
+      "filterUrl": "/b/Power-Saws/DeWalt/N-5yc1vZc25mZf1"
+    },
+    {
+      "brandId": "Milwaukee",
+      "brandName": "Milwaukee",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/milwaukee-logo.svg",
+      "filterUrl": "/b/Power-Saws/Milwaukee/N-5yc1vZc25mZ1yz"
+    },
+    {
+      "brandId": "Makita",
+      "brandName": "Makita",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/makita-logo.svg",
+      "filterUrl": "/b/Power-Saws/Makita/N-5yc1vZc25mZxz"
+    }
+  ],
+  "quickFilters": [
+    {
+      "filterId": "circular",
+      "label": "Circular Saws",
+      "imageUrl": "https://images.thdstatic.com/catalog/productImages/300/circular-saw.jpg",
+      "filterUrl": "/b/Power-Saws/Circular/N-5yc1vZc25mZ1z0"
+    },
+    {
+      "filterId": "miter",
+      "label": "Miter Saws",
+      "imageUrl": "https://images.thdstatic.com/catalog/productImages/300/miter-saw.jpg",
+      "filterUrl": "/b/Power-Saws/Miter/N-5yc1vZc25mZ2k3"
+    }
+  ],
+  "filters": [
+    {
+      "filterGroupId": "brand",
+      "filterGroupName": "Brand",
+      "filterType": "checkbox",
+      "options": [
+        {
+          "optionId": "dewalt",
+          "label": "DeWalt",
+          "value": "dewalt",
+          "count": 67,
+          "filterUrl": "/b/Power-Saws/DeWalt/N-5yc1vZc25mZf1"
+        },
+        {
+          "optionId": "milwaukee",
+          "label": "Milwaukee",
+          "value": "milwaukee",
+          "count": 54,
+          "filterUrl": "/b/Power-Saws/Milwaukee/N-5yc1vZc25mZ1yz"
+        },
+        {
+          "optionId": "makita",
+          "label": "Makita",
+          "value": "makita",
+          "count": 49,
+          "filterUrl": "/b/Power-Saws/Makita/N-5yc1vZc25mZxz"
+        }
+      ]
+    },
+    {
+      "filterGroupId": "price",
+      "filterGroupName": "Price",
+      "filterType": "range",
+      "options": [
+        {
+          "optionId": "price-0-100",
+          "label": "Under $100",
+          "value": "0-100",
+          "count": 89
+        },
+        {
+          "optionId": "price-100-200",
+          "label": "$100 - $200",
+          "value": "100-200",
+          "count": 112
+        },
+        {
+          "optionId": "price-200-plus",
+          "label": "$200 & Above",
+          "value": "200-plus",
+          "count": 141
+        }
+      ]
+    }
+  ],
+  "sortOptions": [
+    {
+      "sortId": "top-sellers",
+      "label": "Top Sellers",
+      "isDefault": true
+    },
+    {
+      "sortId": "price-low-high",
+      "label": "Price Low to High",
+      "isDefault": false
+    },
+    {
+      "sortId": "top-rated",
+      "label": "Top Rated",
+      "isDefault": false
+    }
+  ],
+  "products": [
+    {
+      "productId": "301234567",
+      "modelNumber": "DWE575",
+      "storeSkuNumber": "1007001234",
+      "brand": "DeWalt",
+      "title": "15 Amp Corded 7-1/4 in. Lightweight Circular Saw with Electric Brake",
+      "shortDescription": "Lightweight design reduces fatigue",
+      "price": {
+        "current": 59.0,
+        "original": 79.0,
+        "savings": 20.0,
+        "savingsPercent": 25,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.7,
+        "count": 5432
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/301234567/301234567_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Electric Brake",
+        "Lightweight Design",
+        "15 Amp Motor"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/DeWalt-15-Amp-7-1-4-Circular-Saw-DWE575/301234567",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "302345678",
+      "modelNumber": "2734-21HD",
+      "storeSkuNumber": "1007002345",
+      "brand": "Milwaukee",
+      "title": "M18 FUEL 18V Lithium-Ion Brushless Cordless 7-1/4 in. Circular Saw Kit",
+      "shortDescription": "POWERSTATE brushless motor delivers power",
+      "price": {
+        "current": 279.0,
+        "original": 349.0,
+        "savings": 70.0,
+        "savingsPercent": 20,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.9,
+        "count": 3421
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/302345678/302345678_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        },
+        {
+          "type": "proPreferred",
+          "label": "Pro Preferred"
+        }
+      ],
+      "keyFeatures": [
+        "M18 FUEL",
+        "Brushless Motor",
+        "LED Light"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Milwaukee-M18-FUEL-Circular-Saw-2734-21HD/302345678",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "303456789",
+      "modelNumber": "DWS779",
+      "storeSkuNumber": "1007003456",
+      "brand": "DeWalt",
+      "title": "15 Amp Corded 12 in. Double-Bevel Sliding Compound Miter Saw",
+      "shortDescription": "Integrated XPS crosscut positioning system",
+      "price": {
+        "current": 449.0,
+        "original": 599.0,
+        "savings": 150.0,
+        "savingsPercent": 25,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.8,
+        "count": 7821
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/303456789/303456789_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "bestSeller",
+          "label": "Best Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Double-Bevel",
+        "XPS System",
+        "12 inch Blade"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/DeWalt-12-Double-Bevel-Miter-Saw-DWS779/303456789",
+      "limitPerOrder": 3
+    },
+    {
+      "productId": "304567890",
+      "modelNumber": "LS1019L",
+      "storeSkuNumber": "1007004567",
+      "brand": "Makita",
+      "title": "15 Amp 10 in. Dual-Bevel Sliding Compound Miter Saw with Laser",
+      "shortDescription": "Unique 2-Steel Rail Sliding System",
+      "price": {
+        "current": 529.0,
+        "original": 649.0,
+        "savings": 120.0,
+        "savingsPercent": 18,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.7,
+        "count": 4532
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/304567890/304567890_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Dual-Bevel",
+        "Laser Guide",
+        "2-Rail System"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Makita-10-Dual-Bevel-Miter-Saw-LS1019L/304567890",
+      "limitPerOrder": 3
+    },
+    {
+      "productId": "305678901",
+      "modelNumber": "DWE7491RS",
+      "storeSkuNumber": "1007005678",
+      "brand": "DeWalt",
+      "title": "15 Amp Corded 10 in. Jobsite Table Saw with Rolling Stand",
+      "shortDescription": "32-1/2 in. rip capacity for ripping 4x8 plywood",
+      "price": {
+        "current": 599.0,
+        "original": 749.0,
+        "savings": 150.0,
+        "savingsPercent": 20,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.8,
+        "count": 9234
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/305678901/305678901_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "bestSeller",
+          "label": "Best Seller"
+        },
+        {
+          "type": "proPreferred",
+          "label": "Pro Preferred"
+        }
+      ],
+      "keyFeatures": [
+        "Rolling Stand",
+        "32-1/2 in. Rip",
+        "Rack & Pinion Fence"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/DeWalt-10-Table-Saw-Rolling-Stand-DWE7491RS/305678901",
+      "limitPerOrder": 2
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 14,
+    "itemsPerPage": 24,
+    "startIndex": 1,
+    "endIndex": 24
+  },
+  "categoryStyles": [
+    {
+      "styleId": "circular-saws",
+      "styleName": "Circular\nSaws",
+      "description": "Versatile cutting for wood and more",
+      "productId": "301234567",
+      "image": "https://images.thdstatic.com/productImages/301234567/301234567_64_600.jpg",
+      "url": "/b/Power-Saws/Circular/N-5yc1vZc25mZ1z0",
+      "isCurrentCategory": true
+    },
+    {
+      "styleId": "miter-saws",
+      "styleName": "Miter\nSaws",
+      "description": "Precision crosscuts and miters",
+      "productId": "303456789",
+      "image": "https://images.thdstatic.com/productImages/303456789/303456789_64_600.jpg",
+      "url": "/b/Power-Saws/Miter/N-5yc1vZc25mZ2k3",
+      "isCurrentCategory": false
+    },
+    {
+      "styleId": "table-saws",
+      "styleName": "Table\nSaws",
+      "description": "Professional ripping and crosscutting",
+      "productId": "305678901",
+      "image": "https://images.thdstatic.com/productImages/305678901/305678901_64_600.jpg",
+      "url": "/b/Power-Saws/Table/N-5yc1vZc25mZ3m5",
+      "isCurrentCategory": false
+    },
+    {
+      "styleId": "jig-saws",
+      "styleName": "Jig\nSaws",
+      "description": "Curved and intricate cuts",
+      "productId": "302345678",
+      "image": "https://images.thdstatic.com/productImages/302345678/302345678_64_600.jpg",
+      "url": "/b/Power-Saws/Jig/N-5yc1vZc25mZ4n6",
+      "isCurrentCategory": false
+    },
+    {
+      "styleId": "reciprocating-saws",
+      "styleName": "Reciprocating\nSaws",
+      "description": "Demolition and rough cutting",
+      "productId": "304567890",
+      "image": "https://images.thdstatic.com/productImages/304567890/304567890_64_600.jpg",
+      "url": "/b/Power-Saws/Reciprocating/N-5yc1vZc25mZ5o7",
+      "isCurrentCategory": false
+    }
+  ],
+  "parentCategory": {
+    "categoryId": "N-5yc1vZc1xr",
+    "categoryName": "Power Tools",
+    "url": "/b/Tools-Power-Tools/N-5yc1vZc1xr",
+    "department": "Tools"
+  }
+}
