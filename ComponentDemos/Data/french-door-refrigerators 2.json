@@ -23,7 +23,7 @@
     ],
     "totalResults": 289,
     "heroImage": {
-      "url": "french-door-images/imgi_10_D29A-2025-Winter-Appliances-Hero-Refrigerators.png",
+      "url": "https://dam.thdstatic.com/contentful/heroflattenimage/french-door-refrigerators-hero.png",
       "alt": "French Door Refrigerators",
       "promoText": "Save Up to 50% on Select Refrigerators"
     },
@@ -260,22 +260,22 @@
         "count": 13272
       },
       "images": {
-        "primary": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
-        "alternate": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
+        "primary": "https://images.thdstatic.com/productImages/311411352/311411352_64_600.jpg",
+        "alternate": "https://images.thdstatic.com/productImages/ge-french-door-gne27jymfs-e4_600.jpg",
         "colorSwatches": [
           {
             "color": "Fingerprint Resistant Stainless Steel",
-            "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/stainless-swatch.jpg",
             "variantId": "320243591"
           },
           {
             "color": "Fingerprint Resistant Slate",
-            "swatchUrl": "french-door-images/imgi_71_1023Refrigeration_Slate.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/slate-swatch.jpg",
             "variantId": "320243592"
           },
           {
             "color": "White",
-            "swatchUrl": "french-door-images/imgi_69_1023Refrigeration_White.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/white-swatch.jpg",
             "variantId": "320243593"
           }
         ]
@@ -323,16 +323,16 @@
         "count": 5864
       },
       "images": {
-        "primary": "french-door-images/imgi_48_stainless-steel-lg-french-door-refrigerators-lfcs22520s-64_600.jpg",
+        "primary": "https://images.thdstatic.com/productImages/320243591/320243591_64_600.jpg",
         "colorSwatches": [
           {
             "color": "Stainless Steel",
-            "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/stainless-swatch.jpg",
             "variantId": "206452443"
           },
           {
             "color": "Black Stainless Steel",
-            "swatchUrl": "french-door-images/imgi_68_1023Refrigeration_BlkStainlessSteel.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/black-stainless-swatch.jpg",
             "variantId": "206452444"
           }
         ]
@@ -376,17 +376,17 @@
         "count": 10856
       },
       "images": {
-        "primary": "french-door-images/imgi_75_stainless-steel-ge-french-door-refrigerators-pxd22bypfs-64_600.jpg",
-        "alternate": "french-door-images/imgi_76_stainless-steel-ge-french-door-refrigerators-pxd22bypfs-e4_600.jpg",
+        "primary": "https://images.thdstatic.com/productImages/325158253/325158253_64_600.jpg",
+        "alternate": "https://images.thdstatic.com/productImages/ge-profile-pvd28bynfs-e4_600.jpg",
         "colorSwatches": [
           {
             "color": "Fingerprint Resistant Stainless Steel",
-            "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/stainless-swatch.jpg",
             "variantId": "311411352"
           },
           {
             "color": "Fingerprint Resistant Black Slate",
-            "swatchUrl": "french-door-images/imgi_68_1023Refrigeration_BlkStainlessSteel.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/black-slate-swatch.jpg",
             "variantId": "311411353"
           }
         ]
@@ -434,11 +434,11 @@
         "count": 950
       },
       "images": {
-        "primary": "french-door-images/imgi_36_printproof-stainless-steel-lg-french-door-refrigerators-lf25z6211s-64_600.jpg",
+        "primary": "https://images.thdstatic.com/productImages/206452443/206452443_64_600.jpg",
         "colorSwatches": [
           {
             "color": "PrintProof Stainless Steel",
-            "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/printproof-stainless.jpg",
             "variantId": "325158253"
           }
         ]
@@ -482,7 +482,7 @@
         "count": 26
       },
       "images": {
-        "primary": "french-door-images/imgi_5_stainless-steel-samsung-french-door-refrigerators-rf70f29mer-64_600.jpg"
+        "primary": "https://images.thdstatic.com/productImages/304655498/304655498_64_600.jpg"
       },
       "badges": [
         {
@@ -523,8 +523,8 @@
         "count": 8708
       },
       "images": {
-        "primary": "french-door-images/imgi_50_smudge-proof-stainless-steel-frigidaire-french-door-refrigerators-frfn2813af-64_600.jpg",
-        "alternate": "french-door-images/imgi_50_smudge-proof-stainless-steel-frigidaire-french-door-refrigerators-frfn2813af-64_600.jpg"
+        "primary": "https://images.thdstatic.com/productImages/314082163/314082163_64_600.jpg",
+        "alternate": "https://images.thdstatic.com/productImages/frigidaire-frfg1723av-e4_600.jpg"
       },
       "badges": [
         {
@@ -565,16 +565,16 @@
         "count": 1305
       },
       "images": {
-        "primary": "french-door-images/imgi_46_printproof-stainless-steel-lg-french-door-refrigerators-lf29h8330s-64_600.jpg",
+        "primary": "https://images.thdstatic.com/productImages/317061854/317061854_64_600.jpg",
         "colorSwatches": [
           {
             "color": "PrintProof Stainless Steel",
-            "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/printproof-stainless.jpg",
             "variantId": "322038211"
           },
           {
             "color": "PrintProof Black Stainless",
-            "swatchUrl": "french-door-images/imgi_68_1023Refrigeration_BlkStainlessSteel.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/black-stainless.jpg",
             "variantId": "322038212"
           }
         ]
@@ -618,17 +618,17 @@
         "count": 8596
       },
       "images": {
-        "primary": "french-door-images/imgi_57_smudge-proof-stainless-steel-frigidaire-french-door-refrigerators-grmc2273cf-64_600.jpg",
-        "alternate": "french-door-images/imgi_57_smudge-proof-stainless-steel-frigidaire-french-door-refrigerators-grmc2273cf-64_600.jpg",
+        "primary": "https://images.thdstatic.com/productImages/313824163/313824163_64_600.jpg",
+        "alternate": "https://images.thdstatic.com/productImages/frigidaire-gallery-grmc2273cf-e4_600.jpg",
         "colorSwatches": [
           {
             "color": "Smudge-Proof Stainless Steel",
-            "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/smudge-proof.jpg",
             "variantId": "320628170"
           },
           {
             "color": "Smudge-Proof Black Stainless",
-            "swatchUrl": "french-door-images/imgi_68_1023Refrigeration_BlkStainlessSteel.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/black-smudge-proof.jpg",
             "variantId": "320628171"
           }
         ]
@@ -676,27 +676,27 @@
         "count": 4339
       },
       "images": {
-        "primary": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
-        "alternate": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
+        "primary": "https://images.thdstatic.com/productImages/312575655/312575655_64_600.jpg",
+        "alternate": "https://images.thdstatic.com/productImages/ge-gfe26jymfs-e4_600.jpg",
         "colorSwatches": [
           {
             "color": "Fingerprint Resistant Stainless Steel",
-            "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/stainless.jpg",
             "variantId": "320243614"
           },
           {
             "color": "Fingerprint Resistant Slate",
-            "swatchUrl": "french-door-images/imgi_71_1023Refrigeration_Slate.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/slate.jpg",
             "variantId": "320243615"
           },
           {
             "color": "Black",
-            "swatchUrl": "french-door-images/imgi_70_1023Refrigeration_Black.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/black.jpg",
             "variantId": "320243616"
           },
           {
             "color": "White",
-            "swatchUrl": "french-door-images/imgi_69_1023Refrigeration_White.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/white.jpg",
             "variantId": "320243617"
           }
         ]
@@ -740,16 +740,16 @@
         "count": 624
       },
       "images": {
-        "primary": "french-door-images/imgi_46_printproof-stainless-steel-lg-french-door-refrigerators-lf29h8330s-64_600.jpg",
+        "primary": "https://images.thdstatic.com/productImages/310604445/310604445_64_600.jpg",
         "colorSwatches": [
           {
             "color": "PrintProof Stainless Steel",
-            "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/printproof-stainless.jpg",
             "variantId": "326915683"
           },
           {
             "color": "PrintProof Black Stainless",
-            "swatchUrl": "french-door-images/imgi_68_1023Refrigeration_BlkStainlessSteel.jpg",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/black-stainless.jpg",
             "variantId": "326915684"
           }
         ]
@@ -780,67 +780,5 @@
     "itemsPerPage": 24,
     "startIndex": 1,
     "endIndex": 24
-  },
-  "refrigeratorStyles": [
-    {
-      "styleId": "french-door",
-      "styleName": "French Door",
-      "description": "Wide refrigerator access with bottom freezer drawer",
-      "productId": "311411352",
-      "image": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
-      "url": "/b/Appliances-Refrigerators-French-Door-Refrigerators/N-5yc1vZc3oo",
-      "isCurrentCategory": true
-    },
-    {
-      "styleId": "side-by-side",
-      "styleName": "Side by Side",
-      "description": "Vertical split with freezer on one side, fridge on the other",
-      "productId": "312283386",
-      "image": "french-door-images/imgi_56_10Oct23_SidebySide_Refrigerator.jpg",
-      "url": "/b/Appliances-Refrigerators-Side-by-Side-Refrigerators/N-5yc1vZc3q0",
-      "isCurrentCategory": false
-    },
-    {
-      "styleId": "top-freezer",
-      "styleName": "Top Freezer",
-      "description": "Classic design with freezer compartment on top",
-      "productId": "319881477",
-      "image": "french-door-images/imgi_57_10Oct23_TopFreezer.jpg",
-      "url": "/b/Appliances-Refrigerators-Top-Freezer-Refrigerators/N-5yc1vZc3ns",
-      "isCurrentCategory": false
-    },
-    {
-      "styleId": "bottom-freezer",
-      "styleName": "Bottom Freezer",
-      "description": "Easy fridge access at eye level with freezer drawer below",
-      "productId": "319240123",
-      "image": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
-      "url": "/b/Appliances-Refrigerators-Bottom-Freezer-Refrigerators/N-5yc1vZc3p6",
-      "isCurrentCategory": false
-    },
-    {
-      "styleId": "mini-fridge",
-      "styleName": "Mini Fridges",
-      "description": "Compact refrigerators for dorms, offices, and small spaces",
-      "productId": "328264448",
-      "image": "french-door-images/imgi_60_10OCT23_Refrigerators_MiniFridge.jpg",
-      "url": "/b/Appliances-Mini-Fridges/N-5yc1vZc4mo",
-      "isCurrentCategory": false
-    },
-    {
-      "styleId": "freezerless",
-      "styleName": "Freezerless",
-      "description": "All-refrigerator units without a freezer compartment",
-      "productId": "325646357",
-      "image": "french-door-images/imgi_48_stainless-steel-lg-french-door-refrigerators-lfcs22520s-64_600.jpg",
-      "url": "/b/Appliances-Refrigerators-Freezerless-Refrigerators/N-5yc1vZc3nt",
-      "isCurrentCategory": false
-    }
-  ],
-  "parentCategory": {
-    "categoryId": "refrigerators",
-    "categoryName": "Refrigerators",
-    "url": "/b/Appliances-Refrigerators/N-5yc1vZc3pi",
-    "department": "Appliances"
   }
 }

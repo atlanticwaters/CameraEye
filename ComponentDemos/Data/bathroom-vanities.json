@@ -1,0 +1,669 @@
+{
+  "pageInfo": {
+    "categoryId": "N-5yc1vZbzbs",
+    "categoryName": "Bathroom Vanities",
+    "categorySlug": "bathroom-vanities",
+    "breadcrumbs": [
+      {
+        "label": "Home",
+        "url": "/"
+      },
+      {
+        "label": "Bath",
+        "url": "/b/Bath/N-5yc1vZbzb3"
+      },
+      {
+        "label": "Bathroom Vanities",
+        "url": "/b/Bath-Bathroom-Vanities/N-5yc1vZbzbs"
+      }
+    ],
+    "totalResults": 2456,
+    "heroImage": {
+      "url": "https://dam.thdstatic.com/contentful/heroflattenimage/bathroom-vanities-hero.png",
+      "alt": "Bathroom Vanities",
+      "promoText": "Transform Your Bathroom"
+    },
+    "seoDescription": "Shop Bathroom Vanities at The Home Depot. Find single and double sink vanities with tops, mirrors, and faucets from top brands."
+  },
+  "featuredBrands": [
+    {
+      "brandId": "GlacierBay",
+      "brandName": "Glacier Bay",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/glacier-bay-logo.svg",
+      "filterUrl": "/b/Bathroom-Vanities/Glacier-Bay/N-5yc1vZbzbsZn7"
+    },
+    {
+      "brandId": "HomeDecorators",
+      "brandName": "Home Decorators Collection",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/hdc-logo.svg",
+      "filterUrl": "/b/Bathroom-Vanities/Home-Decorators-Collection/N-5yc1vZbzbsZ4vr"
+    },
+    {
+      "brandId": "StyleWell",
+      "brandName": "StyleWell",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/stylewell-logo.svg",
+      "filterUrl": "/b/Bathroom-Vanities/StyleWell/N-5yc1vZbzbsZn4x"
+    },
+    {
+      "brandId": "Foremost",
+      "brandName": "Foremost",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/foremost-logo.svg",
+      "filterUrl": "/b/Bathroom-Vanities/Foremost/N-5yc1vZbzbsZfm"
+    }
+  ],
+  "quickFilters": [
+    {
+      "filterId": "with-top",
+      "label": "With Top",
+      "imageUrl": "https://images.thdstatic.com/catalog/productImages/300/vanity-with-top.jpg",
+      "filterUrl": "/b/Bathroom-Vanities/With-Top/N-5yc1vZbzbsZ1z1"
+    },
+    {
+      "filterId": "double-sink",
+      "label": "Double Sink",
+      "imageUrl": "https://images.thdstatic.com/catalog/productImages/300/double-vanity.jpg",
+      "filterUrl": "/b/Bathroom-Vanities/Double-Sink/N-5yc1vZbzbsZ2z2"
+    },
+    {
+      "filterId": "floating",
+      "label": "Floating/Wall Mounted",
+      "imageUrl": "https://images.thdstatic.com/catalog/productImages/300/floating-vanity.jpg",
+      "filterUrl": "/b/Bathroom-Vanities/Floating/N-5yc1vZbzbsZ3z3"
+    }
+  ],
+  "filters": [
+    {
+      "filterGroupId": "vanityWidth",
+      "filterGroupName": "Vanity Width",
+      "filterType": "checkbox",
+      "options": [
+        {
+          "optionId": "24-inch",
+          "label": "24 in.",
+          "value": "24",
+          "count": 312
+        },
+        {
+          "optionId": "30-inch",
+          "label": "30 in.",
+          "value": "30",
+          "count": 456
+        },
+        {
+          "optionId": "36-inch",
+          "label": "36 in.",
+          "value": "36",
+          "count": 534
+        },
+        {
+          "optionId": "48-inch",
+          "label": "48 in.",
+          "value": "48",
+          "count": 389
+        },
+        {
+          "optionId": "60-inch",
+          "label": "60 in.",
+          "value": "60",
+          "count": 287
+        },
+        {
+          "optionId": "72-inch",
+          "label": "72 in.",
+          "value": "72",
+          "count": 198
+        }
+      ]
+    },
+    {
+      "filterGroupId": "price",
+      "filterGroupName": "Price",
+      "filterType": "range",
+      "options": [
+        {
+          "optionId": "price-0-200",
+          "label": "Under $200",
+          "value": "0-200",
+          "count": 234
+        },
+        {
+          "optionId": "price-200-500",
+          "label": "$200 - $500",
+          "value": "200-500",
+          "count": 567
+        },
+        {
+          "optionId": "price-500-1000",
+          "label": "$500 - $1000",
+          "value": "500-1000",
+          "count": 789
+        },
+        {
+          "optionId": "price-1000-plus",
+          "label": "$1000 & Above",
+          "value": "1000-plus",
+          "count": 866
+        }
+      ]
+    },
+    {
+      "filterGroupId": "color",
+      "filterGroupName": "Color Family",
+      "filterType": "color",
+      "options": [
+        {
+          "optionId": "white",
+          "label": "White",
+          "value": "white",
+          "count": 678
+        },
+        {
+          "optionId": "gray",
+          "label": "Gray",
+          "value": "gray",
+          "count": 534
+        },
+        {
+          "optionId": "brown",
+          "label": "Brown/Espresso",
+          "value": "brown",
+          "count": 456
+        },
+        {
+          "optionId": "black",
+          "label": "Black",
+          "value": "black",
+          "count": 234
+        },
+        {
+          "optionId": "blue",
+          "label": "Blue",
+          "value": "blue",
+          "count": 189
+        }
+      ]
+    }
+  ],
+  "sortOptions": [
+    {
+      "sortId": "top-sellers",
+      "label": "Top Sellers",
+      "isDefault": true
+    },
+    {
+      "sortId": "price-low-high",
+      "label": "Price Low to High",
+      "isDefault": false
+    },
+    {
+      "sortId": "price-high-low",
+      "label": "Price High to Low",
+      "isDefault": false
+    },
+    {
+      "sortId": "top-rated",
+      "label": "Top Rated",
+      "isDefault": false
+    }
+  ],
+  "products": [
+    {
+      "productId": "324252476",
+      "modelNumber": "GA36P2COM-WH",
+      "storeSkuNumber": "1007234567",
+      "brand": "Glacier Bay",
+      "title": "Everdean 36 in. W x 19 in. D x 34 in. H Single Sink Freestanding Bath Vanity in White with White Cultured Marble Top",
+      "shortDescription": "Complete vanity set with pre-attached top and sink",
+      "price": {
+        "current": 299.0,
+        "original": 399.0,
+        "savings": 100.0,
+        "savingsPercent": 25,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.3,
+        "count": 7654
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/324252476/324252476_64_600.jpg",
+        "colorSwatches": [
+          {
+            "color": "White",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/white.jpg",
+            "variantId": "304567890"
+          },
+          {
+            "color": "Gray",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/gray.jpg",
+            "variantId": "304567891"
+          }
+        ]
+      },
+      "badges": [
+        {
+          "type": "bestSeller",
+          "label": "Best Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Soft Close Doors",
+        "Pre-attached Top",
+        "Includes Faucet"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Glacier-Bay-Everdean-36-in-Bath-Vanity-GA36P2COM-WH/324252476",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "205866619",
+      "modelNumber": "BF90225BST",
+      "storeSkuNumber": "1007345678",
+      "brand": "Home Decorators Collection",
+      "title": "Sedgewood 48 in. W x 22 in. D x 34 in. H Single Sink Bath Vanity in Weathered Oak with White Engineered Stone Top",
+      "shortDescription": "Modern farmhouse style with weathered finish",
+      "price": {
+        "current": 649.0,
+        "original": 849.0,
+        "savings": 200.0,
+        "savingsPercent": 24,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.5,
+        "count": 4567
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/205866619/205866619_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Soft Close Drawers",
+        "Open Shelf",
+        "Engineered Stone Top"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Home-Decorators-Collection-Sedgewood-48-in-Bath-Vanity-BF90225/205866619",
+      "limitPerOrder": 3
+    },
+    {
+      "productId": "305868467",
+      "modelNumber": "SW30V24-GR",
+      "storeSkuNumber": "1007456789",
+      "brand": "StyleWell",
+      "title": "Maren 24 in. W x 18 in. D x 34 in. H Single Sink Freestanding Bath Vanity in Sterling Gray with White Ceramic Top",
+      "shortDescription": "Compact design perfect for small bathrooms",
+      "price": {
+        "current": 199.0,
+        "original": 279.0,
+        "savings": 80.0,
+        "savingsPercent": 29,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.2,
+        "count": 3456
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/305868467/305868467_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "specialBuy",
+          "label": "Special Buy"
+        }
+      ],
+      "keyFeatures": [
+        "Space Saving",
+        "Soft Close",
+        "Ceramic Top"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/StyleWell-Maren-24-in-Bath-Vanity-SW30V24-GR/305868467",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "324252471",
+      "modelNumber": "QUANPRO60V",
+      "storeSkuNumber": "1007567890",
+      "brand": "Home Decorators Collection",
+      "title": "Queenswood 60 in. W x 22 in. D x 34 in. H Double Sink Bath Vanity in Espresso with White Engineered Marble Top",
+      "shortDescription": "Double sink vanity with ample storage",
+      "price": {
+        "current": 1199.0,
+        "original": 1599.0,
+        "savings": 400.0,
+        "savingsPercent": 25,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.6,
+        "count": 2345
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/324252471/324252471_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "exclusive",
+          "label": "Exclusive"
+        }
+      ],
+      "keyFeatures": [
+        "Double Sink",
+        "Soft Close",
+        "Marble Top"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": false
+      },
+      "productUrl": "/p/Home-Decorators-Collection-Queenswood-60-in-Double-Vanity-QUANPRO60V/324252471",
+      "limitPerOrder": 2
+    },
+    {
+      "productId": "324252707",
+      "modelNumber": "QUANPRO30FV",
+      "storeSkuNumber": "1007678901",
+      "brand": "Home Decorators Collection",
+      "title": "Austen 30 in. W x 22 in. D x 35 in. H Single Sink Floating Bath Vanity in Midnight Blue with White Quartz Top",
+      "shortDescription": "Modern floating design in on-trend color",
+      "price": {
+        "current": 799.0,
+        "original": 999.0,
+        "savings": 200.0,
+        "savingsPercent": 20,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.7,
+        "count": 1234
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/324252707/324252707_64_600.jpg",
+        "colorSwatches": [
+          {
+            "color": "Midnight Blue",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/midnight-blue.jpg",
+            "variantId": "316901234"
+          },
+          {
+            "color": "Sage Green",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/sage-green.jpg",
+            "variantId": "316901235"
+          }
+        ]
+      },
+      "badges": [
+        {
+          "type": "newArrival",
+          "label": "New Arrival"
+        }
+      ],
+      "keyFeatures": [
+        "Floating Design",
+        "Quartz Top",
+        "Soft Close"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Home-Decorators-Collection-Austen-30-in-Floating-Vanity-QUANPRO30FV/324252707",
+      "limitPerOrder": 3
+    },
+    {
+      "productId": "333839155",
+      "modelNumber": "GB24P2-WH",
+      "storeSkuNumber": "1007789012",
+      "brand": "Glacier Bay",
+      "title": "Hanna 24 in. W x 19 in. D x 34 in. H Single Sink Bath Vanity in White with White Cultured Marble Top",
+      "shortDescription": "Budget-friendly complete vanity solution",
+      "price": {
+        "current": 179.0,
+        "original": 229.0,
+        "savings": 50.0,
+        "savingsPercent": 22,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.1,
+        "count": 5678
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/333839155/333839155_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "bestSeller",
+          "label": "Best Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Complete Set",
+        "Pre-assembled",
+        "Includes Faucet"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Glacier-Bay-Hanna-24-in-Bath-Vanity-GB24P2-WH/333839155",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "332394877",
+      "modelNumber": "QUARTZ72DBL",
+      "storeSkuNumber": "1007890123",
+      "brand": "Home Decorators Collection",
+      "title": "Aberdeen 72 in. W x 22 in. D x 34 in. H Double Sink Bath Vanity in White with Carrara White Marble Top",
+      "shortDescription": "Premium double vanity with natural marble",
+      "price": {
+        "current": 1899.0,
+        "original": 2399.0,
+        "savings": 500.0,
+        "savingsPercent": 21,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.8,
+        "count": 987
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/332394877/332394877_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "exclusive",
+          "label": "Exclusive"
+        }
+      ],
+      "keyFeatures": [
+        "Natural Marble",
+        "Double Sink",
+        "Premium Construction"
+      ],
+      "availability": {
+        "inStorePickup": false,
+        "delivery": true,
+        "shipToHome": false
+      },
+      "productUrl": "/p/Home-Decorators-Collection-Aberdeen-72-in-Double-Vanity-QUARTZ72DBL/332394877",
+      "limitPerOrder": 2
+    },
+    {
+      "productId": "329106607",
+      "modelNumber": "QUARTZ48SV",
+      "storeSkuNumber": "1007901234",
+      "brand": "Home Decorators Collection",
+      "title": "Caville 48 in. W x 22 in. D x 34 in. H Single Sink Bath Vanity in Sage Green with White Engineered Stone Top",
+      "shortDescription": "Transitional style with modern color palette",
+      "price": {
+        "current": 899.0,
+        "original": 1199.0,
+        "savings": 300.0,
+        "savingsPercent": 25,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.5,
+        "count": 2345
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/329106607/329106607_64_600.jpg",
+        "colorSwatches": [
+          {
+            "color": "Sage Green",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/sage-green.jpg",
+            "variantId": "325234567"
+          },
+          {
+            "color": "White",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/white.jpg",
+            "variantId": "325234568"
+          },
+          {
+            "color": "Navy Blue",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/navy.jpg",
+            "variantId": "325234569"
+          }
+        ]
+      },
+      "badges": [
+        {
+          "type": "newArrival",
+          "label": "New Arrival"
+        }
+      ],
+      "keyFeatures": [
+        "Trending Color",
+        "Soft Close",
+        "Stone Top"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Home-Decorators-Collection-Caville-48-in-Bath-Vanity-QUARTZ48SV/329106607",
+      "limitPerOrder": 3
+    },
+    {
+      "productId": "317945709",
+      "modelNumber": "QUARTZ30SV",
+      "storeSkuNumber": "1008012345",
+      "brand": "Foremost",
+      "title": "Rockford 30 in. W x 21 in. D x 34 in. H Single Sink Freestanding Bath Vanity in Driftwood Gray",
+      "shortDescription": "Rustic style with modern functionality",
+      "price": {
+        "current": 349.0,
+        "original": 449.0,
+        "savings": 100.0,
+        "savingsPercent": 22,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.3,
+        "count": 3456
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/317945709/317945709_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Rustic Style",
+        "Soft Close",
+        "Dove-tailed Drawers"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Foremost-Rockford-30-in-Bath-Vanity-QUARTZ30SV/317945709",
+      "limitPerOrder": 3
+    },
+    {
+      "productId": "313644965",
+      "modelNumber": "QUARTZ36WM",
+      "storeSkuNumber": "1008123456",
+      "brand": "StyleWell",
+      "title": "Mayfield 36 in. W x 19 in. D x 23 in. H Single Sink Wall Mounted Bath Vanity in Matte Black with White Ceramic Top",
+      "shortDescription": "Sleek wall-mounted design saves floor space",
+      "price": {
+        "current": 449.0,
+        "original": 599.0,
+        "savings": 150.0,
+        "savingsPercent": 25,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.4,
+        "count": 1567
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/313644965/313644965_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "exclusive",
+          "label": "Exclusive"
+        }
+      ],
+      "keyFeatures": [
+        "Wall Mounted",
+        "Modern Design",
+        "Easy Clean"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/StyleWell-Mayfield-36-in-Wall-Mounted-Vanity-QUARTZ36WM/313644965",
+      "limitPerOrder": 3
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 103,
+    "itemsPerPage": 24,
+    "startIndex": 1,
+    "endIndex": 24
+  }
+}

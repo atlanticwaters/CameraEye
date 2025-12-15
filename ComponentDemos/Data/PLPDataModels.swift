@@ -15,8 +15,8 @@ struct PIPDataset: Codable, Identifiable {
     let identifiers: Identifiers
     let brand: Brand
     let title: String
-    let shortDescription: String
-    let longDescription: String
+    let shortDescription: String?     // Made optional
+    let longDescription: String?      // Made optional
     let breadcrumbs: [Breadcrumb]
     let pricing: Pricing
     let rating: Rating
@@ -24,13 +24,13 @@ struct PIPDataset: Codable, Identifiable {
     let variants: [Variant]
     let keyFeatures: [String]
     let highlights: [Highlight]
-    let specifications: Specifications
+    let specifications: Specifications?  // Already optional
     let badges: [Badge]
     let certifications: [Certification]
-    let warranty: Warranty
-    let protectionPlan: ProtectionPlan
+    let warranty: Warranty?           // Made optional
+    let protectionPlan: ProtectionPlan?  // Made optional
     let availability: Availability
-    let services: Services
+    let services: Services?           // Made optional
     let requirements: [Requirement]
     let includedItems: [String]
     let relatedProducts: RelatedProducts
@@ -50,9 +50,9 @@ struct PIPDataset: Codable, Identifiable {
     
     struct Brand: Codable {
         let name: String
-        let logoUrl: String
-        let brandPageUrl: String
-        let series: String
+        let logoUrl: String?        // Made optional
+        let brandPageUrl: String?   // Made optional
+        let series: String?         // Made optional
     }
     
     struct Breadcrumb: Codable {
@@ -80,14 +80,14 @@ struct PIPDataset: Codable, Identifiable {
         let average: Double
         let count: Int
         let recommendationPercent: Int
-        let distribution: Distribution
+        let distribution: Distribution?  // Made optional
         
         struct Distribution: Codable {
-            let fiveStar: Int
-            let fourStar: Int
-            let threeStar: Int
-            let twoStar: Int
-            let oneStar: Int
+            let fiveStar: Int?  // Made optional
+            let fourStar: Int?  // Made optional
+            let threeStar: Int?  // Made optional
+            let twoStar: Int?  // Made optional
+            let oneStar: Int?  // Made optional
             
             enum CodingKeys: String, CodingKey {
                 case fiveStar = "5star"
@@ -126,8 +126,8 @@ struct PIPDataset: Codable, Identifiable {
         let variantType: String
         let variantValue: String
         let price: Double
-        let imageUrl: String
-        let swatchUrl: String
+        let imageUrl: String?       // Made optional
+        let swatchUrl: String?      // Made optional - this was null
         let inStock: Bool
         let isSelected: Bool
     }
@@ -139,18 +139,18 @@ struct PIPDataset: Codable, Identifiable {
     }
     
     struct Specifications: Codable {
-        let dimensions: Dimensions
+        let dimensions: Dimensions?  // Made optional
         let details: [SpecificationGroup]
         
         struct Dimensions: Codable {
-            let productWidth: String
-            let productHeight: String
-            let productDepth: String
-            let productWeight: String
-            let packageWidth: String
-            let packageHeight: String
-            let packageDepth: String
-            let packageWeight: String
+            let productWidth: String?     // Made optional
+            let productHeight: String?    // Made optional
+            let productDepth: String?     // Made optional
+            let productWeight: String?    // Made optional
+            let packageWidth: String?     // Made optional - was missing
+            let packageHeight: String?    // Made optional
+            let packageDepth: String?     // Made optional
+            let packageWeight: String?    // Made optional
         }
         
         struct SpecificationGroup: Codable {
@@ -268,9 +268,10 @@ extension PIPDataset {
     /// Convert PIPDataset to Product model for use with ProductCard
     func toProduct() -> Product {
         // Extract color variants if available
-        let colors: [Product.ProductColor]? = variants.isEmpty ? nil : variants.prefix(3).map { variant in
-            Product.ProductColor(
-                colorHex: extractColorHex(from: variant.swatchUrl),
+        let colors: [Product.ProductColor]? = variants.isEmpty ? nil : variants.prefix(3).compactMap { variant in
+            guard let swatchUrl = variant.swatchUrl else { return nil }
+            return Product.ProductColor(
+                colorHex: extractColorHex(from: swatchUrl),
                 borderColorHex: nil
             )
         }

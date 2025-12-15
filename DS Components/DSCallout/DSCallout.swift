@@ -63,20 +63,18 @@ public struct DSCallout: View {
     // MARK: - Body
     
     public var body: some View {
-        HStack(alignment: .top, spacing: 0) {
+        HStack(alignment: .top, spacing: TokensSpacing.Spacing2) {
             // Leading icon (only for neutral and brand variants)
             if (variant == .neutral || variant == .brand), let icon = leadingIcon {
                 icon
                     .frame(width: 16, height: 16)
-                    .padding(.top, 16)
-                    .padding(.trailing, 8)
             }
             
             // Content
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: TokensSpacing.Spacing4) {
                 // Title section
                 if title != nil || subtitle != nil {
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
                         if let title = title {
                             Text(title)
                                 .font(.custom("THD SmVar Beta", size: 18))
@@ -102,15 +100,11 @@ public struct DSCallout: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 16)
-            .padding(.bottom, 6)
             
             // Leading icon for inverse variant
             if variant == .inverse, let icon = leadingIcon {
                 icon
                     .frame(width: 16, height: 16)
-                    .padding(.top, 16)
-                    .padding(.leading, 8)
             }
             
             // Action button
@@ -124,8 +118,8 @@ public struct DSCallout: View {
                             .fontWeight(.bold)
                             .foregroundColor(buttonTextColor)
                             .lineLimit(1)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
+                            .padding(.horizontal, TokensSpacing.Spacing4)
+                            .padding(.vertical, TokensSpacing.Spacing2)
                             .frame(height: 28)
                             .background(buttonBackgroundColor)
                             .cornerRadius(9999)
@@ -133,12 +127,11 @@ public struct DSCallout: View {
                     .buttonStyle(PlainButtonStyle())
                 }
                 .frame(maxHeight: 44)
-                .padding(.vertical, 8)
             }
         }
-        .padding(.horizontal, 0)
+        .padding(TokensSpacing.Spacing4)
         .background(backgroundColor)
-        .cornerRadius(isFloating ? 6 : 0)
+        .cornerRadius(TokensSemanticLight.BorderRadius2xl)
         .shadow(color: isFloating ? shadowColor : .clear, radius: isFloating ? 6 : 0, x: 0, y: isFloating ? 3 : 0)
     }
     

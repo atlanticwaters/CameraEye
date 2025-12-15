@@ -239,7 +239,7 @@ public struct DSProductCard: View {
                 }
                 
                 Text(priceText)
-                    .font(.system(size: TokensCoreLight.FontSizeH3, weight: .bold))
+                    .font(.system(size: DesignSystemGlobal.FontSizeH3, weight: .bold))
                     .foregroundColor(isDark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary)
             }
             

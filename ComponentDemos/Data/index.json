@@ -1,0 +1,43 @@
+{
+  "description": "Home Depot PLP Dataset Index",
+  "totalCategories": 6,
+  "totalProducts": 60,
+  "categories": [
+    {
+      "id": "french-door-refrigerators",
+      "name": "French Door Refrigerators",
+      "file": "french-door-refrigerators.json",
+      "productCount": 10
+    },
+    {
+      "id": "power-drills",
+      "name": "Power Drills",
+      "file": "power-drills.json",
+      "productCount": 10
+    },
+    {
+      "id": "ceiling-fans",
+      "name": "Ceiling Fans",
+      "file": "ceiling-fans.json",
+      "productCount": 10
+    },
+    {
+      "id": "bathroom-vanities",
+      "name": "Bathroom Vanities",
+      "file": "bathroom-vanities.json",
+      "productCount": 10
+    },
+    {
+      "id": "smart-thermostats",
+      "name": "Smart Thermostats",
+      "file": "smart-thermostats.json",
+      "productCount": 10
+    },
+    {
+      "id": "lawn-mowers",
+      "name": "Lawn Mowers",
+      "file": "lawn-mowers.json",
+      "productCount": 10
+    }
+  ]
+}

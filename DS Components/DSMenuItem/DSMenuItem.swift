@@ -107,13 +107,14 @@ public struct DSMenuItem: View {
                     VStack(alignment: .leading, spacing: 6) {
                         if let subtitle = subtitle {
                             Text(subtitle)
-                                .font(.custom("THD Sm Beta", size: 14))
+                                .font(.thdBodySm)
                                 .foregroundColor(subtitleColor)
                                 .lineLimit(1)
                         }
                         
                         Text(title)
-                            .font(.system(size: 20, weight: .semibold, design: .default))
+                            .font(.thdH4)
+                            .fontWeight(.semibold)
                             .foregroundColor(titleColor)
                             .lineLimit(1)
                     }
@@ -131,10 +132,10 @@ public struct DSMenuItem: View {
             .padding(.vertical, 12)
             .background(backgroundColor)
             .overlay(
-                RoundedRectangle(cornerRadius: 8)
+                RoundedRectangle(cornerRadius: TokensSemanticLight.BorderRadiusLg)
                     .stroke(borderColor, lineWidth: style == .outline ? 1 : 0)
             )
-            .cornerRadius(8)
+            .cornerRadius(TokensSemanticLight.BorderRadiusLg)
         }
         .buttonStyle(PlainButtonStyle())
     }
@@ -153,13 +154,13 @@ public struct DSMenuItem: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 40, height: 40)
                 .background(isDark ? TokensSemanticDark.Greige100 : TokensSemanticLight.Greige100)
-                .cornerRadius(3)
+                .cornerRadius(TokensSemanticLight.BorderRadiusXs)
                 .clipped()
         case .custom(let view):
             AnyView(view)
         case .payment:
             ZStack {
-                RoundedRectangle(cornerRadius: 3)
+                RoundedRectangle(cornerRadius: TokensSemanticLight.BorderRadiusXs)
                     .fill(Color.black)
                     .frame(width: 40, height: 24)
                 

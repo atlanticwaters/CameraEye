@@ -7,11 +7,13 @@ public struct DSStylePillItem: Identifiable {
     public let id: String
     public let text: String
     public let image: Image?
+    public let imageURL: String?  // NEW: Support for remote image URLs
     
-    public init(id: String = UUID().uuidString, text: String, image: Image? = nil) {
+    public init(id: String = UUID().uuidString, text: String, image: Image? = nil, imageURL: String? = nil) {
         self.id = id
         self.text = text
         self.image = image
+        self.imageURL = imageURL
     }
 }
 
@@ -90,10 +92,11 @@ public struct DSPlpFilterPanel: View {
     // MARK: Public
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            // Title
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
+            // Title - Using Display font family for headings
             Text(title)
-                .font(.system(size: 32, weight: .bold))
+                .font(.custom(DesignSystemGlobal.FontFamilyDisplay, size: DesignSystemGlobal.FontSizeH1))
+                .fontWeight(.bold)
                 .tracking(0.32)
                 .lineLimit(1)
                 .foregroundColor(titleColor)
@@ -102,7 +105,7 @@ public struct DSPlpFilterPanel: View {
             // Style Pills Container
             if !stylePills.isEmpty {
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 12) {
+                    HStack(spacing: DesignSystemGlobal.Spacing3) {
                         ForEach(stylePills) { item in
                             stylePillView(item)
                         }
@@ -111,10 +114,11 @@ public struct DSPlpFilterPanel: View {
                 .frame(height: 68)
             }
             
-            // Results Count
+            // Results Count - Using Display font family for prominent text
             if let resultsCount = resultsCount {
                 Text(resultsCount)
-                    .font(.system(size: 24, weight: .semibold))
+                    .font(.custom(DesignSystemGlobal.FontFamilyDisplay, size: DesignSystemGlobal.FontSizeH3))
+                    .fontWeight(.semibold)
                     .tracking(0.24)
                     .lineLimit(1)
                     .foregroundColor(resultsColor)
@@ -123,11 +127,11 @@ public struct DSPlpFilterPanel: View {
             
             // Filter Items Container
             if !filterPills.isEmpty || !subFilterPills.isEmpty {
-                VStack(alignment: .leading, spacing: 4) {
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
                     // Filter Top Pills
                     if !filterPills.isEmpty {
                         ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 8) {
+                            HStack(spacing: DesignSystemGlobal.Spacing2) {
                                 ForEach(filterPills) { item in
                                     filterPillView(item)
                                 }
@@ -138,7 +142,7 @@ public struct DSPlpFilterPanel: View {
                     // Filter Sub Pills
                     if !subFilterPills.isEmpty {
                         ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 8) {
+                            HStack(spacing: DesignSystemGlobal.Spacing2) {
                                 ForEach(subFilterPills) { item in
                                     subFilterPillView(item)
                                 }
@@ -148,7 +152,7 @@ public struct DSPlpFilterPanel: View {
                 }
             }
         }
-        .padding(.vertical, 16)
+        .padding(.vertical, DesignSystemGlobal.Spacing4)
     }
 
     // MARK: Internal
@@ -173,26 +177,112 @@ public struct DSPlpFilterPanel: View {
         Button(action: {
             onStylePillTap?(item)
         }) {
-            HStack(spacing: 4) {
-                // Image container
-                if let image = item.image {
+            HStack(spacing: DesignSystemGlobal.Spacing1) {
+                // Image container - supports both local file paths and remote URLs
+                if let imageURL = item.imageURL {
+                    if imageURL.hasPrefix("http://") || imageURL.hasPrefix("https://") {
+                        // Remote URL - use AsyncImage
+                        let _ = print("   → Using AsyncImage for remote URL: \(imageURL)")
+                        AsyncImage(url: URL(string: imageURL)) { phase in
+                            switch phase {
+                            case .empty:
+                                ZStack {
+                                    Circle()
+                                        .fill(Color.gray.opacity(0.2))
+                                        .frame(width: 48, height: 48)
+                                    ProgressView()
+                                }
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 48, height: 48)
+                                    .clipShape(Circle())
+                            case .failure(let error):
+                                ZStack {
+                                    Circle()
+                                        .fill(Color.red.opacity(0.2))
+                                        .frame(width: 48, height: 48)
+
+                                    if let fallbackImage = item.image {
+                                        fallbackImage
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 24, height: 24)
+                                            .foregroundColor(.gray)
+                                    } else {
+                                        Image(systemName: "exclamationmark.triangle")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 24, height: 24)
+                                            .foregroundColor(.red)
+                                    }
+                                }
+                                .onAppear {
+                                    print("❌ Failed to load remote image: \(imageURL)")
+                                    print("   Error: \(error)")
+                                }
+                            @unknown default:
+                                EmptyView()
+                            }
+                        }
+                    } else {
+                        // Local file path - load from bundle or file system
+                        let _ = print("   → Attempting to load LOCAL file: \(imageURL)")
+                        if let loadedImage = loadLocalImage(from: imageURL) {
+                            let _ = print("   ✅ Successfully loaded local image!")
+                            loadedImage
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 48, height: 48)
+                                .clipShape(Circle())
+                        } else {
+                            let _ = print("   ❌ Local image load failed, showing fallback")
+                            // Failed to load local image - show fallback
+                            ZStack {
+                                Circle()
+                                    .fill(Color.orange.opacity(0.2))
+                                    .frame(width: 48, height: 48)
+
+                                if let fallbackImage = item.image {
+                                    fallbackImage
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 24, height: 24)
+                                        .foregroundColor(.gray)
+                                } else {
+                                    Image(systemName: "photo")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 24, height: 24)
+                                        .foregroundColor(.orange)
+                                }
+                            }
+                            .onAppear {
+                                print("⚠️ Failed to load local image: \(imageURL)")
+                            }
+                        }
+                    }
+                } else if let image = item.image {
+                    // Local image asset or SF Symbol
                     image
                         .resizable()
-                        .scaledToFill()
+                        .scaledToFit()
                         .frame(width: 48, height: 48)
-                        .clipShape(Circle())
+                        .foregroundColor(stylePillTextColor)
                 }
                 
-                // Text
+                // Text - Using Informational font family for UI elements
                 Text(item.text)
-                    .font(.system(size: 14, weight: .regular))
+                    .font(.custom(DesignSystemGlobal.FontFamilyInformational, size: DesignSystemGlobal.FontSizeBodySm))
+                    .fontWeight(.regular)
                     .lineLimit(2)
                     .foregroundColor(stylePillTextColor)
                     .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+            .padding(.horizontal, DesignSystemGlobal.Spacing4)
+            .padding(.vertical, DesignSystemGlobal.Spacing3)
             .frame(height: 68)
             .background(stylePillBackgroundColor)
             .clipShape(Capsule())
@@ -207,7 +297,7 @@ public struct DSPlpFilterPanel: View {
         Button(action: {
             onFilterPillTap?(item)
         }) {
-            HStack(spacing: 4) {
+            HStack(spacing: DesignSystemGlobal.Spacing1) {
                 if let icon = item.icon {
                     icon
                         .resizable()
@@ -217,14 +307,15 @@ public struct DSPlpFilterPanel: View {
                 }
                 
                 Text(item.text)
-                    .font(.system(size: 14, weight: .regular))
+                    .font(.custom(DesignSystemGlobal.FontFamilyInformational, size: DesignSystemGlobal.FontSizeBodySm))
+                    .fontWeight(.regular)
                     .lineLimit(1)
                     .foregroundColor(filterPillTextColor)
             }
-            .padding(.horizontal, item.icon != nil ? 0 : 12)
+            .padding(.horizontal, item.icon != nil ? 0 : DesignSystemGlobal.Spacing3)
             .padding(.leading, item.icon != nil ? 0 : 0)
-            .padding(.trailing, item.icon != nil ? 16 : 0)
-            .padding(.vertical, 12)
+            .padding(.trailing, item.icon != nil ? DesignSystemGlobal.Spacing4 : 0)
+            .padding(.vertical, DesignSystemGlobal.Spacing3)
             .frame(height: 44)
             .background(Color.clear)
         }
@@ -239,11 +330,12 @@ public struct DSPlpFilterPanel: View {
             onSubFilterPillTap?(item)
         }) {
             Text(item.text)
-                .font(.system(size: 14, weight: .regular))
+                .font(.custom(DesignSystemGlobal.FontFamilyInformational, size: DesignSystemGlobal.FontSizeBodySm))
+                .fontWeight(.regular)
                 .lineLimit(1)
                 .foregroundColor(subFilterPillTextColor)
-                .padding(.horizontal, 16)
-                .padding(.vertical, 6)
+                .padding(.horizontal, DesignSystemGlobal.Spacing4)
+                .padding(.vertical, DesignSystemGlobal.Spacing2 - 2)
                 .frame(minHeight: 36)
                 .background(subFilterPillBackgroundColor)
                 .clipShape(Capsule())
@@ -251,8 +343,97 @@ public struct DSPlpFilterPanel: View {
         .buttonStyle(PlainButtonStyle())
     }
     
+    // MARK: - Image Loading Helpers
+
+    /// Load a local image from a file path
+    /// Supports paths like "french-door-images/imgi_39_...jpg" or just "imgi_39_...jpg"
+    /// Tries both asset catalog and bundle folders (images, french-door-images)
+    private func loadLocalImage(from path: String) -> Image? {
+        // Extract just the filename without extension
+        let filename = (path as NSString).lastPathComponent
+        let nameWithoutExt = filename
+            .replacingOccurrences(of: ".jpg", with: "")
+            .replacingOccurrences(of: ".png", with: "")
+            .replacingOccurrences(of: ".jpeg", with: "")
+        
+        print("      🔧 Looking for asset: \(nameWithoutExt)")
+        
+        // Strategy 1: Try as asset catalog image
+        #if canImport(UIKit)
+        if UIImage(named: nameWithoutExt) != nil {
+            print("      ✅ Found in asset catalog!")
+            return Image(nameWithoutExt)
+        }
+        #elseif canImport(AppKit)
+        if NSImage(named: nameWithoutExt) != nil {
+            print("      ✅ Found in asset catalog!")
+            return Image(nameWithoutExt)
+        }
+        #endif
+        
+        // Strategy 2: Try to load from bundle folders
+        let ext = filename.hasSuffix(".png") ? "png" : (filename.hasSuffix(".jpeg") ? "jpeg" : "jpg")
+        let possibleFolders = ["images", "french-door-images", ""]
+        
+        for folder in possibleFolders {
+            if folder.isEmpty {
+                // Try root level
+                if let url = Bundle.main.url(forResource: nameWithoutExt, withExtension: ext) {
+                    print("      ✅ Found in bundle root!")
+                    #if canImport(UIKit)
+                    if let uiImage = UIImage(contentsOfFile: url.path) {
+                        return Image(uiImage: uiImage)
+                    }
+                    #elseif canImport(AppKit)
+                    if let nsImage = NSImage(contentsOf: url) {
+                        return Image(nsImage: nsImage)
+                    }
+                    #endif
+                }
+            } else {
+                // Try subdirectory
+                if let url = Bundle.main.url(forResource: nameWithoutExt, withExtension: ext, subdirectory: folder) {
+                    print("      ✅ Found in \(folder) folder!")
+                    #if canImport(UIKit)
+                    if let uiImage = UIImage(contentsOfFile: url.path) {
+                        return Image(uiImage: uiImage)
+                    }
+                    #elseif canImport(AppKit)
+                    if let nsImage = NSImage(contentsOf: url) {
+                        return Image(nsImage: nsImage)
+                    }
+                    #endif
+                }
+            }
+        }
+        
+        // Strategy 3: Try direct file path
+        if let resourcePath = Bundle.main.resourcePath {
+            for folder in possibleFolders {
+                let filePath = folder.isEmpty ? 
+                    "\(resourcePath)/\(filename)" : 
+                    "\(resourcePath)/\(folder)/\(filename)"
+                
+                #if canImport(UIKit)
+                if let uiImage = UIImage(contentsOfFile: filePath) {
+                    print("      ✅ Found at direct path: \(folder.isEmpty ? "root" : folder)")
+                    return Image(uiImage: uiImage)
+                }
+                #elseif canImport(AppKit)
+                if let nsImage = NSImage(contentsOfFile: filePath) {
+                    print("      ✅ Found at direct path: \(folder.isEmpty ? "root" : folder)")
+                    return Image(nsImage: nsImage)
+                }
+                #endif
+            }
+        }
+        
+        print("      ❌ Not found in asset catalog or folders: images, french-door-images")
+        return nil
+    }
+
     // MARK: - Color Helpers
-    
+
     private var titleColor: Color {
         colorScheme == .dark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary
     }

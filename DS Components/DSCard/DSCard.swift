@@ -121,6 +121,7 @@ public struct DSContentCard: View {
             if title != nil || subtitle != nil {
                 titleSection
                     .padding(.horizontal, 20)
+                    .padding(.top, shouldShowBodyFirst ? 20 : 0)
             }
             
             // Body placement logic
@@ -156,7 +157,7 @@ public struct DSContentCard: View {
                 if let title = title {
                     HStack(spacing: 6) {
                         Text(title)
-                            .font(.custom("SF Pro Display", size: 18))
+                            .font(.thdBodyLg)
                             .fontWeight(.semibold)
                             .foregroundColor(textColor)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -166,7 +167,7 @@ public struct DSContentCard: View {
                 
                 if let subtitle = subtitle {
                     Text(subtitle)
-                        .font(.custom("THD Sm Beta", size: TokensCoreLight.FontSizeBodySm))
+                        .font(.thdBodySm)
                         .foregroundColor(textColor)
                         .lineLimit(nil)
                 }
@@ -177,7 +178,6 @@ public struct DSContentCard: View {
                 actionButton
             }
         }
-        .frame(height: 44)
     }
     
     private var actionButton: some View {
@@ -202,7 +202,7 @@ public struct DSContentCard: View {
                     .clipped()
             } else {
                 bodyContent
-                    .padding(.horizontal, 16)
+                    .padding(.horizontal, 20)
             }
         }
     }
@@ -220,11 +220,11 @@ public struct DSContentCard: View {
     private var paddingVertical: CGFloat {
         switch bodyPlacement {
         case .firstWithPadding, .firstFullBleed:
-            return 0
+            return 20  // Bottom padding when body is first
         case .secondWithPadding:
-            return 20
+            return 20  // Top padding when body is second
         case .secondFullBleed:
-            return 16
+            return 20  // Consistent padding for full bleed
         }
     }
     
@@ -337,6 +337,8 @@ public struct DSMiniProductCard: View {
             // Badge and more button row
             if showBadge || onMoreAction != nil {
                 badgeRow
+                    .padding(.top, 16)
+                    .padding(.bottom, 8)
             }
             
             if orientation == .horizontal {
@@ -345,7 +347,6 @@ public struct DSMiniProductCard: View {
                 verticalLayout
             }
         }
-        .padding(.top, 8)
         .background(backgroundColor)
         .cornerRadius(TokensSemanticLight.BorderRadius3xl)
     }
@@ -356,7 +357,7 @@ public struct DSMiniProductCard: View {
         HStack {
             if showBadge, let badgeText = badgeText {
                 Text(badgeText)
-                    .font(.custom(TokensCoreLight.FontFamilyInformational, size: TokensCoreLight.FontSizeBodyXs))
+                    .font(.thdBodyXs)
                     .fontWeight(.bold)
                     .foregroundColor(badgeTextColor)
                     .padding(.horizontal, 4)
@@ -389,7 +390,7 @@ public struct DSMiniProductCard: View {
             productDetails
         }
         .padding(.horizontal, 16)
-        .padding(.vertical, 8)
+        .padding(.top, showBadge || onMoreAction != nil ? 0 : 16)
         .padding(.bottom, 16)
     }
     
@@ -397,7 +398,7 @@ public struct DSMiniProductCard: View {
         VStack(alignment: .leading, spacing: 16) {
             productDetails
                 .padding(.horizontal, 16)
-                .padding(.vertical, 8)
+                .padding(.top, showBadge || onMoreAction != nil ? 0 : 16)
             
             productImageView
                 .frame(height: 100)
@@ -425,7 +426,7 @@ public struct DSMiniProductCard: View {
             // SKU
             if let sku = sku {
                 Text(sku)
-                    .font(.custom("THD Sm Beta", size: TokensCoreLight.FontSizeBodySm))
+                    .font(.thdBodySm)
                     .foregroundColor(tertiaryTextColor)
                     .lineLimit(1)
             }
@@ -450,7 +451,7 @@ public struct DSMiniProductCard: View {
     
     private var productNameView: some View {
         Text(buildProductNameAttributedString())
-            .font(.custom("THD Sm Beta", size: 14))
+            .font(.thdBodySm)
             .foregroundColor(textColor)
             .lineLimit(2)
             .frame(maxWidth: .infinity, alignment: .leading)
@@ -461,13 +462,13 @@ public struct DSMiniProductCard: View {
         
         if let brandName = brandName {
             var brand = AttributedString(brandName)
-            brand.font = .custom("THD SmVar Beta", size: 14).weight(.bold)
+            brand.font = .thdInformational(size: TokensCoreLight.FontSizeBodySm, weight: .bold)
             attributedString.append(brand)
             attributedString.append(AttributedString(" "))
         }
         
         var product = AttributedString(productName)
-        product.font = .custom("THD Sm Beta", size: 14)
+        product.font = .thdBodySm
         attributedString.append(product)
         
         return attributedString
@@ -489,14 +490,14 @@ public struct DSMiniProductCard: View {
         VStack(alignment: .leading, spacing: 2) {
             if let pickupInfo = pickupInfo {
                 Text(pickupInfo)
-                    .font(.custom("THD Sm Beta", size: 14))
+                    .font(.thdBodySm)
                     .foregroundColor(successColor)
                     .lineLimit(1)
             }
             
             if let deliveryInfo = deliveryInfo {
                 Text(deliveryInfo)
-                    .font(.custom("THD Sm Beta", size: 14))
+                    .font(.thdBodySm)
                     .foregroundColor(successColor)
                     .lineLimit(1)
             }
@@ -506,7 +507,7 @@ public struct DSMiniProductCard: View {
     private var priceAndAction: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(price)
-                .font(.custom(TokensCoreLight.FontFamilyDisplay, size: 20))
+                .font(.thdH4)
                 .fontWeight(.heavy)
                 .foregroundColor(textColor)
             

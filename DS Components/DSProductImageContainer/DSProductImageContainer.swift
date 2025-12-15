@@ -208,17 +208,39 @@ public struct DSProductImageContainer: View {
     @ViewBuilder
     private var productImageView: some View {
         if let imageURL = imageURL {
-            AsyncImage(url: imageURL) { phase in
-                switch phase {
-                case .empty:
-                    loadingOrPlaceholderImage
-                case .success(let image):
-                    image
+            // Check if it's a remote URL or local asset path
+            let urlString = imageURL.absoluteString
+            if urlString.hasPrefix("http://") || urlString.hasPrefix("https://") {
+                // Remote URL - use AsyncImage
+                AsyncImage(url: imageURL) { phase in
+                    switch phase {
+                    case .empty:
+                        loadingOrPlaceholderImage
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    case .failure:
+                        loadingOrPlaceholderImage
+                    @unknown default:
+                        loadingOrPlaceholderImage
+                    }
+                }
+            } else {
+                // Treat as local asset name - try multiple strategies
+                let filename = (urlString as NSString).lastPathComponent
+                let assetName = filename
+                    .replacingOccurrences(of: ".jpg", with: "")
+                    .replacingOccurrences(of: ".png", with: "")
+                    .replacingOccurrences(of: ".jpeg", with: "")
+                
+                // Try to load from asset catalog or bundle
+                if let loadedImage = loadLocalProductImage(assetName: assetName, fullPath: urlString) {
+                    loadedImage
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                case .failure:
-                    loadingOrPlaceholderImage
-                @unknown default:
+                } else {
+                    // Fallback to placeholder
                     loadingOrPlaceholderImage
                 }
             }
@@ -277,6 +299,80 @@ public struct DSProductImageContainer: View {
                 .fill(color)
                 .frame(width: 22, height: 22)
         }
+    }
+    
+    // MARK: - Local Image Loading
+    
+    /// Try to load a local product image using multiple strategies
+    private func loadLocalProductImage(assetName: String, fullPath: String) -> Image? {
+        // Strategy 1: Try as asset catalog image (just the filename)
+        #if canImport(UIKit)
+        if UIImage(named: assetName) != nil {
+            return Image(assetName)
+        }
+        #elseif canImport(AppKit)
+        if NSImage(named: assetName) != nil {
+            return Image(assetName)
+        }
+        #endif
+        
+        // Strategy 2: Try to load from bundle with various folder paths
+        let possibleFolders = ["images", "french-door-images", ""]
+        let filename = (fullPath as NSString).lastPathComponent
+        let ext = filename.hasSuffix(".png") ? "png" : (filename.hasSuffix(".jpeg") ? "jpeg" : "jpg")
+        
+        for folder in possibleFolders {
+            if folder.isEmpty {
+                // Try root level
+                if let url = Bundle.main.url(forResource: assetName, withExtension: ext) {
+                    #if canImport(UIKit)
+                    if let uiImage = UIImage(contentsOfFile: url.path) {
+                        return Image(uiImage: uiImage)
+                    }
+                    #elseif canImport(AppKit)
+                    if let nsImage = NSImage(contentsOf: url) {
+                        return Image(nsImage: nsImage)
+                    }
+                    #endif
+                }
+            } else {
+                // Try subdirectory
+                if let url = Bundle.main.url(forResource: assetName, withExtension: ext, subdirectory: folder) {
+                    #if canImport(UIKit)
+                    if let uiImage = UIImage(contentsOfFile: url.path) {
+                        return Image(uiImage: uiImage)
+                    }
+                    #elseif canImport(AppKit)
+                    if let nsImage = NSImage(contentsOf: url) {
+                        return Image(nsImage: nsImage)
+                    }
+                    #endif
+                }
+            }
+        }
+        
+        // Strategy 3: Try direct file path if it exists
+        if let resourcePath = Bundle.main.resourcePath {
+            for folder in possibleFolders {
+                let filePath = folder.isEmpty ? 
+                    "\(resourcePath)/\(filename)" : 
+                    "\(resourcePath)/\(folder)/\(filename)"
+                
+                #if canImport(UIKit)
+                if let uiImage = UIImage(contentsOfFile: filePath) {
+                    return Image(uiImage: uiImage)
+                }
+                #elseif canImport(AppKit)
+                if let nsImage = NSImage(contentsOfFile: filePath) {
+                    return Image(nsImage: nsImage)
+                }
+                #endif
+            }
+        }
+        
+        // All strategies failed
+        print("⚠️ Could not load image: \(assetName) (tried asset catalog and folders: images, french-door-images)")
+        return nil
     }
 }
 

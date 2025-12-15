@@ -1,0 +1,671 @@
+{
+  "pageInfo": {
+    "categoryId": "N-5yc1vZc2h8",
+    "categoryName": "Smart Thermostats",
+    "categorySlug": "smart-thermostats",
+    "breadcrumbs": [
+      {
+        "label": "Home",
+        "url": "/"
+      },
+      {
+        "label": "Heating, Venting & Cooling",
+        "url": "/b/Heating-Venting-Cooling/N-5yc1vZc4k8"
+      },
+      {
+        "label": "Thermostats",
+        "url": "/b/Heating-Venting-Cooling-Thermostats/N-5yc1vZc4l7"
+      },
+      {
+        "label": "Smart Thermostats",
+        "url": "/b/Heating-Venting-Cooling-Thermostats-Smart-Thermostats/N-5yc1vZc2h8"
+      }
+    ],
+    "totalResults": 89,
+    "heroImage": {
+      "url": "https://dam.thdstatic.com/contentful/heroflattenimage/smart-thermostats-hero.png",
+      "alt": "Smart Thermostats",
+      "promoText": "Save Energy and Money with Smart Control"
+    },
+    "seoDescription": "Shop Smart Thermostats at The Home Depot. Find programmable and WiFi thermostats from Nest, Ecobee, Honeywell, and more for energy savings."
+  },
+  "featuredBrands": [
+    {
+      "brandId": "GoogleNest",
+      "brandName": "Google Nest",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/google-nest-logo.svg",
+      "filterUrl": "/b/Smart-Thermostats/Google-Nest/N-5yc1vZc2h8Zgn"
+    },
+    {
+      "brandId": "ecobee",
+      "brandName": "ecobee",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/ecobee-logo.svg",
+      "filterUrl": "/b/Smart-Thermostats/ecobee/N-5yc1vZc2h8Zeb"
+    },
+    {
+      "brandId": "Honeywell",
+      "brandName": "Honeywell Home",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/honeywell-logo.svg",
+      "filterUrl": "/b/Smart-Thermostats/Honeywell/N-5yc1vZc2h8Zhy"
+    },
+    {
+      "brandId": "Emerson",
+      "brandName": "Emerson",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/emerson-logo.svg",
+      "filterUrl": "/b/Smart-Thermostats/Emerson/N-5yc1vZc2h8Zem"
+    }
+  ],
+  "quickFilters": [
+    {
+      "filterId": "voice-control",
+      "label": "Voice Control",
+      "imageUrl": "https://images.thdstatic.com/catalog/productImages/300/voice-thermostat.jpg",
+      "filterUrl": "/b/Smart-Thermostats/Voice-Control/N-5yc1vZc2h8Z1z1"
+    },
+    {
+      "filterId": "learning",
+      "label": "Learning Thermostats",
+      "imageUrl": "https://images.thdstatic.com/catalog/productImages/300/learning-thermostat.jpg",
+      "filterUrl": "/b/Smart-Thermostats/Learning/N-5yc1vZc2h8Z2z2"
+    },
+    {
+      "filterId": "energy-star",
+      "label": "ENERGY STAR",
+      "imageUrl": "https://images.thdstatic.com/catalog/productImages/300/energy-star-thermostat.jpg",
+      "filterUrl": "/b/Smart-Thermostats/ENERGY-STAR/N-5yc1vZc2h8Z3z3"
+    }
+  ],
+  "filters": [
+    {
+      "filterGroupId": "brand",
+      "filterGroupName": "Brand",
+      "filterType": "checkbox",
+      "options": [
+        {
+          "optionId": "google-nest",
+          "label": "Google Nest",
+          "value": "google-nest",
+          "count": 12,
+          "filterUrl": "/b/Smart-Thermostats/Google-Nest/N-5yc1vZc2h8Zgn"
+        },
+        {
+          "optionId": "ecobee",
+          "label": "ecobee",
+          "value": "ecobee",
+          "count": 8,
+          "filterUrl": "/b/Smart-Thermostats/ecobee/N-5yc1vZc2h8Zeb"
+        },
+        {
+          "optionId": "honeywell",
+          "label": "Honeywell Home",
+          "value": "honeywell",
+          "count": 24,
+          "filterUrl": "/b/Smart-Thermostats/Honeywell/N-5yc1vZc2h8Zhy"
+        },
+        {
+          "optionId": "emerson",
+          "label": "Emerson",
+          "value": "emerson",
+          "count": 15,
+          "filterUrl": "/b/Smart-Thermostats/Emerson/N-5yc1vZc2h8Zem"
+        }
+      ]
+    },
+    {
+      "filterGroupId": "price",
+      "filterGroupName": "Price",
+      "filterType": "range",
+      "options": [
+        {
+          "optionId": "price-0-100",
+          "label": "Under $100",
+          "value": "0-100",
+          "count": 23
+        },
+        {
+          "optionId": "price-100-200",
+          "label": "$100 - $200",
+          "value": "100-200",
+          "count": 34
+        },
+        {
+          "optionId": "price-200-300",
+          "label": "$200 - $300",
+          "value": "200-300",
+          "count": 21
+        },
+        {
+          "optionId": "price-300-plus",
+          "label": "$300 & Above",
+          "value": "300-plus",
+          "count": 11
+        }
+      ]
+    },
+    {
+      "filterGroupId": "compatibility",
+      "filterGroupName": "Voice Assistant",
+      "filterType": "checkbox",
+      "options": [
+        {
+          "optionId": "alexa",
+          "label": "Amazon Alexa",
+          "value": "alexa",
+          "count": 67
+        },
+        {
+          "optionId": "google",
+          "label": "Google Assistant",
+          "value": "google",
+          "count": 65
+        },
+        {
+          "optionId": "apple",
+          "label": "Apple HomeKit",
+          "value": "apple",
+          "count": 23
+        }
+      ]
+    }
+  ],
+  "sortOptions": [
+    {
+      "sortId": "top-sellers",
+      "label": "Top Sellers",
+      "isDefault": true
+    },
+    {
+      "sortId": "price-low-high",
+      "label": "Price Low to High",
+      "isDefault": false
+    },
+    {
+      "sortId": "price-high-low",
+      "label": "Price High to Low",
+      "isDefault": false
+    },
+    {
+      "sortId": "top-rated",
+      "label": "Top Rated",
+      "isDefault": false
+    }
+  ],
+  "products": [
+    {
+      "productId": "319478899",
+      "modelNumber": "T3007ES",
+      "storeSkuNumber": "1008234567",
+      "brand": "Google Nest",
+      "title": "Nest Learning Thermostat - Smart Wi-Fi Thermostat - Stainless Steel",
+      "shortDescription": "Learns your schedule and programs itself",
+      "price": {
+        "current": 249.0,
+        "original": 279.0,
+        "savings": 30.0,
+        "savingsPercent": 11,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.6,
+        "count": 15678
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/319478899/319478899_64_600.jpg",
+        "colorSwatches": [
+          {
+            "color": "Stainless Steel",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/stainless.jpg",
+            "variantId": "303456789"
+          },
+          {
+            "color": "White",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/white.jpg",
+            "variantId": "303456790"
+          },
+          {
+            "color": "Brass",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/brass.jpg",
+            "variantId": "303456791"
+          }
+        ]
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        },
+        {
+          "type": "energyStar",
+          "label": "ENERGY STAR"
+        }
+      ],
+      "keyFeatures": [
+        "Self-Learning",
+        "Remote Control",
+        "Energy History"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Google-Nest-Learning-Thermostat-Stainless-Steel-T3007ES/319478899",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "319479265",
+      "modelNumber": "EB-STATE6-01",
+      "storeSkuNumber": "1008345678",
+      "brand": "ecobee",
+      "title": "ecobee Smart Thermostat Premium with Built-in Air Quality Monitor and Voice Control",
+      "shortDescription": "Premium features with air quality monitoring",
+      "price": {
+        "current": 249.99,
+        "original": 279.99,
+        "savings": 30.0,
+        "savingsPercent": 11,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.5,
+        "count": 8765
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/319479265/319479265_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        },
+        {
+          "type": "energyStar",
+          "label": "ENERGY STAR"
+        }
+      ],
+      "keyFeatures": [
+        "Air Quality Monitor",
+        "Built-in Alexa",
+        "SmartSensor Included"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/ecobee-Smart-Thermostat-Premium-EB-STATE6-01/319479265",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "333511723",
+      "modelNumber": "GA01334-US",
+      "storeSkuNumber": "1008456789",
+      "brand": "Google Nest",
+      "title": "Nest Thermostat - Smart Wi-Fi Thermostat - Snow",
+      "shortDescription": "Affordable smart thermostat with sleek design",
+      "price": {
+        "current": 129.99,
+        "original": 149.99,
+        "savings": 20.0,
+        "savingsPercent": 13,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.4,
+        "count": 12345
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/333511723/333511723_64_600.jpg",
+        "colorSwatches": [
+          {
+            "color": "Snow",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/snow.jpg",
+            "variantId": "309678901"
+          },
+          {
+            "color": "Sand",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/sand.jpg",
+            "variantId": "309678902"
+          },
+          {
+            "color": "Charcoal",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/charcoal.jpg",
+            "variantId": "309678903"
+          },
+          {
+            "color": "Fog",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/fog.jpg",
+            "variantId": "309678904"
+          }
+        ]
+      },
+      "badges": [
+        {
+          "type": "bestSeller",
+          "label": "Best Seller"
+        },
+        {
+          "type": "energyStar",
+          "label": "ENERGY STAR"
+        }
+      ],
+      "keyFeatures": [
+        "Easy Install",
+        "Energy Savings",
+        "Smart Schedule"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Google-Nest-Thermostat-Snow-GA01334-US/333511723",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "301500827",
+      "modelNumber": "RTH9585WF1004",
+      "storeSkuNumber": "1008567890",
+      "brand": "Honeywell Home",
+      "title": "Wi-Fi Smart Color Thermostat with App Control and Customizable Color Display",
+      "shortDescription": "Customize your display with any color",
+      "price": {
+        "current": 179.0,
+        "original": 199.0,
+        "savings": 20.0,
+        "savingsPercent": 10,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.3,
+        "count": 6543
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/301500827/301500827_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Color Display",
+        "7-Day Scheduling",
+        "Geofencing"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Honeywell-Home-Wi-Fi-Smart-Color-Thermostat-RTH9585WF1004/301500827",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "309221830",
+      "modelNumber": "EB-STATE5-01",
+      "storeSkuNumber": "1008678901",
+      "brand": "ecobee",
+      "title": "ecobee Smart Thermostat Enhanced with Voice Control and SmartSensor",
+      "shortDescription": "Enhanced features at a great value",
+      "price": {
+        "current": 189.99,
+        "original": 219.99,
+        "savings": 30.0,
+        "savingsPercent": 14,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.4,
+        "count": 5432
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/309221830/309221830_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "newArrival",
+          "label": "New Arrival"
+        }
+      ],
+      "keyFeatures": [
+        "SmartSensor Included",
+        "Voice Control",
+        "Energy Reports"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/ecobee-Smart-Thermostat-Enhanced-EB-STATE5-01/309221830",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "301500584",
+      "modelNumber": "T10PRO",
+      "storeSkuNumber": "1008789012",
+      "brand": "Honeywell Home",
+      "title": "T10 Pro Smart Thermostat with RedLINK Room Sensor",
+      "shortDescription": "Professional-grade smart thermostat",
+      "price": {
+        "current": 199.0,
+        "original": 249.0,
+        "savings": 50.0,
+        "savingsPercent": 20,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.5,
+        "count": 3456
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/301500584/301500584_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "proPreferred",
+          "label": "Pro Preferred"
+        }
+      ],
+      "keyFeatures": [
+        "Room Sensor Included",
+        "Multi-Stage Support",
+        "Smart Response"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Honeywell-Home-T10-Pro-Smart-Thermostat-T10PRO/301500584",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "312117328",
+      "modelNumber": "SR75",
+      "storeSkuNumber": "1008890123",
+      "brand": "Emerson",
+      "title": "Sensi Touch 2 Smart Thermostat with Touchscreen Color Display",
+      "shortDescription": "Easy DIY installation with beautiful display",
+      "price": {
+        "current": 169.0,
+        "original": 199.0,
+        "savings": 30.0,
+        "savingsPercent": 15,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.6,
+        "count": 4567
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/312117328/312117328_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        },
+        {
+          "type": "energyStar",
+          "label": "ENERGY STAR"
+        }
+      ],
+      "keyFeatures": [
+        "Touch Display",
+        "DIY Install",
+        "Flexible Scheduling"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Emerson-Sensi-Touch-2-Smart-Thermostat-SR75/312117328",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "307685448",
+      "modelNumber": "RTH6580WF",
+      "storeSkuNumber": "1008901234",
+      "brand": "Honeywell Home",
+      "title": "Wi-Fi 7-Day Programmable Thermostat with Touchscreen Display",
+      "shortDescription": "Simple smart thermostat at a great price",
+      "price": {
+        "current": 99.0,
+        "original": 119.0,
+        "savings": 20.0,
+        "savingsPercent": 17,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.2,
+        "count": 8765
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/307685448/307685448_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "specialBuy",
+          "label": "Special Buy"
+        }
+      ],
+      "keyFeatures": [
+        "7-Day Programming",
+        "Remote Access",
+        "Easy Setup"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Honeywell-Home-Wi-Fi-7-Day-Programmable-Thermostat-RTH6580WF/307685448",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "314005802",
+      "modelNumber": "ST55",
+      "storeSkuNumber": "1009012345",
+      "brand": "Emerson",
+      "title": "Sensi Smart Thermostat with Wi-Fi for DIY Install",
+      "shortDescription": "Budget-friendly smart thermostat",
+      "price": {
+        "current": 89.0,
+        "original": 129.0,
+        "savings": 40.0,
+        "savingsPercent": 31,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.4,
+        "count": 6789
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/314005802/314005802_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "bestSeller",
+          "label": "Best Seller"
+        },
+        {
+          "type": "energyStar",
+          "label": "ENERGY STAR"
+        }
+      ],
+      "keyFeatures": [
+        "Easy DIY Install",
+        "Works with HVAC",
+        "7-Day Schedule"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Emerson-Sensi-Smart-Thermostat-ST55/314005802",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "303758665",
+      "modelNumber": "T4PROCC",
+      "storeSkuNumber": "1009123456",
+      "brand": "Honeywell Home",
+      "title": "T4 Pro Programmable Thermostat with Selectable Flexible Scheduling",
+      "shortDescription": "Professional features without WiFi",
+      "price": {
+        "current": 59.0,
+        "original": 79.0,
+        "savings": 20.0,
+        "savingsPercent": 25,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.5,
+        "count": 5432
+      },
+      "images": {
+        "primary": "https://images.thdstatic.com/productImages/303758665/303758665_64_600.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Programmable",
+        "Large Display",
+        "Easy to Use"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Honeywell-Home-T4-Pro-Programmable-Thermostat-T4PROCC/303758665",
+      "limitPerOrder": 10
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 4,
+    "itemsPerPage": 24,
+    "startIndex": 1,
+    "endIndex": 24
+  }
+}

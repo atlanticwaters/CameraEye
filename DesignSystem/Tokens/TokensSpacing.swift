@@ -10,8 +10,17 @@ import SwiftUI
 /// Spacing tokens - consistent spacing scale across the design system
 /// These values are theme-independent and remain constant across light/dark modes
 public struct TokensSpacing {
+    /// 0pt spacing - Reset/None
+    public static let Spacing0 = CGFloat(0)
+
+    /// 2pt spacing - Fine adjustments
+    public static let Spacing05 = CGFloat(2)
+
     /// 4pt spacing
     public static let Spacing1 = CGFloat(4)
+
+    /// 6pt spacing - Between Spacing1 and Spacing2
+    public static let Spacing1_5 = CGFloat(6)
     
     /// 8pt spacing
     public static let Spacing2 = CGFloat(8)

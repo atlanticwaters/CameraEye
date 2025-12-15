@@ -52,14 +52,13 @@ public struct DSAlert: View {
     // MARK: - Body
     
     public var body: some View {
-        HStack(alignment: .top, spacing: 8) {
+        HStack(alignment: .top, spacing: TokensSpacing.Spacing2) {
             // Leading icon
             iconView
                 .frame(width: 16, height: 16)
-                .padding(.top, 16)
             
             // Content
-            VStack(alignment: .leading, spacing: 8) {
+            VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
                 if let title = title {
                     Text(title)
                         .thdFont(.bodyMd)
@@ -74,8 +73,6 @@ public struct DSAlert: View {
                     .fixedSize(horizontal: false, vertical: true)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.top, 16)
-            .padding(.bottom, 6)
             
             // Dismiss button
             if onDismiss != nil {
@@ -83,9 +80,9 @@ public struct DSAlert: View {
                     .frame(width: 44, height: 44)
             }
         }
-        .padding(.horizontal, 0)
+        .padding(TokensSpacing.Spacing4)
         .background(backgroundColor)
-        .cornerRadius(isFloating ? 6 : 0)
+        .cornerRadius(TokensSemanticLight.BorderRadius2xl)
         .shadow(color: isFloating ? shadowColor : .clear, radius: isFloating ? 6 : 0, x: 0, y: isFloating ? 3 : 0)
     }
     

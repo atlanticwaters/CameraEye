@@ -63,30 +63,30 @@
         }
       },
       "media": {
-        "primaryImage": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
+        "primaryImage": "https://images.thdstatic.com/productImages/ge-french-door-gne27jymfs-64_1000.jpg",
         "images": [
           {
-            "url": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/ge-french-door-gne27jymfs-64_1000.jpg",
             "altText": "Front view of GE French Door Refrigerator",
             "type": "primary"
           },
           {
-            "url": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/ge-french-door-gne27jymfs-e4_1000.jpg",
             "altText": "Interior view with shelves",
             "type": "detail"
           },
           {
-            "url": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/ge-french-door-gne27jymfs-b3_1000.jpg",
             "altText": "Door open showing storage",
             "type": "detail"
           },
           {
-            "url": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/ge-french-door-gne27jymfs-ls_1000.jpg",
             "altText": "Refrigerator in modern kitchen",
             "type": "lifestyle"
           },
           {
-            "url": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/ge-french-door-gne27jymfs-dg_1000.jpg",
             "altText": "Dimensions diagram",
             "type": "diagram"
           }
@@ -109,8 +109,8 @@
           "variantType": "Color/Finish",
           "variantValue": "Fingerprint Resistant Stainless Steel",
           "price": 1399.0,
-          "imageUrl": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
-          "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+          "imageUrl": "https://images.thdstatic.com/productImages/ge-french-door-gne27jymfs-64_400.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/stainless-swatch.jpg",
           "inStock": true,
           "isSelected": true
         },
@@ -119,8 +119,8 @@
           "variantType": "Color/Finish",
           "variantValue": "Fingerprint Resistant Slate",
           "price": 1399.0,
-          "imageUrl": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
-          "swatchUrl": "french-door-images/imgi_71_1023Refrigeration_Slate.jpg",
+          "imageUrl": "https://images.thdstatic.com/productImages/ge-french-door-gne27jymfs-slate-64_400.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/slate-swatch.jpg",
           "inStock": true,
           "isSelected": false
         },
@@ -129,8 +129,8 @@
           "variantType": "Color/Finish",
           "variantValue": "White",
           "price": 1299.0,
-          "imageUrl": "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg",
-          "swatchUrl": "french-door-images/imgi_69_1023Refrigeration_White.jpg",
+          "imageUrl": "https://images.thdstatic.com/productImages/ge-french-door-gne27jymfs-white-64_400.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/white-swatch.jpg",
           "inStock": true,
           "isSelected": false
         }
@@ -526,20 +526,20 @@
         }
       },
       "media": {
-        "primaryImage": "french-door-images/imgi_48_stainless-steel-lg-french-door-refrigerators-lfcs22520s-64_600.jpg",
+        "primaryImage": "https://images.thdstatic.com/productImages/lg-french-door-lfcs22520s-64_1000.jpg",
         "images": [
           {
-            "url": "french-door-images/imgi_48_stainless-steel-lg-french-door-refrigerators-lfcs22520s-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/lg-french-door-lfcs22520s-64_1000.jpg",
             "altText": "LG French Door Refrigerator front view",
             "type": "primary"
           },
           {
-            "url": "french-door-images/imgi_48_stainless-steel-lg-french-door-refrigerators-lfcs22520s-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/lg-french-door-lfcs22520s-int_1000.jpg",
             "altText": "Interior with Smart Cooling",
             "type": "detail"
           },
           {
-            "url": "french-door-images/imgi_48_stainless-steel-lg-french-door-refrigerators-lfcs22520s-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/lg-french-door-lfcs22520s-ls_1000.jpg",
             "altText": "In kitchen setting",
             "type": "lifestyle"
           }
@@ -554,8 +554,8 @@
           "variantType": "Color/Finish",
           "variantValue": "Stainless Steel",
           "price": 1299.0,
-          "imageUrl": "french-door-images/imgi_48_stainless-steel-lg-french-door-refrigerators-lfcs22520s-64_600.jpg",
-          "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+          "imageUrl": "https://images.thdstatic.com/productImages/lg-french-door-lfcs22520s-64_400.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/stainless-swatch.jpg",
           "inStock": true,
           "isSelected": true
         },
@@ -564,8 +564,8 @@
           "variantType": "Color/Finish",
           "variantValue": "Black Stainless Steel",
           "price": 1399.0,
-          "imageUrl": "french-door-images/imgi_48_stainless-steel-lg-french-door-refrigerators-lfcs22520s-64_600.jpg",
-          "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+          "imageUrl": "https://images.thdstatic.com/productImages/lg-french-door-lfcs22520s-bss-64_400.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/black-stainless-swatch.jpg",
           "inStock": true,
           "isSelected": false
         }
@@ -889,30 +889,30 @@
         }
       },
       "media": {
-        "primaryImage": "french-door-images/imgi_75_stainless-steel-ge-french-door-refrigerators-pxd22bypfs-64_600.jpg",
+        "primaryImage": "https://images.thdstatic.com/productImages/ge-profile-pvd28bynfs-64_1000.jpg",
         "images": [
           {
-            "url": "french-door-images/imgi_75_stainless-steel-ge-french-door-refrigerators-pxd22bypfs-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/ge-profile-pvd28bynfs-64_1000.jpg",
             "altText": "GE Profile 4-Door French Door front view",
             "type": "primary"
           },
           {
-            "url": "french-door-images/imgi_75_stainless-steel-ge-french-door-refrigerators-pxd22bypfs-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/ge-profile-pvd28bynfs-did_1000.jpg",
             "altText": "Door-in-door feature",
             "type": "detail"
           },
           {
-            "url": "french-door-images/imgi_75_stainless-steel-ge-french-door-refrigerators-pxd22bypfs-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/ge-profile-pvd28bynfs-int_1000.jpg",
             "altText": "Interior organization",
             "type": "detail"
           },
           {
-            "url": "french-door-images/imgi_75_stainless-steel-ge-french-door-refrigerators-pxd22bypfs-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/ge-profile-pvd28bynfs-app_1000.jpg",
             "altText": "Smart home app interface",
             "type": "detail"
           },
           {
-            "url": "french-door-images/imgi_75_stainless-steel-ge-french-door-refrigerators-pxd22bypfs-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/ge-profile-pvd28bynfs-ls_1000.jpg",
             "altText": "In modern kitchen",
             "type": "lifestyle"
           }
@@ -935,8 +935,8 @@
           "variantType": "Color/Finish",
           "variantValue": "Fingerprint Resistant Stainless Steel",
           "price": 2499.0,
-          "imageUrl": "french-door-images/imgi_75_stainless-steel-ge-french-door-refrigerators-pxd22bypfs-64_600.jpg",
-          "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+          "imageUrl": "https://images.thdstatic.com/productImages/ge-profile-pvd28bynfs-64_400.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/stainless-swatch.jpg",
           "inStock": true,
           "isSelected": true
         },
@@ -945,8 +945,8 @@
           "variantType": "Color/Finish",
           "variantValue": "Fingerprint Resistant Black Slate",
           "price": 2499.0,
-          "imageUrl": "french-door-images/imgi_75_stainless-steel-ge-french-door-refrigerators-pxd22bypfs-64_600.jpg",
-          "swatchUrl": "french-door-images/imgi_71_1023Refrigeration_Slate.jpg",
+          "imageUrl": "https://images.thdstatic.com/productImages/ge-profile-pvd28bynfs-bslate-64_400.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/black-slate-swatch.jpg",
           "inStock": true,
           "isSelected": false
         }
@@ -1291,25 +1291,25 @@
         }
       },
       "media": {
-        "primaryImage": "french-door-images/imgi_36_printproof-stainless-steel-lg-french-door-refrigerators-lf25z6211s-64_600.jpg",
+        "primaryImage": "https://images.thdstatic.com/productImages/lg-craft-ice-lhfs28xbs-64_1000.jpg",
         "images": [
           {
-            "url": "french-door-images/imgi_36_printproof-stainless-steel-lg-french-door-refrigerators-lf25z6211s-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/lg-craft-ice-lhfs28xbs-64_1000.jpg",
             "altText": "LG French Door with Craft Ice front view",
             "type": "primary"
           },
           {
-            "url": "french-door-images/imgi_36_printproof-stainless-steel-lg-french-door-refrigerators-lf25z6211s-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/lg-craft-ice-lhfs28xbs-ice_1000.jpg",
             "altText": "Craft Ice spheres detail",
             "type": "detail"
           },
           {
-            "url": "french-door-images/imgi_36_printproof-stainless-steel-lg-french-door-refrigerators-lf25z6211s-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/lg-craft-ice-lhfs28xbs-int_1000.jpg",
             "altText": "Interior storage",
             "type": "detail"
           },
           {
-            "url": "french-door-images/imgi_36_printproof-stainless-steel-lg-french-door-refrigerators-lf25z6211s-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/lg-craft-ice-lhfs28xbs-ls_1000.jpg",
             "altText": "In kitchen setting",
             "type": "lifestyle"
           }
@@ -1332,8 +1332,8 @@
           "variantType": "Color/Finish",
           "variantValue": "PrintProof Stainless Steel",
           "price": 1799.0,
-          "imageUrl": "french-door-images/imgi_36_printproof-stainless-steel-lg-french-door-refrigerators-lf25z6211s-64_600.jpg",
-          "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+          "imageUrl": "https://images.thdstatic.com/productImages/lg-craft-ice-lhfs28xbs-64_400.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/pp-stainless-swatch.jpg",
           "inStock": true,
           "isSelected": true
         },
@@ -1342,8 +1342,8 @@
           "variantType": "Color/Finish",
           "variantValue": "PrintProof Black Stainless Steel",
           "price": 1899.0,
-          "imageUrl": "french-door-images/imgi_36_printproof-stainless-steel-lg-french-door-refrigerators-lf25z6211s-64_600.jpg",
-          "swatchUrl": "french-door-images/imgi_70_1023Refrigeration_Black.jpg",
+          "imageUrl": "https://images.thdstatic.com/productImages/lg-craft-ice-lhfs28xbs-bss-64_400.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/pp-black-ss-swatch.jpg",
           "inStock": true,
           "isSelected": false
         }
@@ -1622,25 +1622,25 @@
         }
       },
       "media": {
-        "primaryImage": "french-door-images/imgi_5_stainless-steel-samsung-french-door-refrigerators-rf70f29mer-64_600.jpg",
+        "primaryImage": "https://images.thdstatic.com/productImages/samsung-bespoke-rf70f29mer-64_1000.jpg",
         "images": [
           {
-            "url": "french-door-images/imgi_5_stainless-steel-samsung-french-door-refrigerators-rf70f29mer-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/samsung-bespoke-rf70f29mer-64_1000.jpg",
             "altText": "Samsung Bespoke front view",
             "type": "primary"
           },
           {
-            "url": "french-door-images/imgi_5_stainless-steel-samsung-french-door-refrigerators-rf70f29mer-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/samsung-bespoke-rf70f29mer-bev_1000.jpg",
             "altText": "Beverage Center detail",
             "type": "detail"
           },
           {
-            "url": "french-door-images/imgi_5_stainless-steel-samsung-french-door-refrigerators-rf70f29mer-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/samsung-bespoke-rf70f29mer-panels_1000.jpg",
             "altText": "Customizable panel options",
             "type": "detail"
           },
           {
-            "url": "french-door-images/imgi_5_stainless-steel-samsung-french-door-refrigerators-rf70f29mer-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/samsung-bespoke-rf70f29mer-ls_1000.jpg",
             "altText": "In designer kitchen",
             "type": "lifestyle"
           }
@@ -1663,7 +1663,7 @@
           "variantType": "Color/Finish",
           "variantValue": "Stainless Steel Panels",
           "price": 2299.0,
-          "imageUrl": "french-door-images/imgi_5_stainless-steel-samsung-french-door-refrigerators-rf70f29mer-64_600.jpg",
+          "imageUrl": "https://images.thdstatic.com/productImages/samsung-bespoke-rf70f29mer-ss-64_400.jpg",
           "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/bespoke-ss-swatch.jpg",
           "inStock": true,
           "isSelected": true
@@ -1673,7 +1673,7 @@
           "variantType": "Color/Finish",
           "variantValue": "White Glass Panels",
           "price": 2299.0,
-          "imageUrl": "french-door-images/imgi_5_stainless-steel-samsung-french-door-refrigerators-rf70f29mer-64_600.jpg",
+          "imageUrl": "https://images.thdstatic.com/productImages/samsung-bespoke-rf70f29mer-wg-64_400.jpg",
           "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/bespoke-wg-swatch.jpg",
           "inStock": true,
           "isSelected": false
@@ -1683,7 +1683,7 @@
           "variantType": "Color/Finish",
           "variantValue": "Navy Steel Panels",
           "price": 2399.0,
-          "imageUrl": "french-door-images/imgi_5_stainless-steel-samsung-french-door-refrigerators-rf70f29mer-64_600.jpg",
+          "imageUrl": "https://images.thdstatic.com/productImages/samsung-bespoke-rf70f29mer-navy-64_400.jpg",
           "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/bespoke-navy-swatch.jpg",
           "inStock": true,
           "isSelected": false
@@ -2030,7 +2030,7 @@
           "variantValue": "Fingerprint Resistant Stainless Steel",
           "price": 1699.0,
           "imageUrl": "https://images.thdstatic.com/productImages/whirlpool-wrf757sdhz-64_400.jpg",
-          "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/fp-stainless-swatch.jpg",
           "inStock": true,
           "isSelected": true
         },
@@ -2040,7 +2040,7 @@
           "variantValue": "Black Stainless Steel",
           "price": 1799.0,
           "imageUrl": "https://images.thdstatic.com/productImages/whirlpool-wrf757sdhz-bss-64_400.jpg",
-          "swatchUrl": "french-door-images/imgi_70_1023Refrigeration_Black.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/black-ss-swatch.jpg",
           "inStock": true,
           "isSelected": false
         }
@@ -2309,20 +2309,20 @@
         }
       },
       "media": {
-        "primaryImage": "french-door-images/imgi_50_smudge-proof-stainless-steel-frigidaire-french-door-refrigerators-frfn2813af-64_600.jpg",
+        "primaryImage": "https://images.thdstatic.com/productImages/frigidaire-gallery-frfg1723av-64_1000.jpg",
         "images": [
           {
-            "url": "french-door-images/imgi_50_smudge-proof-stainless-steel-frigidaire-french-door-refrigerators-frfn2813af-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/frigidaire-gallery-frfg1723av-64_1000.jpg",
             "altText": "Frigidaire Gallery front view",
             "type": "primary"
           },
           {
-            "url": "french-door-images/imgi_50_smudge-proof-stainless-steel-frigidaire-french-door-refrigerators-frfn2813af-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/frigidaire-gallery-frfg1723av-crisp_1000.jpg",
             "altText": "CrispSeal Plus crisper",
             "type": "detail"
           },
           {
-            "url": "french-door-images/imgi_50_smudge-proof-stainless-steel-frigidaire-french-door-refrigerators-frfn2813af-64_600.jpg",
+            "url": "https://images.thdstatic.com/productImages/frigidaire-gallery-frfg1723av-int_1000.jpg",
             "altText": "Interior organization",
             "type": "detail"
           }
@@ -2337,7 +2337,7 @@
           "variantType": "Color/Finish",
           "variantValue": "Smudge-Proof Stainless Steel",
           "price": 1599.0,
-          "imageUrl": "french-door-images/imgi_50_smudge-proof-stainless-steel-frigidaire-french-door-refrigerators-frfn2813af-64_600.jpg",
+          "imageUrl": "https://images.thdstatic.com/productImages/frigidaire-gallery-frfg1723av-64_400.jpg",
           "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/smudgeproof-ss-swatch.jpg",
           "inStock": true,
           "isSelected": true
@@ -2647,7 +2647,7 @@
           "variantValue": "PrintProof Stainless Steel",
           "price": 2099.0,
           "imageUrl": "https://images.thdstatic.com/productImages/lg-instaview-lrmvs3006s-64_400.jpg",
-          "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/pp-stainless-swatch.jpg",
           "inStock": true,
           "isSelected": true
         },
@@ -2657,7 +2657,7 @@
           "variantValue": "PrintProof Black Stainless Steel",
           "price": 2199.0,
           "imageUrl": "https://images.thdstatic.com/productImages/lg-instaview-lrmvs3006s-bss-64_400.jpg",
-          "swatchUrl": "french-door-images/imgi_70_1023Refrigeration_Black.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/pp-black-ss-swatch.jpg",
           "inStock": true,
           "isSelected": false
         }
@@ -2993,7 +2993,7 @@
           "variantValue": "Stainless Steel",
           "price": 1549.0,
           "imageUrl": "https://images.thdstatic.com/productImages/ge-gfe26jsmss-64_400.jpg",
-          "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/stainless-swatch.jpg",
           "inStock": true,
           "isSelected": true
         },
@@ -3003,7 +3003,7 @@
           "variantValue": "Slate",
           "price": 1549.0,
           "imageUrl": "https://images.thdstatic.com/productImages/ge-gfe26jsmss-slate-64_400.jpg",
-          "swatchUrl": "french-door-images/imgi_71_1023Refrigeration_Slate.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/slate-swatch.jpg",
           "inStock": true,
           "isSelected": false
         },
@@ -3013,7 +3013,7 @@
           "variantValue": "Black",
           "price": 1449.0,
           "imageUrl": "https://images.thdstatic.com/productImages/ge-gfe26jsmss-black-64_400.jpg",
-          "swatchUrl": "french-door-images/imgi_70_1023Refrigeration_Black.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/black-swatch.jpg",
           "inStock": true,
           "isSelected": false
         }
@@ -3322,7 +3322,7 @@
           "variantValue": "Fingerprint Resistant Stainless Steel",
           "price": 1899.0,
           "imageUrl": "https://images.thdstatic.com/productImages/samsung-counter-depth-rf27cg5010sraa-64_400.jpg",
-          "swatchUrl": "french-door-images/imgi_67_bf5e6e0b-fd07-48db-bd54-f7d39dc73900_Stainless_Steel_Swatch__2_.jpg",
+          "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/fp-stainless-swatch.jpg",
           "inStock": true,
           "isSelected": true
         }

@@ -41,9 +41,38 @@ public struct TokensCoreDark {
     public static let ElevationPositionY5 = 16
     public static let FontFamilyDisplay = "THD LgVar Beta"
     public static let FontFamilyInformational = "THD SmVar Beta"
-    public static let FontSizeBodyLg = CGFloat(18)
-    public static let FontSizeBodyMd = CGFloat(16)
-    public static let FontSizeBodySm = CGFloat(14)
-    public static let FontSizeBodyXl = CGFloat(20)
+
+    // Body Font Sizes
     public static let FontSizeBodyXs = CGFloat(12)
+    public static let FontSizeBodySm = CGFloat(14)
+    public static let FontSizeBodyMd = CGFloat(16)
+    public static let FontSizeBodyLg = CGFloat(18)
+    public static let FontSizeBodyXl = CGFloat(20)
+
+    // Display/Heading Font Sizes
+    public static let FontSizeDisplayXs = CGFloat(22)
+    public static let FontSizeDisplaySm = CGFloat(24)
+    public static let FontSizeDisplayMd = CGFloat(28)
+    public static let FontSizeDisplayLg = CGFloat(32)
+    public static let FontSizeDisplayXl = CGFloat(40)
+    public static let FontSizeDisplay2xl = CGFloat(48)
+    public static let FontSizeDisplay3xl = CGFloat(56)
+
+    // Font Weights
+    public static let FontWeightRegular = CGFloat(400)
+    public static let FontWeightMedium = CGFloat(500)
+    public static let FontWeightSemibold = CGFloat(600)
+    public static let FontWeightBold = CGFloat(700)
+
+    // Line Heights (multipliers)
+    public static let LineHeightTight = CGFloat(1.2)
+    public static let LineHeightNormal = CGFloat(1.4)
+    public static let LineHeightRelaxed = CGFloat(1.6)
+    public static let LineHeightLoose = CGFloat(1.8)
+
+    // Letter Spacing
+    public static let LetterSpacingTight = CGFloat(-0.5)
+    public static let LetterSpacingNormal = CGFloat(0)
+    public static let LetterSpacingWide = CGFloat(0.5)
+    public static let LetterSpacingWider = CGFloat(1.0)
 }

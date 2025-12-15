@@ -18,7 +18,8 @@ struct CategoryPageData: Codable {
     let sortOptions: [SortOptionData]
     let products: [CategoryProduct]
     let pagination: Pagination
-    let refrigeratorStyles: [RefrigeratorStyle]
+    let refrigeratorStyles: [RefrigeratorStyle]?  // Made optional for non-refrigerator categories
+    let categoryStyles: [CategoryStyle]?          // Generic styles for any category
     let parentCategory: ParentCategory
     
     struct PageInfo: Codable {
@@ -149,6 +150,18 @@ struct CategoryPageData: Codable {
         let isCurrentCategory: Bool
     }
     
+    /// Generic category style (works for any product category)
+    /// Use this for drills, saws, sanders, etc.
+    struct CategoryStyle: Codable {
+        let styleId: String
+        let styleName: String
+        let description: String
+        let productId: String
+        let image: String           // This is the product image URL!
+        let url: String
+        let isCurrentCategory: Bool
+    }
+    
     struct ParentCategory: Codable {
         let categoryId: String
         let categoryName: String
@@ -179,7 +192,11 @@ class CategoryDataLoader {
             let categoryData = try decoder.decode(CategoryPageData.self, from: data)
             print("✅ Successfully loaded category data from \(filename).json")
             print("   📊 Total products: \(categoryData.products.count)")
-            print("   🎨 Style pills: \(categoryData.refrigeratorStyles.count)")
+            
+            // Count styles (could be refrigeratorStyles or categoryStyles)
+            let stylesCount = (categoryData.refrigeratorStyles?.count ?? 0) + (categoryData.categoryStyles?.count ?? 0)
+            print("   🎨 Style pills: \(stylesCount)")
+            
             return categoryData
         } catch {
             print("❌ Error loading \(filename).json: \(error)")
@@ -193,6 +210,17 @@ class CategoryDataLoader {
             DSStylePillItem(
                 text: style.styleName,
                 image: Image(systemName: "refrigerator.fill"),  // Fallback
+                imageURL: style.image  // Real product image URL!
+            )
+        }
+    }
+    
+    /// Create style pills from generic category styles with real product images
+    func createStylePills(from styles: [CategoryPageData.CategoryStyle], fallbackIcon: String = "cube.fill") -> [DSStylePillItem] {
+        return styles.map { style in
+            DSStylePillItem(
+                text: style.styleName,
+                image: Image(systemName: fallbackIcon),  // Fallback
                 imageURL: style.image  // Real product image URL!
             )
         }
@@ -234,13 +262,16 @@ extension CategoryPageData.CategoryProduct {
         
         let additionalColorCount = max(0, (images.colorSwatches?.count ?? 0) - 3)
         
+        // Convert image URL to asset name if needed
+        let heroImageName = convertToAssetName(images.primary)
+        
         return Product(
             id: productId,
             brand: brand,
             name: title,
             modelNumber: modelNumber,
-            heroImage: images.primary,
-            thumbnailImages: images.alternate.map { [$0] } ?? [],
+            heroImage: heroImageName,
+            thumbnailImages: images.alternate.map { [convertToAssetName($0)] } ?? [],
             additionalImageCount: additionalColorCount,
             currentPrice: Decimal(price.current),
             originalPrice: price.original.map { Decimal($0) },
@@ -274,5 +305,20 @@ extension CategoryPageData.CategoryProduct {
         } else {
             return "#808080"
         }
+    }
+    
+    /// Convert image URL to asset name for local assets
+    /// Extracts filename from URL like "https://images.thdstatic.com/.../product-12345.jpg" → "product-12345"
+    /// For local paths like "french-door-images/imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600.jpg"
+    /// it extracts just the filename without extension: "imgi_39_fingerprint-resistant-stainless-steel-ge-french-door-refrigerators-gfe26jymfs-64_600"
+    private func convertToAssetName(_ urlString: String) -> String {
+        // Always extract just the filename, removing any folder paths and extensions
+        let filename = (urlString as NSString).lastPathComponent
+        let assetName = filename
+            .replacingOccurrences(of: ".jpg", with: "")
+            .replacingOccurrences(of: ".png", with: "")
+            .replacingOccurrences(of: ".jpeg", with: "")
+        
+        return assetName
     }
 }

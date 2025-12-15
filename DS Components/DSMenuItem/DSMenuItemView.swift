@@ -469,7 +469,7 @@ struct DSMenuItemView: View {
                 specRow("Vertical Padding", value: "12pt")
                 specRow("Icon Size", value: "24x24pt")
                 specRow("Image Size", value: "40x40pt")
-                specRow("Corner Radius", value: "8pt")
+                specRow("Corner Radius", value: "12pt")
                 specRow("Border Width", value: "1pt (outline only)")
                 specRow("Media Spacing", value: "12pt")
             }
@@ -485,8 +485,8 @@ struct DSMenuItemView: View {
                 .padding(.top, TokensSpacing.Spacing2)
             
             VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
-                specRow("Title Font", value: "System, 20pt, Semibold")
-                specRow("Subtitle Font", value: "THD Sm Beta, 14pt")
+                specRow("Title Font", value: "THD Display (H4), 20pt, Semibold")
+                specRow("Subtitle Font", value: "THD Informational (BodySm), 14pt")
             }
             .padding(TokensSpacing.Spacing3)
             .background(
@@ -501,7 +501,7 @@ struct DSMenuItemView: View {
             
             VStack(alignment: .leading, spacing: TokensSpacing.Spacing1) {
                 mediaTypeRow("icon", description: "24x24pt icon view")
-                mediaTypeRow("image", description: "40x40pt image with 3pt radius")
+                mediaTypeRow("image", description: "40x40pt image with 4pt radius")
                 mediaTypeRow("payment", description: "40x24pt payment card placeholder")
                 mediaTypeRow("custom", description: "Any custom view")
             }
