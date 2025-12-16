@@ -7,199 +7,268 @@ private typealias DS = DesignSystemGlobal
 
 // MARK: - Main Header View
 /// A navigation header that morphs between action buttons and a search bar.
-/// Uses matchedGeometryEffect to create smooth transitions between states.
+/// Uses standard Button objects with glassEffect modifiers for proper liquid glass styling.
 struct MorphingNavHeader: View {
-    
+
     // MARK: - State
     @State private var isSearching = false
     @State private var searchText = ""
-    
-    // Namespace for matched geometry effect - this is what enables the morph
+    @State private var isStoreExpanded = true
+    @State private var storeHasCollapsed = false
+    @State private var storeName = "Encinitas"
+
+    // Namespace for matched geometry effect
     @Namespace private var morphNamespace
-    
+
     // MARK: - Sizing from Design System
     private let buttonSize = DS.Spacing11          // 44pt - button dimensions
     private let iconSize = DS.FontSizeBodyXl       // 20pt - icon size
     private let searchIconSize = DS.Spacing4       // 16pt - smaller search bar icons
     private let closeIconSize = DS.FontSizeBodyLg  // 18pt - close button icon
-    
+
     // MARK: - Spacing from Design System
-    private let buttonSpacing = DS.Spacing2        // 8pt - space between action buttons
-    private let containerSpacing = DS.Spacing3     // 12pt - space between back button and content
+    private let innerButtonSpacing = DS.Spacing2   // 12pt - spacing between buttons in glass container
+    private let containerSpacing = DS.Spacing2     // 12pt - space between back button and content
     private let horizontalPadding = DS.Spacing4    // 16pt - outer horizontal padding
     private let verticalPadding = DS.Spacing3      // 12pt - outer vertical padding
-    private let searchBarPadding = DS.Spacing4     // 16pt - internal search bar padding
-    private let searchBarSpacing = DS.Spacing3     // 12pt - space between search bar elements
-    
+
     // MARK: - Colors from Design System
     private let iconColor = DS.TextOnSurfaceColorPrimary
     private let iconColorSecondary = DS.TextOnSurfaceColorTertiary
-    private let backgroundColor = DS.BackgroundContainerColorWhite
-    
-    // MARK: - Elevation from Design System
-    private let shadowColor = DS.NeutralsBlack.opacity(0.1)  // 10% black shadow
-    private let shadowRadius = DS.ElevationBlurRadiusBlur2   // 8pt blur
-    private let shadowY = DS.ElevationPositionY2              // 3pt y offset
-    
+
     var body: some View {
         HStack(spacing: containerSpacing) {
-            // Back button - always visible, doesn't participate in morph
+            // Back button - standalone button with glass effect
             backButton
-            
+
+            // Main content area - morphs between different states
             if isSearching {
-                // Search bar state
+                // Full-width search bar
                 searchBar
-                    .transition(.opacity.combined(with: .scale(scale: 0.95)))
+                    .transition(.opacity.combined(with: .scale(scale: 0.98)))
+            } else if isStoreExpanded {
+                // Full-width store locator (expanded)
+                storeLocatorExpanded
+                    .transition(.opacity.combined(with: .scale(scale: 0.98)))
             } else {
-                Spacer()
-                
-                // Action buttons state
-                actionButtons
-                    .transition(.opacity.combined(with: .scale(scale: 0.95)))
+                // Normal state: location button + action buttons in glass pill container
+                normalStateButtons
+                    .transition(.opacity.combined(with: .scale(scale: 0.98)))
             }
         }
         .padding(.horizontal, horizontalPadding)
         .padding(.vertical, verticalPadding)
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isSearching)
+        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isStoreExpanded)
+        .onAppear {
+            // Auto-collapse after 1 second delay
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                withAnimation {
+                    isStoreExpanded = false
+                    storeHasCollapsed = true
+                }
+            }
+        }
     }
     
-    // MARK: - Back Button
+    // MARK: - Normal State Buttons Container
+    private var normalStateButtons: some View {
+        HStack(spacing: innerButtonSpacing) {
+            // Store location button (collapsed)
+            storeLocationButton
+                .padding(.leading, innerButtonSpacing)
+            
+            Spacer()
+            
+            // Action buttons
+            favoriteButton
+            shareButton
+            searchButton
+                .padding(.trailing, innerButtonSpacing)
+        }
+        .frame(height: buttonSize)
+ 
+    }
+
+    // MARK: - Back Button (Standalone)
     private var backButton: some View {
-        Button {
-            // Handle back navigation
+        Button(action: {
             print("Back tapped")
-        } label: {
+        }) {
             Image(systemName: "chevron.left")
                 .font(.system(size: iconSize, weight: .medium))
                 .foregroundStyle(iconColor)
                 .frame(width: buttonSize, height: buttonSize)
                 .background(
                     Circle()
-                        .fill(backgroundColor)
-                        .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
+                        .fill(.clear)
+                        .glassEffect(.regular.interactive(), in: .circle)
                 )
         }
+        .buttonStyle(.plain)
     }
-    
-    // MARK: - Action Buttons (Default State)
-    private var actionButtons: some View {
-        HStack(spacing: buttonSpacing) {
-            // Favorite button
-            MorphCircleButton(
-                icon: "heart",
-                iconColor: iconColor,
-                backgroundColor: backgroundColor,
-                buttonSize: buttonSize,
-                iconSize: closeIconSize,
-                shadowColor: shadowColor,
-                shadowRadius: shadowRadius,
-                shadowY: shadowY,
-                namespace: morphNamespace,
-                id: "favorite"
-            ) {
-                print("Favorite tapped")
+
+    // MARK: - Store Location Button (Collapsed)
+    private var storeLocationButton: some View {
+        Button(action: {
+            withAnimation {
+                isStoreExpanded = true
             }
-            
-            // Share button
-            MorphCircleButton(
-                icon: "square.and.arrow.up",
-                iconColor: iconColor,
-                backgroundColor: backgroundColor,
-                buttonSize: buttonSize,
-                iconSize: closeIconSize,
-                shadowColor: shadowColor,
-                shadowRadius: shadowRadius,
-                shadowY: shadowY,
-                namespace: morphNamespace,
-                id: "share"
-            ) {
-                print("Share tapped")
-            }
-            
-            // Search button - this morphs into the search bar
-            MorphCircleButton(
-                icon: "magnifyingglass",
-                iconColor: iconColor,
-                backgroundColor: backgroundColor,
-                buttonSize: buttonSize,
-                iconSize: closeIconSize,
-                shadowColor: shadowColor,
-                shadowRadius: shadowRadius,
-                shadowY: shadowY,
-                namespace: morphNamespace,
-                id: "searchContainer"
-            ) {
-                isSearching = true
-            }
+        }) {
+            Image(systemName: "location.fill")
+                .font(.system(size: closeIconSize, weight: .medium))
+                .foregroundStyle(storeHasCollapsed ? DS.Brand300 : iconColor)
+                .frame(width: buttonSize, height: buttonSize)
+                .background(
+                    Circle()
+                        .fill(.clear)
+                        .glassEffect(.regular.interactive(), in: .circle)
+                )
+                .matchedGeometryEffect(id: "locationIcon", in: morphNamespace)
         }
+        .buttonStyle(.plain)
     }
-    
-    // MARK: - Search Bar (Search State)
-    private var searchBar: some View {
-        HStack(spacing: searchBarSpacing) {
-            // Search icon
-            Image(systemName: "magnifyingglass")
-                .font(.system(size: searchIconSize, weight: .medium))
-                .foregroundStyle(iconColorSecondary)
-            
-            // Text field
-            TextField("Search", text: $searchText)
-                .textFieldStyle(.plain)
-                .font(.body)
-                .foregroundStyle(iconColor)
-            
-            // Close button
-            Button {
-                searchText = ""
-                isSearching = false
-            } label: {
+
+    // MARK: - Store Locator Expanded (Full Width)
+    private var storeLocatorExpanded: some View {
+        HStack(spacing: DS.Spacing2) {
+            // Close button (appears where location icon was)
+            Button(action: {
+                // Close the expanded view and return to collapsed state
+                withAnimation {
+                    isStoreExpanded = false
+                }
+            }) {
                 Image(systemName: "xmark.circle.fill")
                     .font(.system(size: closeIconSize))
                     .foregroundStyle(iconColorSecondary)
+                    .frame(width: buttonSize, height: buttonSize)
+                    .contentShape(Circle())
             }
+            .buttonStyle(.plain)
+
+            // Store name - tappable to change location
+            Button(action: {
+                print("Store name tapped - would show location picker")
+            }) {
+                Text(storeName)
+                    .font(.system(size: DS.FontSizeBodyMd, weight: .medium))
+                    .foregroundStyle(iconColor)
+                    .lineLimit(1)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .buttonStyle(.plain)
+
+            // Location icon - slides from left to right as bar expands
+            Image(systemName: "location.fill")
+                .font(.system(size: searchIconSize, weight: .medium))
+                .foregroundStyle(iconColorSecondary)
+                .frame(width: buttonSize, height: buttonSize)
+                .matchedGeometryEffect(id: "locationIcon", in: morphNamespace)
         }
-        .padding(.horizontal, searchBarPadding)
+        .padding(.horizontal, innerButtonSpacing)
         .frame(height: buttonSize)
         .background(
             Capsule()
-                .fill(backgroundColor)
-                .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
+                .fill(.clear)
+                .glassEffect(.regular, in: .capsule)
         )
-        // This matches with the search button's geometry
-        .matchedGeometryEffect(id: "searchContainer", in: morphNamespace)
     }
-}
 
-// MARK: - Circle Button Component
-/// A reusable circular button with shadow and optional matched geometry.
-private struct MorphCircleButton: View {
-    let icon: String
-    let iconColor: Color
-    let backgroundColor: Color
-    let buttonSize: CGFloat
-    let iconSize: CGFloat
-    let shadowColor: Color
-    let shadowRadius: CGFloat
-    let shadowY: CGFloat
-    let namespace: Namespace.ID
-    let id: String
-    let action: () -> Void
-    
-    var body: some View {
-        Button {
-            action()
-        } label: {
-            Image(systemName: icon)
-                .font(.system(size: iconSize, weight: .medium))
+    // MARK: - Favorite Button
+    private var favoriteButton: some View {
+        Button(action: {
+            print("Favorite tapped")
+        }) {
+            Image(systemName: "heart")
+                .font(.system(size: closeIconSize, weight: .medium))
                 .foregroundStyle(iconColor)
                 .frame(width: buttonSize, height: buttonSize)
                 .background(
                     Circle()
-                        .fill(backgroundColor)
-                        .shadow(color: shadowColor, radius: shadowRadius, x: 0, y: shadowY)
+                        .fill(.clear)
+                        .glassEffect(.regular.interactive(), in: .circle)
                 )
         }
-        .matchedGeometryEffect(id: id, in: namespace)
+        .buttonStyle(.plain)
+    }
+
+    // MARK: - Share Button
+    private var shareButton: some View {
+        Button(action: {
+            print("Share tapped")
+        }) {
+            Image(systemName: "square.and.arrow.up")
+                .font(.system(size: closeIconSize, weight: .medium))
+                .foregroundStyle(iconColor)
+                .frame(width: buttonSize, height: buttonSize)
+                .background(
+                    Circle()
+                        .fill(.clear)
+                        .glassEffect(.regular.interactive(), in: .circle)
+                )
+        }
+        .buttonStyle(.plain)
+    }
+
+    // MARK: - Search Button
+    private var searchButton: some View {
+        Button(action: {
+            withAnimation {
+                isSearching = true
+            }
+        }) {
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: closeIconSize, weight: .medium))
+                .foregroundStyle(iconColor)
+                .frame(width: buttonSize, height: buttonSize)
+                .background(
+                    Circle()
+                        .fill(.clear)
+                        .glassEffect(.regular.interactive(), in: .circle)
+                )
+                .matchedGeometryEffect(id: "searchIcon", in: morphNamespace)
+        }
+        .buttonStyle(.plain)
+    }
+
+    // MARK: - Search Bar (Full Width)
+    private var searchBar: some View {
+        HStack(spacing: DS.Spacing2) {
+            // Search icon - non-interactive
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: searchIconSize, weight: .medium))
+                .foregroundStyle(iconColorSecondary)
+                .frame(width: buttonSize, height: buttonSize)
+                .matchedGeometryEffect(id: "searchIcon", in: morphNamespace)
+
+            // Search text display
+            Text(searchText.isEmpty ? "Search" : searchText)
+                .font(.body)
+                .foregroundStyle(searchText.isEmpty ? iconColorSecondary : iconColor)
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+            // Close button
+            Button(action: {
+                searchText = ""
+                isSearching = false
+            }) {
+                Image(systemName: "xmark.circle.fill")
+                    .font(.system(size: closeIconSize))
+                    .foregroundStyle(iconColorSecondary)
+                    .frame(width: buttonSize, height: buttonSize)
+                    .contentShape(Circle())
+            }
+            .buttonStyle(.plain)
+        }
+        .padding(.horizontal, innerButtonSpacing)
+        .padding(.vertical, innerButtonSpacing)
+        .frame(height: buttonSize)
+        .background(
+            Capsule()
+                .fill(.clear)
+                .glassEffect(.regular, in: .capsule)
+        )
     }
 }
 
@@ -209,5 +278,4 @@ private struct MorphCircleButton: View {
         MorphingNavHeader()
         Spacer()
     }
-   // .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
 }

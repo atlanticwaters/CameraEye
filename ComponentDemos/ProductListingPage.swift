@@ -9,45 +9,13 @@ private typealias DS = DesignSystemGlobal
 //
 // This file uses components from:
 // - ProductSystem.swift: Product, FulfillmentInfo, ProductCard, etc.
+// - DSPill: Filter chips for pickup, delivery, ship to home
 // - Morph_Menu: Top navigation with morphing search
 // - Bottom_Nav: Bottom tab navigation
 //
 // Additional PLP-specific components defined here:
-// - FilterChip (Pickup, Delivery, Ship to Home)
+// - ViewToggle (list/grid toggle)
 // - ProductListingPage (main view)
-
-// MARK: - =============================================
-// MARK: - FILTER CHIP COMPONENT
-// MARK: - =============================================
-
-private struct FilterChip: View {
-    let title: String
-    let isSelected: Bool
-    let action: () -> Void
-    
-    private let fontSize = DS.FontSizeBodySm
-    private let horizontalPadding = DS.Spacing3
-    private let verticalPadding = DS.Spacing2
-    private let cornerRadius = DS.BorderRadius3xl
-    
-    var body: some View {
-        Button(action: action) {
-            Text(title)
-                .font(.system(size: fontSize, weight: isSelected ? .semibold : .regular))
-                .foregroundStyle(isSelected ? DS.NeutralsWhite : DS.TextOnSurfaceColorPrimary)
-                .padding(.horizontal, horizontalPadding)
-                .padding(.vertical, verticalPadding)
-                .background(
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .fill(isSelected ? DS.BackgroundButtonColorBrandFilledDefault : DS.BackgroundContainerColorWhite)
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .stroke(isSelected ? Color.clear : DS.BorderButtonColorDefault, lineWidth: DS.BorderWidthXs)
-                )
-        }
-    }
-}
 
 // MARK: - =============================================
 // MARK: - VIEW TOGGLE
@@ -131,9 +99,11 @@ struct ProductListingPage: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: DS.Spacing2) {
                 ForEach(filterOptions, id: \.self) { filter in
-                    FilterChip(
-                        title: filter,
-                        isSelected: selectedFilters.contains(filter),
+                    DSPill(
+                        filter,
+                        style: selectedFilters.contains(filter) ? .filled : .outlined,
+                        size: .medium,
+                        state: selectedFilters.contains(filter) ? .selected : .default,
                         action: {
                             if selectedFilters.contains(filter) {
                                 selectedFilters.remove(filter)
@@ -378,9 +348,27 @@ struct ProductListingPage: View {
 
 #Preview("Filter Chips") {
     HStack(spacing: 8) {
-        FilterChip(title: "Pickup", isSelected: true, action: {})
-        FilterChip(title: "Delivery", isSelected: false, action: {})
-        FilterChip(title: "Ship to Home", isSelected: false, action: {})
+        DSPill(
+            "Pickup",
+            style: .filled,
+            size: .medium,
+            state: .selected,
+            action: {}
+        )
+        DSPill(
+            "Delivery",
+            style: .outlined,
+            size: .medium,
+            state: .default,
+            action: {}
+        )
+        DSPill(
+            "Ship to Home",
+            style: .outlined,
+            size: .medium,
+            state: .default,
+            action: {}
+        )
     }
     .padding()
     .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
