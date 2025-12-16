@@ -443,7 +443,7 @@ public struct DSPlpFilterPanel: View {
     }
     
     private var stylePillBackgroundColor: Color {
-        colorScheme == .dark ? TokensSemanticDark.BackgroundButtonColorTransparent05Default : TokensSemanticLight.BackgroundButtonColorTransparent05Default
+        colorScheme == .dark ? TokensSemanticDark.Greige050 : TokensSemanticLight.Greige050
     }
     
     private var stylePillTextColor: Color {
@@ -455,7 +455,7 @@ public struct DSPlpFilterPanel: View {
     }
     
     private var subFilterPillBackgroundColor: Color {
-        colorScheme == .dark ? TokensSemanticDark.BackgroundButtonColorTransparent05Default : TokensSemanticLight.BackgroundButtonColorTransparent05Default
+        colorScheme == .dark ? TokensSemanticDark.Greige050 : TokensSemanticLight.Greige050
     }
     
     private var subFilterPillTextColor: Color {

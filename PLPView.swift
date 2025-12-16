@@ -27,7 +27,6 @@ struct PLPView: View {
     @State private var selectedStylePill: String? = nil
     @State private var selectedFilterPills: Set<String> = []
     @State private var selectedSubFilters: Set<String> = []
-    @State private var sortOption: PLPSortOption = .topRated
     @State private var viewMode: PLPViewMode = .list
     
     // MARK: - Configuration
@@ -73,11 +72,6 @@ struct PLPView: View {
                 )
                 .padding(.horizontal, DesignSystemGlobal.Spacing4)
                 
-                // Sort and View Mode Bar
-                sortViewBar
-                    .padding(.horizontal, DesignSystemGlobal.Spacing4)
-                    .padding(.vertical, DesignSystemGlobal.Spacing3)
-                
                 // Product List/Grid
                 productInventory
                     .padding(.horizontal, DesignSystemGlobal.Spacing4)
@@ -88,74 +82,6 @@ struct PLPView: View {
         .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
         .onAppear {
             loadProducts()
-        }
-    }
-    
-    // MARK: - Sort and View Mode Bar
-    private var sortViewBar: some View {
-        HStack {
-            // Sort Menu
-            Menu {
-                ForEach(PLPSortOption.allCases, id: \.self) { option in
-                    Button(action: { sortOption = option }) {
-                        HStack {
-                            Text(option.rawValue)
-                            if sortOption == option {
-                                Image(systemName: "checkmark")
-                            }
-                        }
-                    }
-                }
-            } label: {
-                HStack(spacing: DesignSystemGlobal.Spacing1) {
-                    Text("Sort:")
-                        .font(.system(size: DesignSystemGlobal.FontSizeBodySm, weight: .medium))
-                        .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorSecondary)
-                    
-                    Text(sortOption.rawValue)
-                        .font(.system(size: DesignSystemGlobal.FontSizeBodySm, weight: .semibold))
-                        .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
-                    
-                    Image(systemName: "chevron.down")
-                        .font(.system(size: 12))
-                        .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
-                }
-                .padding(.horizontal, DesignSystemGlobal.Spacing3)
-                .padding(.vertical, DesignSystemGlobal.Spacing2)
-                .background(DesignSystemGlobal.BackgroundContainerColorWhite)
-                .cornerRadius(DesignSystemGlobal.BorderRadiusLg)
-            }
-            
-            Spacer()
-            
-            // View Mode Toggle
-            HStack(spacing: DesignSystemGlobal.Spacing2) {
-                Button(action: { viewMode = .list }) {
-                    Image(systemName: "list.bullet")
-                        .font(.system(size: DesignSystemGlobal.FontSizeBodyLg))
-                        .foregroundColor(viewMode == .list ? 
-                            DesignSystemGlobal.TextOnSurfaceColorPrimary : 
-                            DesignSystemGlobal.TextOnSurfaceColorTertiary)
-                        .frame(width: 44, height: 44)
-                        .background(viewMode == .list ? 
-                            DesignSystemGlobal.BackgroundButtonColorTransparent05Default : 
-                            Color.clear)
-                        .cornerRadius(DesignSystemGlobal.BorderRadiusMd)
-                }
-                
-                Button(action: { viewMode = .grid }) {
-                    Image(systemName: "square.grid.2x2")
-                        .font(.system(size: DesignSystemGlobal.FontSizeBodyLg))
-                        .foregroundColor(viewMode == .grid ? 
-                            DesignSystemGlobal.TextOnSurfaceColorPrimary : 
-                            DesignSystemGlobal.TextOnSurfaceColorTertiary)
-                        .frame(width: 44, height: 44)
-                        .background(viewMode == .grid ? 
-                            DesignSystemGlobal.BackgroundButtonColorTransparent05Default : 
-                            Color.clear)
-                        .cornerRadius(DesignSystemGlobal.BorderRadiusMd)
-                }
-            }
         }
     }
     
@@ -260,21 +186,6 @@ struct PLPView: View {
         // Apply filters here (simplified - in real app would be more complex)
         if !selectedSubFilters.isEmpty {
             // Filter logic would go here based on selected filters
-        }
-        
-        // Apply sorting
-        switch sortOption {
-        case .topRated:
-            filtered = filtered.sorted { $0.rating > $1.rating }
-        case .priceLowToHigh:
-            filtered = filtered.sorted { $0.currentPrice < $1.currentPrice }
-        case .priceHighToLow:
-            filtered = filtered.sorted { $0.currentPrice > $1.currentPrice }
-        case .bestSelling:
-            filtered = filtered.sorted { $0.reviewCount > $1.reviewCount }
-        case .newest:
-            // Assume original order is newest
-            break
         }
         
         return filtered

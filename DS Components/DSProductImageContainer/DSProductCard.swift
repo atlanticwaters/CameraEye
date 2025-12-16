@@ -380,18 +380,7 @@ private struct RatingView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
-            // First row of stars
-            HStack(spacing: 1) {
-                ForEach(0..<5) { index in
-                    StarView(
-                        filled: rating >= Double(index + 1),
-                        half: rating > Double(index) && rating < Double(index + 1),
-                        isDark: isDark
-                    )
-                }
-            }
-            
-            // Second row of stars (for double rating display like in image)
+            // Stars row
             HStack(spacing: 1) {
                 ForEach(0..<5) { index in
                     StarView(
