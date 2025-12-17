@@ -28,7 +28,7 @@ struct MorphingNavHeader: View {
 
     // MARK: - Spacing from Design System
     private let innerButtonSpacing = DS.Spacing2   // 12pt - spacing between buttons in glass container
-    private let containerSpacing = DS.Spacing2     // 12pt - space between back button and content
+    private let containerSpacing = DS.Spacing1     // 12pt - space between back button and content
     private let horizontalPadding = DS.Spacing4    // 16pt - outer horizontal padding
     private let verticalPadding = DS.Spacing3      // 12pt - outer vertical padding
 
