@@ -127,6 +127,8 @@ struct HomeScreenView: View {
                 Color.clear.frame(height: 100)
             }
         }
+        .scrollEdgeEffectStyle(.soft, for: .top)
+        .scrollEdgeEffectStyle(.soft, for: .bottom)
         .background(Color.surfaceBackground)
         .navigationBarHidden(true)
         }
@@ -223,12 +225,9 @@ enum HomeTab: Int, TabBarItem {
 }
 
 /// Wrapper view for testing in ContentView or other entry points
-/// Includes BottomTabBar_iOS and MorphingNavHeader with scroll hide behavior
+/// Includes BottomTabBar_iOS and MorphingNavHeader
 struct HomeScreenDemoView: View {
     @State private var selectedTab: HomeTab = .home
-    @State private var scrollOffset: CGFloat = 0
-    @State private var previousScrollOffset: CGFloat = 0
-    @State private var showNavBar: Bool = true
 
     var body: some View {
         BottomTabBar_iOS(selectedTab: $selectedTab) { tab in
@@ -247,47 +246,10 @@ struct HomeScreenDemoView: View {
 
     // MARK: - Home Screen with Morph Nav
     private var homeScreenWithNav: some View {
-        ZStack(alignment: .top) {
-            // Main content with scroll tracking
-            HomeScreenScrollableContent(
-                scrollOffset: $scrollOffset,
-                onScrollChange: handleScrollChange
-            )
-
-            // Morph Nav Header that slides up/down
-            VStack {
-                MorphingNavHeader()
-                    .offset(y: showNavBar ? 0 : -100)
-                    .animation(.spring(response: 0.3, dampingFraction: 0.8), value: showNavBar)
-
-                Spacer()
+        HomeScreenScrollableContent()
+            .safeAreaBar(edge: .top) {
+                MorphingNavHeader(showBackButton: false)
             }
-        }
-    }
-
-    // MARK: - Scroll Handler
-    private func handleScrollChange(newOffset: CGFloat) {
-        // Always show nav bar when near the top
-        if newOffset < 50 {
-            if !showNavBar {
-                showNavBar = true
-            }
-            previousScrollOffset = newOffset
-            return
-        }
-
-        let delta = newOffset - previousScrollOffset
-
-        // Scrolling down (content moving up, offset increasing) - hide nav
-        if delta > 5 && showNavBar {
-            showNavBar = false
-            previousScrollOffset = newOffset
-        }
-        // Scrolling up (content moving down, offset decreasing) - show nav
-        else if delta < -5 && !showNavBar {
-            showNavBar = true
-            previousScrollOffset = newOffset
-        }
     }
 
     // MARK: - Placeholder View for other tabs
@@ -308,18 +270,13 @@ struct HomeScreenDemoView: View {
 }
 
 // MARK: - Home Screen Scrollable Content
-/// HomeScreenView content wrapped with scroll offset tracking
+/// HomeScreenView content as a scrollable view
 struct HomeScreenScrollableContent: View {
-    @Binding var scrollOffset: CGFloat
-    var onScrollChange: (CGFloat) -> Void
     @State private var selectedSavingsFilter: String = "All"
 
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                // Spacer for nav bar
-                Color.clear.frame(height: 70)
-
                 // ==========================================
                 // MARK: - SCREEN 1 CONTENT (home_1.jpg)
                 // ==========================================
@@ -431,27 +388,10 @@ struct HomeScreenScrollableContent: View {
                 // MARK: - Footer Space
                 Color.clear.frame(height: 100)
             }
-            .background(
-                GeometryReader { geo in
-                    Color.clear
-                        .preference(key: ScrollOffsetPreferenceKey.self, value: -geo.frame(in: .named("scroll")).origin.y)
-                }
-            )
         }
-        .coordinateSpace(name: "scroll")
-        .onPreferenceChange(ScrollOffsetPreferenceKey.self) { value in
-            scrollOffset = value
-            onScrollChange(value)
-        }
+        .scrollEdgeEffectStyle(.soft, for: .top)
+        .scrollEdgeEffectStyle(.soft, for: .bottom)
         .background(Color.surfaceBackground)
-    }
-}
-
-// MARK: - Scroll Offset Preference Key
-struct ScrollOffsetPreferenceKey: PreferenceKey {
-    static var defaultValue: CGFloat = 0
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-        value = nextValue()
     }
 }
 

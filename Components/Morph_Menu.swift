@@ -8,7 +8,15 @@ private typealias DS = DesignSystemGlobal
 /// A navigation header that morphs between action buttons and a search bar.
 /// Uses matchedGeometryEffect to create smooth transitions between states.
 struct MorphingNavHeader: View {
-    
+
+    // MARK: - Configuration
+    let showBackButton: Bool
+
+    // MARK: - Initializer
+    init(showBackButton: Bool = true) {
+        self.showBackButton = showBackButton
+    }
+
     // MARK: - State
     @State private var isSearching = false
     @State private var searchText = ""
@@ -42,9 +50,11 @@ struct MorphingNavHeader: View {
     
     var body: some View {
         HStack(spacing: containerSpacing) {
-            // Back button - always visible, doesn't participate in morph
-            backButton
-            
+            // Back button - conditionally visible, doesn't participate in morph
+            if showBackButton {
+                backButton
+            }
+
             if isSearching {
                 // Search bar state
                 searchBar
@@ -204,10 +214,16 @@ struct CircleButton: View {
 }
 
 // MARK: - Preview
-#Preview {
+#Preview("With Back Button") {
     VStack {
         MorphingNavHeader()
         Spacer()
     }
-   // .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
+}
+
+#Preview("Without Back Button") {
+    VStack {
+        MorphingNavHeader(showBackButton: false)
+        Spacer()
+    }
 }

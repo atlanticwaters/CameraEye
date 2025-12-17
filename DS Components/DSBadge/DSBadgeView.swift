@@ -82,8 +82,8 @@ struct DSBadgeView: View {
             .padding(.top, 60) // Extra padding for top navigation
             .padding(.bottom, 80) // Extra padding for bottom navigation
         }
+        .scrollEdgeEffectStyle(.soft, for: .vertical)
         .background(surfaceGreige)
-        .applySoftScrollEdges()
     }
     
     // MARK: - Badge Sizes Section

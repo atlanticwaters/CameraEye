@@ -1,0 +1,932 @@
+{
+  "pageInfo": {
+    "categoryId": "N-5yc1vZc2gk",
+    "categoryName": "Tool Chests",
+    "categorySlug": "tool-chests",
+    "breadcrumbs": [
+      {
+        "label": "Home",
+        "url": "/"
+      },
+      {
+        "label": "Storage & Organization",
+        "url": "/b/Storage-Organization/N-5yc1vZas7e"
+      },
+      {
+        "label": "Garage Storage",
+        "url": "/b/Storage-Organization-Garage-Storage/N-5yc1vZc89r"
+      },
+      {
+        "label": "Tool Storage",
+        "url": "/b/Storage-Organization-Garage-Storage-Tool-Storage/N-5yc1vZc2gl"
+      },
+      {
+        "label": "Tool Chests",
+        "url": "/b/Garage-Tool-Storage-Tool-Chests/N-5yc1vZc2gk"
+      }
+    ],
+    "totalResults": 312,
+    "heroImage": {
+      "url": "https://dam.thdstatic.com/contentful/heroflattenimage/tool-chests-hero.png",
+      "alt": "Tool Chests",
+      "promoText": "Organize Your Workshop Like a Pro"
+    },
+    "seoDescription": "Shop Tool Chests at The Home Depot. Find rolling tool cabinets, top chests, mobile workbenches, and combo sets from top brands like Husky and Milwaukee."
+  },
+  "featuredBrands": [
+    {
+      "brandId": "Husky",
+      "brandName": "Husky",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/husky-logo.svg",
+      "filterUrl": "/b/Tool-Chests/Husky/N-5yc1vZc2gkZf1"
+    },
+    {
+      "brandId": "Milwaukee",
+      "brandName": "Milwaukee",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/milwaukee-logo.svg",
+      "filterUrl": "/b/Tool-Chests/Milwaukee/N-5yc1vZc2gkZ1yz"
+    },
+    {
+      "brandId": "DeWalt",
+      "brandName": "DeWalt",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/dewalt-logo.svg",
+      "filterUrl": "/b/Tool-Chests/DeWalt/N-5yc1vZc2gkZxz"
+    },
+    {
+      "brandId": "Craftsman",
+      "brandName": "Craftsman",
+      "logoUrl": "https://images.thdstatic.com/catalog/brandLogos/craftsman-logo.svg",
+      "filterUrl": "/b/Tool-Chests/Craftsman/N-5yc1vZc2gkZ5r7"
+    }
+  ],
+  "quickFilters": [
+    {
+      "filterId": "mobile-workbench",
+      "label": "Mobile Workbenches",
+      "imageUrl": "https://images.thdstatic.com/catalog/productImages/300/mobile-workbench.jpg",
+      "filterUrl": "/b/Tool-Chests/Mobile-Workbenches/N-5yc1vZc2gkZ1z0"
+    },
+    {
+      "filterId": "tool-cabinet",
+      "label": "Tool Cabinets",
+      "imageUrl": "https://images.thdstatic.com/catalog/productImages/300/tool-cabinet.jpg",
+      "filterUrl": "/b/Tool-Chests/Tool-Cabinets/N-5yc1vZc2gkZ2k3"
+    },
+    {
+      "filterId": "combo-sets",
+      "label": "Combo Sets",
+      "imageUrl": "https://images.thdstatic.com/catalog/productImages/300/tool-chest-combo.jpg",
+      "filterUrl": "/b/Tool-Chests/Combo-Sets/N-5yc1vZc2gkZ3m5"
+    }
+  ],
+  "filters": [
+    {
+      "filterGroupId": "brand",
+      "filterGroupName": "Brand",
+      "filterType": "checkbox",
+      "options": [
+        {
+          "optionId": "husky",
+          "label": "Husky",
+          "value": "husky",
+          "count": 156,
+          "filterUrl": "/b/Tool-Chests/Husky/N-5yc1vZc2gkZf1"
+        },
+        {
+          "optionId": "milwaukee",
+          "label": "Milwaukee",
+          "value": "milwaukee",
+          "count": 45,
+          "filterUrl": "/b/Tool-Chests/Milwaukee/N-5yc1vZc2gkZ1yz"
+        },
+        {
+          "optionId": "dewalt",
+          "label": "DeWalt",
+          "value": "dewalt",
+          "count": 38,
+          "filterUrl": "/b/Tool-Chests/DeWalt/N-5yc1vZc2gkZxz"
+        },
+        {
+          "optionId": "craftsman",
+          "label": "Craftsman",
+          "value": "craftsman",
+          "count": 52,
+          "filterUrl": "/b/Tool-Chests/Craftsman/N-5yc1vZc2gkZ5r7"
+        },
+        {
+          "optionId": "kobalt",
+          "label": "Kobalt",
+          "value": "kobalt",
+          "count": 21,
+          "filterUrl": "/b/Tool-Chests/Kobalt/N-5yc1vZc2gkZb3"
+        }
+      ]
+    },
+    {
+      "filterGroupId": "price",
+      "filterGroupName": "Price",
+      "filterType": "range",
+      "options": [
+        {
+          "optionId": "price-0-200",
+          "label": "Under $200",
+          "value": "0-200",
+          "count": 45
+        },
+        {
+          "optionId": "price-200-500",
+          "label": "$200 - $500",
+          "value": "200-500",
+          "count": 89
+        },
+        {
+          "optionId": "price-500-1000",
+          "label": "$500 - $1000",
+          "value": "500-1000",
+          "count": 112
+        },
+        {
+          "optionId": "price-1000-plus",
+          "label": "$1000 & Above",
+          "value": "1000-plus",
+          "count": 66
+        }
+      ]
+    },
+    {
+      "filterGroupId": "numberOfDrawers",
+      "filterGroupName": "Number of Drawers",
+      "filterType": "checkbox",
+      "options": [
+        {
+          "optionId": "drawers-1-4",
+          "label": "1-4 Drawers",
+          "value": "1-4",
+          "count": 67
+        },
+        {
+          "optionId": "drawers-5-8",
+          "label": "5-8 Drawers",
+          "value": "5-8",
+          "count": 134
+        },
+        {
+          "optionId": "drawers-9-12",
+          "label": "9-12 Drawers",
+          "value": "9-12",
+          "count": 78
+        },
+        {
+          "optionId": "drawers-13-plus",
+          "label": "13+ Drawers",
+          "value": "13-plus",
+          "count": 33
+        }
+      ]
+    },
+    {
+      "filterGroupId": "chestWidth",
+      "filterGroupName": "Chest Width",
+      "filterType": "checkbox",
+      "options": [
+        {
+          "optionId": "width-26",
+          "label": "26 in.",
+          "value": "26",
+          "count": 45
+        },
+        {
+          "optionId": "width-36",
+          "label": "36 in.",
+          "value": "36",
+          "count": 56
+        },
+        {
+          "optionId": "width-46",
+          "label": "46 in.",
+          "value": "46",
+          "count": 89
+        },
+        {
+          "optionId": "width-52",
+          "label": "52 in.",
+          "value": "52",
+          "count": 67
+        },
+        {
+          "optionId": "width-61",
+          "label": "61 in.",
+          "value": "61",
+          "count": 34
+        },
+        {
+          "optionId": "width-72",
+          "label": "72 in.",
+          "value": "72",
+          "count": 21
+        }
+      ]
+    },
+    {
+      "filterGroupId": "color",
+      "filterGroupName": "Color Family",
+      "filterType": "color",
+      "options": [
+        {
+          "optionId": "black",
+          "label": "Black",
+          "value": "black",
+          "count": 189
+        },
+        {
+          "optionId": "red",
+          "label": "Red",
+          "value": "red",
+          "count": 67
+        },
+        {
+          "optionId": "gray",
+          "label": "Gray",
+          "value": "gray",
+          "count": 34
+        },
+        {
+          "optionId": "blue",
+          "label": "Blue",
+          "value": "blue",
+          "count": 22
+        }
+      ]
+    }
+  ],
+  "sortOptions": [
+    {
+      "sortId": "top-sellers",
+      "label": "Top Sellers",
+      "isDefault": true
+    },
+    {
+      "sortId": "price-low-high",
+      "label": "Price Low to High",
+      "isDefault": false
+    },
+    {
+      "sortId": "price-high-low",
+      "label": "Price High to Low",
+      "isDefault": false
+    },
+    {
+      "sortId": "top-rated",
+      "label": "Top Rated",
+      "isDefault": false
+    }
+  ],
+  "products": [
+    {
+      "productId": "314892567",
+      "modelNumber": "H46MWC9BLK",
+      "storeSkuNumber": "1008234567",
+      "brand": "Husky",
+      "title": "46 in. W x 18 in. D 9-Drawer Gloss Black Mobile Workbench with Solid Wood Top",
+      "shortDescription": "Heavy-duty workbench with 1,500 lb. load capacity",
+      "price": {
+        "current": 448.0,
+        "original": 548.0,
+        "savings": 100.0,
+        "savingsPercent": 18,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.7,
+        "count": 3456
+      },
+      "images": {
+        "primary": "product images/tool chests/tool chests_1.jpg",
+        "colorSwatches": [
+          {
+            "color": "Gloss Black",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/gloss-black.jpg",
+            "variantId": "314892567"
+          },
+          {
+            "color": "Matte Black",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/matte-black.jpg",
+            "variantId": "314892568"
+          }
+        ]
+      },
+      "badges": [
+        {
+          "type": "bestSeller",
+          "label": "Best Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Solid Wood Top",
+        "9 Drawers",
+        "1,500 lb. Capacity"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Husky-46-in-9-Drawer-Mobile-Workbench-H46MWC9BLK/314892567",
+      "limitPerOrder": 3
+    },
+    {
+      "productId": "314892568",
+      "modelNumber": "H46MWC9BLK-ALT",
+      "storeSkuNumber": "1008234568",
+      "brand": "Husky",
+      "title": "46 in. W x 18 in. D 9-Drawer Gloss Black Mobile Workbench - Side View",
+      "shortDescription": "Same great workbench from a different angle",
+      "price": {
+        "current": 448.0,
+        "original": 548.0,
+        "savings": 100.0,
+        "savingsPercent": 18,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.7,
+        "count": 3456
+      },
+      "images": {
+        "primary": "product images/tool chests/tool chests_2.jpg"
+      },
+      "badges": [
+        {
+          "type": "bestSeller",
+          "label": "Best Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Solid Wood Top",
+        "9 Drawers",
+        "1,500 lb. Capacity"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Husky-46-in-9-Drawer-Mobile-Workbench-H46MWC9BLK/314892567",
+      "limitPerOrder": 3
+    },
+    {
+      "productId": "315234789",
+      "modelNumber": "H52MWC10MOD",
+      "storeSkuNumber": "1008345678",
+      "brand": "Husky",
+      "title": "52 in. W x 24 in. D 10-Drawer Black Mobile Workbench with Pegboard and Shelf",
+      "shortDescription": "Complete workspace with built-in organization",
+      "price": {
+        "current": 698.0,
+        "original": 848.0,
+        "savings": 150.0,
+        "savingsPercent": 18,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.8,
+        "count": 2345
+      },
+      "images": {
+        "primary": "product images/tool chests/tool chests_3.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Pegboard Included",
+        "10 Drawers",
+        "Power Strip"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Husky-52-in-10-Drawer-Mobile-Workbench-H52MWC10MOD/315234789",
+      "limitPerOrder": 3
+    },
+    {
+      "productId": "315234790",
+      "modelNumber": "H52MWC10MOD-ALT",
+      "storeSkuNumber": "1008345679",
+      "brand": "Husky",
+      "title": "52 in. W x 24 in. D 10-Drawer Black Mobile Workbench - Open View",
+      "shortDescription": "See the drawer configuration",
+      "price": {
+        "current": 698.0,
+        "original": 848.0,
+        "savings": 150.0,
+        "savingsPercent": 18,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.8,
+        "count": 2345
+      },
+      "images": {
+        "primary": "product images/tool chests/tool chests_4.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Pegboard Included",
+        "10 Drawers",
+        "Power Strip"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Husky-52-in-10-Drawer-Mobile-Workbench-H52MWC10MOD/315234789",
+      "limitPerOrder": 3
+    },
+    {
+      "productId": "316567890",
+      "modelNumber": "H42CH4TR8BLK",
+      "storeSkuNumber": "1008456789",
+      "brand": "Husky",
+      "title": "42 in. W 8-Drawer Black Tool Chest Combo with Top Chest and Rolling Cabinet",
+      "shortDescription": "Complete storage solution with top chest and cabinet",
+      "price": {
+        "current": 398.0,
+        "original": 498.0,
+        "savings": 100.0,
+        "savingsPercent": 20,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.6,
+        "count": 4567
+      },
+      "images": {
+        "primary": "product images/tool chests/tool chests_5.jpg"
+      },
+      "badges": [
+        {
+          "type": "bestSeller",
+          "label": "Best Seller"
+        }
+      ],
+      "keyFeatures": [
+        "8 Drawers Total",
+        "Ball Bearing Slides",
+        "Keyed Lock"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Husky-42-in-8-Drawer-Tool-Chest-Combo-H42CH4TR8BLK/316567890",
+      "limitPerOrder": 3
+    },
+    {
+      "productId": "317890123",
+      "modelNumber": "H72MWC10BLK-TL",
+      "storeSkuNumber": "1008567890",
+      "brand": "Husky",
+      "title": "72 in. W x 24 in. D 10-Drawer Gloss Black Mobile Workbench with Adjustable-Height Top",
+      "shortDescription": "Extra-large professional workbench",
+      "price": {
+        "current": 998.0,
+        "original": 1198.0,
+        "savings": 200.0,
+        "savingsPercent": 17,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.9,
+        "count": 1234
+      },
+      "images": {
+        "primary": "product images/tool chests/tool chests_6.jpg"
+      },
+      "badges": [
+        {
+          "type": "proPreferred",
+          "label": "Pro Preferred"
+        }
+      ],
+      "keyFeatures": [
+        "Adjustable Height",
+        "10 Drawers",
+        "2,000 lb. Capacity"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Husky-72-in-10-Drawer-Mobile-Workbench-H72MWC10BLK-TL/317890123",
+      "limitPerOrder": 2
+    },
+    {
+      "productId": "318123456",
+      "modelNumber": "H52CH6TR9HDV4",
+      "storeSkuNumber": "1008678901",
+      "brand": "Husky",
+      "title": "52 in. W x 22 in. D Heavy Duty 9-Drawer Matte Black Tool Chest Combo",
+      "shortDescription": "Heavy-duty construction for demanding use",
+      "price": {
+        "current": 598.0,
+        "original": 748.0,
+        "savings": 150.0,
+        "savingsPercent": 20,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.7,
+        "count": 2890
+      },
+      "images": {
+        "primary": "product images/tool chests/tool chests_7.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Heavy Duty",
+        "9 Drawers",
+        "Matte Black Finish"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Husky-52-in-9-Drawer-Tool-Chest-Combo-H52CH6TR9HDV4/318123456",
+      "limitPerOrder": 3
+    },
+    {
+      "productId": "318123457",
+      "modelNumber": "H52CH6TR9HDV4-ALT",
+      "storeSkuNumber": "1008678902",
+      "brand": "Husky",
+      "title": "52 in. W x 22 in. D Heavy Duty 9-Drawer Matte Black Tool Chest Combo - Interior View",
+      "shortDescription": "View the drawer layout and capacity",
+      "price": {
+        "current": 598.0,
+        "original": 748.0,
+        "savings": 150.0,
+        "savingsPercent": 20,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.7,
+        "count": 2890
+      },
+      "images": {
+        "primary": "product images/tool chests/tool chests_8.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Heavy Duty",
+        "9 Drawers",
+        "Matte Black Finish"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Husky-52-in-9-Drawer-Tool-Chest-Combo-H52CH6TR9HDV4/318123456",
+      "limitPerOrder": 3
+    },
+    {
+      "productId": "319456789",
+      "modelNumber": "H61MWC15HP-C",
+      "storeSkuNumber": "1008789012",
+      "brand": "Husky",
+      "title": "61 in. W x 23 in. D 15-Drawer Matte Black Mobile Workbench with Stainless Steel Top",
+      "shortDescription": "Premium workbench with stainless steel work surface",
+      "price": {
+        "current": 1298.0,
+        "original": 1498.0,
+        "savings": 200.0,
+        "savingsPercent": 13,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.8,
+        "count": 987
+      },
+      "images": {
+        "primary": "product images/tool chests/tool chests_9.jpg"
+      },
+      "badges": [
+        {
+          "type": "exclusive",
+          "label": "Exclusive"
+        }
+      ],
+      "keyFeatures": [
+        "Stainless Steel Top",
+        "15 Drawers",
+        "Built-in Power"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Husky-61-in-15-Drawer-Mobile-Workbench-H61MWC15HP-C/319456789",
+      "limitPerOrder": 2
+    },
+    {
+      "productId": "320789012",
+      "modelNumber": "H52CH6TR9HDV4GR",
+      "storeSkuNumber": "1008890123",
+      "brand": "Husky",
+      "title": "52 in. W x 22 in. D Heavy Duty 9-Drawer Matte Gray Tool Chest Combo",
+      "shortDescription": "Same heavy-duty design in matte gray",
+      "price": {
+        "current": 598.0,
+        "original": 748.0,
+        "savings": 150.0,
+        "savingsPercent": 20,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.7,
+        "count": 1567
+      },
+      "images": {
+        "primary": "product images/tool chests/tool chests_10.jpg"
+      },
+      "badges": [
+        {
+          "type": "newArrival",
+          "label": "New Arrival"
+        }
+      ],
+      "keyFeatures": [
+        "Heavy Duty",
+        "9 Drawers",
+        "Matte Gray Finish"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Husky-52-in-9-Drawer-Tool-Chest-Combo-Gray-H52CH6TR9HDV4GR/320789012",
+      "limitPerOrder": 3
+    },
+    {
+      "productId": "321012345",
+      "modelNumber": "H27TR5BLK",
+      "storeSkuNumber": "1008901234",
+      "brand": "Husky",
+      "title": "27 in. W 5-Drawer Gloss Black Rolling Tool Cabinet",
+      "shortDescription": "Compact cabinet perfect for smaller spaces",
+      "price": {
+        "current": 198.0,
+        "original": 248.0,
+        "savings": 50.0,
+        "savingsPercent": 20,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.5,
+        "count": 5678
+      },
+      "images": {
+        "primary": "product images/tool chests/tool chests_11.jpg"
+      },
+      "badges": [
+        {
+          "type": "bestSeller",
+          "label": "Best Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Compact 27 in.",
+        "5 Drawers",
+        "100 lb. Drawer Capacity"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Husky-27-in-5-Drawer-Rolling-Tool-Cabinet-H27TR5BLK/321012345",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "322345678",
+      "modelNumber": "H26CH5BLK",
+      "storeSkuNumber": "1009012345",
+      "brand": "Husky",
+      "title": "26 in. W 5-Drawer Gloss Black Top Tool Chest",
+      "shortDescription": "Top chest pairs perfectly with rolling cabinets",
+      "price": {
+        "current": 149.0,
+        "original": 189.0,
+        "savings": 40.0,
+        "savingsPercent": 21,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.6,
+        "count": 4321
+      },
+      "images": {
+        "primary": "product images/tool chests/tool chests_12.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Stackable Design",
+        "5 Drawers",
+        "Keyed Lock"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Husky-26-in-5-Drawer-Top-Tool-Chest-H26CH5BLK/322345678",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "322345679",
+      "modelNumber": "H26CH5BLK-ALT",
+      "storeSkuNumber": "1009012346",
+      "brand": "Husky",
+      "title": "26 in. W 5-Drawer Gloss Black Top Tool Chest - Open View",
+      "shortDescription": "See the drawer organization options",
+      "price": {
+        "current": 149.0,
+        "original": 189.0,
+        "savings": 40.0,
+        "savingsPercent": 21,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.6,
+        "count": 4321
+      },
+      "images": {
+        "primary": "product images/tool chests/tool chests_13.jpg"
+      },
+      "badges": [
+        {
+          "type": "topSeller",
+          "label": "Top Seller"
+        }
+      ],
+      "keyFeatures": [
+        "Stackable Design",
+        "5 Drawers",
+        "Keyed Lock"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Husky-26-in-5-Drawer-Top-Tool-Chest-H26CH5BLK/322345678",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "323678901",
+      "modelNumber": "HOTC4212B21S",
+      "storeSkuNumber": "1009123456",
+      "brand": "Husky",
+      "title": "42 in. W x 21 in. D 12-Drawer Gloss Red Tool Chest Combo with Side Cabinet",
+      "shortDescription": "Classic red finish with extra side storage",
+      "price": {
+        "current": 548.0,
+        "original": 698.0,
+        "savings": 150.0,
+        "savingsPercent": 21,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.7,
+        "count": 2345
+      },
+      "images": {
+        "primary": "product images/tool chests/tool chests_14.jpg"
+      },
+      "badges": [
+        {
+          "type": "specialBuy",
+          "label": "Special Buy"
+        }
+      ],
+      "keyFeatures": [
+        "Side Cabinet Included",
+        "12 Drawers Total",
+        "Gloss Red Finish"
+      ],
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Husky-42-in-12-Drawer-Tool-Chest-Combo-Red-HOTC4212B21S/323678901",
+      "limitPerOrder": 3
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 13,
+    "itemsPerPage": 24,
+    "startIndex": 1,
+    "endIndex": 24
+  },
+  "categoryStyles": [
+    {
+      "styleId": "mobile-workbenches",
+      "styleName": "Mobile\nWorkbenches",
+      "description": "Rolling workstations with integrated storage",
+      "productId": "314892567",
+      "image": "product-images/husky-h46mwc9blk-mobile-workbench.jpg",
+      "url": "/b/Tool-Chests/Mobile-Workbenches/N-5yc1vZc2gkZ1z0",
+      "isCurrentCategory": true
+    },
+    {
+      "styleId": "tool-cabinets",
+      "styleName": "Tool\nCabinets",
+      "description": "Rolling base cabinets for tool storage",
+      "productId": "321012345",
+      "image": "product-images/husky-h27tr5blk-rolling-cabinet.jpg",
+      "url": "/b/Tool-Chests/Tool-Cabinets/N-5yc1vZc2gkZ2x0",
+      "isCurrentCategory": false
+    },
+    {
+      "styleId": "top-chests",
+      "styleName": "Top\nChests",
+      "description": "Stackable top chests for additional storage",
+      "productId": "322345678",
+      "image": "product-images/husky-h26ch5blk-top-chest.jpg",
+      "url": "/b/Tool-Chests/Top-Chests/N-5yc1vZc2gkZ2k3",
+      "isCurrentCategory": false
+    },
+    {
+      "styleId": "combo-sets",
+      "styleName": "Combo\nSets",
+      "description": "Top chest and cabinet combinations",
+      "productId": "316567890",
+      "image": "product-images/husky-h42ch4tr8blk-combo.jpg",
+      "url": "/b/Tool-Chests/Combo-Sets/N-5yc1vZc2gkZ3m5",
+      "isCurrentCategory": false
+    },
+    {
+      "styleId": "side-cabinets",
+      "styleName": "Side\nCabinets",
+      "description": "Add-on storage for existing setups",
+      "productId": "323678901",
+      "image": "product-images/husky-hotc4212b21s-side-cabinet.jpg",
+      "url": "/b/Tool-Chests/Side-Cabinets/N-5yc1vZc2gkZ4n9",
+      "isCurrentCategory": false
+    }
+  ],
+  "parentCategory": {
+    "categoryId": "N-5yc1vZc2gl",
+    "categoryName": "Tool Storage",
+    "url": "/b/Storage-Organization-Garage-Storage-Tool-Storage/N-5yc1vZc2gl",
+    "department": "Storage & Organization"
+  }
+}

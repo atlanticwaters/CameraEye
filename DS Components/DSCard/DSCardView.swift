@@ -70,8 +70,8 @@ struct DSCardView: View {
             .padding(.top, 60)
             .padding(.bottom, 80)
         }
+        .scrollEdgeEffectStyle(.soft, for: .vertical)
         .background(surfaceGreige)
-        .applySoftScrollEdges()
     }
     
     // MARK: - Content Card Section
