@@ -132,7 +132,7 @@ struct HomeScreenView: View {
         .background(Color.surfaceBackground)
         .navigationBarHidden(true)
         }
-        .ignoresSafeArea(edges: .bottom)
+        .ignoresSafeArea(edges: [.bottom, .top])
     }
 }
 
@@ -225,58 +225,62 @@ enum HomeTab: Int, TabBarItem {
 }
 
 /// Wrapper view for testing in ContentView or other entry points
-/// Includes BottomTabBar_iOS and MorphingNavHeader
+/// Includes BottomTabBar_iOS and MorphingNavHeader with Shop Navigation
 struct HomeScreenDemoView: View {
     @State private var selectedTab: HomeTab = .home
-    @State private var isShopMenuOpen = false
+    @State private var isShopNavigationPresented: Bool = false
+    @State private var previousTab: HomeTab = .home
 
     var body: some View {
-        BottomTabBar_iOS(selectedTab: $selectedTab) { tab in
-            switch tab {
-            case .home:
-                homeScreenWithNav
-            case .shop:
-                placeholderView(title: "Shop", icon: "cart.fill")
-            case .profile:
-                placeholderView(title: "Profile", icon: "person.fill")
-            case .cart:
-                placeholderView(title: "Cart", icon: "bag.fill")
+        ZStack {
+            BottomTabBar_iOS(selectedTab: $selectedTab) { tab in
+                tabContent(for: tab)
             }
+            .onChange(of: selectedTab) { oldValue, newValue in
+                if newValue == .shop {
+                    // Store previous tab and show shop navigation
+                    previousTab = oldValue
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                        isShopNavigationPresented = true
+                    }
+                    // Reset to previous tab so Shop doesn't stay selected
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        selectedTab = previousTab
+                    }
+                }
+            }
+
+            // Shop Navigation - slides in from right
+            if isShopNavigationPresented {
+                ShopNavigationView(isPresented: $isShopNavigationPresented)
+                    .transition(.move(edge: .trailing))
+                    .zIndex(1)
+            }
+        }
+        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: isShopNavigationPresented)
+    }
+
+    @ViewBuilder
+    private func tabContent(for tab: HomeTab) -> some View {
+        switch tab {
+        case .home:
+            homeScreenWithNav
+        case .shop:
+            // Empty placeholder - Shop tab triggers slide-in navigation
+            Color.clear
+        case .profile:
+            placeholderView(title: "Profile", icon: "person.fill")
+        case .cart:
+            placeholderView(title: "Cart", icon: "bag.fill")
         }
     }
 
     // MARK: - Home Screen with Morph Nav
     private var homeScreenWithNav: some View {
-        ZStack(alignment: .top) {
-            HomeScreenScrollableContent()
-                .safeAreaBar(edge: .top) {
-                    MorphingNavHeader(showBackButton: false, isShopMenuOpen: $isShopMenuOpen)
-                }
-
-            // Shop Menu Overlay - appears above content when open
-            if isShopMenuOpen {
-                Color.black.opacity(0.3)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                            isShopMenuOpen = false
-                        }
-                    }
-                    .transition(.opacity)
-
-                VStack {
-                    HStack {
-                        Spacer()
-                        ShopMenuOverlay(isOpen: $isShopMenuOpen)
-                            .padding(.top, 60) // Below the nav header
-                            .padding(.trailing, 16)
-                    }
-                    Spacer()
-                }
-                .transition(.opacity.combined(with: .move(edge: .top)))
+        HomeScreenScrollableContent()
+            .safeAreaBar(edge: .top) {
+                MorphingNavHeader(showBackButton: false)
             }
-        }
-        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isShopMenuOpen)
     }
 
     // MARK: - Placeholder View for other tabs

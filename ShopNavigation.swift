@@ -753,10 +753,336 @@ struct ShopView: View {
 }
 
 // MARK: - =============================================
+// MARK: - SHOP NAVIGATION VIEW (Full Screen Slide-In)
+// MARK: - =============================================
+
+/// Full-screen shop navigation view that slides in from the right
+/// Uses H3/Semibold for top-level departments, H4/Regular for subcategories
+struct ShopNavigationView: View {
+
+    // MARK: - Environment & Bindings
+    @Environment(\.dismiss) private var dismiss
+    @Binding var isPresented: Bool
+
+    // MARK: - State
+    @State private var selectedDepartment: ShopDepartment? = nil
+    @State private var selectedCategory: PLPCategory? = nil
+    @Namespace private var navigationNamespace
+
+    // MARK: - Sizing from Design System
+    private let horizontalPadding = DS.Spacing4    // 16pt
+    private let verticalPadding = DS.Spacing3      // 12pt
+    private let itemSpacing = DS.Spacing2          // 8pt
+    private let sectionSpacing = DS.Spacing6       // 24pt
+
+    // MARK: - Colors
+    private let primaryColor = DS.TextOnSurfaceColorPrimary
+    private let secondaryColor = DS.TextOnSurfaceColorSecondary
+    private let accentColor = DS.Brand300
+    private let dividerColor = DS.Greige200
+
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                // Background
+                DS.BackgroundSurfaceColorGreige
+                    .ignoresSafeArea()
+
+                // Content based on navigation state
+                if let category = selectedCategory {
+                    // PLP View
+                    PLPView(category: category)
+                        .navigationTitle(category.title)
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) {
+                                Button {
+                                    withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                                        selectedCategory = nil
+                                    }
+                                } label: {
+                                    Image(systemName: "chevron.left")
+                                        .font(.system(size: DS.FontSizeBodyLg, weight: .medium))
+                                        .foregroundStyle(primaryColor)
+                                }
+                            }
+                            ToolbarItem(placement: .navigationBarTrailing) {
+                                closeButton
+                            }
+                        }
+                } else if let department = selectedDepartment {
+                    // Subcategories view
+                    subcategoriesView(for: department)
+                } else {
+                    // Main departments view
+                    departmentsView
+                }
+            }
+        }
+    }
+
+    // MARK: - Close Button
+    private var closeButton: some View {
+        Button {
+            withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                isPresented = false
+            }
+        } label: {
+            Image(systemName: "xmark")
+                .font(.system(size: DS.FontSizeBodyLg, weight: .medium))
+                .foregroundStyle(secondaryColor)
+                .frame(width: DS.Spacing11, height: DS.Spacing11)
+                .contentShape(Circle())
+        }
+    }
+
+    // MARK: - Back Button (closes shop navigation)
+    private var backButton: some View {
+        Button {
+            withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                isPresented = false
+            }
+        } label: {
+            Image(systemName: "chevron.left")
+                .font(.system(size: DS.FontSizeBodyLg, weight: .medium))
+                .foregroundStyle(primaryColor)
+                .frame(width: DS.Spacing11, height: DS.Spacing11)
+                .contentShape(Circle())
+        }
+    }
+
+    // MARK: - Departments View (Top Level)
+    private var departmentsView: some View {
+        ScrollView {
+            LazyVStack(alignment: .leading, spacing: 0) {
+                // Header with back button
+                HStack(spacing: DS.Spacing3) {
+                    backButton
+
+                    Text("Shop All Departments")
+                        .font(.thdH3)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(primaryColor)
+
+                    Spacer()
+
+                    closeButton
+                }
+                .padding(.horizontal, horizontalPadding)
+                .padding(.top, DS.Spacing6)
+                .padding(.bottom, DS.Spacing4)
+
+                // Department list
+                ForEach(ShopDepartment.allCases) { department in
+                    departmentRow(department)
+
+                    if department != ShopDepartment.allCases.last {
+                        Divider()
+                            .background(dividerColor)
+                            .padding(.leading, horizontalPadding + DS.Spacing10)
+                    }
+                }
+            }
+            .padding(.bottom, 100)
+        }
+        .scrollEdgeEffectStyle(.soft, for: .top)
+        .scrollEdgeEffectStyle(.soft, for: .bottom)
+    }
+
+    // MARK: - Department Row
+    private func departmentRow(_ department: ShopDepartment) -> some View {
+        Button {
+            withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                selectedDepartment = department
+            }
+        } label: {
+            HStack(spacing: DS.Spacing3) {
+                // Icon
+                Image(systemName: department.icon)
+                    .font(.system(size: DS.FontSizeBodyXl, weight: .medium))
+                    .foregroundStyle(accentColor)
+                    .frame(width: DS.Spacing8, height: DS.Spacing8)
+
+                // Title - H3 Semibold
+                Text(department.rawValue)
+                    .font(.thdH3)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(primaryColor)
+
+                Spacer()
+
+                // Chevron
+                if !department.subcategories.isEmpty {
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: DS.FontSizeBodyMd, weight: .medium))
+                        .foregroundStyle(secondaryColor)
+                }
+            }
+            .padding(.horizontal, horizontalPadding)
+            .padding(.vertical, DS.Spacing4)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+    }
+
+    // MARK: - Subcategories View
+    private func subcategoriesView(for department: ShopDepartment) -> some View {
+        ScrollView {
+            LazyVStack(alignment: .leading, spacing: 0) {
+                // Header with back button
+                HStack(spacing: DS.Spacing3) {
+                    Button {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                            selectedDepartment = nil
+                        }
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: DS.FontSizeBodyLg, weight: .medium))
+                            .foregroundStyle(primaryColor)
+                            .frame(width: DS.Spacing11, height: DS.Spacing11)
+                            .contentShape(Circle())
+                    }
+
+                    // Department title - H3 Semibold
+                    Text(department.rawValue)
+                        .font(.thdH3)
+                        .fontWeight(.semibold)
+                        .foregroundStyle(primaryColor)
+
+                    Spacer()
+
+                    closeButton
+                }
+                .padding(.horizontal, horizontalPadding)
+                .padding(.top, DS.Spacing6)
+                .padding(.bottom, DS.Spacing4)
+
+                // "Shop All" option - H4 Regular
+                Button {
+                    // Navigate to department-level PLP if available
+                    print("Shop all \(department.rawValue)")
+                } label: {
+                    HStack(spacing: DS.Spacing3) {
+                        Image(systemName: department.icon)
+                            .font(.system(size: DS.FontSizeBodyXl, weight: .medium))
+                            .foregroundStyle(accentColor)
+                            .frame(width: DS.Spacing8, height: DS.Spacing8)
+
+                        Text("Shop All \(department.rawValue)")
+                            .font(.thdH4)
+                            .foregroundStyle(primaryColor)
+
+                        Spacer()
+
+                        Image(systemName: "arrow.right")
+                            .font(.system(size: DS.FontSizeBodySm, weight: .medium))
+                            .foregroundStyle(accentColor)
+                    }
+                    .padding(.horizontal, horizontalPadding)
+                    .padding(.vertical, DS.Spacing4)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+
+                Divider()
+                    .background(dividerColor)
+                    .padding(.leading, horizontalPadding + DS.Spacing10)
+
+                // Subcategories - H4 Regular
+                ForEach(department.subcategories) { subcategory in
+                    subcategoryRow(subcategory)
+
+                    if subcategory.id != department.subcategories.last?.id {
+                        Divider()
+                            .background(dividerColor)
+                            .padding(.leading, horizontalPadding + DS.Spacing10)
+                    }
+                }
+            }
+            .padding(.bottom, 100)
+        }
+        .scrollEdgeEffectStyle(.soft, for: .top)
+        .scrollEdgeEffectStyle(.soft, for: .bottom)
+        .transition(.asymmetric(
+            insertion: .move(edge: .trailing),
+            removal: .move(edge: .trailing)
+        ))
+    }
+
+    // MARK: - Subcategory Row
+    private func subcategoryRow(_ subcategory: ShopSubcategory) -> some View {
+        Group {
+            if subcategory.plpCategory != nil {
+                Button {
+                    if let plpCategory = subcategory.plpCategory {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                            selectedCategory = plpCategory
+                        }
+                    }
+                } label: {
+                    HStack(spacing: DS.Spacing3) {
+                        Image(systemName: subcategory.icon)
+                            .font(.system(size: DS.FontSizeBodyXl, weight: .medium))
+                            .foregroundStyle(accentColor)
+                            .frame(width: DS.Spacing8, height: DS.Spacing8)
+
+                        // H4 Regular for subcategories
+                        Text(subcategory.name)
+                            .font(.thdH4)
+                            .foregroundStyle(primaryColor)
+
+                        Spacer()
+
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: DS.FontSizeBodyMd, weight: .medium))
+                            .foregroundStyle(secondaryColor)
+                    }
+                    .padding(.horizontal, horizontalPadding)
+                    .padding(.vertical, DS.Spacing4)
+                    .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+            } else {
+                // Inactive subcategory
+                HStack(spacing: DS.Spacing3) {
+                    Image(systemName: subcategory.icon)
+                        .font(.system(size: DS.FontSizeBodyXl, weight: .medium))
+                        .foregroundStyle(secondaryColor)
+                        .frame(width: DS.Spacing8, height: DS.Spacing8)
+
+                    Text(subcategory.name)
+                        .font(.thdH4)
+                        .foregroundStyle(secondaryColor)
+
+                    Spacer()
+
+                    Text("Coming Soon")
+                        .font(.thdCaption)
+                        .foregroundStyle(DS.TextOnSurfaceColorTertiary)
+                }
+                .padding(.horizontal, horizontalPadding)
+                .padding(.vertical, DS.Spacing4)
+                .opacity(0.6)
+            }
+        }
+    }
+}
+
+// MARK: - =============================================
 // MARK: - PREVIEWS
 // MARK: - =============================================
 
-#Preview("Shop View - Full") {
+#Preview("Shop Navigation View - Full Screen") {
+    struct PreviewWrapper: View {
+        @State private var isPresented = true
+        var body: some View {
+            ShopNavigationView(isPresented: $isPresented)
+        }
+    }
+    return PreviewWrapper()
+}
+
+#Preview("Shop View - Legacy") {
     ShopView()
 }
 

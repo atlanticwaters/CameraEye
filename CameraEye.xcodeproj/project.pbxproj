@@ -11,7 +11,6 @@
 		10F417362EEBACE7004A9FD3 /* Acorn.png in Resources */ = {isa = PBXBuildFile; fileRef = 10F417352EEBACE7004A9FD3 /* Acorn.png */; };
 		10F4173C2EEBB46C004A9FD3 /* Fridge.png in Resources */ = {isa = PBXBuildFile; fileRef = 10F4173B2EEBB46C004A9FD3 /* Fridge.png */; };
 		10FB00D52EEA668A00A65E91 /* hammer.icon in Resources */ = {isa = PBXBuildFile; fileRef = 10FB00D42EEA668A00A65E91 /* hammer.icon */; };
-		10FB00D62EEA68DB00A65E91 /* TypographyDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADC326062EE8D86B0078F356 /* TypographyDemoView.swift */; };
 		10FB00D72EEA690C00A65E91 /* Bucket.svg in Resources */ = {isa = PBXBuildFile; fileRef = 10BAEF502EE72B0800C8435B /* Bucket.svg */; };
 		10FB00D82EEA690C00A65E91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1000030230F0000 /* Assets.xcassets */; };
 		10FB00D92EEA690C00A65E91 /* logo.svg in Resources */ = {isa = PBXBuildFile; fileRef = 10BAEF522EE72B0800C8435B /* logo.svg */; };
@@ -44,6 +43,7 @@
 		10FB00F92EEA69BB00A65E91 /* THD LgVar Beta.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10FB00F72EEA69BB00A65E91 /* THD LgVar Beta.ttf */; };
 		10FB00FA2EEA69BB00A65E91 /* THD SmVar Beta.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10FB00F82EEA69BB00A65E91 /* THD SmVar Beta.ttf */; };
 		10FB01272EEB11A200A65E91 /* SearchDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FB011D2EEB11A200A65E91 /* SearchDemoView.swift */; };
+		AD1E8C9B2EF492B300C3EAA6 /* ComponentCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1E8C9A2EF492B300C3EAA6 /* ComponentCatalogView.swift */; };
 		AD29C4AD2EED0C8400AA5B40 /* PLPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD29C4AC2EED0C8400AA5B40 /* PLPView.swift */; };
 		ADFC05D82EF349320048CE2C /* Morph_Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFC05D72EF349320048CE2C /* Morph_Menu.swift */; };
 		ADFC05DA2EF35ABC0048CE2C /* ShopNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFC05D92EF35ABC0048CE2C /* ShopNavigation.swift */; };
@@ -77,12 +77,12 @@
 		A1000015230F0000 /* AppBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBackground.swift; sourceTree = "<group>"; };
 		A1000030230F0000 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		A1000031230F0000 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		AD1E8C9A2EF492B300C3EAA6 /* ComponentCatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentCatalogView.swift; sourceTree = "<group>"; };
 		AD29C4AC2EED0C8400AA5B40 /* PLPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLPView.swift; sourceTree = "<group>"; };
 		AD3B142B2EE66AD3008CBC4D /* SoftScrollEdgeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftScrollEdgeModifier.swift; sourceTree = "<group>"; };
 		ADA2EC092EE63DCF00F8D447 /* FontVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontVerificationView.swift; sourceTree = "<group>"; };
 		ADA8ACAE2EE9D0D900EC2C40 /* ComponentTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ComponentTest-Info.plist"; sourceTree = "<group>"; };
 		ADC325FC2EE8D2330078F356 /* TokensSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensSpacing.swift; sourceTree = "<group>"; };
-		ADC326062EE8D86B0078F356 /* TypographyDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyDemoView.swift; sourceTree = "<group>"; };
 		ADEF284A2EE8C46B00930A9B /* TokensComponentsDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensComponentsDark.swift; sourceTree = "<group>"; };
 		ADEF284B2EE8C46B00930A9B /* TokensComponentsLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensComponentsLight.swift; sourceTree = "<group>"; };
 		ADEF284C2EE8C46B00930A9B /* TokensComponentsTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensComponentsTheme.swift; sourceTree = "<group>"; };
@@ -132,11 +132,18 @@
 			);
 			target = 10FB00C52EEA62D700A65E91 /* CameraEye */;
 		};
+		AD1E8C832EF473FA00C3EAA6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 10FB00C52EEA62D700A65E91 /* CameraEye */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		10F416FD2EEB6873004A9FD3 /* DS Components */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "DS Components"; sourceTree = "<group>"; };
-		10FB00C72EEA62D700A65E91 /* CameraEye */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CameraEye; sourceTree = "<group>"; };
+		10FB00C72EEA62D700A65E91 /* CameraEye */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (AD1E8C832EF473FA00C3EAA6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = CameraEye; sourceTree = "<group>"; };
 		10FB00FC2EEB117E00A65E91 /* Search Assets */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Search Assets"; sourceTree = "<group>"; };
 		10FB01512EEB11D100A65E91 /* _docs */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (AD0C27302EEF849400BEB56E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = _docs; sourceTree = "<group>"; };
 		10FB01522EEB22F300A65E91 /* Showcase */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Showcase; sourceTree = "<group>"; };
@@ -185,6 +192,7 @@
 				10F4172D2EEBA067004A9FD3 /* BottomTabBar_iOS.swift */,
 				AD29C4AC2EED0C8400AA5B40 /* PLPView.swift */,
 				ADFC05D72EF349320048CE2C /* Morph_Menu.swift */,
+				AD1E8C9A2EF492B300C3EAA6 /* ComponentCatalogView.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -209,7 +217,6 @@
 				ADA2EC092EE63DCF00F8D447 /* FontVerificationView.swift */,
 				10D8C9CA2EE0F842002D4F05 /* ProductListingPage.swift */,
 				AD3B142B2EE66AD3008CBC4D /* SoftScrollEdgeModifier.swift */,
-				ADC326062EE8D86B0078F356 /* TypographyDemoView.swift */,
 				10FB011D2EEB11A200A65E91 /* SearchDemoView.swift */,
 				AD29C4AE2EED0D5F00AA5B40 /* Data */,
 			);
@@ -361,13 +368,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				10FB00D62EEA68DB00A65E91 /* TypographyDemoView.swift in Sources */,
 				10FB00E02EEA690C00A65E91 /* ProductSystem.swift in Sources */,
 				10FB00E12EEA690C00A65E91 /* ProductListingPage.swift in Sources */,
 				10FB00E22EEA690C00A65E91 /* TokensSemanticTheme.swift in Sources */,
 				10FB00E32EEA690C00A65E91 /* CustomFonts.swift in Sources */,
 				ADFC05D82EF349320048CE2C /* Morph_Menu.swift in Sources */,
 				ADFC05DA2EF35ABC0048CE2C /* ShopNavigation.swift in Sources */,
+				AD1E8C9B2EF492B300C3EAA6 /* ComponentCatalogView.swift in Sources */,
 				10FB00E52EEA690C00A65E91 /* TokensComponentsTheme.swift in Sources */,
 				10FB00E62EEA690C00A65E91 /* TokensCoreTheme.swift in Sources */,
 				10FB00E72EEA690C00A65E91 /* DesignSystemGlobal.swift in Sources */,
@@ -407,6 +414,7 @@
 				DEVELOPMENT_TEAM = PXW75HBGNQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CameraEye/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CameraEye;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -447,6 +455,7 @@
 				DEVELOPMENT_TEAM = PXW75HBGNQ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CameraEye/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CameraEye;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.shopping";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

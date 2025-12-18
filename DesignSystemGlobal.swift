@@ -15,6 +15,7 @@ public struct DesignSystemGlobal {
     public static let Spacing0 = CGFloat(0)
     public static let Spacing1 = CGFloat(4)
     public static let Spacing1px = CGFloat(1)
+    public static let Spacing2px = CGFloat(2)
     public static let Spacing2 = CGFloat(8)
     public static let Spacing3 = CGFloat(12)
     public static let Spacing4 = CGFloat(16)
@@ -32,6 +33,7 @@ public struct DesignSystemGlobal {
     public static let Spacing16 = CGFloat(64)
     public static let Spacing17 = CGFloat(68)
     public static let Spacing18 = CGFloat(72)
+    public static let Spacing20 = CGFloat(80)
     
     // MARK: - Font Size Tokens (from TokensCoreLight)
     public static let FontSizeBodyXs = TokensCoreLight.FontSizeBodyXs      // 12pt
@@ -58,6 +60,11 @@ public struct DesignSystemGlobal {
     public static let FontSizeHero3 = CGFloat(48)      // Medium hero
     public static let FontSizeHero2 = CGFloat(56)      // Large hero
     public static let FontSizeHero1 = CGFloat(64)      // Largest hero
+    
+    // MARK: - Font Line Heights
+    public static let FontLineHeightNone = CGFloat(1.0)   // No additional line spacing
+    public static let FontLineHeightTight = CGFloat(1.25) // Tight line spacing
+    public static let FontLineHeightBase = CGFloat(1.5)   // Standard line spacing
     
     // MARK: - Color Tokens - Background
     public static let BackgroundSurfaceColorGreige = TokensSemanticLight.BackgroundSurfaceColorGreige
@@ -91,6 +98,13 @@ public struct DesignSystemGlobal {
     public static let BackgroundFeedbackColorWarningAccent2 = TokensSemanticLight.BackgroundFeedbackColorWarningAccent2
     public static let BackgroundFeedbackColorInformationalAccent1 = TokensSemanticLight.BackgroundFeedbackColorInformationalAccent1
     public static let BackgroundFeedbackColorInformationalAccent2 = TokensSemanticLight.BackgroundFeedbackColorInformationalAccent2
+    
+    // MARK: - Color Tokens - Accent Backgrounds
+    public static let BackgroundAccentColorBlue = TokensSemanticLight.BackgroundAccentColorBlue
+    public static let BackgroundAccentColorGreen = TokensSemanticLight.BackgroundAccentColorGreen
+    public static let BackgroundAccentColorYellow = TokensSemanticLight.BackgroundAccentColorYellow
+    public static let BackgroundAccentColorRed = TokensSemanticLight.BackgroundAccentColorRed
+    public static let BackgroundAccentColorBrown = TokensSemanticLight.BackgroundAccentColorBrown
     
     // MARK: - Color Tokens - Text
     public static let TextOnSurfaceColorPrimary = TokensSemanticLight.TextOnSurfaceColorPrimary
@@ -139,6 +153,62 @@ public struct DesignSystemGlobal {
     public static let Brand900 = TokensSemanticLight.Brand900
     public static let Brand950 = TokensSemanticLight.Brand950
     
+    // MARK: - Color Tokens - Moonlight Scale (Blue)
+    public static let Moonlight025 = TokensSemanticLight.Moonlight025
+    public static let Moonlight050 = TokensSemanticLight.Moonlight050
+    public static let Moonlight100 = TokensSemanticLight.Moonlight100
+    public static let Moonlight200 = TokensSemanticLight.Moonlight200
+    public static let Moonlight300 = TokensSemanticLight.Moonlight300
+    public static let Moonlight400 = TokensSemanticLight.Moonlight400
+    public static let Moonlight500 = TokensSemanticLight.Moonlight500
+    public static let Moonlight600 = TokensSemanticLight.Moonlight600
+    public static let Moonlight700 = TokensSemanticLight.Moonlight700
+    public static let Moonlight800 = TokensSemanticLight.Moonlight800
+    public static let Moonlight900 = TokensSemanticLight.Moonlight900
+    public static let Moonlight950 = TokensSemanticLight.Moonlight950
+    
+    // MARK: - Color Tokens - BottleGreen Scale
+    public static let BottleGreen025 = TokensSemanticLight.BottleGreen025
+    public static let BottleGreen050 = TokensSemanticLight.BottleGreen050
+    public static let BottleGreen100 = TokensSemanticLight.BottleGreen100
+    public static let BottleGreen200 = TokensSemanticLight.BottleGreen200
+    public static let BottleGreen300 = TokensSemanticLight.BottleGreen300
+    public static let BottleGreen400 = TokensSemanticLight.BottleGreen400
+    public static let BottleGreen500 = TokensSemanticLight.BottleGreen500
+    public static let BottleGreen600 = TokensSemanticLight.BottleGreen600
+    public static let BottleGreen700 = TokensSemanticLight.BottleGreen700
+    public static let BottleGreen800 = TokensSemanticLight.BottleGreen800
+    public static let BottleGreen900 = TokensSemanticLight.BottleGreen900
+    public static let BottleGreen950 = TokensSemanticLight.BottleGreen950
+    
+    // MARK: - Color Tokens - Lemon Scale (Yellow)
+    public static let Lemon025 = TokensSemanticLight.Lemon025
+    public static let Lemon050 = TokensSemanticLight.Lemon050
+    public static let Lemon100 = TokensSemanticLight.Lemon100
+    public static let Lemon200 = TokensSemanticLight.Lemon200
+    public static let Lemon300 = TokensSemanticLight.Lemon300
+    public static let Lemon400 = TokensSemanticLight.Lemon400
+    public static let Lemon500 = TokensSemanticLight.Lemon500
+    public static let Lemon600 = TokensSemanticLight.Lemon600
+    public static let Lemon700 = TokensSemanticLight.Lemon700
+    public static let Lemon800 = TokensSemanticLight.Lemon800
+    public static let Lemon900 = TokensSemanticLight.Lemon900
+    public static let Lemon950 = TokensSemanticLight.Lemon950
+    
+    // MARK: - Color Tokens - Cinnabar Scale (Red)
+    public static let Cinnabar025 = TokensSemanticLight.Cinnabar025
+    public static let Cinnabar050 = TokensSemanticLight.Cinnabar050
+    public static let Cinnabar100 = TokensSemanticLight.Cinnabar100
+    public static let Cinnabar200 = TokensSemanticLight.Cinnabar200
+    public static let Cinnabar300 = TokensSemanticLight.Cinnabar300
+    public static let Cinnabar400 = TokensSemanticLight.Cinnabar400
+    public static let Cinnabar500 = TokensSemanticLight.Cinnabar500
+    public static let Cinnabar600 = TokensSemanticLight.Cinnabar600
+    public static let Cinnabar700 = TokensSemanticLight.Cinnabar700
+    public static let Cinnabar800 = TokensSemanticLight.Cinnabar800
+    public static let Cinnabar900 = TokensSemanticLight.Cinnabar900
+    public static let Cinnabar950 = TokensSemanticLight.Cinnabar950
+    
     // MARK: - Border Tokens
     public static let BorderRadius3xl = TokensSemanticLight.BorderRadius3xl
     public static let BorderRadius2xl = TokensSemanticLight.BorderRadius2xl
@@ -163,13 +233,26 @@ public struct DesignSystemGlobal {
     public static let BorderButtonColorDefault = TokensSemanticLight.BorderButtonColorDefault
     public static let BorderButtonColorPressed = TokensSemanticLight.BorderButtonColorPressed
     public static let BorderButtonColorInactive = TokensSemanticLight.BorderButtonColorInactive
+    public static let BorderButtonColorFocus = TokensSemanticLight.BorderButtonColorFocus
+    public static let BorderButtonColorOrangeOutlineDefault = TokensSemanticLight.BorderButtonColorOrangeOutlineDefault
+    public static let BorderButtonColorOrangeOutlineInactive = TokensSemanticLight.BorderButtonColorOrangeOutlineInactive
     
     public static let BorderInputColorDefault = TokensSemanticLight.BorderInputColorDefault
     public static let BorderInputColorActive = TokensSemanticLight.BorderInputColorActive
     public static let BorderInputColorPressed = TokensSemanticLight.BorderInputColorPressed
+    public static let BorderInputColorInactive = TokensSemanticLight.BorderInputColorInactive
+    public static let BorderInputColorFocus = TokensSemanticLight.BorderInputColorFocus
     public static let BorderInputColorAccent = TokensSemanticLight.BorderInputColorAccent
+    public static let BorderInputColorAccent2 = TokensSemanticLight.BorderInputColorAccent2
     public static let BorderInputColorError = TokensSemanticLight.BorderInputColorError
     public static let BorderInputColorSuccess = TokensSemanticLight.BorderInputColorSuccess
+    public static let BorderInputColorWarning = TokensSemanticLight.BorderInputColorWarning
+    
+    public static let BorderOnContainerDefault = TokensSemanticLight.BorderInputColorDefault
+    public static let BorderOnContainerActive = TokensSemanticLight.BorderInputColorActive
+    public static let BorderOnContainerPressed = TokensSemanticLight.BorderInputColorPressed
+    public static let BorderOnContainerInactive = TokensSemanticLight.BorderInputColorInactive
+    public static let BorderOnContainerInverse = TokensSemanticLight.BorderButtonColorAccent2
     
     // MARK: - Elevation Tokens (from TokensCoreLight)
     public static let ElevationLowest = TokensCoreLight.ElevationLowest
@@ -183,6 +266,12 @@ public struct DesignSystemGlobal {
     public static let ElevationBlurRadiusBlur3 = CGFloat(TokensCoreLight.ElevationBlurRadiusBlur3)
     public static let ElevationBlurRadiusBlur4 = CGFloat(TokensCoreLight.ElevationBlurRadiusBlur4)
     public static let ElevationBlurRadiusBlur5 = CGFloat(TokensCoreLight.ElevationBlurRadiusBlur5)
+    
+    public static let ElevationPositionX1 = CGFloat(0)
+    public static let ElevationPositionX2 = CGFloat(0)
+    public static let ElevationPositionX3 = CGFloat(0)
+    public static let ElevationPositionX4 = CGFloat(0)
+    public static let ElevationPositionX5 = CGFloat(0)
     
     public static let ElevationPositionY1 = CGFloat(TokensCoreLight.ElevationPositionY1)
     public static let ElevationPositionY2 = CGFloat(TokensCoreLight.ElevationPositionY2)
@@ -227,4 +316,14 @@ public struct DesignSystemGlobal {
     
     // MARK: - Icon Tokens (from TokensComponentsLight)
     public static let IconOnContainerColorInactive = TokensComponentsLight.IconOnContainerColorInactive
+    public static let IconOnContainerColorPrimary = TokensComponentsLight.IconOnContainerColorPrimary
+    public static let IconOnContainerColorSecondary = TokensComponentsLight.IconOnContainerColorSecondary
+    public static let IconOnContainerColorTertiary = TokensComponentsLight.IconOnContainerColorTertiary
+    public static let IconOnContainerColorInverse = TokensComponentsLight.IconOnContainerColorInverse
+    public static let IconOnContainerColorAccent = TokensComponentsLight.IconOnContainerColorAccent
+    public static let IconOnContainerColorAccent2 = TokensComponentsLight.IconOnContainerColorAccent2
+    public static let IconOnContainerColorSuccess = TokensComponentsLight.IconOnContainerColorSuccess
+    public static let IconOnContainerColorWarning = TokensComponentsLight.IconOnContainerColorWarning
+    public static let IconOnContainerColorError = TokensComponentsLight.IconOnContainerColorError
+    public static let IconOnContainerColorInformational = TokensComponentsLight.IconOnContainerColorInformational
 }

@@ -31,18 +31,18 @@ struct DesignSystemDemoView: View {
                     title: "Brand Colors",
                     subtitle: "Primary brand orange palette",
                     colors: [
-                        ("Brand025", DesignSystemGlobal.BrandBrand025),
-                        ("Brand050", DesignSystemGlobal.BrandBrand050),
-                        ("Brand100", DesignSystemGlobal.BrandBrand100),
-                        ("Brand200", DesignSystemGlobal.BrandBrand200),
-                        ("Brand300", DesignSystemGlobal.BrandBrand300),
-                        ("Brand400", DesignSystemGlobal.BrandBrand400),
-                        ("Brand500", DesignSystemGlobal.BrandBrand500),
-                        ("Brand600", DesignSystemGlobal.BrandBrand600),
-                        ("Brand700", DesignSystemGlobal.BrandBrand700),
-                        ("Brand800", DesignSystemGlobal.BrandBrand800),
-                        ("Brand900", DesignSystemGlobal.BrandBrand900),
-                        ("Brand950", DesignSystemGlobal.BrandBrand950)
+                        ("Brand025", DesignSystemGlobal.Brand025),
+                        ("Brand050", DesignSystemGlobal.Brand050),
+                        ("Brand100", DesignSystemGlobal.Brand100),
+                        ("Brand200", DesignSystemGlobal.Brand200),
+                        ("Brand300", DesignSystemGlobal.Brand300),
+                        ("Brand400", DesignSystemGlobal.Brand400),
+                        ("Brand500", DesignSystemGlobal.Brand500),
+                        ("Brand600", DesignSystemGlobal.Brand600),
+                        ("Brand700", DesignSystemGlobal.Brand700),
+                        ("Brand800", DesignSystemGlobal.Brand800),
+                        ("Brand900", DesignSystemGlobal.Brand900),
+                        ("Brand950", DesignSystemGlobal.Brand950)
                     ]
                 )
 
@@ -51,18 +51,18 @@ struct DesignSystemDemoView: View {
                     title: "Greige Colors",
                     subtitle: "Neutral gray-beige palette",
                     colors: [
-                        ("Greige025", DesignSystemGlobal.GreigeGreige025),
-                        ("Greige050", DesignSystemGlobal.GreigeGreige050),
-                        ("Greige100", DesignSystemGlobal.GreigeGreige100),
-                        ("Greige200", DesignSystemGlobal.GreigeGreige200),
-                        ("Greige300", DesignSystemGlobal.GreigeGreige300),
-                        ("Greige400", DesignSystemGlobal.GreigeGreige400),
-                        ("Greige500", DesignSystemGlobal.GreigeGreige500),
-                        ("Greige600", DesignSystemGlobal.GreigeGreige600),
-                        ("Greige700", DesignSystemGlobal.GreigeGreige700),
-                        ("Greige800", DesignSystemGlobal.GreigeGreige800),
-                        ("Greige900", DesignSystemGlobal.GreigeGreige900),
-                        ("Greige950", DesignSystemGlobal.GreigeGreige950)
+                        ("Greige025", DesignSystemGlobal.Greige025),
+                        ("Greige050", DesignSystemGlobal.Greige050),
+                        ("Greige100", DesignSystemGlobal.Greige100),
+                        ("Greige200", DesignSystemGlobal.Greige200),
+                        ("Greige300", DesignSystemGlobal.Greige300),
+                        ("Greige400", DesignSystemGlobal.Greige400),
+                        ("Greige500", DesignSystemGlobal.Greige500),
+                        ("Greige600", DesignSystemGlobal.Greige600),
+                        ("Greige700", DesignSystemGlobal.Greige700),
+                        ("Greige800", DesignSystemGlobal.Greige800),
+                        ("Greige900", DesignSystemGlobal.Greige900),
+                        ("Greige950", DesignSystemGlobal.Greige950)
                     ]
                 )
 
@@ -71,18 +71,18 @@ struct DesignSystemDemoView: View {
                     title: "Moonlight Colors",
                     subtitle: "Informational blue palette",
                     colors: [
-                        ("Moonlight025", DesignSystemGlobal.MoonlightMoonlight025),
-                        ("Moonlight050", DesignSystemGlobal.MoonlightMoonlight050),
-                        ("Moonlight100", DesignSystemGlobal.MoonlightMoonlight100),
-                        ("Moonlight200", DesignSystemGlobal.MoonlightMoonlight200),
-                        ("Moonlight300", DesignSystemGlobal.MoonlightMoonlight300),
-                        ("Moonlight400", DesignSystemGlobal.MoonlightMoonlight400),
-                        ("Moonlight500", DesignSystemGlobal.MoonlightMoonlight500),
-                        ("Moonlight600", DesignSystemGlobal.MoonlightMoonlight600),
-                        ("Moonlight700", DesignSystemGlobal.MoonlightMoonlight700),
-                        ("Moonlight800", DesignSystemGlobal.MoonlightMoonlight800),
-                        ("Moonlight900", DesignSystemGlobal.MoonlightMoonlight900),
-                        ("Moonlight950", DesignSystemGlobal.MoonlightMoonlight950)
+                        ("Moonlight025", DesignSystemGlobal.Moonlight025),
+                        ("Moonlight050", DesignSystemGlobal.Moonlight050),
+                        ("Moonlight100", DesignSystemGlobal.Moonlight100),
+                        ("Moonlight200", DesignSystemGlobal.Moonlight200),
+                        ("Moonlight300", DesignSystemGlobal.Moonlight300),
+                        ("Moonlight400", DesignSystemGlobal.Moonlight400),
+                        ("Moonlight500", DesignSystemGlobal.Moonlight500),
+                        ("Moonlight600", DesignSystemGlobal.Moonlight600),
+                        ("Moonlight700", DesignSystemGlobal.Moonlight700),
+                        ("Moonlight800", DesignSystemGlobal.Moonlight800),
+                        ("Moonlight900", DesignSystemGlobal.Moonlight900),
+                        ("Moonlight950", DesignSystemGlobal.Moonlight950)
                     ]
                 )
 
@@ -91,18 +91,18 @@ struct DesignSystemDemoView: View {
                     title: "Bottle Green Colors",
                     subtitle: "Success green palette",
                     colors: [
-                        ("BottleGreen025", DesignSystemGlobal.BottleGreenBottleGreen025),
-                        ("BottleGreen050", DesignSystemGlobal.BottleGreenBottleGreen050),
-                        ("BottleGreen100", DesignSystemGlobal.BottleGreenBottleGreen100),
-                        ("BottleGreen200", DesignSystemGlobal.BottleGreenBottleGreen200),
-                        ("BottleGreen300", DesignSystemGlobal.BottleGreenBottleGreen300),
-                        ("BottleGreen400", DesignSystemGlobal.BottleGreenBottleGreen400),
-                        ("BottleGreen500", DesignSystemGlobal.BottleGreenBottleGreen500),
-                        ("BottleGreen600", DesignSystemGlobal.BottleGreenBottleGreen600),
-                        ("BottleGreen700", DesignSystemGlobal.BottleGreenBottleGreen700),
-                        ("BottleGreen800", DesignSystemGlobal.BottleGreenBottleGreen800),
-                        ("BottleGreen900", DesignSystemGlobal.BottleGreenBottleGreen900),
-                        ("BottleGreen950", DesignSystemGlobal.BottleGreenBottleGreen950)
+                        ("BottleGreen025", DesignSystemGlobal.BottleGreen025),
+                        ("BottleGreen050", DesignSystemGlobal.BottleGreen050),
+                        ("BottleGreen100", DesignSystemGlobal.BottleGreen100),
+                        ("BottleGreen200", DesignSystemGlobal.BottleGreen200),
+                        ("BottleGreen300", DesignSystemGlobal.BottleGreen300),
+                        ("BottleGreen400", DesignSystemGlobal.BottleGreen400),
+                        ("BottleGreen500", DesignSystemGlobal.BottleGreen500),
+                        ("BottleGreen600", DesignSystemGlobal.BottleGreen600),
+                        ("BottleGreen700", DesignSystemGlobal.BottleGreen700),
+                        ("BottleGreen800", DesignSystemGlobal.BottleGreen800),
+                        ("BottleGreen900", DesignSystemGlobal.BottleGreen900),
+                        ("BottleGreen950", DesignSystemGlobal.BottleGreen950)
                     ]
                 )
 
@@ -111,18 +111,18 @@ struct DesignSystemDemoView: View {
                     title: "Lemon Colors",
                     subtitle: "Warning yellow palette",
                     colors: [
-                        ("Lemon025", DesignSystemGlobal.LemonLemon025),
-                        ("Lemon050", DesignSystemGlobal.LemonLemon050),
-                        ("Lemon100", DesignSystemGlobal.LemonLemon100),
-                        ("Lemon200", DesignSystemGlobal.LemonLemon200),
-                        ("Lemon300", DesignSystemGlobal.LemonLemon300),
-                        ("Lemon400", DesignSystemGlobal.LemonLemon400),
-                        ("Lemon500", DesignSystemGlobal.LemonLemon500),
-                        ("Lemon600", DesignSystemGlobal.LemonLemon600),
-                        ("Lemon700", DesignSystemGlobal.LemonLemon700),
-                        ("Lemon800", DesignSystemGlobal.LemonLemon800),
-                        ("Lemon900", DesignSystemGlobal.LemonLemon900),
-                        ("Lemon950", DesignSystemGlobal.LemonLemon950)
+                        ("Lemon025", DesignSystemGlobal.Lemon025),
+                        ("Lemon050", DesignSystemGlobal.Lemon050),
+                        ("Lemon100", DesignSystemGlobal.Lemon100),
+                        ("Lemon200", DesignSystemGlobal.Lemon200),
+                        ("Lemon300", DesignSystemGlobal.Lemon300),
+                        ("Lemon400", DesignSystemGlobal.Lemon400),
+                        ("Lemon500", DesignSystemGlobal.Lemon500),
+                        ("Lemon600", DesignSystemGlobal.Lemon600),
+                        ("Lemon700", DesignSystemGlobal.Lemon700),
+                        ("Lemon800", DesignSystemGlobal.Lemon800),
+                        ("Lemon900", DesignSystemGlobal.Lemon900),
+                        ("Lemon950", DesignSystemGlobal.Lemon950)
                     ]
                 )
 
@@ -131,38 +131,18 @@ struct DesignSystemDemoView: View {
                     title: "Cinnabar Colors",
                     subtitle: "Error red palette",
                     colors: [
-                        ("Cinnabar025", DesignSystemGlobal.CinnabarCinnabar025),
-                        ("Cinnabar050", DesignSystemGlobal.CinnabarCinnabar050),
-                        ("Cinnabar100", DesignSystemGlobal.CinnabarCinnabar100),
-                        ("Cinnabar200", DesignSystemGlobal.CinnabarCinnabar200),
-                        ("Cinnabar300", DesignSystemGlobal.CinnabarCinnabar300),
-                        ("Cinnabar400", DesignSystemGlobal.CinnabarCinnabar400),
-                        ("Cinnabar500", DesignSystemGlobal.CinnabarCinnabar500),
-                        ("Cinnabar600", DesignSystemGlobal.CinnabarCinnabar600),
-                        ("Cinnabar700", DesignSystemGlobal.CinnabarCinnabar700),
-                        ("Cinnabar800", DesignSystemGlobal.CinnabarCinnabar800),
-                        ("Cinnabar900", DesignSystemGlobal.CinnabarCinnabar900),
-                        ("Cinnabar950", DesignSystemGlobal.CinnabarCinnabar950)
-                    ]
-                )
-
-                // MARK: - Chamoisee Colors (Brown)
-                ColorPaletteSection(
-                    title: "Chamoisee Colors",
-                    subtitle: "Brown accent palette",
-                    colors: [
-                        ("Chamoisee025", DesignSystemGlobal.ChamoiseeChamoisee025),
-                        ("Chamoisee050", DesignSystemGlobal.ChamoiseeChamoisee050),
-                        ("Chamoisee100", DesignSystemGlobal.ChamoiseeChamoisee100),
-                        ("Chamoisee200", DesignSystemGlobal.ChamoiseeChamoisee200),
-                        ("Chamoisee300", DesignSystemGlobal.ChamoiseeChamoisee300),
-                        ("Chamoisee400", DesignSystemGlobal.ChamoiseeChamoisee400),
-                        ("Chamoisee500", DesignSystemGlobal.ChamoiseeChamoisee500),
-                        ("Chamoisee600", DesignSystemGlobal.ChamoiseeChamoisee600),
-                        ("Chamoisee700", DesignSystemGlobal.ChamoiseeChamoisee700),
-                        ("Chamoisee800", DesignSystemGlobal.ChamoiseeChamoisee800),
-                        ("Chamoisee900", DesignSystemGlobal.ChamoiseeChamoisee900),
-                        ("Chamoisee950", DesignSystemGlobal.ChamoiseeChamoisee950)
+                        ("Cinnabar025", DesignSystemGlobal.Cinnabar025),
+                        ("Cinnabar050", DesignSystemGlobal.Cinnabar050),
+                        ("Cinnabar100", DesignSystemGlobal.Cinnabar100),
+                        ("Cinnabar200", DesignSystemGlobal.Cinnabar200),
+                        ("Cinnabar300", DesignSystemGlobal.Cinnabar300),
+                        ("Cinnabar400", DesignSystemGlobal.Cinnabar400),
+                        ("Cinnabar500", DesignSystemGlobal.Cinnabar500),
+                        ("Cinnabar600", DesignSystemGlobal.Cinnabar600),
+                        ("Cinnabar700", DesignSystemGlobal.Cinnabar700),
+                        ("Cinnabar800", DesignSystemGlobal.Cinnabar800),
+                        ("Cinnabar900", DesignSystemGlobal.Cinnabar900),
+                        ("Cinnabar950", DesignSystemGlobal.Cinnabar950)
                     ]
                 )
 
@@ -171,19 +151,19 @@ struct DesignSystemDemoView: View {
                     title: "Transparent Black",
                     subtitle: "Black with varying opacity",
                     colors: [
-                        ("025 (2%)", DesignSystemGlobal.TransparentBlackTransparentBlack025),
-                        ("050 (5%)", DesignSystemGlobal.TransparentBlackTransparentBlack050),
-                        ("075 (7%)", DesignSystemGlobal.TransparentBlackTransparentBlack075),
-                        ("100 (10%)", DesignSystemGlobal.TransparentBlackTransparentBlack100),
-                        ("200 (15%)", DesignSystemGlobal.TransparentBlackTransparentBlack200),
-                        ("300 (20%)", DesignSystemGlobal.TransparentBlackTransparentBlack300),
-                        ("400 (24%)", DesignSystemGlobal.TransparentBlackTransparentBlack400),
-                        ("500 (32%)", DesignSystemGlobal.TransparentBlackTransparentBlack500),
-                        ("600 (50%)", DesignSystemGlobal.TransparentBlackTransparentBlack600),
-                        ("700 (60%)", DesignSystemGlobal.TransparentBlackTransparentBlack700),
-                        ("800 (70%)", DesignSystemGlobal.TransparentBlackTransparentBlack800),
-                        ("900 (88%)", DesignSystemGlobal.TransparentBlackTransparentBlack900),
-                        ("950 (96%)", DesignSystemGlobal.TransparentBlackTransparentBlack950)
+                        ("025 (2%)", DesignSystemGlobal.TransparentBlack025),
+                        ("050 (5%)", DesignSystemGlobal.TransparentBlack050),
+                        ("075 (7%)", DesignSystemGlobal.TransparentBlack075),
+                        ("100 (10%)", DesignSystemGlobal.TransparentBlack100),
+                        ("200 (15%)", DesignSystemGlobal.TransparentBlack200),
+                        ("300 (20%)", DesignSystemGlobal.TransparentBlack300),
+                        ("400 (24%)", DesignSystemGlobal.TransparentBlack400),
+                        ("500 (32%)", DesignSystemGlobal.TransparentBlack500),
+                        ("600 (50%)", DesignSystemGlobal.TransparentBlack600),
+                        ("700 (60%)", DesignSystemGlobal.TransparentBlack700),
+                        ("800 (70%)", DesignSystemGlobal.TransparentBlack800),
+                        ("900 (88%)", DesignSystemGlobal.TransparentBlack900),
+                        ("950 (96%)", DesignSystemGlobal.TransparentBlack950)
                     ],
                     showCheckerboard: true
                 )
@@ -193,19 +173,19 @@ struct DesignSystemDemoView: View {
                     title: "Transparent White",
                     subtitle: "White with varying opacity",
                     colors: [
-                        ("025 (2%)", DesignSystemGlobal.TransparentWhiteTransparentWhite025),
-                        ("050 (5%)", DesignSystemGlobal.TransparentWhiteTransparentWhite050),
-                        ("075 (7%)", DesignSystemGlobal.TransparentWhiteTransparentWhite075),
-                        ("100 (10%)", DesignSystemGlobal.TransparentWhiteTransparentWhite100),
-                        ("200 (15%)", DesignSystemGlobal.TransparentWhiteTransparentWhite200),
-                        ("300 (20%)", DesignSystemGlobal.TransparentWhiteTransparentWhite300),
-                        ("400 (24%)", DesignSystemGlobal.TransparentWhiteTransparentWhite400),
-                        ("500 (32%)", DesignSystemGlobal.TransparentWhiteTransparentWhite500),
-                        ("600 (50%)", DesignSystemGlobal.TransparentWhiteTransparentWhite600),
-                        ("700 (60%)", DesignSystemGlobal.TransparentWhiteTransparentWhite700),
-                        ("800 (70%)", DesignSystemGlobal.TransparentWhiteTransparentWhite800),
-                        ("900 (88%)", DesignSystemGlobal.TransparentWhiteTransparentWhite900),
-                        ("950 (96%)", DesignSystemGlobal.TransparentWhiteTransparentWhite950)
+                        ("025 (2%)", DesignSystemGlobal.TransparentWhite025),
+                        ("050 (5%)", DesignSystemGlobal.TransparentWhite050),
+                        ("075 (7%)", DesignSystemGlobal.TransparentWhite075),
+                        ("100 (10%)", DesignSystemGlobal.TransparentWhite100),
+                        ("200 (15%)", DesignSystemGlobal.TransparentWhite200),
+                        ("300 (20%)", DesignSystemGlobal.TransparentWhite300),
+                        ("400 (24%)", DesignSystemGlobal.TransparentWhite400),
+                        ("500 (32%)", DesignSystemGlobal.TransparentWhite500),
+                        ("600 (50%)", DesignSystemGlobal.TransparentWhite600),
+                        ("700 (60%)", DesignSystemGlobal.TransparentWhite700),
+                        ("800 (70%)", DesignSystemGlobal.TransparentWhite800),
+                        ("900 (88%)", DesignSystemGlobal.TransparentWhite900),
+                        ("950 (96%)", DesignSystemGlobal.TransparentWhite950)
                     ],
                     showCheckerboard: true,
                     darkBackground: true
@@ -276,15 +256,8 @@ struct DesignSystemDemoView: View {
                         ("Primary", DesignSystemGlobal.TextOnContainerColorPrimary),
                         ("Secondary", DesignSystemGlobal.TextOnContainerColorSecondary),
                         ("Tertiary", DesignSystemGlobal.TextOnContainerColorTertiary),
-                        ("Quaternary", DesignSystemGlobal.TextOnContainerColorQuatrenary),
-                        ("Inactive", DesignSystemGlobal.TextOnContainerColorInactive),
-                        ("Inverse", DesignSystemGlobal.TextOnContainerColorInverse),
                         ("Accent", DesignSystemGlobal.TextOnContainerColorAccent),
-                        ("Accent 2", DesignSystemGlobal.TextOnContainerColorAccent2),
-                        ("Success", DesignSystemGlobal.TextOnContainerColorSuccess),
-                        ("Warning", DesignSystemGlobal.TextOnContainerColorWarning),
-                        ("Error", DesignSystemGlobal.TextOnContainerColorError),
-                        ("Informational", DesignSystemGlobal.TextOnContainerColorInformational)
+                        ("Accent 2", DesignSystemGlobal.TextOnContainerColorAccent2)
                     ]
                 )
 
@@ -294,10 +267,10 @@ struct DesignSystemDemoView: View {
                         ("Primary", DesignSystemGlobal.TextOnSurfaceColorPrimary),
                         ("Secondary", DesignSystemGlobal.TextOnSurfaceColorSecondary),
                         ("Tertiary", DesignSystemGlobal.TextOnSurfaceColorTertiary),
-                        ("Quaternary", DesignSystemGlobal.TextOnSurfaceColorQuatrenary),
                         ("Inactive", DesignSystemGlobal.TextOnSurfaceColorInactive),
                         ("Inverse", DesignSystemGlobal.TextOnSurfaceColorInverse),
                         ("Accent", DesignSystemGlobal.TextOnSurfaceColorAccent),
+                        ("Accent 2", DesignSystemGlobal.TextOnSurfaceColorAccent2),
                         ("Success", DesignSystemGlobal.TextOnSurfaceColorSuccess),
                         ("Warning", DesignSystemGlobal.TextOnSurfaceColorWarning),
                         ("Error", DesignSystemGlobal.TextOnSurfaceColorError),
@@ -450,7 +423,7 @@ struct ColorPaletteSection: View {
             .padding(DesignSystemGlobal.Spacing3)
             .background(
                 RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusXl)
-                    .fill(darkBackground ? DesignSystemGlobal.GreigeGreige900 : DesignSystemGlobal.BackgroundContainerColorWhite)
+                    .fill(darkBackground ? DesignSystemGlobal.Greige900 : DesignSystemGlobal.BackgroundContainerColorWhite)
             )
         }
     }
@@ -605,11 +578,11 @@ struct TypographySection: View {
                     .thdFont(.bodySm)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
-                TypographyRow(name: "Hero 1", size: DesignSystemGlobal.FontFontSizeHero1)
-                TypographyRow(name: "Hero 2", size: DesignSystemGlobal.FontFontSizeHero2)
-                TypographyRow(name: "Hero 3", size: DesignSystemGlobal.FontFontSizeHero3)
-                TypographyRow(name: "Hero 4", size: DesignSystemGlobal.FontFontSizeHero4)
-                TypographyRow(name: "Hero 5", size: DesignSystemGlobal.FontFontSizeHero5)
+                TypographyRow(name: "Hero 1", size: DesignSystemGlobal.FontSizeHero1)
+                TypographyRow(name: "Hero 2", size: DesignSystemGlobal.FontSizeHero2)
+                TypographyRow(name: "Hero 3", size: DesignSystemGlobal.FontSizeHero3)
+                TypographyRow(name: "Hero 4", size: DesignSystemGlobal.FontSizeHero4)
+                TypographyRow(name: "Hero 5", size: DesignSystemGlobal.FontSizeHero5)
             }
             .padding(DesignSystemGlobal.Spacing3)
             .background(
@@ -623,12 +596,12 @@ struct TypographySection: View {
                     .thdFont(.bodySm)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
-                TypographyRow(name: "H1", size: DesignSystemGlobal.FontFontSizeH1)
-                TypographyRow(name: "H2", size: DesignSystemGlobal.FontFontSizeH2)
-                TypographyRow(name: "H3", size: DesignSystemGlobal.FontFontSizeH3)
-                TypographyRow(name: "H4", size: DesignSystemGlobal.FontFontSizeH4)
-                TypographyRow(name: "H5", size: DesignSystemGlobal.FontFontSizeH5)
-                TypographyRow(name: "H6", size: DesignSystemGlobal.FontFontSizeH6)
+                TypographyRow(name: "H1", size: DesignSystemGlobal.FontSizeH1)
+                TypographyRow(name: "H2", size: DesignSystemGlobal.FontSizeH2)
+                TypographyRow(name: "H3", size: DesignSystemGlobal.FontSizeH3)
+                TypographyRow(name: "H4", size: DesignSystemGlobal.FontSizeH4)
+                TypographyRow(name: "H5", size: DesignSystemGlobal.FontSizeH5)
+                TypographyRow(name: "H6", size: DesignSystemGlobal.FontSizeH6)
             }
             .padding(DesignSystemGlobal.Spacing3)
             .background(
@@ -642,12 +615,12 @@ struct TypographySection: View {
                     .thdFont(.bodySm)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
-                TypographyRow(name: "Body XL", size: DesignSystemGlobal.FontFontSizeBodyXl)
-                TypographyRow(name: "Body LG", size: DesignSystemGlobal.FontFontSizeBodyLg)
-                TypographyRow(name: "Body MD", size: DesignSystemGlobal.FontFontSizeBodyMd)
-                TypographyRow(name: "Body SM", size: DesignSystemGlobal.FontFontSizeBodySm)
-                TypographyRow(name: "Body XS", size: DesignSystemGlobal.FontFontSizeBodyXs)
-                TypographyRow(name: "Caption", size: DesignSystemGlobal.FontFontSizeCaption)
+                TypographyRow(name: "Body XL", size: DesignSystemGlobal.FontSizeBodyXl)
+                TypographyRow(name: "Body LG", size: DesignSystemGlobal.FontSizeBodyLg)
+                TypographyRow(name: "Body MD", size: DesignSystemGlobal.FontSizeBodyMd)
+                TypographyRow(name: "Body SM", size: DesignSystemGlobal.FontSizeBodySm)
+                TypographyRow(name: "Body XS", size: DesignSystemGlobal.FontSizeBodyXs)
+                TypographyRow(name: "Caption", size: DesignSystemGlobal.FontSizeCaption)
             }
             .padding(DesignSystemGlobal.Spacing3)
             .background(
@@ -781,7 +754,7 @@ struct SpacingRow: View {
                 .frame(width: 100, alignment: .leading)
 
             Rectangle()
-                .fill(DesignSystemGlobal.BrandBrand300)
+                .fill(DesignSystemGlobal.Brand300)
                 .frame(width: min(value, 200), height: 16)
                 .cornerRadius(DesignSystemGlobal.BorderRadiusSm)
 
@@ -836,7 +809,7 @@ struct BorderRadiusCard: View {
     var body: some View {
         VStack(spacing: DesignSystemGlobal.Spacing2) {
             RoundedRectangle(cornerRadius: min(value, 32))
-                .fill(DesignSystemGlobal.BrandBrand300)
+                .fill(DesignSystemGlobal.Brand300)
                 .frame(width: 64, height: 64)
 
             Text(name)
@@ -889,7 +862,7 @@ struct BorderWidthCard: View {
     var body: some View {
         VStack(spacing: DesignSystemGlobal.Spacing2) {
             RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusLg)
-                .stroke(DesignSystemGlobal.BrandBrand300, lineWidth: value)
+                .stroke(DesignSystemGlobal.Brand300, lineWidth: value)
                 .frame(width: 64, height: 64)
                 .background(
                     RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusLg)

@@ -23,7 +23,7 @@ struct ComponentCatalogView: View {
                             .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                         HStack(spacing: DesignSystemGlobal.Spacing2) {
-                            DSBadge(label: "8 Components", size: .small, variant: .filledSubtle, color: .brand)
+                            DSBadge(label: "9 Components", size: .small, variant: .filledSubtle, color: .brand)
                             DSBadge(label: "SwiftUI", size: .small, variant: .outline, color: .info)
                         }
                         .padding(.top, DesignSystemGlobal.Spacing1)
@@ -44,7 +44,7 @@ struct ComponentCatalogView: View {
                     ComponentSection(title: "Actions", description: "Interactive components for user actions") {
                         NavigationLink(destination: 
                             DemoViewWrapper(showBackButton: $showBackButton) {
-                                ButtonDemoView()
+                                DSButtonView()
                             }
                         ) {
                             ComponentRow(
@@ -62,12 +62,42 @@ struct ComponentCatalogView: View {
                     ComponentSection(title: "Display", description: "Components for presenting information and feedback") {
                         NavigationLink(destination: 
                             DemoViewWrapper(showBackButton: $showBackButton) {
-                                BadgeDemoView()
+                                DSCardView()
+                            }
+                        ) {
+                            ComponentRow(
+                                icon: "rectangle",
+                                iconColor: DesignSystemGlobal.Moonlight400,
+                                title: "Card",
+                                description: "Flexible card containers for content and products",
+                                variants: ["Content Card", "Mini Product Card", "Horizontal", "Vertical"]
+                            )
+                        }
+                        .buttonStyle(.plain)
+
+                        NavigationLink(destination: 
+                            DemoViewWrapper(showBackButton: $showBackButton) {
+                                DSProductCardView()
+                            }
+                        ) {
+                            ComponentRow(
+                                icon: "square.grid.2x2",
+                                iconColor: DesignSystemGlobal.Brand400,
+                                title: "Product Card",
+                                description: "Complete product listings with image, details, and actions",
+                                variants: ["B2C", "B2B", "Badges", "Swatches", "Ratings"]
+                            )
+                        }
+                        .buttonStyle(.plain)
+
+                        NavigationLink(destination: 
+                            DemoViewWrapper(showBackButton: $showBackButton) {
+                                DSBadgeView()
                             }
                         ) {
                             ComponentRow(
                                 icon: "tag",
-                                iconColor: DesignSystemGlobal.Moonlight500,
+                                iconColor: TokensSemanticLight.Moonlight500,
                                 title: "Badge",
                                 description: "Labels for categorization and status",
                                 variants: ["Outline", "Filled Subtle", "Filled Strong", "Indicator"]
@@ -77,7 +107,7 @@ struct ComponentCatalogView: View {
 
                         NavigationLink(destination: 
                             DemoViewWrapper(showBackButton: $showBackButton) {
-                                AlertDemoView()
+                                DSAlertView()
                             }
                         ) {
                             ComponentRow(
@@ -92,7 +122,7 @@ struct ComponentCatalogView: View {
 
                         NavigationLink(destination: 
                             DemoViewWrapper(showBackButton: $showBackButton) {
-                                CalloutDemoView()
+                                DSCalloutView()
                             }
                         ) {
                             ComponentRow(
@@ -110,7 +140,7 @@ struct ComponentCatalogView: View {
                     ComponentSection(title: "Selection", description: "Components for user choices and options") {
                         NavigationLink(destination: 
                             DemoViewWrapper(showBackButton: $showBackButton) {
-                                PillDemoView()
+                                DSPillView()
                             }
                         ) {
                             ComponentRow(
@@ -125,7 +155,7 @@ struct ComponentCatalogView: View {
 
                         NavigationLink(destination: 
                             DemoViewWrapper(showBackButton: $showBackButton) {
-                                TileDemoView()
+                                DSTileView()
                             }
                         ) {
                             ComponentRow(
@@ -140,22 +170,23 @@ struct ComponentCatalogView: View {
                     }
 
                     // MARK: - Input Components
-                    ComponentSection(title: "Input", description: "Components for user data entry") {
-                        NavigationLink(destination: 
-                            DemoViewWrapper(showBackButton: $showBackButton) {
-                                QuantityDemoView()
-                            }
-                        ) {
-                            ComponentRow(
-                                icon: "plusminus",
-                                iconColor: DesignSystemGlobal.Brand400,
-                                title: "Quantity Picker",
-                                description: "Expandable quantity selectors",
-                                variants: ["Orange", "Grey", "Standalone Buttons"]
-                            )
-                        }
-                        .buttonStyle(.plain)
-                    }
+
+                     ComponentSection(title: "Input", description: "Components for user data entry") {
+                         NavigationLink(destination:
+                             DemoViewWrapper(showBackButton: $showBackButton) {
+                                 DSQuantityPickerView()
+                             }
+                         ) {
+                             ComponentRow(
+                                 icon: "plusminus",
+                                 iconColor: DesignSystemGlobal.Brand400,
+                                 title: "Quantity Picker",
+                                 description: "Expandable quantity selectors",
+                                 variants: ["Orange", "Grey", "Standalone Buttons"]
+                             )
+                         }
+                         .buttonStyle(.plain)
+                     }
 
                     // MARK: - Design System
                     ComponentSection(title: "Design System", description: "Foundation tokens and typography system") {
@@ -166,7 +197,7 @@ struct ComponentCatalogView: View {
                         ) {
                             ComponentRow(
                                 icon: "textformat",
-                                iconColor: DesignSystemGlobal.MoonlightMoonlight500,
+                                iconColor: DesignSystemGlobal.Moonlight500,
                                 title: "Typography",
                                 description: "Custom font families and type scale",
                                 variants: ["Display Font", "Informational Font", "Heroes", "Body Text"]
@@ -181,7 +212,7 @@ struct ComponentCatalogView: View {
                         ) {
                             ComponentRow(
                                 icon: "paintpalette",
-                                iconColor: DesignSystemGlobal.BrandBrand300,
+                                iconColor: DesignSystemGlobal.Brand300,
                                 title: "Design Tokens",
                                 description: "Complete design system token reference",
                                 variants: ["Colors", "Typography", "Spacing", "Borders", "Elevation"]
@@ -194,7 +225,8 @@ struct ComponentCatalogView: View {
                 .padding(.top, 60) // Extra padding for top navigation
                 .padding(.bottom, 80) // Extra padding for bottom navigation
             }
-            .applyEnhancedScrollEdges() // Apply scroll edges to catalog ScrollView
+            .scrollEdgeEffectStyle(.soft, for: .top)
+            .scrollEdgeEffectStyle(.soft, for: .bottom)
             .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
             .navigationBarHidden(true) // Hide the NavigationStack's built-in bar
             .onAppear {
@@ -218,12 +250,15 @@ struct ComponentSection<Content: View>: View {
             // Section Header
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
                 Text(title)
-                    .thdFont(.h5)
+                    .thdFont(.h2)
+                    .textCase(.uppercase)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .padding(.leading, DesignSystemGlobal.Spacing3)
 
                 Text(description)
                     .thdFont(.caption)
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                    .padding(.leading, DesignSystemGlobal.Spacing3)
             }
             
             // Section Content
@@ -311,8 +346,9 @@ struct DemoViewWrapper<Content: View>: View {
     var body: some View {
         content()
             .frame(maxWidth: .infinity, maxHeight: .infinity) // Ensure full viewport size
+            .scrollEdgeEffectStyle(.soft, for: .top)
+            .scrollEdgeEffectStyle(.soft, for: .bottom)
             .background(DesignSystemGlobal.BackgroundSurfaceColorGreige) // Add background
-            .applyEnhancedScrollEdges() // Apply scroll edges to each demo view
             .navigationBarHidden(true)
             .opacity(isAppearing ? 1.0 : 0.0)
             .onAppear {

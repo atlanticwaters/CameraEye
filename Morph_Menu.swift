@@ -7,12 +7,10 @@ private typealias DS = DesignSystemGlobal
 // MARK: - Main Header View
 /// A navigation header that morphs between action buttons and a search bar.
 /// Uses matchedGeometryEffect to create smooth transitions between states.
-/// Includes integrated Shop Menu that appears as an overlay.
 struct MorphingNavHeader: View {
 
     // MARK: - Configuration
     let showBackButton: Bool
-    private let externalShopMenuBinding: Binding<Bool>?
 
     // MARK: - State
     @State private var isSearching = false
@@ -20,20 +18,13 @@ struct MorphingNavHeader: View {
     @State private var isStoreExpanded = true
     @State private var storeHasCollapsed = false
     @State private var storeName = "Encinitas"
-    @State private var internalShopMenuOpen = false
-
-    // Computed binding that uses external if provided, otherwise internal
-    private var isShopMenuOpen: Binding<Bool> {
-        externalShopMenuBinding ?? $internalShopMenuOpen
-    }
 
     // Namespace for matched geometry effect
     @Namespace private var morphNamespace
 
     // MARK: - Initializer
-    init(showBackButton: Bool = true, isShopMenuOpen: Binding<Bool>? = nil) {
+    init(showBackButton: Bool = true) {
         self.showBackButton = showBackButton
-        self.externalShopMenuBinding = isShopMenuOpen
     }
 
     // MARK: - Sizing from Design System
@@ -76,7 +67,6 @@ struct MorphingNavHeader: View {
         .padding(.vertical, verticalPadding)
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isSearching)
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isStoreExpanded)
-        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isShopMenuOpen.wrappedValue)
         .onAppear {
             // Auto-collapse after 1 second delay
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -97,9 +87,8 @@ struct MorphingNavHeader: View {
 
             Spacer()
 
-            // Action buttons: Search + Shop Menu
+            // Action buttons: Search
             searchButton
-            shopMenuButton
                 .padding(.trailing, innerButtonSpacing)
         }
         .frame(height: buttonSize)
@@ -190,38 +179,6 @@ struct MorphingNavHeader: View {
         )
     }
 
-    // MARK: - Shop Menu Button
-    private var shopMenuButton: some View {
-        Button(action: {
-            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                isShopMenuOpen.wrappedValue.toggle()
-            }
-        }) {
-            HStack(spacing: DS.Spacing1) {
-                Image(systemName: "square.grid.2x2")
-                    .font(.system(size: searchIconSize, weight: .medium))
-                    .foregroundStyle(isShopMenuOpen.wrappedValue ? DS.Brand300 : iconColor)
-
-                Text("Shop")
-                    .font(.system(size: DS.FontSizeBodySm, weight: .medium))
-                    .foregroundStyle(isShopMenuOpen.wrappedValue ? DS.Brand300 : iconColor)
-
-                Image(systemName: isShopMenuOpen.wrappedValue ? "chevron.up" : "chevron.down")
-                    .font(.system(size: 10, weight: .medium))
-                    .foregroundStyle(isShopMenuOpen.wrappedValue ? DS.Brand300 : iconColorSecondary)
-            }
-            .padding(.horizontal, DS.Spacing3)
-            .frame(height: buttonSize)
-            .background(
-                Capsule()
-                    .fill(.clear)
-                    .glassEffect(.regular.interactive(), in: .capsule)
-            )
-            .matchedGeometryEffect(id: "shopMenuIcon", in: morphNamespace)
-        }
-        .buttonStyle(.plain)
-    }
-
     // MARK: - Search Button
     private var searchButton: some View {
         Button(action: {
@@ -283,283 +240,19 @@ struct MorphingNavHeader: View {
     }
 }
 
-// MARK: - =============================================
-// MARK: - SHOP MENU OVERLAY
-// MARK: - =============================================
-
-/// Overlay shop menu with condensed typography that appears below the nav header
-struct ShopMenuOverlay: View {
-    @Binding var isOpen: Bool
-    @State private var selectedDepartment: ShopDepartment? = nil
-
-    // MARK: - Design System
-    private let horizontalPadding = DS.Spacing4
-    private let verticalPadding = DS.Spacing3
-    private let itemSpacing = DS.Spacing1
-    private let sectionSpacing = DS.Spacing4
-    private let menuWidth: CGFloat = 280
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            // Departments list
-            ScrollView {
-                VStack(alignment: .leading, spacing: itemSpacing) {
-                    if let department = selectedDepartment {
-                        // Subcategories view
-                        subcategoriesSection(for: department)
-                    } else {
-                        // Main departments view
-                        departmentsSection
-                    }
-                }
-                .padding(.horizontal, horizontalPadding)
-                .padding(.vertical, verticalPadding)
-            }
-            .scrollEdgeEffectStyle(.soft, for: .vertical)
-            .frame(maxHeight: 420)
-        }
-        .frame(width: menuWidth)
-        .background(
-            RoundedRectangle(cornerRadius: DS.BorderRadiusXl)
-                .fill(.clear)
-                .glassEffect(.regular, in: .rect(cornerRadius: DS.BorderRadiusXl))
-        )
-    }
-
-    // MARK: - Departments Section
-    private var departmentsSection: some View {
-        VStack(alignment: .leading, spacing: itemSpacing) {
-            // Section header
-            Text("Shop by Department")
-                .font(.thdBodySm)
-                .foregroundStyle(DS.TextOnSurfaceColorTertiary)
-                .padding(.bottom, DS.Spacing2)
-
-            ForEach(ShopDepartment.allCases) { department in
-                departmentRow(department)
-            }
-        }
-    }
-
-    private func departmentRow(_ department: ShopDepartment) -> some View {
-        Button {
-            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                selectedDepartment = department
-            }
-        } label: {
-            HStack(spacing: DS.Spacing3) {
-                Image(systemName: department.icon)
-                    .font(.system(size: 16, weight: .regular))
-                    .foregroundStyle(DS.Brand300)
-                    .frame(width: 24, height: 24)
-
-                Text(department.rawValue)
-                    .font(.thdBodySm)
-                    .foregroundStyle(DS.TextOnSurfaceColorPrimary)
-
-                Spacer()
-
-                if !department.subcategories.isEmpty {
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 12, weight: .regular))
-                        .foregroundStyle(DS.TextOnSurfaceColorTertiary)
-                }
-            }
-            .padding(.vertical, DS.Spacing2)
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-    }
-
-    // MARK: - Subcategories Section
-    private func subcategoriesSection(for department: ShopDepartment) -> some View {
-        VStack(alignment: .leading, spacing: itemSpacing) {
-            // Back button header
-            Button {
-                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                    selectedDepartment = nil
-                }
-            } label: {
-                HStack(spacing: DS.Spacing2) {
-                    Image(systemName: "chevron.left")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundStyle(DS.TextOnSurfaceColorSecondary)
-
-                    Text("All Departments")
-                        .font(.thdBodySm)
-                        .foregroundStyle(DS.TextOnSurfaceColorSecondary)
-                }
-                .padding(.vertical, DS.Spacing2)
-            }
-            .buttonStyle(.plain)
-
-            // Department title
-            HStack(spacing: DS.Spacing2) {
-                Image(systemName: department.icon)
-                    .font(.system(size: 18, weight: .regular))
-                    .foregroundStyle(DS.Brand300)
-
-                Text(department.rawValue)
-                    .font(.thdBodyMd)
-                    .foregroundStyle(DS.TextOnSurfaceColorPrimary)
-            }
-            .padding(.vertical, DS.Spacing2)
-
-            Divider()
-                .padding(.vertical, DS.Spacing1)
-
-            // Shop All option
-            Button {
-                print("Shop all \(department.rawValue)")
-                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                    isOpen = false
-                }
-            } label: {
-                HStack(spacing: DS.Spacing3) {
-                    Text("Shop All \(department.rawValue)")
-                        .font(.thdBodySm)
-                        .fontWeight(.medium)
-                        .foregroundStyle(DS.Brand300)
-
-                    Spacer()
-
-                    Image(systemName: "arrow.right")
-                        .font(.system(size: 12, weight: .regular))
-                        .foregroundStyle(DS.Brand300)
-                }
-                .padding(.vertical, DS.Spacing2)
-                .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-
-            // Subcategories
-            ForEach(department.subcategories) { subcategory in
-                subcategoryRow(subcategory)
-            }
-        }
-    }
-
-    private func subcategoryRow(_ subcategory: ShopSubcategory) -> some View {
-        Button {
-            if subcategory.plpCategory != nil {
-                print("Navigate to \(subcategory.name)")
-                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                    isOpen = false
-                }
-            }
-        } label: {
-            HStack(spacing: DS.Spacing3) {
-                Image(systemName: subcategory.icon)
-                    .font(.system(size: 14, weight: .regular))
-                    .foregroundStyle(subcategory.plpCategory != nil ? DS.TextOnSurfaceColorSecondary : DS.TextOnSurfaceColorTertiary)
-                    .frame(width: 20, height: 20)
-
-                Text(subcategory.name)
-                    .font(.thdBodySm)
-                    .foregroundStyle(subcategory.plpCategory != nil ? DS.TextOnSurfaceColorPrimary : DS.TextOnSurfaceColorTertiary)
-
-                Spacer()
-
-                if subcategory.plpCategory != nil {
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 10, weight: .regular))
-                        .foregroundStyle(DS.TextOnSurfaceColorTertiary)
-                } else {
-                    Text("Soon")
-                        .font(.thdCaption)
-                        .foregroundStyle(DS.TextOnSurfaceColorTertiary)
-                }
-            }
-            .padding(.vertical, DS.Spacing2)
-            .contentShape(Rectangle())
-        }
-        .buttonStyle(.plain)
-        .disabled(subcategory.plpCategory == nil)
-        .opacity(subcategory.plpCategory != nil ? 1.0 : 0.5)
-    }
-}
-
-// MARK: - =============================================
-// MARK: - NAV HEADER WITH SHOP MENU CONTAINER
-// MARK: - =============================================
-
-/// Container view that combines MorphingNavHeader with the Shop Menu overlay
-/// Use this view when you want the full shop menu experience
-struct MorphingNavHeaderWithShopMenu<Content: View>: View {
-    let showBackButton: Bool
-    let content: Content
-    @State private var isShopMenuOpen = false
-
-    init(showBackButton: Bool = true, @ViewBuilder content: () -> Content) {
-        self.showBackButton = showBackButton
-        self.content = content()
-    }
-
-    var body: some View {
-        ZStack(alignment: .top) {
-            // Main content
-            VStack(spacing: 0) {
-                MorphingNavHeader(showBackButton: showBackButton, isShopMenuOpen: $isShopMenuOpen)
-                content
-            }
-
-            // Shop Menu Overlay - full screen
-            if isShopMenuOpen {
-                // Dimmed background
-                Color.black.opacity(0.3)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                            isShopMenuOpen = false
-                        }
-                    }
-                    .transition(.opacity)
-
-                // Menu positioned at top right
-                VStack {
-                    HStack {
-                        Spacer()
-                        ShopMenuOverlay(isOpen: $isShopMenuOpen)
-                            .padding(.top, DS.Spacing11 + DS.Spacing3 + DS.Spacing2) // buttonSize + verticalPadding + spacing
-                            .padding(.trailing, DS.Spacing4)
-                    }
-                    Spacer()
-                }
-                .transition(.opacity.combined(with: .move(edge: .top)))
-            }
-        }
-        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isShopMenuOpen)
-    }
-}
-
 // MARK: - Preview
-#Preview("Nav Header with Shop Menu") {
-    MorphingNavHeaderWithShopMenu {
-        ScrollView {
-            VStack(spacing: 20) {
-                ForEach(0..<10) { i in
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(DS.BackgroundContainerColorWhite)
-                        .frame(height: 120)
-                        .padding(.horizontal, 16)
-                }
-            }
-            .padding(.top, 20)
-        }
+#Preview("Morphing Nav Header") {
+    VStack {
+        MorphingNavHeader()
+        Spacer()
     }
     .background(DS.BackgroundSurfaceColorGreige)
 }
 
-#Preview("Shop Menu Overlay Only") {
-    ZStack {
-        DS.BackgroundSurfaceColorGreige
-            .ignoresSafeArea()
-
-        VStack {
-            ShopMenuOverlay(isOpen: .constant(true))
-            Spacer()
-        }
-        .padding(.top, 60)
-        .padding(.horizontal, 16)
+#Preview("Morphing Nav Header - No Back Button") {
+    VStack {
+        MorphingNavHeader(showBackButton: false)
+        Spacer()
     }
+    .background(DS.BackgroundSurfaceColorGreige)
 }

@@ -91,15 +91,40 @@ enum AppTab: Int, TabBarItem, CaseIterable {
 }
 
 // MARK: - Main App Navigation View
-/// Root navigation view with morphing shop menu integration
-/// NOTE: Requires ShopNavigation.swift to be added to the Xcode project for ShopView
+/// Root navigation view with shop navigation that slides in from the right
+/// NOTE: Requires ShopNavigation.swift to be added to the Xcode project for ShopNavigationView
 struct MainAppNavigationView: View {
     @State private var selectedTab: AppTab = .home
+    @State private var isShopNavigationPresented: Bool = false
+    @State private var previousTab: AppTab = .home
 
     var body: some View {
-        BottomTabBar_iOS(selectedTab: $selectedTab) { tab in
-            tabContent(for: tab)
+        ZStack {
+            BottomTabBar_iOS(selectedTab: $selectedTab) { tab in
+                tabContent(for: tab)
+            }
+            .onChange(of: selectedTab) { oldValue, newValue in
+                if newValue == .shop {
+                    // Store previous tab and show shop navigation
+                    previousTab = oldValue
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                        isShopNavigationPresented = true
+                    }
+                    // Reset to previous tab so Shop doesn't stay selected
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        selectedTab = previousTab
+                    }
+                }
+            }
+
+            // Shop Navigation - slides in from right
+            if isShopNavigationPresented {
+                ShopNavigationView(isPresented: $isShopNavigationPresented)
+                    .transition(.move(edge: .trailing))
+                    .zIndex(1)
+            }
         }
+        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: isShopNavigationPresented)
     }
 
     @ViewBuilder
@@ -108,8 +133,8 @@ struct MainAppNavigationView: View {
         case .home:
             homeTabContent
         case .shop:
-            ShopView()
-            shopTabPlaceholder
+            // Empty placeholder - Shop tab triggers slide-in navigation
+            Color.clear
         case .profile:
             profileTabContent
         case .cart:
@@ -128,24 +153,6 @@ struct MainAppNavigationView: View {
                 Text("Home Screen")
                     .font(.title)
                     .foregroundStyle(DS.Brand300)
-            }
-        }
-    }
-
-    private var shopTabPlaceholder: some View {
-        ZStack {
-            DS.BackgroundSurfaceColorGreige
-                .ignoresSafeArea()
-            VStack(spacing: DS.Spacing4) {
-                Image(systemName: "square.grid.2x2")
-                    .font(.system(size: 60))
-                    .foregroundStyle(DS.Brand300)
-                Text("Shop")
-                    .font(.title)
-                    .foregroundStyle(DS.Brand300)
-                Text("Add ShopNavigation.swift to project")
-                    .font(.caption)
-                    .foregroundStyle(DS.TextOnSurfaceColorSecondary)
             }
         }
     }
