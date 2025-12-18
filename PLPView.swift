@@ -181,7 +181,7 @@ struct PLPView: View {
     }
     
     private var sortedAndFilteredProducts: [Product] {
-        var filtered = products
+        let filtered = products
         
         // Apply filters here (simplified - in real app would be more complex)
         if !selectedSubFilters.isEmpty {

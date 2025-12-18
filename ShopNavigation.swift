@@ -229,36 +229,21 @@ struct MorphingShopMenu: View {
     }
 
     // MARK: - Morphing Toolbar
+    @ViewBuilder
     private var morphingToolbar: some View {
-        HStack(spacing: containerSpacing) {
+        Group {
             switch menuState {
             case .collapsed:
                 collapsedToolbar
-                    .transition(.asymmetric(
-                        insertion: .scale(scale: 0.9).combined(with: .opacity),
-                        removal: .scale(scale: 0.9).combined(with: .opacity)
-                    ))
 
             case .departments:
                 departmentsToolbar
-                    .transition(.asymmetric(
-                        insertion: .scale(scale: 0.95).combined(with: .opacity),
-                        removal: .scale(scale: 0.95).combined(with: .opacity)
-                    ))
 
             case .subcategories(let department):
                 subcategoriesToolbar(department: department)
-                    .transition(.asymmetric(
-                        insertion: .move(edge: .trailing).combined(with: .opacity),
-                        removal: .move(edge: .leading).combined(with: .opacity)
-                    ))
 
             case .plp:
                 plpToolbar
-                    .transition(.asymmetric(
-                        insertion: .move(edge: .trailing).combined(with: .opacity),
-                        removal: .move(edge: .leading).combined(with: .opacity)
-                    ))
             }
         }
         .padding(.horizontal, horizontalPadding)
@@ -278,25 +263,23 @@ struct MorphingShopMenu: View {
                     Image(systemName: "square.grid.2x2")
                         .font(.system(size: iconSize, weight: .medium))
                         .foregroundStyle(primaryColor)
-                        .matchedGeometryEffect(id: "menuIcon", in: morphNamespace)
 
                     Text("Shop")
                         .font(.system(size: DS.FontSizeBodyMd, weight: .semibold))
                         .foregroundStyle(primaryColor)
-                        .matchedGeometryEffect(id: "menuTitle", in: morphNamespace)
 
                     Image(systemName: "chevron.down")
                         .font(.system(size: DS.FontSizeBodySm, weight: .medium))
                         .foregroundStyle(secondaryColor)
-                        .matchedGeometryEffect(id: "chevron", in: morphNamespace)
                 }
                 .padding(.horizontal, DS.Spacing4)
                 .frame(height: buttonSize)
                 .background(
                     Capsule()
-                        .fill(.clear)
+                        .fill(.ultraThinMaterial)
                         .glassEffect(.regular.interactive(), in: .capsule)
                 )
+                .contentShape(Capsule())
             }
             .buttonStyle(.plain)
 
@@ -677,20 +660,21 @@ struct ShopView: View {
                 DSContentCard(
                     title: "Featured Categories",
                     subtitle: "Shop by department",
-                    bodyPlacement: .secondFullBleed
-                ) {
-                    AnyView(
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: DS.Spacing3) {
-                                ForEach([ShopDepartment.appliances, .tools, .outdoors, .lighting], id: \.self) { dept in
-                                    featuredCategoryTile(dept)
+                    bodyPlacement: .secondFullBleed,
+                    bodyContent: {
+                        AnyView(
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack(spacing: DS.Spacing3) {
+                                    ForEach([ShopDepartment.appliances, .tools, .outdoors, .lighting], id: \.self) { dept in
+                                        featuredCategoryTile(dept)
+                                    }
                                 }
+                                .padding(.horizontal, DS.Spacing4)
+                                .padding(.vertical, DS.Spacing2)
                             }
-                            .padding(.horizontal, DS.Spacing4)
-                            .padding(.vertical, DS.Spacing2)
-                        }
-                    )
-                }
+                        )
+                    }
+                )
                 .padding(.horizontal, DS.Spacing4)
 
                 // Quick Access to Available PLPs using DSMenuItem
@@ -777,11 +761,17 @@ struct ShopView: View {
 }
 
 #Preview("Morphing Menu - Collapsed") {
-    VStack {
-        MorphingShopMenu(menuState: .constant(.collapsed))
-        Spacer()
+    struct PreviewWrapper: View {
+        @State private var menuState: ShopMenuState = .collapsed
+        var body: some View {
+            VStack {
+                MorphingShopMenu(menuState: $menuState)
+                Spacer()
+            }
+            .background(DS.BackgroundSurfaceColorGreige)
+        }
     }
-    .background(DS.BackgroundSurfaceColorGreige)
+    return PreviewWrapper()
 }
 
 #Preview("Morphing Menu - Departments") {

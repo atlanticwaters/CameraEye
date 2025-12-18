@@ -375,29 +375,3 @@ public struct DSProductImageContainer: View {
         return nil
     }
 }
-
-// MARK: - Preview Helper
-
-#if DEBUG
-extension DSProductImageContainer {
-    /// Creates a sample product image container for previews
-    static func sample(
-        showExclusiveBadge: Bool = true,
-        showDeliveryBadge: Bool = true,
-        showSponsoredTag: Bool = true,
-        swatchCount: Int = 3,
-        additionalCount: Int? = 99
-    ) -> DSProductImageContainer {
-        DSProductImageContainer(
-            imageURL: nil,
-            placeholderImage: Image("Fridge"),
-            showExclusiveBadge: showExclusiveBadge,
-            showDeliveryBadge: showDeliveryBadge,
-            showSponsoredTag: showSponsoredTag,
-            swatches: swatchCount > 0 ? [.black, .gray, .brown].prefix(swatchCount).map { $0 } : [],
-            selectedSwatchIndex: 0,
-            additionalSwatchCount: additionalCount
-        )
-    }
-}
-#endif

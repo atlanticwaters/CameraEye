@@ -228,6 +228,7 @@ enum HomeTab: Int, TabBarItem {
 /// Includes BottomTabBar_iOS and MorphingNavHeader
 struct HomeScreenDemoView: View {
     @State private var selectedTab: HomeTab = .home
+    @State private var isShopMenuOpen = false
 
     var body: some View {
         BottomTabBar_iOS(selectedTab: $selectedTab) { tab in
@@ -246,10 +247,36 @@ struct HomeScreenDemoView: View {
 
     // MARK: - Home Screen with Morph Nav
     private var homeScreenWithNav: some View {
-        HomeScreenScrollableContent()
-            .safeAreaBar(edge: .top) {
-                MorphingNavHeader(showBackButton: false)
+        ZStack(alignment: .top) {
+            HomeScreenScrollableContent()
+                .safeAreaBar(edge: .top) {
+                    MorphingNavHeader(showBackButton: false, isShopMenuOpen: $isShopMenuOpen)
+                }
+
+            // Shop Menu Overlay - appears above content when open
+            if isShopMenuOpen {
+                Color.black.opacity(0.3)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                            isShopMenuOpen = false
+                        }
+                    }
+                    .transition(.opacity)
+
+                VStack {
+                    HStack {
+                        Spacer()
+                        ShopMenuOverlay(isOpen: $isShopMenuOpen)
+                            .padding(.top, 60) // Below the nav header
+                            .padding(.trailing, 16)
+                    }
+                    Spacer()
+                }
+                .transition(.opacity.combined(with: .move(edge: .top)))
             }
+        }
+        .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isShopMenuOpen)
     }
 
     // MARK: - Placeholder View for other tabs

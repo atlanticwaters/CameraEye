@@ -1,10 +1,38 @@
 import SwiftUI
 
+#if DEBUG
+// MARK: - Preview Helpers
+
+private func previewContainer(
+    showExclusiveBadge: Bool = true,
+    showDeliveryBadge: Bool = true,
+    showSponsoredTag: Bool = true,
+    swatchCount: Int = 3,
+    additionalCount: Int? = 99
+) -> DSProductImageContainer {
+    DSProductImageContainer(
+        imageURL: nil,
+        placeholderImage: Image("Fridge"),
+        showExclusiveBadge: showExclusiveBadge,
+        showDeliveryBadge: showDeliveryBadge,
+        showSponsoredTag: showSponsoredTag,
+        swatches: previewSwatches(count: swatchCount),
+        selectedSwatchIndex: 0,
+        additionalSwatchCount: additionalCount
+    )
+}
+
+private func previewSwatches(count: Int) -> [Color] {
+    guard count > 0 else { return [] }
+    let palette: [Color] = [.black, .gray, .brown]
+    return Array(palette.prefix(count))
+}
+
 // MARK: - DSProductImageContainer Previews
 
 // Individual Variant Previews - Light Mode
 #Preview("All Badges & Swatches") {
-    DSProductImageContainer.sample(
+    previewContainer(
         showExclusiveBadge: true,
         showDeliveryBadge: true,
         showSponsoredTag: true,
@@ -15,7 +43,7 @@ import SwiftUI
 }
 
 #Preview("No Badges") {
-    DSProductImageContainer.sample(
+    previewContainer(
         showExclusiveBadge: false,
         showDeliveryBadge: false,
         showSponsoredTag: true,
@@ -26,7 +54,7 @@ import SwiftUI
 }
 
 #Preview("Exclusive Badge Only") {
-    DSProductImageContainer.sample(
+    previewContainer(
         showExclusiveBadge: true,
         showDeliveryBadge: false,
         showSponsoredTag: true,
@@ -37,7 +65,7 @@ import SwiftUI
 }
 
 #Preview("Delivery Badge Only") {
-    DSProductImageContainer.sample(
+    previewContainer(
         showExclusiveBadge: false,
         showDeliveryBadge: true,
         showSponsoredTag: true,
@@ -48,7 +76,7 @@ import SwiftUI
 }
 
 #Preview("No Sponsored Tag") {
-    DSProductImageContainer.sample(
+    previewContainer(
         showExclusiveBadge: true,
         showDeliveryBadge: true,
         showSponsoredTag: false,
@@ -59,7 +87,7 @@ import SwiftUI
 }
 
 #Preview("Few Swatches") {
-    DSProductImageContainer.sample(
+    previewContainer(
         showExclusiveBadge: true,
         showDeliveryBadge: true,
         showSponsoredTag: true,
@@ -70,7 +98,7 @@ import SwiftUI
 }
 
 #Preview("No Swatches") {
-    DSProductImageContainer.sample(
+    previewContainer(
         showExclusiveBadge: true,
         showDeliveryBadge: true,
         showSponsoredTag: true,
@@ -81,7 +109,7 @@ import SwiftUI
 }
 
 #Preview("Minimal") {
-    DSProductImageContainer.sample(
+    previewContainer(
         showExclusiveBadge: false,
         showDeliveryBadge: false,
         showSponsoredTag: false,
@@ -93,7 +121,7 @@ import SwiftUI
 
 // Dark Mode Previews
 #Preview("All Badges & Swatches - Dark") {
-    DSProductImageContainer.sample(
+    previewContainer(
         showExclusiveBadge: true,
         showDeliveryBadge: true,
         showSponsoredTag: true,
@@ -105,7 +133,7 @@ import SwiftUI
 }
 
 #Preview("Minimal - Dark") {
-    DSProductImageContainer.sample(
+    previewContainer(
         showExclusiveBadge: false,
         showDeliveryBadge: false,
         showSponsoredTag: false,
@@ -121,15 +149,16 @@ import SwiftUI
     HStack(spacing: 20) {
         VStack {
             Text("Light").font(.caption)
-            DSProductImageContainer.sample()
+            previewContainer()
                 .environment(\.colorScheme, .light)
         }
         VStack {
             Text("Dark").font(.caption)
-            DSProductImageContainer.sample()
+            previewContainer()
                 .environment(\.colorScheme, .dark)
                 .background(Color.black)
         }
     }
     .padding()
 }
+#endif

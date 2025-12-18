@@ -357,28 +357,34 @@ struct DSProductImageContainerView: View {
             HStack {
                 switch configuration {
                 case .maximum:
-                    DSProductImageContainer.sample(
+                    DSProductImageContainer(
+                        placeholderImage: Image("Fridge"),
                         showExclusiveBadge: true,
                         showDeliveryBadge: true,
                         showSponsoredTag: true,
-                        swatchCount: 3,
-                        additionalCount: 99
+                        swatches: [.black, .gray, .brown],
+                        selectedSwatchIndex: 0,
+                        additionalSwatchCount: 99
                     )
                 case .typical:
-                    DSProductImageContainer.sample(
+                    DSProductImageContainer(
+                        placeholderImage: Image("Fridge"),
                         showExclusiveBadge: false,
                         showDeliveryBadge: true,
                         showSponsoredTag: false,
-                        swatchCount: 3,
-                        additionalCount: nil
+                        swatches: [.black, .gray, .brown],
+                        selectedSwatchIndex: 0,
+                        additionalSwatchCount: nil
                     )
                 case .minimal:
-                    DSProductImageContainer.sample(
+                    DSProductImageContainer(
+                        placeholderImage: Image("Fridge"),
                         showExclusiveBadge: false,
                         showDeliveryBadge: false,
                         showSponsoredTag: false,
-                        swatchCount: 0,
-                        additionalCount: nil
+                        swatches: [],
+                        selectedSwatchIndex: 0,
+                        additionalSwatchCount: nil
                     )
                 }
                 Spacer()
@@ -415,38 +421,46 @@ struct DSProductImageContainerView: View {
     private var productGridExample: some View {
         VStack(spacing: TokensSpacing.Spacing2) {
             HStack(spacing: TokensSpacing.Spacing2) {
-                DSProductImageContainer.sample(
+                DSProductImageContainer(
+                    placeholderImage: Image("Fridge"),
                     showExclusiveBadge: true,
                     showDeliveryBadge: false,
                     showSponsoredTag: false,
-                    swatchCount: 3,
-                    additionalCount: 5
+                    swatches: [.black, .gray, .brown],
+                    selectedSwatchIndex: 0,
+                    additionalSwatchCount: 5
                 )
                 
-                DSProductImageContainer.sample(
+                DSProductImageContainer(
+                    placeholderImage: Image("Fridge"),
                     showExclusiveBadge: false,
                     showDeliveryBadge: true,
                     showSponsoredTag: false,
-                    swatchCount: 2,
-                    additionalCount: nil
+                    swatches: [.black, .gray],
+                    selectedSwatchIndex: 0,
+                    additionalSwatchCount: nil
                 )
             }
             
             HStack(spacing: TokensSpacing.Spacing2) {
-                DSProductImageContainer.sample(
+                DSProductImageContainer(
+                    placeholderImage: Image("Fridge"),
                     showExclusiveBadge: false,
                     showDeliveryBadge: false,
                     showSponsoredTag: false,
-                    swatchCount: 0,
-                    additionalCount: nil
+                    swatches: [],
+                    selectedSwatchIndex: 0,
+                    additionalSwatchCount: nil
                 )
                 
-                DSProductImageContainer.sample(
+                DSProductImageContainer(
+                    placeholderImage: Image("Fridge"),
                     showExclusiveBadge: true,
                     showDeliveryBadge: true,
                     showSponsoredTag: false,
-                    swatchCount: 3,
-                    additionalCount: nil
+                    swatches: [.black, .gray, .brown],
+                    selectedSwatchIndex: 0,
+                    additionalSwatchCount: nil
                 )
             }
         }
@@ -461,12 +475,14 @@ struct DSProductImageContainerView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: TokensSpacing.Spacing2) {
                 ForEach(0..<3, id: \.self) { _ in
-                    DSProductImageContainer.sample(
+                    DSProductImageContainer(
+                        placeholderImage: Image("Fridge"),
                         showExclusiveBadge: false,
                         showDeliveryBadge: false,
                         showSponsoredTag: true,
-                        swatchCount: 3,
-                        additionalCount: nil
+                        swatches: [.black, .gray, .brown],
+                        selectedSwatchIndex: 0,
+                        additionalSwatchCount: nil
                     )
                 }
             }
@@ -655,6 +671,8 @@ DSProductImageContainer(
         colorScheme == .dark ? TokensSemanticDark.self : TokensSemanticLight.self
     }
 }
+
+
 
 // MARK: - Token Protocol Helper
 private protocol TokenSemanticProtocol {
