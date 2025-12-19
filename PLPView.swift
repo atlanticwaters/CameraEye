@@ -76,7 +76,7 @@ struct PLPView: View {
                 productInventory
                     .padding(.horizontal, DesignSystemGlobal.Spacing4)
             }
-            .padding(.top, 60) // Space for top navigation
+            .padding(.top, 96) // Space for top navigation
             .padding(.bottom, 80) // Space for bottom navigation
         }
         .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)

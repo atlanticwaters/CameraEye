@@ -87,7 +87,7 @@ struct DSPillView: View {
                 )
             }
             .padding(TokensSpacing.Spacing4)
-            .padding(.top, 60) // Extra padding for top navigation
+            .padding(.top, 96) // Extra padding for top navigation
             .padding(.bottom, 80) // Extra padding for bottom navigation
         }
         .scrollEdgeEffectStyle(.soft, for: .vertical)

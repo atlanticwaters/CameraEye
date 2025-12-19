@@ -363,7 +363,7 @@ struct DesignSystemDemoView: View {
 
             }
             .padding(DesignSystemGlobal.Spacing4)
-            .padding(.top, 60) // Padding for top navigation
+            .padding(.top, 96) // Padding for top navigation
             .padding(.bottom, 80) // Padding for bottom navigation
         }
         .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)

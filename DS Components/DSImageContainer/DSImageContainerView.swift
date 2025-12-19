@@ -81,7 +81,7 @@ struct DSImageContainerView: View {
                 )
             }
             .padding(TokensSpacing.Spacing4)
-            .padding(.top, 60)
+            .padding(.top, 96)
             .padding(.bottom, 80)
         }
         .background(surfaceGreige)

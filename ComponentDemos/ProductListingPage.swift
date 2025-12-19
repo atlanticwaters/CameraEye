@@ -77,7 +77,7 @@ struct ProductListingPage: View {
                 productList
             }
             .padding(.horizontal, DS.Spacing4)
-            .padding(.top, 60) // Extra padding for top navigation
+            .padding(.top, 96) // Extra padding for top navigation
             .padding(.bottom, 80) // Extra padding for bottom navigation
         }
         .scrollIndicators(.hidden) // Hide scroll indicators for cleaner look

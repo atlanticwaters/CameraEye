@@ -11,6 +11,7 @@ struct MorphingNavHeader: View {
 
     // MARK: - Configuration
     let showBackButton: Bool
+    let onBackTapped: (() -> Void)?
 
     // MARK: - State
     @State private var isSearching = false
@@ -18,13 +19,17 @@ struct MorphingNavHeader: View {
     @State private var isStoreExpanded = true
     @State private var storeHasCollapsed = false
     @State private var storeName = "Encinitas"
+    
+    // Environment for dismiss
+    @Environment(\.dismiss) private var dismiss
 
     // Namespace for matched geometry effect
     @Namespace private var morphNamespace
 
     // MARK: - Initializer
-    init(showBackButton: Bool = true) {
+    init(showBackButton: Bool = true, onBackTapped: (() -> Void)? = nil) {
         self.showBackButton = showBackButton
+        self.onBackTapped = onBackTapped
     }
 
     // MARK: - Sizing from Design System
@@ -45,8 +50,10 @@ struct MorphingNavHeader: View {
 
     var body: some View {
         HStack(spacing: containerSpacing) {
-            // Back button - standalone button with glass effect
-            backButton
+            // Back button - standalone button with glass effect (only shown when showBackButton is true)
+            if showBackButton {
+                backButton
+            }
 
             // Main content area - morphs between different states
             if isSearching {
@@ -68,12 +75,19 @@ struct MorphingNavHeader: View {
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isSearching)
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isStoreExpanded)
         .onAppear {
-            // Auto-collapse after 1 second delay
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                withAnimation {
-                    isStoreExpanded = false
-                    storeHasCollapsed = true
+            // Only auto-expand location on first appearance (when back button is not shown)
+            // This prevents re-expanding when navigating to component detail views
+            if !showBackButton && !storeHasCollapsed {
+                // Auto-collapse after 1 second delay
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    withAnimation {
+                        isStoreExpanded = false
+                        storeHasCollapsed = true
+                    }
                 }
+            } else {
+                // For detail views (with back button), start collapsed
+                isStoreExpanded = false
             }
         }
     }
@@ -97,12 +111,17 @@ struct MorphingNavHeader: View {
     // MARK: - Back Button (Standalone)
     private var backButton: some View {
         Button(action: {
-            print("Back tapped")
+            if let onBackTapped = onBackTapped {
+                onBackTapped()
+            } else {
+                dismiss()
+            }
         }) {
             Image(systemName: "chevron.left")
                 .font(.system(size: iconSize, weight: .medium))
                 .foregroundStyle(iconColor)
                 .frame(width: buttonSize, height: buttonSize)
+                .contentShape(Circle())
                 .background(
                     Circle()
                         .fill(.clear)

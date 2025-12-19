@@ -51,8 +51,13 @@ struct BottomTabBar_iOS<TabType: TabBarItem, Content: View>: View {
             ForEach(Array(TabType.allCases), id: \.id) { tab in
                 content(tab)
                     .tabItem {
-                        Image(tab.iconName)
-                            .renderingMode(.template)
+                        if tab.isSystemIcon {
+                            Image(systemName: tab.iconName)
+                                .renderingMode(.template)
+                        } else {
+                            Image(tab.iconName)
+                                .renderingMode(.template)
+                        }
                         Text(tab.title)
                     }
                     .tag(tab)
@@ -66,7 +71,7 @@ struct BottomTabBar_iOS<TabType: TabBarItem, Content: View>: View {
 enum AppTab: Int, TabBarItem, CaseIterable {
     case home = 0
     case shop = 1
-    case profile = 2
+    case catalog = 2
     case cart = 3
 
     var id: Int { rawValue }
@@ -75,7 +80,7 @@ enum AppTab: Int, TabBarItem, CaseIterable {
         switch self {
         case .home: return "Home"
         case .shop: return "Shop"
-        case .profile: return "Profile"
+        case .catalog: return "Catalog"
         case .cart: return "Cart"
         }
     }
@@ -84,8 +89,15 @@ enum AppTab: Int, TabBarItem, CaseIterable {
         switch self {
         case .home: return "logo"
         case .shop: return "Bucket"
-        case .profile: return "Profile"
+        case .catalog: return "square.grid.2x2"
         case .cart: return "Cart"
+        }
+    }
+    
+    var isSystemIcon: Bool {
+        switch self {
+        case .catalog: return true
+        default: return false
         }
     }
 }
@@ -97,6 +109,7 @@ struct MainAppNavigationView: View {
     @State private var selectedTab: AppTab = .home
     @State private var isShopNavigationPresented: Bool = false
     @State private var previousTab: AppTab = .home
+    @State private var showBackButton: Bool = false
 
     var body: some View {
         ZStack {
@@ -135,41 +148,22 @@ struct MainAppNavigationView: View {
         case .shop:
             // Empty placeholder - Shop tab triggers slide-in navigation
             Color.clear
-        case .profile:
-            profileTabContent
+        case .catalog:
+            catalogTabContent
         case .cart:
             cartTabContent
         }
     }
 
     private var homeTabContent: some View {
-        ZStack {
-            DS.BackgroundSurfaceColorGreige
-                .ignoresSafeArea()
-            VStack {
-                Image(systemName: "house.fill")
-                    .font(.system(size: 60))
-                    .foregroundStyle(DS.Brand300)
-                Text("Home Screen")
-                    .font(.title)
-                    .foregroundStyle(DS.Brand300)
+        HomeScreenScrollableContent()
+            .safeAreaBar(edge: .top) {
+                MorphingNavHeader(showBackButton: false)
             }
-        }
     }
 
-    private var profileTabContent: some View {
-        ZStack {
-            DS.BackgroundSurfaceColorGreige
-                .ignoresSafeArea()
-            VStack {
-                Image(systemName: "person.fill")
-                    .font(.system(size: 60))
-                    .foregroundStyle(DS.Brand300)
-                Text("Profile Screen")
-                    .font(.title)
-                    .foregroundStyle(DS.Brand300)
-            }
-        }
+    private var catalogTabContent: some View {
+        ComponentCatalogView(showBackButton: $showBackButton)
     }
 
     private var cartTabContent: some View {
@@ -193,6 +187,12 @@ struct MainAppNavigationView: View {
 protocol TabBarItem: CaseIterable, Identifiable, Hashable {
     var title: String { get }
     var iconName: String { get }
+    var isSystemIcon: Bool { get }
+}
+
+extension TabBarItem {
+    /// Default implementation assumes custom asset icons
+    var isSystemIcon: Bool { false }
 }
 
 // MARK: - Preview
@@ -206,7 +206,7 @@ protocol TabBarItem: CaseIterable, Identifiable, Hashable {
     enum PreviewTab: Int, TabBarItem {
         case home = 0
         case shop = 1
-        case profile = 2
+        case catalog = 2
         case cart = 3
 
         var id: Int { rawValue }
@@ -215,7 +215,7 @@ protocol TabBarItem: CaseIterable, Identifiable, Hashable {
             switch self {
             case .home: return "Home"
             case .shop: return "Shop"
-            case .profile: return "Profile"
+            case .catalog: return "Catalog"
             case .cart: return "Cart"
             }
         }
@@ -224,8 +224,15 @@ protocol TabBarItem: CaseIterable, Identifiable, Hashable {
             switch self {
             case .home: return "logo"
             case .shop: return "Bucket"
-            case .profile: return "Profile"
+            case .catalog: return "square.grid.2x2"
             case .cart: return "Cart"
+            }
+        }
+        
+        var isSystemIcon: Bool {
+            switch self {
+            case .catalog: return true
+            default: return false
             }
         }
     }
@@ -259,14 +266,14 @@ protocol TabBarItem: CaseIterable, Identifiable, Hashable {
                                 .font(.title)
                                 .foregroundStyle(DS.Brand300)
                         }
-                    case .profile:
+                    case .catalog:
                         DS.BackgroundSurfaceColorGreige
                             .ignoresSafeArea()
                         VStack {
-                            Image(systemName: "person.fill")
+                            Image(systemName: "square.grid.2x2.fill")
                                 .font(.system(size: 60))
                                 .foregroundStyle(DS.Brand300)
-                            Text("Profile Screen")
+                            Text("Catalog Screen")
                                 .font(.title)
                                 .foregroundStyle(DS.Brand300)
                         }
@@ -321,8 +328,9 @@ protocol TabBarItem: CaseIterable, Identifiable, Hashable {
 
  🛍️ iOS 26 SHOP MENU INTEGRATION (NEW):
  - MainAppNavigationView provides ready-to-use app navigation
- - AppTab enum defines Home, Shop, Profile, Cart tabs
+ - AppTab enum defines Home, Shop, Catalog, Cart tabs
  - Shop tab integrates with MorphingShopMenu (see ShopNavigation.swift)
+ - Catalog tab links to ComponentCatalogView for design system exploration
  - Toolbar morphing transitions inspired by iOS 26 patterns
  - State machine: collapsed -> departments -> subcategories -> PLP
  - Uses matchedGeometryEffect and glassEffect for smooth morphing

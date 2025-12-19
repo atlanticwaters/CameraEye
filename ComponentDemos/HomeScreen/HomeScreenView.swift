@@ -21,7 +21,7 @@ struct HomeScreenView: View {
 
                 // MARK: - Hero Banner 1 (HomeImg16 - "40% OFF SELECT APPLIANCES")
                 HeroBannerView(banner: HomeScreenData.heroBanners[0])
-                    .padding(.top, 8)
+                    .padding(.top, 96) // Top padding to clear menu icons
                     .padding(.bottom, 12)
 
                 // MARK: - Hero Banner 2 (HomeImg17 - "LAST-MINUTE GIFT IDEAS")
@@ -188,8 +188,12 @@ struct ProXtraDealsButton: View {
 }
 
 // MARK: - Preview
-#Preview {
+#Preview("Home Screen Only") {
     HomeScreenView()
+}
+
+#Preview("Home Screen with Menus") {
+    HomeScreenDemoView()
 }
 
 // MARK: - =============================================
@@ -200,7 +204,7 @@ struct ProXtraDealsButton: View {
 enum HomeTab: Int, TabBarItem {
     case home = 0
     case shop = 1
-    case profile = 2
+    case catalog = 2
     case cart = 3
 
     var id: Int { rawValue }
@@ -209,7 +213,7 @@ enum HomeTab: Int, TabBarItem {
         switch self {
         case .home: return "Home"
         case .shop: return "Shop"
-        case .profile: return "Profile"
+        case .catalog: return "Catalog"
         case .cart: return "Cart"
         }
     }
@@ -218,8 +222,15 @@ enum HomeTab: Int, TabBarItem {
         switch self {
         case .home: return "logo"
         case .shop: return "Bucket"
-        case .profile: return "Profile"
+        case .catalog: return "square.grid.2x2"
         case .cart: return "Cart"
+        }
+    }
+    
+    var isSystemIcon: Bool {
+        switch self {
+        case .catalog: return true
+        default: return false
         }
     }
 }
@@ -230,6 +241,7 @@ struct HomeScreenDemoView: View {
     @State private var selectedTab: HomeTab = .home
     @State private var isShopNavigationPresented: Bool = false
     @State private var previousTab: HomeTab = .home
+    @State private var showBackButton: Bool = false
 
     var body: some View {
         ZStack {
@@ -268,8 +280,8 @@ struct HomeScreenDemoView: View {
         case .shop:
             // Empty placeholder - Shop tab triggers slide-in navigation
             Color.clear
-        case .profile:
-            placeholderView(title: "Profile", icon: "person.fill")
+        case .catalog:
+            ComponentCatalogView(showBackButton: $showBackButton)
         case .cart:
             placeholderView(title: "Cart", icon: "bag.fill")
         }
@@ -314,7 +326,7 @@ struct HomeScreenScrollableContent: View {
 
                 // MARK: - Hero Banner 1 (HomeImg16 - "40% OFF SELECT APPLIANCES")
                 HeroBannerView(banner: HomeScreenData.heroBanners[0])
-                    .padding(.top, 8)
+                    .padding(.top, 96) // Top padding to clear menu icons
                     .padding(.bottom, 12)
 
                 // MARK: - Hero Banner 2 (HomeImg17 - "LAST-MINUTE GIFT IDEAS")
@@ -424,8 +436,4 @@ struct HomeScreenScrollableContent: View {
         .scrollEdgeEffectStyle(.soft, for: .bottom)
         .background(Color.surfaceBackground)
     }
-}
-
-#Preview("With Navigation") {
-    HomeScreenDemoView()
 }
