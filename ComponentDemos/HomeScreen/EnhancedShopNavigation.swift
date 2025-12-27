@@ -29,7 +29,7 @@ struct EnhancedShopNavigationView: View {
     private let primaryColor = DS.TextOnSurfaceColorPrimary
     private let secondaryColor = DS.TextOnSurfaceColorSecondary
     private let accentColor = DS.Brand300
-    private let dividerColor = DS.BorderOnSurfaceColorInactive
+    private let dividerColor = DS.BorderOnContainerInactive
     
     var body: some View {
         NavigationStack(path: $navigationPath) {
@@ -128,7 +128,7 @@ struct EnhancedShopNavigationView: View {
                         .padding(.vertical, 2)
                         .background(
                             Capsule()
-                                .fill(DS.BackgroundContainerColorHover)
+                                .fill(DS.BackgroundContainerColorGreige)
                         )
                 }
                 
@@ -367,7 +367,7 @@ struct EnhancedPLPView: View {
     @State private var selectedFilterPills: Set<String> = []
     @State private var selectedSubFilters: Set<String> = []
     @State private var viewMode: PLPViewMode = .list
-    @State private var categoryData: CategoryData?
+    @State private var categoryData: CategoryPageData?
     
     // MARK: - Configuration
     let category: PLPCategory
@@ -409,7 +409,7 @@ struct EnhancedPLPView: View {
         return "\(products.count) Results"
     }
     
-    private var breadcrumbs: [CategoryData.PageInfo.Breadcrumb] {
+    private var breadcrumbs: [CategoryPageData.PageInfo.Breadcrumb] {
         categoryData?.pageInfo.breadcrumbs ?? []
     }
     
@@ -503,7 +503,7 @@ struct EnhancedPLPView: View {
     }
     
     // MARK: - Hero Banner
-    private func heroBanner(_ heroImage: CategoryData.PageInfo.HeroImage) -> some View {
+    private func heroBanner(_ heroImage: CategoryPageData.PageInfo.HeroImage) -> some View {
         VStack(alignment: .leading, spacing: DS.Spacing2) {
             if let promoText = heroImage.promoText {
                 Text(promoText)
@@ -527,7 +527,7 @@ struct EnhancedPLPView: View {
     }
     
     // MARK: - Featured Brands View
-    private func featuredBrandsView(_ brands: [CategoryData.FeaturedBrand]) -> some View {
+    private func featuredBrandsView(_ brands: [CategoryPageData.FeaturedBrand]) -> some View {
         VStack(alignment: .leading, spacing: DS.Spacing3) {
             Text("Featured Brands")
                 .font(.thdH4)
@@ -601,7 +601,7 @@ struct EnhancedPLPView: View {
     private var productListView: some View {
         LazyVStack(spacing: DS.Spacing4) {
             ForEach(filteredProducts) { product in
-                DSProductCard(product: product, viewMode: .list)
+                productCard(for: product)
             }
         }
         .padding(.top, DS.Spacing4)
@@ -617,10 +617,50 @@ struct EnhancedPLPView: View {
             spacing: DS.Spacing3
         ) {
             ForEach(filteredProducts) { product in
-                DSProductCard(product: product, viewMode: .grid)
+                productCard(for: product)
             }
         }
         .padding(.top, DS.Spacing4)
+    }
+    
+    // MARK: - Product Card Helper
+    private func productCard(for product: Product) -> some View {
+        DSProductCard(
+            imageURL: URL(string: product.heroImage),
+            showExclusiveBadge: product.isExclusive,
+            showDeliveryBadge: product.deliveryInfo?.primaryValue == "Free",
+            showSponsoredTag: product.isSponsored,
+            swatches: product.availableColors?.compactMap { Color(hex: $0.colorHex) } ?? [],
+            selectedSwatchIndex: 0,
+            additionalSwatchCount: product.additionalColorCount,
+            brand: product.brand,
+            title: product.name,
+            modelNumber: product.modelNumber,
+            priceLabel: product.savingsPercentage != nil ? "Sale" : nil,
+            priceText: formatPrice(product.currentPrice, originalPrice: product.originalPrice),
+            rating: product.rating,
+            ratingCount: product.reviewCount,
+            pickupInfo: product.pickupInfo.map { "\($0.primaryValue) \($0.secondaryValue ?? "")" },
+            deliveryInfo: product.deliveryInfo.map { "\($0.primaryValue) \($0.secondaryValue ?? "")" },
+            onAddToCart: {
+                print("Add to cart: \(product.id)")
+            }
+        )
+    }
+    
+    // MARK: - Price Formatting Helper
+    private func formatPrice(_ currentPrice: Decimal, originalPrice: Decimal?) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencyCode = "USD"
+        
+        if let originalPrice = originalPrice, originalPrice > currentPrice {
+            let currentFormatted = formatter.string(from: currentPrice as NSDecimalNumber) ?? "$\(currentPrice)"
+            let originalFormatted = formatter.string(from: originalPrice as NSDecimalNumber) ?? "$\(originalPrice)"
+            return "\(currentFormatted) was \(originalFormatted)"
+        } else {
+            return formatter.string(from: currentPrice as NSDecimalNumber) ?? "$\(currentPrice)"
+        }
     }
     
     // MARK: - Filtered Products
@@ -630,11 +670,12 @@ struct EnhancedPLPView: View {
         // Filter by selected style pill
         if let selectedStyle = selectedStylePill {
             // Apply style filter logic
-            filtered = filtered // Add actual filtering logic
+            // TODO: Implement style-based filtering when style data is available
+            _ = selectedStyle // Acknowledge the variable is used
         }
         
         // Apply other filters
-        // Add filter logic based on selectedFilterPills and selectedSubFilters
+        // TODO: Add filter logic based on selectedFilterPills and selectedSubFilters
         
         return filtered
     }
@@ -662,43 +703,28 @@ struct EnhancedPLPView: View {
                 Product(
                     id: jsonProduct.productId,
                     brand: jsonProduct.brand,
-                    title: jsonProduct.title,
-                    shortDescription: jsonProduct.shortDescription ?? "",
-                    price: Product.Price(
-                        current: jsonProduct.price.current,
-                        original: jsonProduct.price.original,
-                        savings: jsonProduct.price.savings,
-                        savingsPercent: jsonProduct.price.savingsPercent,
-                        isOnSale: jsonProduct.price.isOnSale,
-                        seeInCart: jsonProduct.price.seeInCart
-                    ),
-                    rating: Product.Rating(
-                        average: jsonProduct.rating.average,
-                        count: jsonProduct.rating.count
-                    ),
-                    images: Product.Images(
-                        primary: jsonProduct.images.primary,
-                        alternate: jsonProduct.images.alternate,
-                        colorSwatches: jsonProduct.images.colorSwatches?.map { swatch in
-                            Product.ColorSwatch(
-                                color: swatch.color,
-                                swatchUrl: swatch.swatchUrl,
-                                variantId: swatch.variantId
-                            )
-                        } ?? []
-                    ),
-                    badges: jsonProduct.badges.map { badge in
-                        Product.Badge(type: badge.type, label: badge.label)
-                    },
-                    keyFeatures: jsonProduct.keyFeatures,
-                    availability: Product.Availability(
-                        inStorePickup: jsonProduct.availability.inStorePickup,
-                        delivery: jsonProduct.availability.delivery,
-                        shipToHome: jsonProduct.availability.shipToHome
-                    ),
+                    name: jsonProduct.title,
                     modelNumber: jsonProduct.modelNumber,
-                    storeSkuNumber: jsonProduct.storeSkuNumber,
-                    limitPerOrder: jsonProduct.limitPerOrder
+                    heroImage: jsonProduct.images.primary,
+                    thumbnailImages: jsonProduct.images.alternate.map { [$0] } ?? [],
+                    additionalImageCount: 0,
+                    currentPrice: Decimal(jsonProduct.price.current),
+                    originalPrice: jsonProduct.price.original.map { Decimal($0) },
+                    savingsPercentage: jsonProduct.price.savingsPercent,
+                    rating: jsonProduct.rating.average,
+                    reviewCount: jsonProduct.rating.count,
+                    isExclusive: jsonProduct.badges.contains(where: { $0.type == "exclusive" }),
+                    promotionalBadge: jsonProduct.badges.first(where: { $0.type == "delivery" })?.label,
+                    pickupInfo: jsonProduct.availability.inStorePickup ? FulfillmentInfo(primaryValue: "Available") : nil,
+                    deliveryInfo: jsonProduct.availability.delivery ? FulfillmentInfo(primaryValue: "Available") : nil,
+                    fasterDeliveryInfo: nil,
+                    internetNumber: nil,
+                    storeSKU: jsonProduct.storeSkuNumber,
+                    isSponsored: false,
+                    availableColors: jsonProduct.images.colorSwatches?.map { swatch in
+                        Product.ProductColor(colorHex: swatch.color, borderColorHex: nil)
+                    },
+                    additionalColorCount: max(0, (jsonProduct.images.colorSwatches?.count ?? 0) - 3)
                 )
             }
             
@@ -719,44 +745,29 @@ struct EnhancedPLPView: View {
                 Product(
                     id: dataset.productId,
                     brand: dataset.brand.name,
-                    title: dataset.title,
-                    shortDescription: dataset.shortDescription ?? "",
-                    price: Product.Price(
-                        current: dataset.pricing.currentPrice,
-                        original: dataset.pricing.originalPrice,
-                        savings: dataset.pricing.savings,
-                        savingsPercent: dataset.pricing.savingsPercent,
-                        isOnSale: dataset.pricing.isOnSale,
-                        seeInCart: dataset.pricing.seeInCart
-                    ),
-                    rating: Product.Rating(
-                        average: dataset.rating.average,
-                        count: dataset.rating.count
-                    ),
-                    images: Product.Images(
-                        primary: dataset.media.primaryImage,
-                        alternate: nil,
-                        colorSwatches: dataset.variants.compactMap { variant in
-                            guard let swatchUrl = variant.swatchUrl else { return nil }
-                            return Product.ColorSwatch(
-                                color: variant.variantValue,
-                                swatchUrl: swatchUrl,
-                                variantId: variant.variantId
-                            )
-                        }
-                    ),
-                    badges: dataset.badges.map { badge in
-                        Product.Badge(type: badge.badgeType, label: badge.text)
-                    },
-                    keyFeatures: dataset.keyFeatures,
-                    availability: Product.Availability(
-                        inStorePickup: dataset.availability.inStorePickup.available,
-                        delivery: dataset.availability.delivery.available,
-                        shipToHome: dataset.availability.shipToHome.available
-                    ),
+                    name: dataset.title,
                     modelNumber: dataset.identifiers.modelNumber,
-                    storeSkuNumber: dataset.identifiers.storeSkuNumber,
-                    limitPerOrder: nil
+                    heroImage: dataset.media.primaryImage,
+                    thumbnailImages: [],
+                    additionalImageCount: 0,
+                    currentPrice: Decimal(dataset.pricing.currentPrice),
+                    originalPrice: dataset.pricing.originalPrice.map { Decimal($0) },
+                    savingsPercentage: dataset.pricing.savingsPercent,
+                    rating: dataset.rating.average,
+                    reviewCount: dataset.rating.count,
+                    isExclusive: dataset.badges.contains(where: { $0.type == "exclusive" }),
+                    promotionalBadge: dataset.badges.first(where: { $0.type == "delivery" })?.label,
+                    pickupInfo: dataset.availability.inStorePickup.available ? FulfillmentInfo(primaryValue: "Available") : nil,
+                    deliveryInfo: dataset.availability.delivery.available ? FulfillmentInfo(primaryValue: "Available") : nil,
+                    fasterDeliveryInfo: nil,
+                    internetNumber: nil,
+                    storeSKU: dataset.identifiers.storeSkuNumber,
+                    isSponsored: false,
+                    availableColors: dataset.variants.compactMap { variant in
+                        guard let swatchUrl = variant.swatchUrl else { return nil }
+                        return Product.ProductColor(colorHex: variant.variantValue, borderColorHex: nil)
+                    },
+                    additionalColorCount: max(0, dataset.variants.count - 3)
                 )
             }
             

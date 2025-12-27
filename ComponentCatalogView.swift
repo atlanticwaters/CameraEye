@@ -5,43 +5,30 @@ import SwiftUI
 ///
 /// This view serves as the main entry point for browsing the complete inventory
 /// of THD App Design System components.
+///
+/// NOTE: This view includes its own navigation stack and header.
+/// Use `ComponentCatalogContentOnly` if you want just the scrollable content
+/// without navigation (for embedding in a parent view that provides its own nav).
 struct ComponentCatalogView: View {
     @Binding var showBackButton: Bool
     @State private var navigationPath = NavigationPath()
 
     var body: some View {
-        ZStack {
-            NavigationStack(path: $navigationPath) {
-                ComponentCatalogScrollableContent(
-                    showBackButton: $showBackButton,
-                    navigationPath: $navigationPath
-                )
-                .navigationDestination(for: String.self) { destination in
-                    componentDetailView(for: destination)
-                }
-                .navigationBarHidden(true)
+        NavigationStack(path: $navigationPath) {
+            ComponentCatalogScrollableContent(
+                showBackButton: $showBackButton,
+                navigationPath: $navigationPath
+            )
+            .navigationDestination(for: String.self) { destination in
+                componentDetailView(for: destination)
             }
-            .onAppear {
-                // Only reset if we're at the root (empty path)
-                if navigationPath.isEmpty {
-                    showBackButton = false
-                }
-            }
-            .onChange(of: navigationPath.count) { oldValue, newValue in
-                // Update back button state based on navigation depth
-                withAnimation {
-                    showBackButton = newValue > 0
-                }
-            }
+            .navigationBarHidden(true)
         }
-        .safeAreaBar(edge: .top) {
+        .safeAreaBar(edge: .top, spacing: 48) {
             MorphingNavHeader(
-                showBackButton: showBackButton,
+                showBackButton: false,
                 onBackTapped: {
-                    // Custom back action that pops the navigation
-                    if !navigationPath.isEmpty {
-                        navigationPath.removeLast()
-                    }
+                    // Not used on catalog list view
                 }
             )
         }
@@ -50,43 +37,45 @@ struct ComponentCatalogView: View {
     // MARK: - Component Detail View Router
     @ViewBuilder
     private func componentDetailView(for destination: String) -> some View {
-        switch destination {
-        case "Button":
-            DSButtonView()
-                .catalogDetailStyle()
-        case "Card":
-            DSCardView()
-                .catalogDetailStyle()
-        case "ProductCard":
-            DSProductCardView()
-                .catalogDetailStyle()
-        case "Badge":
-            DSBadgeView()
-                .catalogDetailStyle()
-        case "Alert":
-            DSAlertView()
-                .catalogDetailStyle()
-        case "Callout":
-            DSCalloutView()
-                .catalogDetailStyle()
-        case "Pill":
-            DSPillView()
-                .catalogDetailStyle()
-        case "Tile":
-            DSTileView()
-                .catalogDetailStyle()
-        case "QuantityPicker":
-            DSQuantityPickerView()
-                .catalogDetailStyle()
-        case "Typography":
-            TypographyDemoView()
-                .catalogDetailStyle()
-        case "DesignTokens":
-            DesignSystemDemoView()
-                .catalogDetailStyle()
-        default:
-            Text("Unknown component")
-                .catalogDetailStyle()
+        Group {
+            switch destination {
+            case "Button":
+                DSButtonView()
+            case "Card":
+                DSCardView()
+            case "ProductCard":
+                DSProductCardView()
+            case "Badge":
+                DSBadgeView()
+            case "Alert":
+                DSAlertView()
+            case "Callout":
+                DSCalloutView()
+            case "Pill":
+                DSPillView()
+            case "Tile":
+                DSTileView()
+            case "QuantityPicker":
+                DSQuantityPickerView()
+            case "Typography":
+                TypographyDemoView()
+            case "DesignTokens":
+                DesignSystemDemoView()
+            default:
+                Text("Unknown component")
+            }
+        }
+        .catalogDetailStyle()
+        .safeAreaBar(edge: .top, spacing: 48) {
+            MorphingNavHeader(
+                showBackButton: true,
+                onBackTapped: {
+                    // Pop the navigation when back is tapped
+                    if !navigationPath.isEmpty {
+                        navigationPath.removeLast()
+                    }
+                }
+            )
         }
     }
 }
@@ -99,7 +88,7 @@ struct ComponentCatalogScrollableContent: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
+            VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                 // MARK: - Header Card
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Component Catalog")
@@ -265,8 +254,8 @@ struct ComponentCatalogScrollableContent: View {
                 }
             }
             .padding(DesignSystemGlobal.Spacing4)
-            .padding(.top, 96) // Top padding to clear menu icons
-            .padding(.bottom, 80) // Extra padding for bottom tab bar
+            .padding(.top, 48) // Top padding to clear menu icons
+            .padding(.bottom, 16) // Extra padding for bottom tab bar
         }
         .scrollEdgeEffectStyle(.soft, for: .top)
         .scrollEdgeEffectStyle(.soft, for: .bottom)
@@ -417,17 +406,22 @@ extension View {
     /// The bar has no solid background - it relies on the content's `.scrollEdgeEffectStyle(.soft)`
     /// to create the soft fade effect, consistent with the native iOS bottom tab bar behavior.
     ///
+    /// Includes additional top padding to properly clear the Dynamic Island on devices that have one.
+    ///
     /// - Parameters:
     ///   - edge: The edge where the bar should be placed (currently supports .top)
+    ///   - spacing: Additional spacing to add between the safe area and the content (default: 12pt / Spacing2)
     ///   - content: The view builder for the bar content
-    func safeAreaBar<Content: View>(edge: VerticalEdge, @ViewBuilder content: @escaping () -> Content) -> some View {
+    func safeAreaBar<Content: View>(edge: VerticalEdge, spacing: CGFloat = DesignSystemGlobal.Spacing2, @ViewBuilder content: @escaping () -> Content) -> some View {
         self.overlay(alignment: edge == .top ? .top : .bottom) {
-            content()
-                .padding(.horizontal, DesignSystemGlobal.Spacing4)
-                .padding(edge == .top ? .top : .bottom, DesignSystemGlobal.Spacing3)
-                .padding(edge == .top ? .bottom : .top, DesignSystemGlobal.Spacing2)
-                .frame(maxWidth: .infinity)
-                .ignoresSafeArea(edges: edge == .top ? .top : .bottom)
+            GeometryReader { geometry in
+                content()
+                    .padding(.horizontal, DesignSystemGlobal.Spacing4)
+                    .padding(edge == .top ? .top : .bottom, edge == .top ? geometry.safeAreaInsets.top + spacing : geometry.safeAreaInsets.bottom)
+                    .padding(edge == .top ? .bottom : .top, spacing)
+                    .frame(maxWidth: .infinity)
+            }
+            .ignoresSafeArea(edges: edge == .top ? .top : .bottom)
         }
     }
 }

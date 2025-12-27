@@ -54,7 +54,7 @@ struct NavigationLayoutDemo: View {
         // MARK: Top Navigation Overlay
         // This modifier adds the top navigation bar as an overlay
         // The content scrolls underneath it
-        .safeAreaBar(edge: .top) {
+        .safeAreaBar(edge: .top, spacing: 48) {
             MorphingNavHeader(
                 showBackButton: showBackButton,
                 onBackTapped: {
@@ -84,7 +84,7 @@ struct ScrollableContentArea: View {
                 DemoSection(navigationPath: $navigationPath)
             }
             .padding(DesignSystemGlobal.Spacing4)
-            .padding(.top, 16)      // ⬆️ Extra padding to clear top nav
+            .padding(.top, 48)      // ⬆️ Extra padding to clear top nav
             .padding(.bottom, 16)   // ⬇️ Extra padding to clear bottom tab bar
         }
         .scrollEdgeEffectStyle(.soft, for: .top)    // Soft fade at top

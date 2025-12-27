@@ -3,7 +3,7 @@ import SwiftUI
 /// A component that visualizes elevation/shadow tokens
 struct ElevationDemo: View {
     let name: String
-    let elevation: (x: CGFloat, y: CGFloat, blur: CGFloat, spread: CGFloat, color: Color)
+    let elevation: DSShadow
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {

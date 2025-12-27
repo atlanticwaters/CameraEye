@@ -33,8 +33,7 @@ struct SplashScreenView: View {
             // Rive animation
             if let viewModel = riveViewModel {
                 RiveViewRepresentable(viewModel: viewModel)
-                    .aspectRatio(contentMode: .fit)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .ignoresSafeArea()
                     .opacity(animationOpacity)
             } else {
                 // Fallback while loading
@@ -51,16 +50,13 @@ struct SplashScreenView: View {
     // MARK: - Setup Methods
     
     private func setupRiveAnimation() {
-        // Load the Rive file
-        guard let riveFile = RiveFile(name: "thd_camera_eye_") else {
-            print("❌ Failed to load Rive file: thd_camera_eye_.riv")
-            // If animation fails to load, dismiss splash immediately
-            dismissSplash()
-            return
-        }
-        
-        // Create view model with the animation
-        let viewModel = RiveViewModel(riveFile)
+        // Load the Rive file and create view model
+        // Create view model directly from the file name with cover fit
+        let viewModel = RiveViewModel(
+            fileName: "thd_camera_eye_",
+            fit: .cover,
+            alignment: .center
+        )
         
         // Play the animation automatically
         viewModel.play()
@@ -97,11 +93,12 @@ private struct RiveViewRepresentable: UIViewRepresentable {
     
     func makeUIView(context: Context) -> RiveView {
         let view = viewModel.createRiveView()
+        // The fit and alignment are already configured on the viewModel
         return view
     }
     
     func updateUIView(_ uiView: RiveView, context: Context) {
-        // No updates needed
+        // Updates are handled by the viewModel
     }
 }
 

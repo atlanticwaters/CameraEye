@@ -54,6 +54,10 @@ struct BottomTabBar_iOS<TabType: TabBarItem, Content: View>: View {
                         if tab.isSystemIcon {
                             Image(systemName: tab.iconName)
                                 .renderingMode(.template)
+                        } else if tab.iconName == "home-logo" {
+                            // Use different logo based on selection state
+                            Image(selectedTab.id == tab.id ? "home-logo" : "home-logo-inactive")
+                                .renderingMode(.original)
                         } else {
                             Image(tab.iconName)
                                 .renderingMode(.template)
@@ -87,7 +91,7 @@ enum AppTab: Int, TabBarItem, CaseIterable {
 
     var iconName: String {
         switch self {
-        case .home: return "logo"
+        case .home: return "home-logo"
         case .shop: return "Bucket"
         case .catalog: return "square.grid.2x2"
         case .cart: return "Cart"
@@ -110,6 +114,9 @@ struct MainAppNavigationView: View {
     @State private var isShopNavigationPresented: Bool = false
     @State private var previousTab: AppTab = .home
     @State private var showBackButton: Bool = false
+    @State private var showFeatureInterstitial: Bool = false
+    @State private var showSearchView: Bool = false
+    @AppStorage("hasSeenInterstitial") private var hasSeenInterstitial: Bool = false
 
     var body: some View {
         ZStack {
@@ -129,6 +136,15 @@ struct MainAppNavigationView: View {
                     }
                 }
             }
+            .onAppear {
+                // Show interstitial on first launch
+                if !hasSeenInterstitial {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        showFeatureInterstitial = true
+                        hasSeenInterstitial = true
+                    }
+                }
+            }
 
             // Shop Navigation - slides in from right
             if isShopNavigationPresented {
@@ -136,8 +152,26 @@ struct MainAppNavigationView: View {
                     .transition(.move(edge: .trailing))
                     .zIndex(1)
             }
+            
+            // Search View - slides in from right
+            if showSearchView {
+                SearchDemoView(onDismiss: {
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                        showSearchView = false
+                    }
+                })
+                .transition(.move(edge: .trailing))
+                .zIndex(1)
+            }
+            
+            // Feature Interstitial - shows on first launch or from Cart
+            if showFeatureInterstitial {
+                AppFeatureInterstitialView(isPresented: $showFeatureInterstitial)
+                    .zIndex(2)
+            }
         }
         .animation(.spring(response: 0.35, dampingFraction: 0.85), value: isShopNavigationPresented)
+        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: showSearchView)
     }
 
     @ViewBuilder
@@ -158,7 +192,14 @@ struct MainAppNavigationView: View {
     private var homeTabContent: some View {
         HomeScreenScrollableContent()
             .safeAreaBar(edge: .top) {
-                MorphingNavHeader(showBackButton: false)
+                MorphingNavHeader(
+                    showBackButton: false,
+                    onSearchTapped: {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                            showSearchView = true
+                        }
+                    }
+                )
             }
     }
 
@@ -170,13 +211,37 @@ struct MainAppNavigationView: View {
         ZStack {
             DS.BackgroundSurfaceColorGreige
                 .ignoresSafeArea()
-            VStack {
+            
+            VStack(spacing: DS.Spacing4) {
                 Image(systemName: "bag.fill")
                     .font(.system(size: 60))
                     .foregroundStyle(DS.Brand300)
+                
                 Text("Cart Screen")
                     .font(.title)
                     .foregroundStyle(DS.Brand300)
+                
+                Text("Coming Soon")
+                    .thdFont(.bodyMd)
+                    .foregroundStyle(DS.TextOnContainerColorSecondary)
+                
+                // Button to show interstitial
+                Button(action: {
+                    withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                        showFeatureInterstitial = true
+                    }
+                }) {
+                    HStack {
+                        Image(systemName: "info.circle.fill")
+                        Text("View App Guide")
+                    }
+                    .thdFont(.bodyMd)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, DS.Spacing4)
+                    .padding(.vertical, DS.Spacing3)
+                    .background(DS.Brand300)
+                    .cornerRadius(DS.BorderRadiusXl)
+                }
             }
         }
     }
@@ -222,7 +287,7 @@ extension TabBarItem {
 
         var iconName: String {
             switch self {
-            case .home: return "logo"
+            case .home: return "home-logo"
             case .shop: return "Bucket"
             case .catalog: return "square.grid.2x2"
             case .cart: return "Cart"

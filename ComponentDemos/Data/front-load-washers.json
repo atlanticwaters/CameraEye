@@ -1,0 +1,1055 @@
+{
+  "pageInfo": {
+    "categoryId": "N-5yc1vZc3pj",
+    "categoryName": "Front Load Washers",
+    "categorySlug": "front-load-washers",
+    "breadcrumbs": [
+      {
+        "label": "Home",
+        "url": "/"
+      },
+      {
+        "label": "Appliances",
+        "url": "/b/Appliances/N-5yc1vZbv1w"
+      },
+      {
+        "label": "Washers & Dryers",
+        "url": "/b/Appliances-Washers-Dryers/N-5yc1vZc3ol"
+      },
+      {
+        "label": "Washing Machines",
+        "url": "/b/Appliances-Washers-Dryers-Washing-Machines/N-5yc1vZc3ov"
+      },
+      {
+        "label": "Front Load Washers",
+        "url": "/b/Appliances-Washers-Dryers-Washing-Machines-Front-Load-Washers/N-5yc1vZc3pj"
+      }
+    ],
+    "totalResults": 107,
+    "heroImage": {
+      "url": "https://dam.thdstatic.com/contentful/heroflattenimage/front-load-washers-hero.png",
+      "alt": "Front Load Washers",
+      "promoText": "Efficient Cleaning Power"
+    },
+    "seoDescription": "Shop Front Load Washers at The Home Depot. Find high-efficiency washers from top brands like LG, Samsung, GE, Whirlpool, Maytag, and Electrolux."
+  },
+  "featuredBrands": [
+    {
+      "brandId": "GE",
+      "brandName": "GE",
+      "logoUrl": "https://images.thdstatic.com/catalog/productImages/300/67/673f39e7-7618-4a7e-8cc8-8c32d493904f_300.jpg",
+      "filterUrl": "/b/Appliances-Washers-Dryers-Washing-Machines-Front-Load-Washers/GE/N-5yc1vZc3pjZlo"
+    },
+    {
+      "brandId": "LG",
+      "brandName": "LG",
+      "logoUrl": "https://images.thdstatic.com/catalog/productImages/300/f9/f98ceac1-d90c-4f2a-ac0d-1255bd14a0f3_300.jpg",
+      "filterUrl": "/b/Appliances-Washers-Dryers-Washing-Machines-Front-Load-Washers/LG/N-5yc1vZc3pjZ8qk"
+    },
+    {
+      "brandId": "Samsung",
+      "brandName": "Samsung",
+      "logoUrl": "https://images.thdstatic.com/catalog/productImages/300/88/8884f130-2ef0-4229-9f52-b889e545008d_300.jpg",
+      "filterUrl": "/b/Appliances-Washers-Dryers-Washing-Machines-Front-Load-Washers/Samsung/N-5yc1vZc3pjZa0f"
+    },
+    {
+      "brandId": "Whirlpool",
+      "brandName": "Whirlpool",
+      "logoUrl": "https://images.thdstatic.com/catalog/productImages/300/f6/f6d34739-0224-42ee-9934-abf470d5c978_300.jpg",
+      "filterUrl": "/b/Appliances-Washers-Dryers-Washing-Machines-Front-Load-Washers/Whirlpool/N-5yc1vZc3pjZ4l4"
+    }
+  ],
+  "quickFilters": [
+    {
+      "filterId": "capacity-4-5",
+      "label": "Capacity - Washer (cu. ft.): 4 - 5",
+      "imageUrl": "https://images.thdstatic.com/catalog/productImages/300/45/45b6a5c9-3ee1-4e78-bd83-c512c3a4302e_300.jpg",
+      "filterUrl": "/b/Appliances-Washers-Dryers-Washing-Machines-Front-Load-Washers/4-5/N-5yc1vZc3pjZ1z24zi9"
+    },
+    {
+      "filterId": "capacity-5-51-plus",
+      "label": "Capacity - Washer (cu. ft.): 5.51 or Greater",
+      "imageUrl": "https://images.thdstatic.com/catalog/productImages/300/d5/d5b91d91-181e-45ca-94b5-ddfb69742420_300.jpg",
+      "filterUrl": "/b/Appliances-Washers-Dryers-Washing-Machines-Front-Load-Washers/551-or-Greater/N-5yc1vZc3pjZ1z20ymc"
+    },
+    {
+      "filterId": "shop-savings",
+      "label": "Shop Savings",
+      "imageUrl": "https://assets.thdstatic.com/images/special-buy--pod.jpg",
+      "filterUrl": "/b/Appliances-Washers-Dryers-Washing-Machines-Front-Load-Washers/N-5yc1vZc3pjZ7"
+    }
+  ],
+  "filters": [
+    {
+      "filterGroupId": "brand",
+      "filterGroupName": "Brand",
+      "filterType": "checkbox",
+      "options": [
+        {
+          "optionId": "samsung",
+          "label": "Samsung",
+          "value": "samsung",
+          "count": 25
+        },
+        {
+          "optionId": "lg",
+          "label": "LG",
+          "value": "lg",
+          "count": 22
+        },
+        {
+          "optionId": "whirlpool",
+          "label": "Whirlpool",
+          "value": "whirlpool",
+          "count": 18
+        },
+        {
+          "optionId": "ge",
+          "label": "GE",
+          "value": "ge",
+          "count": 15
+        },
+        {
+          "optionId": "electrolux",
+          "label": "Electrolux",
+          "value": "electrolux",
+          "count": 12
+        },
+        {
+          "optionId": "maytag",
+          "label": "Maytag",
+          "value": "maytag",
+          "count": 10
+        }
+      ]
+    },
+    {
+      "filterGroupId": "capacity",
+      "filterGroupName": "Capacity - Washer (cu. ft.)",
+      "filterType": "checkbox",
+      "options": [
+        {
+          "optionId": "less-than-1-5",
+          "label": "Less Than 1.5",
+          "value": "less-than-1.5",
+          "count": 3
+        },
+        {
+          "optionId": "2-3",
+          "label": "2 - 3",
+          "value": "2-3",
+          "count": 8
+        },
+        {
+          "optionId": "3-4",
+          "label": "3 - 4",
+          "value": "3-4",
+          "count": 12
+        },
+        {
+          "optionId": "4-5",
+          "label": "4 - 5",
+          "value": "4-5",
+          "count": 45
+        },
+        {
+          "optionId": "5-51-plus",
+          "label": "5.51 or Greater",
+          "value": "5.51-plus",
+          "count": 39
+        }
+      ]
+    },
+    {
+      "filterGroupId": "price",
+      "filterGroupName": "Price",
+      "filterType": "range",
+      "options": [
+        {
+          "optionId": "price-30-40",
+          "label": "$30 - $40",
+          "value": "30-40",
+          "count": 2
+        },
+        {
+          "optionId": "price-40-50",
+          "label": "$40 - $50",
+          "value": "40-50",
+          "count": 3
+        },
+        {
+          "optionId": "price-50-100",
+          "label": "$50 - $100",
+          "value": "50-100",
+          "count": 5
+        },
+        {
+          "optionId": "price-500-750",
+          "label": "$500 - $750",
+          "value": "500-750",
+          "count": 28
+        },
+        {
+          "optionId": "price-750-1000",
+          "label": "$750 - $1000",
+          "value": "750-1000",
+          "count": 35
+        },
+        {
+          "optionId": "price-1000-plus",
+          "label": "$1000 & Above",
+          "value": "1000-plus",
+          "count": 34
+        }
+      ]
+    },
+    {
+      "filterGroupId": "washerWidth",
+      "filterGroupName": "Washer Fit Width",
+      "filterType": "checkbox",
+      "options": [
+        {
+          "optionId": "less-than-17",
+          "label": "Less than 17 Inch Wide",
+          "value": "less-than-17",
+          "count": 4
+        },
+        {
+          "optionId": "23-inch",
+          "label": "23 Inch Wide",
+          "value": "23",
+          "count": 6
+        },
+        {
+          "optionId": "24-inch",
+          "label": "24 Inch Wide",
+          "value": "24",
+          "count": 15
+        },
+        {
+          "optionId": "27-inch",
+          "label": "27 Inch Wide",
+          "value": "27",
+          "count": 65
+        },
+        {
+          "optionId": "28-inch",
+          "label": "28 Inch Wide",
+          "value": "28",
+          "count": 12
+        }
+      ]
+    },
+    {
+      "filterGroupId": "washerFeatures",
+      "filterGroupName": "Washer Features",
+      "filterType": "checkbox",
+      "options": [
+        {
+          "optionId": "control-lock",
+          "label": "Control Lock",
+          "value": "control-lock",
+          "count": 78
+        },
+        {
+          "optionId": "end-of-cycle-signal",
+          "label": "End-Of-Cycle Signal",
+          "value": "end-of-cycle-signal",
+          "count": 85
+        },
+        {
+          "optionId": "door-window",
+          "label": "Door Window",
+          "value": "door-window",
+          "count": 92
+        },
+        {
+          "optionId": "front-control",
+          "label": "Front Control",
+          "value": "front-control",
+          "count": 88
+        },
+        {
+          "optionId": "delay-start",
+          "label": "Delay Start",
+          "value": "delay-start",
+          "count": 75
+        },
+        {
+          "optionId": "steam",
+          "label": "Steam",
+          "value": "steam",
+          "count": 45
+        },
+        {
+          "optionId": "smart-wifi",
+          "label": "Smart/WiFi Enabled",
+          "value": "smart-wifi",
+          "count": 52
+        }
+      ]
+    },
+    {
+      "filterGroupId": "color",
+      "filterGroupName": "Color/Finish Family",
+      "filterType": "color",
+      "options": [
+        {
+          "optionId": "white",
+          "label": "White",
+          "value": "white",
+          "count": 55
+        },
+        {
+          "optionId": "black-stainless",
+          "label": "Black Stainless Steel",
+          "value": "black-stainless",
+          "count": 12
+        },
+        {
+          "optionId": "stainless-look",
+          "label": "Stainless Look",
+          "value": "stainless-look",
+          "count": 18
+        },
+        {
+          "optionId": "stainless-steel",
+          "label": "Stainless Steel",
+          "value": "stainless-steel",
+          "count": 8
+        },
+        {
+          "optionId": "black",
+          "label": "Black",
+          "value": "black",
+          "count": 6
+        },
+        {
+          "optionId": "platinum",
+          "label": "Platinum",
+          "value": "platinum",
+          "count": 5
+        },
+        {
+          "optionId": "sapphire-blue",
+          "label": "Sapphire Blue",
+          "value": "sapphire-blue",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "filterGroupId": "compact",
+      "filterGroupName": "Compact",
+      "filterType": "checkbox",
+      "options": [
+        {
+          "optionId": "standard",
+          "label": "Standard",
+          "value": "standard",
+          "count": 85
+        },
+        {
+          "optionId": "compact",
+          "label": "Compact",
+          "value": "compact",
+          "count": 22
+        }
+      ]
+    },
+    {
+      "filterGroupId": "stackable",
+      "filterGroupName": "Stackable",
+      "filterType": "checkbox",
+      "options": [
+        {
+          "optionId": "stackable",
+          "label": "Stackable",
+          "value": "stackable",
+          "count": 78
+        },
+        {
+          "optionId": "not-stackable",
+          "label": "Not Stackable",
+          "value": "not-stackable",
+          "count": 29
+        }
+      ]
+    }
+  ],
+  "sortOptions": [
+    {
+      "sortId": "best-match",
+      "label": "Best Match",
+      "isDefault": true
+    },
+    {
+      "sortId": "top-sellers",
+      "label": "Top Sellers",
+      "isDefault": false
+    },
+    {
+      "sortId": "price-low-high",
+      "label": "Price Low to High",
+      "isDefault": false
+    },
+    {
+      "sortId": "price-high-low",
+      "label": "Price High to Low",
+      "isDefault": false
+    },
+    {
+      "sortId": "top-rated",
+      "label": "Top Rated",
+      "isDefault": false
+    }
+  ],
+  "products": [
+    {
+      "productId": "312399923",
+      "modelNumber": "WM3400CW",
+      "storeSkuNumber": "1006234567",
+      "brand": "LG",
+      "title": "4.5 Cu. Ft. Stackable Front Load Washer in White with Coldwash Technology",
+      "shortDescription": "Energy-efficient washer with ColdWash technology for cold water cleaning",
+      "price": {
+        "current": 729.00,
+        "original": 1049.00,
+        "savings": 320.00,
+        "savingsPercent": 31,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.3,
+        "count": 5438
+      },
+      "images": {
+        "primary": "product images/front load washers/front-load-washer_1.jpg"
+      },
+      "badges": [],
+      "keyFeatures": [
+        "ColdWash Technology",
+        "Stackable Design",
+        "6Motion Technology"
+      ],
+      "specifications": {
+        "capacity": "4.5 cu. ft.",
+        "width": "27 in.",
+        "voltage": "120 volt",
+        "stackable": true
+      },
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/LG-4-5-Cu-Ft-Stackable-Front-Load-Washer-in-White-with-Coldwash-Technology-WM3400CW/312399923",
+      "limitPerOrder": 10
+    },
+    {
+      "productId": "312563953",
+      "modelNumber": "GFW550SSNWW",
+      "storeSkuNumber": "1006345678",
+      "brand": "GE",
+      "title": "4.8 cu. ft. Smart White Front Load Washer with OdorBlock UltraFresh Vent System and Sanitize with Oxi",
+      "shortDescription": "Smart washer with antimicrobial technology to prevent odors",
+      "price": {
+        "current": 799.00,
+        "original": 1099.00,
+        "savings": 300.00,
+        "savingsPercent": 27,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.5,
+        "count": 10605
+      },
+      "images": {
+        "primary": "product images/front load washers/front-load-washer_2.jpg",
+        "colorSwatches": [
+          {
+            "color": "White",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/02/021746ee-681a-42d1-ae9a-1c9ab61caa25_35.jpg",
+            "variantId": "312563953"
+          },
+          {
+            "color": "Diamond Gray",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/e0/e09956e2-79fd-4517-98bf-b281fcb042cc_35.jpg",
+            "variantId": "312563954"
+          }
+        ]
+      },
+      "badges": [
+        {
+          "type": "bestSeller",
+          "label": "Best Seller"
+        }
+      ],
+      "keyFeatures": [
+        "OdorBlock UltraFresh Vent",
+        "Sanitize with Oxi",
+        "WiFi Connected"
+      ],
+      "specifications": {
+        "capacity": "4.8 cu. ft.",
+        "width": "28 in.",
+        "voltage": "120 volt",
+        "stackable": true
+      },
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/GE-4-8-cu-ft-Smart-White-Front-Load-Washer-with-OdorBlock-UltraFresh-Vent-System-and-Sanitize-with-Oxi-GFW550SSNWW/312563953",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "308241827",
+      "modelNumber": "MHW5630HW",
+      "storeSkuNumber": "1006456789",
+      "brand": "Maytag",
+      "title": "4.5 cu. ft. White Stackable Front Load Washing Machine with 12-Hour Fresh Spin, ENERGY STAR",
+      "shortDescription": "Durable washer with Fresh Spin option to keep clothes fresh up to 12 hours",
+      "price": {
+        "current": 699.00,
+        "original": 999.00,
+        "savings": 300.00,
+        "savingsPercent": 30,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.3,
+        "count": 5317
+      },
+      "images": {
+        "primary": "product images/front load washers/front-load-washer_3.jpg",
+        "colorSwatches": [
+          {
+            "color": "White",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/60/60e75543-a9ae-4788-abe7-5ac024b75689_35.jpg",
+            "variantId": "308241827"
+          },
+          {
+            "color": "Metallic Slate",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/53/530c0a23-5582-4960-9bba-33a2e62c700e_35.jpg",
+            "variantId": "308241828"
+          }
+        ]
+      },
+      "badges": [],
+      "keyFeatures": [
+        "12-Hour Fresh Spin",
+        "Extra Power Button",
+        "ENERGY STAR Certified"
+      ],
+      "specifications": {
+        "capacity": "4.5 cu. ft.",
+        "width": "27 in.",
+        "voltage": "120 volt",
+        "stackable": true
+      },
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Maytag-4-5-cu-ft-White-Stackable-Front-Load-Washing-Machine-with-12-Hour-Fresh-Spin-ENERGY-STAR-MHW5630HW/308241827",
+      "limitPerOrder": 2
+    },
+    {
+      "productId": "313846213",
+      "modelNumber": "WF45T6000AW",
+      "storeSkuNumber": "1006567890",
+      "brand": "Samsung",
+      "title": "4.5 cu. ft. High-Efficiency Front Load Washer in White with Self-Clean+",
+      "shortDescription": "High-efficiency washer with Self-Clean+ technology to keep drum fresh",
+      "price": {
+        "current": 679.00,
+        "original": 899.00,
+        "savings": 220.00,
+        "savingsPercent": 24,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.3,
+        "count": 3688
+      },
+      "images": {
+        "primary": "product images/front load washers/front-load-washer_4.jpg",
+        "colorSwatches": [
+          {
+            "color": "White",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/01/0140dcc3-f83d-4f8b-b556-c60b53c5fc9d_35.jpg",
+            "variantId": "313846213"
+          },
+          {
+            "color": "Black Stainless",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/1b/1bc5911a-7c9e-487a-a0fa-158279b61bd3_35.jpg",
+            "variantId": "313846214"
+          }
+        ]
+      },
+      "badges": [],
+      "keyFeatures": [
+        "Self-Clean+",
+        "Vibration Reduction+",
+        "Smart Care"
+      ],
+      "specifications": {
+        "capacity": "4.5 cu. ft.",
+        "width": "27 in.",
+        "voltage": "120 volt",
+        "stackable": true
+      },
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Samsung-4-5-cu-ft-High-Efficiency-Front-Load-Washer-in-White-with-Self-Clean-WF45T6000AW/313846213",
+      "limitPerOrder": 10
+    },
+    {
+      "productId": "331824637",
+      "modelNumber": "WFW4720RW",
+      "storeSkuNumber": "1006678901",
+      "brand": "Whirlpool",
+      "title": "4.5 cu. ft. Front Load Washer in White with Tumble Fresh Option and Quick Wash and Dry",
+      "shortDescription": "Reliable washer with Tumble Fresh to prevent odors",
+      "price": {
+        "current": 699.00,
+        "original": 899.00,
+        "savings": 200.00,
+        "savingsPercent": 22,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.1,
+        "count": 917
+      },
+      "images": {
+        "primary": "product images/front load washers/front-load-washer_5.jpg"
+      },
+      "badges": [],
+      "keyFeatures": [
+        "Tumble Fresh Option",
+        "Quick Wash & Dry",
+        "Intuitive Controls"
+      ],
+      "specifications": {
+        "capacity": "4.5 cu. ft.",
+        "width": "27 in.",
+        "voltage": "120 volt",
+        "stackable": true
+      },
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Whirlpool-4-5-cu-ft-Front-Load-Washer-in-White-with-Tumble-Fresh-Option-and-Quick-Wash-and-Dry-WFW4720RW/331824637",
+      "limitPerOrder": 2
+    },
+    {
+      "productId": "312440202",
+      "modelNumber": "WM4000HWA",
+      "storeSkuNumber": "1006789012",
+      "brand": "LG",
+      "title": "4.5 Cu. Ft. Stackable SMART Front Load Washer in White with Steam and TurboWash360 Technology",
+      "shortDescription": "Premium smart washer with steam cleaning and TurboWash360",
+      "price": {
+        "current": 1199.00,
+        "original": null,
+        "savings": null,
+        "savingsPercent": null,
+        "isOnSale": false,
+        "seeInCart": true
+      },
+      "rating": {
+        "average": 4.5,
+        "count": 3586
+      },
+      "images": {
+        "primary": "product images/front load washers/front-load-washer_6.jpg",
+        "colorSwatches": [
+          {
+            "color": "White",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/a1/a1914469-ef5c-4171-a506-e3ab12837f19_35.jpg",
+            "variantId": "312440202"
+          },
+          {
+            "color": "Black Steel",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/94/94829cfc-1837-497f-a7f1-e87cfdaf645f_35.jpg",
+            "variantId": "312440203"
+          }
+        ]
+      },
+      "badges": [
+        {
+          "type": "topRated",
+          "label": "Top Rated"
+        }
+      ],
+      "keyFeatures": [
+        "TurboWash360 Technology",
+        "Steam Clean",
+        "WiFi Connected"
+      ],
+      "specifications": {
+        "capacity": "4.5 cu. ft.",
+        "width": "27 in.",
+        "voltage": "120 volt",
+        "stackable": true
+      },
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/LG-4-5-Cu-Ft-Stackable-SMART-Front-Load-Washer-in-White-with-Steam-and-TurboWash360-Technology-WM4000HWA/312440202",
+      "limitPerOrder": 10
+    },
+    {
+      "productId": "328425580",
+      "modelNumber": "PFW870SPVRS",
+      "storeSkuNumber": "1006890123",
+      "brand": "GE",
+      "title": "Profile 5.3 cu. ft. Smart Front Load Washer in Sapphire Blue w/OdorBlock UltraFresh Vent System, Microban, Tier 2 EStar",
+      "shortDescription": "Premium Profile washer with Microban antimicrobial protection",
+      "price": {
+        "current": 999.00,
+        "original": 1449.00,
+        "savings": 450.00,
+        "savingsPercent": 31,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.4,
+        "count": 1529
+      },
+      "images": {
+        "primary": "product images/front load washers/front-load-washer_7.jpg",
+        "colorSwatches": [
+          {
+            "color": "Sapphire Blue",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/9e/9e14613e-c1f3-4ed9-86bb-cf0d7cbcaf3b_35.jpg",
+            "variantId": "328425580"
+          },
+          {
+            "color": "Carbon Graphite",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/55/55710434-5451-41c3-a102-013012f97a00_35.jpg",
+            "variantId": "328425581"
+          }
+        ]
+      },
+      "badges": [
+        {
+          "type": "topRated",
+          "label": "Top Rated"
+        }
+      ],
+      "keyFeatures": [
+        "OdorBlock UltraFresh Vent",
+        "Microban Protection",
+        "WiFi Connected"
+      ],
+      "specifications": {
+        "capacity": "5.3 cu. ft.",
+        "width": "28 in.",
+        "voltage": "120 volt",
+        "stackable": true
+      },
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/GE-Profile-5-3-cu-ft-Smart-Front-Load-Washer-in-Sapphire-Blue-w-OdorBlock-UltraFresh-Vent-System-Microban-Tier-2-EStar-PFW870SPVRS/328425580",
+      "limitPerOrder": 2
+    },
+    {
+      "productId": "319615947",
+      "modelNumber": "WF45B6300AP",
+      "storeSkuNumber": "1006901234",
+      "brand": "Samsung",
+      "title": "4.5 cu. ft. Smart High-Efficiency Front Load Washer in Platinum with Super Speed",
+      "shortDescription": "Smart washer with Super Speed for a full load in 28 minutes",
+      "price": {
+        "current": 749.00,
+        "original": 1149.00,
+        "savings": 400.00,
+        "savingsPercent": 35,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.5,
+        "count": 2740
+      },
+      "images": {
+        "primary": "product images/front load washers/front-load-washer_8.jpg",
+        "colorSwatches": [
+          {
+            "color": "Platinum",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/90/906001f7-d777-4ce7-a817-bf4877a35335_35.jpg",
+            "variantId": "319615947"
+          },
+          {
+            "color": "White",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/01/0140dcc3-f83d-4f8b-b556-c60b53c5fc9d_35.jpg",
+            "variantId": "319615948"
+          }
+        ]
+      },
+      "badges": [],
+      "keyFeatures": [
+        "Super Speed Wash",
+        "Self-Clean+",
+        "WiFi Connected"
+      ],
+      "specifications": {
+        "capacity": "4.5 cu. ft.",
+        "width": "27 in.",
+        "voltage": "120 volt",
+        "stackable": true
+      },
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Samsung-4-5-cu-ft-Smart-High-Efficiency-Front-Load-Washer-in-Platinum-with-Super-Speed-WF45B6300AP/319615947",
+      "limitPerOrder": 2
+    },
+    {
+      "productId": "318268649",
+      "modelNumber": "ELFW7637AW",
+      "storeSkuNumber": "1007012345",
+      "brand": "Electrolux",
+      "title": "27 in. W 4.5 cu. ft. Front Load Washer with SmartBoost, LuxCare Plus Wash System, Perfect Steam, ENERGY STAR in White",
+      "shortDescription": "Premium washer with SmartBoost premixing for superior stain removal",
+      "price": {
+        "current": 899.00,
+        "original": 1249.00,
+        "savings": 350.00,
+        "savingsPercent": 28,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.7,
+        "count": 10341
+      },
+      "images": {
+        "primary": "product images/front load washers/front-load-washer_9.jpg"
+      },
+      "badges": [
+        {
+          "type": "topRated",
+          "label": "Top Rated"
+        }
+      ],
+      "keyFeatures": [
+        "SmartBoost Technology",
+        "LuxCare Plus Wash",
+        "Perfect Steam"
+      ],
+      "specifications": {
+        "capacity": "4.5 cu. ft.",
+        "width": "27 in.",
+        "voltage": "120 volt",
+        "stackable": true
+      },
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Electrolux-27-in-W-4-5-cu-ft-Front-Load-Washer-with-SmartBoost-LuxCare-Plus-Wash-System-Perfect-Steam-ENERGY-STAR-in-White-ELFW7637AW/318268649",
+      "limitPerOrder": 2
+    },
+    {
+      "productId": "332056329",
+      "modelNumber": "WFW5720RR",
+      "storeSkuNumber": "1007123456",
+      "brand": "Whirlpool",
+      "title": "4.5 cu. ft. Stackable Front Load Washer in Radiant Silver with FreshFlow Vent System",
+      "shortDescription": "Feature-rich washer with FreshFlow vent system to prevent odors",
+      "price": {
+        "current": 799.00,
+        "original": 1099.00,
+        "savings": 300.00,
+        "savingsPercent": 27,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.3,
+        "count": 753
+      },
+      "images": {
+        "primary": "product images/front load washers/front-load-washer_10.jpg",
+        "colorSwatches": [
+          {
+            "color": "Radiant Silver",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/59/59f3b859-c8b4-413a-bcd3-24070031c8bc_35.jpg",
+            "variantId": "332056329"
+          },
+          {
+            "color": "White",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/76/76b38d43-70e5-4512-9e57-81f3dc1eeddd_35.jpg",
+            "variantId": "332056330"
+          },
+          {
+            "color": "Volcano Black",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/c4/c4009af5-fa31-420e-b98e-7b0592b1fde7_35.jpg",
+            "variantId": "332056331"
+          }
+        ]
+      },
+      "badges": [],
+      "keyFeatures": [
+        "FreshFlow Vent System",
+        "Load & Go Dispenser",
+        "Stackable Design"
+      ],
+      "specifications": {
+        "capacity": "4.5 cu. ft.",
+        "width": "27 in.",
+        "voltage": "120 volt",
+        "stackable": true
+      },
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Whirlpool-4-5-cu-ft-Stackable-Front-Load-Washer-in-Radiant-Silver-with-FreshFlow-Vent-System-WFW5720RR/332056329",
+      "limitPerOrder": 2
+    },
+    {
+      "productId": "333664048",
+      "modelNumber": "GFW350SSYWW",
+      "storeSkuNumber": "1007234567",
+      "brand": "GE",
+      "title": "4.6 cu. ft. Smart Front Load Washer in White with UltraFresh Vent System and OdorBlock",
+      "shortDescription": "Smart washer with UltraFresh vent to eliminate excess moisture",
+      "price": {
+        "current": 729.00,
+        "original": 949.00,
+        "savings": 220.00,
+        "savingsPercent": 23,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.5,
+        "count": 159
+      },
+      "images": {
+        "primary": "product images/front load washers/front-load-washer_11.jpg",
+        "colorSwatches": [
+          {
+            "color": "White",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/02/021746ee-681a-42d1-ae9a-1c9ab61caa25_35.jpg",
+            "variantId": "333664048"
+          },
+          {
+            "color": "Satin Nickel",
+            "swatchUrl": "https://images.thdstatic.com/catalog/swatchImages/35/98/982d2b0b-ae1f-4db4-a4d6-7de2117dc193_35.jpg",
+            "variantId": "333664049"
+          }
+        ]
+      },
+      "badges": [
+        {
+          "type": "newArrival",
+          "label": "New Arrival"
+        }
+      ],
+      "keyFeatures": [
+        "UltraFresh Vent System",
+        "OdorBlock",
+        "WiFi Connected"
+      ],
+      "specifications": {
+        "capacity": "4.6 cu. ft.",
+        "width": "28 in.",
+        "voltage": "120 volt",
+        "stackable": true
+      },
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/GE-4-6-cu-ft-Smart-Front-Load-Washer-in-White-with-UltraFresh-Vent-System-and-OdorBlock-GFW350SSYWW/333664048",
+      "limitPerOrder": 5
+    },
+    {
+      "productId": "318268534",
+      "modelNumber": "ELFW7637AT",
+      "storeSkuNumber": "1007345678",
+      "brand": "Electrolux",
+      "title": "4.5 cu. ft. Stackable Front Load Washer in Titanium with SmartBoost, Optic Whites, and Pure Rinse",
+      "shortDescription": "Premium washer with Optic Whites for brilliant white clothes",
+      "price": {
+        "current": 899.00,
+        "original": 1349.00,
+        "savings": 450.00,
+        "savingsPercent": 33,
+        "isOnSale": true,
+        "seeInCart": false
+      },
+      "rating": {
+        "average": 4.7,
+        "count": 11106
+      },
+      "images": {
+        "primary": "product images/front load washers/front-load-washer_12.jpg"
+      },
+      "badges": [
+        {
+          "type": "topRated",
+          "label": "Top Rated"
+        },
+        {
+          "type": "bestSeller",
+          "label": "Best Seller"
+        }
+      ],
+      "keyFeatures": [
+        "SmartBoost Technology",
+        "Optic Whites",
+        "Pure Rinse"
+      ],
+      "specifications": {
+        "capacity": "4.5 cu. ft.",
+        "width": "27 in.",
+        "voltage": "120 volt",
+        "stackable": true
+      },
+      "availability": {
+        "inStorePickup": true,
+        "delivery": true,
+        "shipToHome": true
+      },
+      "productUrl": "/p/Electrolux-4-5-cu-ft-Stackable-Front-Load-Washer-in-Titanium-with-SmartBoost-Optic-Whites-and-Pure-Rinse-ELFW7637AT/318268534",
+      "limitPerOrder": 2
+    }
+  ],
+  "pagination": {
+    "currentPage": 1,
+    "totalPages": 5,
+    "itemsPerPage": 24,
+    "startIndex": 1,
+    "endIndex": 24
+  }
+}

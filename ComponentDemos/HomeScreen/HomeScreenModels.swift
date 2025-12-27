@@ -41,6 +41,7 @@ struct ShopCategory: Identifiable {
     let name: String
     let iconName: String
     let isSystemIcon: Bool
+    let plpCategory: PLPCategory? // Optional link to PLP view
 }
 
 // MARK: - Promo Card Model (paired cards with percentages)
@@ -192,24 +193,24 @@ struct HomeScreenData {
 
     // MARK: - Shop Categories (List view - Screen 4)
     static let categories: [ShopCategory] = [
-        ShopCategory(name: "Appliances", iconName: "refrigerator", isSystemIcon: true),
-        ShopCategory(name: "Bath & Faucets", iconName: "shower", isSystemIcon: true),
-        ShopCategory(name: "Blinds & Window Treatments", iconName: "blinds.horizontal.closed", isSystemIcon: true),
-        ShopCategory(name: "Building Materials", iconName: "cube.box", isSystemIcon: true),
-        ShopCategory(name: "Decor & Furniture", iconName: "lamp.table", isSystemIcon: true),
-        ShopCategory(name: "Doors & Windows", iconName: "door.left.hand.closed", isSystemIcon: true),
-        ShopCategory(name: "Electrical", iconName: "bolt", isSystemIcon: true),
-        ShopCategory(name: "Flooring", iconName: "square.grid.3x3.topleft.filled", isSystemIcon: true),
-        ShopCategory(name: "Hardware", iconName: "wrench.and.screwdriver", isSystemIcon: true),
-        ShopCategory(name: "Heating & Cooling", iconName: "thermometer.snowflake", isSystemIcon: true),
-        ShopCategory(name: "Kitchen", iconName: "sink", isSystemIcon: true),
-        ShopCategory(name: "Lawn & Garden", iconName: "leaf", isSystemIcon: true),
-        ShopCategory(name: "Lighting & Ceiling Fans", iconName: "lightbulb", isSystemIcon: true),
-        ShopCategory(name: "Outdoor Living", iconName: "sun.max", isSystemIcon: true),
-        ShopCategory(name: "Paint", iconName: "paintbrush", isSystemIcon: true),
-        ShopCategory(name: "Plumbing", iconName: "drop", isSystemIcon: true),
-        ShopCategory(name: "Storage & Organization", iconName: "shippingbox", isSystemIcon: true),
-        ShopCategory(name: "Tools", iconName: "hammer", isSystemIcon: true)
+        ShopCategory(name: "Appliances", iconName: "refrigerator", isSystemIcon: true, plpCategory: .refrigerators),
+        ShopCategory(name: "Bath & Faucets", iconName: "shower", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Blinds & Window Treatments", iconName: "blinds.horizontal.closed", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Building Materials", iconName: "cube.box", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Decor & Furniture", iconName: "lamp.table", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Doors & Windows", iconName: "door.left.hand.closed", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Electrical", iconName: "bolt", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Flooring", iconName: "square.grid.3x3.topleft.filled", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Hardware", iconName: "wrench.and.screwdriver", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Heating & Cooling", iconName: "thermometer.snowflake", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Kitchen", iconName: "sink", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Lawn & Garden", iconName: "leaf", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Lighting & Ceiling Fans", iconName: "lightbulb", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Outdoor Living", iconName: "sun.max", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Paint", iconName: "paintbrush", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Plumbing", iconName: "drop", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Storage & Organization", iconName: "shippingbox", isSystemIcon: true, plpCategory: nil),
+        ShopCategory(name: "Tools", iconName: "hammer", isSystemIcon: true, plpCategory: .powerDrills)
     ]
 
     // MARK: - Free Tool/Battery Brand Grid

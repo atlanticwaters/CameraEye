@@ -24,17 +24,21 @@ struct PLPView: View {
     // MARK: - State
     @State private var products: [Product] = []
     @State private var pipDatasets: [PIPDataset] = []
+    @State private var categoryData: CategoryPageData? = nil // NEW: Store full category data
     @State private var selectedStylePill: String? = nil
     @State private var selectedFilterPills: Set<String> = []
     @State private var selectedSubFilters: Set<String> = []
     @State private var viewMode: PLPViewMode = .list
+    @State private var selectedSortOption: PLPSortOption = .topRated // NEW: For sorting
+    @State private var currentPage: Int = 1 // NEW: For pagination support
     
     // MARK: - Configuration
     let category: PLPCategory
     
-    // Computed properties based on category
+    // Computed properties based on category or JSON data
     private var categoryTitle: String {
-        category.title
+        // Use JSON data if available, otherwise use category title
+        categoryData?.pageInfo.categoryName.uppercased() ?? category.title
     }
     
     private var stylePills: [DSStylePillItem] {
@@ -42,11 +46,27 @@ struct PLPView: View {
     }
     
     private var filterPills: [DSFilterPillItem] {
-        category.filterPills
+        // Use JSON filters if available, otherwise use category filter pills
+        if let jsonFilters = categoryData?.filters {
+            return jsonFilters.prefix(5).map { filter in
+                DSFilterPillItem(text: filter.filterGroupName)
+            }
+        }
+        return category.filterPills
     }
     
     private var subFilterPills: [DSFilterPillItem] {
-        category.subFilterPills
+        // Use JSON quick filters if available, otherwise use category sub-filter pills
+        if let quickFilters = categoryData?.quickFilters {
+            return quickFilters.map { filter in
+                DSFilterPillItem(text: filter.label)
+            }
+        }
+        return category.subFilterPills
+    }
+    
+    private var totalResults: Int {
+        categoryData?.pageInfo.totalResults ?? products.count
     }
     
     // MARK: - Body
@@ -76,8 +96,8 @@ struct PLPView: View {
                 productInventory
                     .padding(.horizontal, DesignSystemGlobal.Spacing4)
             }
-            .padding(.top, 96) // Space for top navigation
-            .padding(.bottom, 80) // Space for bottom navigation
+            .padding(.top, 16) // Space for top navigation
+            .padding(.bottom, 16) // Space for bottom navigation
         }
         .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
         .onAppear {
@@ -173,7 +193,7 @@ struct PLPView: View {
     // MARK: - Computed Properties
     
     private var resultsCountText: String {
-        let count = sortedAndFilteredProducts.count
+        let count = totalResults
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         let formattedCount = formatter.string(from: NSNumber(value: count)) ?? "\(count)"
@@ -325,10 +345,17 @@ struct PLPView: View {
         
         // Check if we have a category-specific JSON file
         if let jsonFilename = category.categoryJSONFilename,
-           let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: jsonFilename) {
+           let loadedCategoryData = CategoryDataLoader.shared.loadCategoryData(filename: jsonFilename) {
+            // Store the category data for use in views
+            categoryData = loadedCategoryData
+            
             // Load products from category JSON file
-            products = categoryData.products.map { $0.toProduct() }
+            products = loadedCategoryData.products.map { $0.toProduct() }
             print("📦 Loaded \(products.count) products from \(jsonFilename).json")
+            print("   📊 Total results from JSON: \(loadedCategoryData.pageInfo.totalResults)")
+            print("   🎨 Featured brands: \(loadedCategoryData.featuredBrands.count)")
+            print("   🔍 Filters available: \(loadedCategoryData.filters.count)")
+            print("   ⚡️ Quick filters: \(loadedCategoryData.quickFilters.count)")
             
             // Debug: Log sample product image URLs
             if let firstProduct = products.first {
@@ -352,6 +379,7 @@ struct PLPView: View {
         // Convert to Product models
         products = filteredDatasets.map { $0.toProduct() }
         print("📦 Loaded \(products.count) products for category: \(category.title)")
+        print("   ⚠️ Using fallback pip-datasets.json (no category-specific JSON found)")
         
         // Debug: Log sample product images
         if let firstProduct = filteredDatasets.first {
@@ -483,7 +511,15 @@ struct PLPCategory {
         if let refrigeratorStyles = categoryData.refrigeratorStyles {
             stylePills = CategoryDataLoader.shared.createStylePills(from: refrigeratorStyles)
         } else {
-            stylePills = []
+            // Fallback with placeholder images
+            stylePills = [
+                DSStylePillItem(text: "French Door\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
+                DSStylePillItem(text: "Side by Side\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
+                DSStylePillItem(text: "Top Freezer\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
+                DSStylePillItem(text: "Bottom Freezer\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
+                DSStylePillItem(text: "Counter Depth\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
+                DSStylePillItem(text: "Mini Fridges", image: Image(systemName: "refrigerator.fill"))
+            ]
         }
         
         print("🎨 Created \(stylePills.count) style pills from category data")
@@ -523,187 +559,306 @@ struct PLPCategory {
     }()
     
     // MARK: - Dishwashers Category
-    static let dishwashers = PLPCategory(
-        title: "DISHWASHERS",
-        breadcrumbFilter: "Dishwasher",
-        stylePills: [
-            DSStylePillItem(
-                text: "Built-In\nDishwashers",
-                image: Image(systemName: "dishwasher.fill")
-            ),
-            DSStylePillItem(
-                text: "Portable\nDishwashers",
-                image: Image(systemName: "dishwasher.fill")
-            ),
-            DSStylePillItem(
-                text: "Drawer\nDishwashers",
-                image: Image(systemName: "dishwasher.fill")
-            ),
-            DSStylePillItem(
-                text: "Panel Ready\nDishwashers",
-                image: Image(systemName: "dishwasher.fill")
+    static let dishwashers: PLPCategory = {
+        // Try to load from dishwashers.json if it exists
+        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "dishwashers") else {
+            // Fallback to SF Symbols if JSON not found
+            return PLPCategory(
+                title: "DISHWASHERS",
+                breadcrumbFilter: "Dishwasher",
+                stylePills: [
+                    DSStylePillItem(text: "Built-In\nDishwashers", image: Image(systemName: "dishwasher.fill")),
+                    DSStylePillItem(text: "Portable\nDishwashers", image: Image(systemName: "dishwasher.fill")),
+                    DSStylePillItem(text: "Drawer\nDishwashers", image: Image(systemName: "dishwasher.fill")),
+                    DSStylePillItem(text: "Panel Ready\nDishwashers", image: Image(systemName: "dishwasher.fill"))
+                ],
+                filterPills: [
+                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                    DSFilterPillItem(text: "Brand"),
+                    DSFilterPillItem(text: "Width"),
+                    DSFilterPillItem(text: "Color/Finish"),
+                    DSFilterPillItem(text: "Tub Material"),
+                    DSFilterPillItem(text: "Noise Level (dBA)"),
+                    DSFilterPillItem(text: "Smart Enabled"),
+                    DSFilterPillItem(text: "Third Rack")
+                ],
+                subFilterPills: [
+                    DSFilterPillItem(text: "In Stock At Store Today"),
+                    DSFilterPillItem(text: "Free 1-2 Day Delivery"),
+                    DSFilterPillItem(text: "Get It Fast"),
+                    DSFilterPillItem(text: "Special Buy"),
+                    DSFilterPillItem(text: "Energy Star")
+                ]
             )
-        ],
-        filterPills: [
-            DSFilterPillItem(
-                text: "All Filters",
-                icon: Image(systemName: "line.3.horizontal.decrease.circle")
-            ),
-            DSFilterPillItem(text: "Brand"),
-            DSFilterPillItem(text: "Width"),
-            DSFilterPillItem(text: "Color/Finish"),
-            DSFilterPillItem(text: "Tub Material"),
-            DSFilterPillItem(text: "Noise Level (dBA)"),
-            DSFilterPillItem(text: "Smart Enabled"),
-            DSFilterPillItem(text: "Third Rack")
-        ],
-        subFilterPills: [
-            DSFilterPillItem(text: "In Stock At Store Today"),
-            DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-            DSFilterPillItem(text: "Get It Fast"),
-            DSFilterPillItem(text: "Special Buy"),
-            DSFilterPillItem(text: "Energy Star")
-        ]
-    )
+        }
+        
+        // Load style pills from JSON
+        let stylePills: [DSStylePillItem]
+        if let categoryStyles = categoryData.categoryStyles {
+            stylePills = CategoryDataLoader.shared.createStylePills(from: categoryStyles, fallbackIcon: "dishwasher.fill")
+        } else {
+            // Fallback with placeholder images
+            stylePills = [
+                DSStylePillItem(text: "Built-In\nDishwashers", image: Image(systemName: "dishwasher.fill")),
+                DSStylePillItem(text: "Portable\nDishwashers", image: Image(systemName: "dishwasher.fill")),
+                DSStylePillItem(text: "Drawer\nDishwashers", image: Image(systemName: "dishwasher.fill")),
+                DSStylePillItem(text: "Panel Ready\nDishwashers", image: Image(systemName: "dishwasher.fill"))
+            ]
+        }
+        
+        print("🎨 Created \(stylePills.count) style pills from dishwashers.json")
+        
+        return PLPCategory(
+            title: categoryData.pageInfo.categoryName.uppercased(),
+            breadcrumbFilter: "Dishwasher",
+            stylePills: stylePills,
+            filterPills: [
+                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                DSFilterPillItem(text: "Brand"),
+                DSFilterPillItem(text: "Width"),
+                DSFilterPillItem(text: "Color/Finish"),
+                DSFilterPillItem(text: "Tub Material"),
+                DSFilterPillItem(text: "Noise Level (dBA)"),
+                DSFilterPillItem(text: "Smart Enabled"),
+                DSFilterPillItem(text: "Third Rack")
+            ],
+            subFilterPills: [
+                DSFilterPillItem(text: "In Stock At Store Today"),
+                DSFilterPillItem(text: "Free 1-2 Day Delivery"),
+                DSFilterPillItem(text: "Get It Fast"),
+                DSFilterPillItem(text: "Special Buy"),
+                DSFilterPillItem(text: "Energy Star")
+            ],
+            categoryJSONFilename: "dishwashers"
+        )
+    }()
     
     // MARK: - Washing Machines Category
-    static let washingMachines = PLPCategory(
-        title: "WASHING MACHINES",
-        breadcrumbFilter: "Washing Machine",
-        stylePills: [
-            DSStylePillItem(
-                text: "Front Load\nWashers",
-                image: Image(systemName: "washer.fill")
-            ),
-            DSStylePillItem(
-                text: "Top Load\nWashers",
-                image: Image(systemName: "washer.fill")
-            ),
-            DSStylePillItem(
-                text: "High Efficiency\nWashers",
-                image: Image(systemName: "washer.fill")
-            ),
-            DSStylePillItem(
-                text: "Portable\nWashers",
-                image: Image(systemName: "washer.fill")
-            ),
-            DSStylePillItem(
-                text: "Washer-Dryer\nCombos",
-                image: Image(systemName: "washer.fill")
+    static let washingMachines: PLPCategory = {
+        // Try to load from washing-machines.json if it exists
+        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "washing-machines") else {
+            // Fallback to SF Symbols if JSON not found
+            return PLPCategory(
+                title: "WASHING MACHINES",
+                breadcrumbFilter: "Washing Machine",
+                stylePills: [
+                    DSStylePillItem(text: "Front Load\nWashers", image: Image(systemName: "washer.fill")),
+                    DSStylePillItem(text: "Top Load\nWashers", image: Image(systemName: "washer.fill")),
+                    DSStylePillItem(text: "High Efficiency\nWashers", image: Image(systemName: "washer.fill")),
+                    DSStylePillItem(text: "Portable\nWashers", image: Image(systemName: "washer.fill")),
+                    DSStylePillItem(text: "Washer-Dryer\nCombos", image: Image(systemName: "washer.fill"))
+                ],
+                filterPills: [
+                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                    DSFilterPillItem(text: "Brand"),
+                    DSFilterPillItem(text: "Capacity (cu. ft.)"),
+                    DSFilterPillItem(text: "Color/Finish"),
+                    DSFilterPillItem(text: "Washer Type"),
+                    DSFilterPillItem(text: "Smart Enabled"),
+                    DSFilterPillItem(text: "Energy Star"),
+                    DSFilterPillItem(text: "Steam Cycle")
+                ],
+                subFilterPills: [
+                    DSFilterPillItem(text: "In Stock At Store Today"),
+                    DSFilterPillItem(text: "Free 1-2 Day Delivery"),
+                    DSFilterPillItem(text: "Get It Fast"),
+                    DSFilterPillItem(text: "Special Buy"),
+                    DSFilterPillItem(text: "Best Seller")
+                ]
             )
-        ],
-        filterPills: [
-            DSFilterPillItem(
-                text: "All Filters",
-                icon: Image(systemName: "line.3.horizontal.decrease.circle")
-            ),
-            DSFilterPillItem(text: "Brand"),
-            DSFilterPillItem(text: "Capacity (cu. ft.)"),
-            DSFilterPillItem(text: "Color/Finish"),
-            DSFilterPillItem(text: "Washer Type"),
-            DSFilterPillItem(text: "Smart Enabled"),
-            DSFilterPillItem(text: "Energy Star"),
-            DSFilterPillItem(text: "Steam Cycle")
-        ],
-        subFilterPills: [
-            DSFilterPillItem(text: "In Stock At Store Today"),
-            DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-            DSFilterPillItem(text: "Get It Fast"),
-            DSFilterPillItem(text: "Special Buy"),
-            DSFilterPillItem(text: "Best Seller")
-        ]
-    )
+        }
+        
+        // Load style pills from JSON
+        let stylePills: [DSStylePillItem]
+        if let categoryStyles = categoryData.categoryStyles {
+            stylePills = CategoryDataLoader.shared.createStylePills(from: categoryStyles, fallbackIcon: "washer.fill")
+        } else {
+            // Fallback with placeholder images
+            stylePills = [
+                DSStylePillItem(text: "Front Load\nWashers", image: Image(systemName: "washer.fill")),
+                DSStylePillItem(text: "Top Load\nWashers", image: Image(systemName: "washer.fill")),
+                DSStylePillItem(text: "High Efficiency\nWashers", image: Image(systemName: "washer.fill")),
+                DSStylePillItem(text: "Portable\nWashers", image: Image(systemName: "washer.fill")),
+                DSStylePillItem(text: "Washer-Dryer\nCombos", image: Image(systemName: "washer.fill"))
+            ]
+        }
+        
+        print("🎨 Created \(stylePills.count) style pills from washing-machines.json")
+        
+        return PLPCategory(
+            title: categoryData.pageInfo.categoryName.uppercased(),
+            breadcrumbFilter: "Washing Machine",
+            stylePills: stylePills,
+            filterPills: [
+                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                DSFilterPillItem(text: "Brand"),
+                DSFilterPillItem(text: "Capacity (cu. ft.)"),
+                DSFilterPillItem(text: "Color/Finish"),
+                DSFilterPillItem(text: "Washer Type"),
+                DSFilterPillItem(text: "Smart Enabled"),
+                DSFilterPillItem(text: "Energy Star"),
+                DSFilterPillItem(text: "Steam Cycle")
+            ],
+            subFilterPills: [
+                DSFilterPillItem(text: "In Stock At Store Today"),
+                DSFilterPillItem(text: "Free 1-2 Day Delivery"),
+                DSFilterPillItem(text: "Get It Fast"),
+                DSFilterPillItem(text: "Special Buy"),
+                DSFilterPillItem(text: "Best Seller")
+            ],
+            categoryJSONFilename: "washing-machines"
+        )
+    }()
     
     // MARK: - Dryers Category
-    static let dryers = PLPCategory(
-        title: "DRYERS",
-        breadcrumbFilter: "Dryer",
-        stylePills: [
-            DSStylePillItem(
-                text: "Electric\nDryers",
-                image: Image(systemName: "dryer.fill")
-            ),
-            DSStylePillItem(
-                text: "Gas\nDryers",
-                image: Image(systemName: "dryer.fill")
-            ),
-            DSStylePillItem(
-                text: "Ventless\nDryers",
-                image: Image(systemName: "dryer.fill")
-            ),
-            DSStylePillItem(
-                text: "Portable\nDryers",
-                image: Image(systemName: "dryer.fill")
+    static let dryers: PLPCategory = {
+        // Try to load from dryers.json if it exists
+        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "dryers") else {
+            // Fallback to SF Symbols if JSON not found
+            return PLPCategory(
+                title: "DRYERS",
+                breadcrumbFilter: "Dryer",
+                stylePills: [
+                    DSStylePillItem(text: "Electric\nDryers", image: Image(systemName: "dryer.fill")),
+                    DSStylePillItem(text: "Gas\nDryers", image: Image(systemName: "dryer.fill")),
+                    DSStylePillItem(text: "Ventless\nDryers", image: Image(systemName: "dryer.fill")),
+                    DSStylePillItem(text: "Portable\nDryers", image: Image(systemName: "dryer.fill"))
+                ],
+                filterPills: [
+                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                    DSFilterPillItem(text: "Brand"),
+                    DSFilterPillItem(text: "Capacity (cu. ft.)"),
+                    DSFilterPillItem(text: "Color/Finish"),
+                    DSFilterPillItem(text: "Fuel Type"),
+                    DSFilterPillItem(text: "Smart Enabled"),
+                    DSFilterPillItem(text: "Energy Star"),
+                    DSFilterPillItem(text: "Steam Cycle")
+                ],
+                subFilterPills: [
+                    DSFilterPillItem(text: "In Stock At Store Today"),
+                    DSFilterPillItem(text: "Free 1-2 Day Delivery"),
+                    DSFilterPillItem(text: "Get It Fast"),
+                    DSFilterPillItem(text: "Special Buy")
+                ]
             )
-        ],
-        filterPills: [
-            DSFilterPillItem(
-                text: "All Filters",
-                icon: Image(systemName: "line.3.horizontal.decrease.circle")
-            ),
-            DSFilterPillItem(text: "Brand"),
-            DSFilterPillItem(text: "Capacity (cu. ft.)"),
-            DSFilterPillItem(text: "Color/Finish"),
-            DSFilterPillItem(text: "Fuel Type"),
-            DSFilterPillItem(text: "Smart Enabled"),
-            DSFilterPillItem(text: "Energy Star"),
-            DSFilterPillItem(text: "Steam Cycle")
-        ],
-        subFilterPills: [
-            DSFilterPillItem(text: "In Stock At Store Today"),
-            DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-            DSFilterPillItem(text: "Get It Fast"),
-            DSFilterPillItem(text: "Special Buy")
-        ]
-    )
+        }
+        
+        // Load style pills from JSON
+        let stylePills: [DSStylePillItem]
+        if let categoryStyles = categoryData.categoryStyles {
+            stylePills = CategoryDataLoader.shared.createStylePills(from: categoryStyles, fallbackIcon: "dryer.fill")
+        } else {
+            // Fallback with placeholder images
+            stylePills = [
+                DSStylePillItem(text: "Electric\nDryers", image: Image(systemName: "dryer.fill")),
+                DSStylePillItem(text: "Gas\nDryers", image: Image(systemName: "dryer.fill")),
+                DSStylePillItem(text: "Ventless\nDryers", image: Image(systemName: "dryer.fill")),
+                DSStylePillItem(text: "Portable\nDryers", image: Image(systemName: "dryer.fill"))
+            ]
+        }
+        
+        print("🎨 Created \(stylePills.count) style pills from dryers.json")
+        
+        return PLPCategory(
+            title: categoryData.pageInfo.categoryName.uppercased(),
+            breadcrumbFilter: "Dryer",
+            stylePills: stylePills,
+            filterPills: [
+                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                DSFilterPillItem(text: "Brand"),
+                DSFilterPillItem(text: "Capacity (cu. ft.)"),
+                DSFilterPillItem(text: "Color/Finish"),
+                DSFilterPillItem(text: "Fuel Type"),
+                DSFilterPillItem(text: "Smart Enabled"),
+                DSFilterPillItem(text: "Energy Star"),
+                DSFilterPillItem(text: "Steam Cycle")
+            ],
+            subFilterPills: [
+                DSFilterPillItem(text: "In Stock At Store Today"),
+                DSFilterPillItem(text: "Free 1-2 Day Delivery"),
+                DSFilterPillItem(text: "Get It Fast"),
+                DSFilterPillItem(text: "Special Buy")
+            ],
+            categoryJSONFilename: "dryers"
+        )
+    }()
     
     // MARK: - Ranges Category
-    static let ranges = PLPCategory(
-        title: "RANGES",
-        breadcrumbFilter: "Range",
-        stylePills: [
-            DSStylePillItem(
-                text: "Gas\nRanges",
-                image: Image(systemName: "flame.fill")
-            ),
-            DSStylePillItem(
-                text: "Electric\nRanges",
-                image: Image(systemName: "bolt.fill")
-            ),
-            DSStylePillItem(
-                text: "Dual Fuel\nRanges",
-                image: Image(systemName: "flame.fill")
-            ),
-            DSStylePillItem(
-                text: "Induction\nRanges",
-                image: Image(systemName: "bolt.circle.fill")
-            ),
-            DSStylePillItem(
-                text: "Slide-In\nRanges",
-                image: Image(systemName: "rectangle.inset.filled")
+    static let ranges: PLPCategory = {
+        // Try to load from ranges.json if it exists
+        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "ranges") else {
+            // Fallback to SF Symbols if JSON not found
+            return PLPCategory(
+                title: "RANGES",
+                breadcrumbFilter: "Range",
+                stylePills: [
+                    DSStylePillItem(text: "Gas\nRanges", image: Image(systemName: "flame.fill")),
+                    DSStylePillItem(text: "Electric\nRanges", image: Image(systemName: "bolt.fill")),
+                    DSStylePillItem(text: "Dual Fuel\nRanges", image: Image(systemName: "flame.fill")),
+                    DSStylePillItem(text: "Induction\nRanges", image: Image(systemName: "bolt.circle.fill")),
+                    DSStylePillItem(text: "Slide-In\nRanges", image: Image(systemName: "rectangle.inset.filled"))
+                ],
+                filterPills: [
+                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                    DSFilterPillItem(text: "Brand"),
+                    DSFilterPillItem(text: "Width"),
+                    DSFilterPillItem(text: "Color/Finish"),
+                    DSFilterPillItem(text: "Fuel Type"),
+                    DSFilterPillItem(text: "Oven Type"),
+                    DSFilterPillItem(text: "Smart Enabled"),
+                    DSFilterPillItem(text: "Self-Cleaning")
+                ],
+                subFilterPills: [
+                    DSFilterPillItem(text: "In Stock At Store Today"),
+                    DSFilterPillItem(text: "Free 1-2 Day Delivery"),
+                    DSFilterPillItem(text: "Get It Fast"),
+                    DSFilterPillItem(text: "Special Buy"),
+                    DSFilterPillItem(text: "Best Seller")
+                ]
             )
-        ],
-        filterPills: [
-            DSFilterPillItem(
-                text: "All Filters",
-                icon: Image(systemName: "line.3.horizontal.decrease.circle")
-            ),
-            DSFilterPillItem(text: "Brand"),
-            DSFilterPillItem(text: "Width"),
-            DSFilterPillItem(text: "Color/Finish"),
-            DSFilterPillItem(text: "Fuel Type"),
-            DSFilterPillItem(text: "Oven Type"),
-            DSFilterPillItem(text: "Smart Enabled"),
-            DSFilterPillItem(text: "Self-Cleaning")
-        ],
-        subFilterPills: [
-            DSFilterPillItem(text: "In Stock At Store Today"),
-            DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-            DSFilterPillItem(text: "Get It Fast"),
-            DSFilterPillItem(text: "Special Buy"),
-            DSFilterPillItem(text: "Best Seller")
-        ]
-    )
+        }
+        
+        // Load style pills from JSON
+        let stylePills: [DSStylePillItem]
+        if let categoryStyles = categoryData.categoryStyles {
+            stylePills = CategoryDataLoader.shared.createStylePills(from: categoryStyles, fallbackIcon: "flame.fill")
+        } else {
+            // Fallback with placeholder images
+            stylePills = [
+                DSStylePillItem(text: "Gas\nRanges", image: Image(systemName: "flame.fill")),
+                DSStylePillItem(text: "Electric\nRanges", image: Image(systemName: "bolt.fill")),
+                DSStylePillItem(text: "Dual Fuel\nRanges", image: Image(systemName: "flame.fill")),
+                DSStylePillItem(text: "Induction\nRanges", image: Image(systemName: "bolt.circle.fill")),
+                DSStylePillItem(text: "Slide-In\nRanges", image: Image(systemName: "rectangle.inset.filled"))
+            ]
+        }
+        
+        print("🎨 Created \(stylePills.count) style pills from ranges.json")
+        
+        return PLPCategory(
+            title: categoryData.pageInfo.categoryName.uppercased(),
+            breadcrumbFilter: "Range",
+            stylePills: stylePills,
+            filterPills: [
+                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                DSFilterPillItem(text: "Brand"),
+                DSFilterPillItem(text: "Width"),
+                DSFilterPillItem(text: "Color/Finish"),
+                DSFilterPillItem(text: "Fuel Type"),
+                DSFilterPillItem(text: "Oven Type"),
+                DSFilterPillItem(text: "Smart Enabled"),
+                DSFilterPillItem(text: "Self-Cleaning")
+            ],
+            subFilterPills: [
+                DSFilterPillItem(text: "In Stock At Store Today"),
+                DSFilterPillItem(text: "Free 1-2 Day Delivery"),
+                DSFilterPillItem(text: "Get It Fast"),
+                DSFilterPillItem(text: "Special Buy"),
+                DSFilterPillItem(text: "Best Seller")
+            ],
+            categoryJSONFilename: "ranges"
+        )
+    }()
     
     // MARK: - Power Drills Category
     static let powerDrills: PLPCategory = {
@@ -742,7 +897,14 @@ struct PLPCategory {
             // Fallback for backwards compatibility
             stylePills = CategoryDataLoader.shared.createStylePills(from: refrigeratorStyles)
         } else {
-            stylePills = []
+            // Fallback with placeholder images
+            stylePills = [
+                DSStylePillItem(text: "Cordless\nDrills", image: Image(systemName: "bolt.batteryblock")),
+                DSStylePillItem(text: "Corded\nDrills", image: Image(systemName: "powerplug")),
+                DSStylePillItem(text: "Hammer\nDrills", image: Image(systemName: "hammer")),
+                DSStylePillItem(text: "Impact\nDrivers", image: Image(systemName: "bolt.circle")),
+                DSStylePillItem(text: "Drill\nCombo Kits", image: Image(systemName: "cube.box"))
+            ]
         }
         
         print("🎨 Created \(stylePills.count) style pills from power-drills.json")
@@ -801,7 +963,14 @@ struct PLPCategory {
         if let categoryStyles = categoryData.categoryStyles {
             stylePills = CategoryDataLoader.shared.createStylePills(from: categoryStyles, fallbackIcon: "triangle")
         } else {
-            stylePills = []
+            // Fallback with placeholder images
+            stylePills = [
+                DSStylePillItem(text: "Circular\nSaws", image: Image(systemName: "circle.grid.cross")),
+                DSStylePillItem(text: "Miter\nSaws", image: Image(systemName: "triangle")),
+                DSStylePillItem(text: "Table\nSaws", image: Image(systemName: "rectangle.grid.1x2")),
+                DSStylePillItem(text: "Jig\nSaws", image: Image(systemName: "waveform")),
+                DSStylePillItem(text: "Reciprocating\nSaws", image: Image(systemName: "scissors"))
+            ]
         }
         
         return PLPCategory(
@@ -851,7 +1020,13 @@ struct PLPCategory {
         if let categoryStyles = categoryData.categoryStyles {
             stylePills = CategoryDataLoader.shared.createStylePills(from: categoryStyles, fallbackIcon: "circle.dotted")
         } else {
-            stylePills = []
+            // Fallback with placeholder images
+            stylePills = [
+                DSStylePillItem(text: "Random Orbit\nSanders", image: Image(systemName: "circle.dotted")),
+                DSStylePillItem(text: "Belt\nSanders", image: Image(systemName: "arrow.forward")),
+                DSStylePillItem(text: "Detail\nSanders", image: Image(systemName: "hand.point.up")),
+                DSStylePillItem(text: "Sheet\nSanders", image: Image(systemName: "rectangle"))
+            ]
         }
         
         return PLPCategory(
@@ -913,6 +1088,361 @@ struct PLPCategory {
         )
     }()
     
+    // MARK: - Bathroom Vanities Category
+    static let bathroomVanities: PLPCategory = {
+        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "bathroom-vanities") else {
+            // Fallback to SF Symbols if JSON not found
+            return PLPCategory(
+                title: "BATHROOM VANITIES",
+                breadcrumbFilter: "Bathroom Vanity",
+                stylePills: [
+                    DSStylePillItem(text: "Single Sink\nVanities", image: Image(systemName: "sink.fill")),
+                    DSStylePillItem(text: "Double Sink\nVanities", image: Image(systemName: "sink.fill")),
+                    DSStylePillItem(text: "Floating\nVanities", image: Image(systemName: "rectangle.fill")),
+                    DSStylePillItem(text: "Vanities\nwith Top", image: Image(systemName: "square.stack.fill"))
+                ],
+                filterPills: [
+                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                    DSFilterPillItem(text: "Brand"),
+                    DSFilterPillItem(text: "Vanity Width"),
+                    DSFilterPillItem(text: "Sink Type"),
+                    DSFilterPillItem(text: "Color/Finish")
+                ],
+                subFilterPills: [
+                    DSFilterPillItem(text: "In Stock At Store Today"),
+                    DSFilterPillItem(text: "Free 1-2 Day Delivery")
+                ]
+            )
+        }
+        
+        // Extract quick filters if available
+        let subFilterPills: [DSFilterPillItem]
+        if !categoryData.quickFilters.isEmpty {
+            subFilterPills = categoryData.quickFilters.map { DSFilterPillItem(text: $0.label) }
+        } else {
+            subFilterPills = [
+                DSFilterPillItem(text: "In Stock At Store Today"),
+                DSFilterPillItem(text: "Free 1-2 Day Delivery")
+            ]
+        }
+        
+        // Extract main filters
+        let filterPills: [DSFilterPillItem]
+        if !categoryData.filters.isEmpty {
+            var pills = [DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle"))]
+            pills.append(contentsOf: categoryData.filters.prefix(6).map { DSFilterPillItem(text: $0.filterGroupName) })
+            filterPills = pills
+        } else {
+            filterPills = [
+                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                DSFilterPillItem(text: "Brand"),
+                DSFilterPillItem(text: "Vanity Width"),
+                DSFilterPillItem(text: "Sink Type"),
+                DSFilterPillItem(text: "Color/Finish")
+            ]
+        }
+        
+        print("🎨 Created Bathroom Vanities category from JSON")
+        
+        return PLPCategory(
+            title: categoryData.pageInfo.categoryName.uppercased(),
+            breadcrumbFilter: "Bathroom Vanity",
+            stylePills: [
+                DSStylePillItem(text: "Single Sink\nVanities", image: Image(systemName: "sink.fill")),
+                DSStylePillItem(text: "Double Sink\nVanities", image: Image(systemName: "sink.fill")),
+                DSStylePillItem(text: "Floating\nVanities", image: Image(systemName: "rectangle.fill")),
+                DSStylePillItem(text: "Vanities\nwith Top", image: Image(systemName: "square.stack.fill"))
+            ],
+            filterPills: filterPills,
+            subFilterPills: subFilterPills,
+            categoryJSONFilename: "bathroom-vanities"
+        )
+    }()
+    
+    // MARK: - Ceiling Fans Category
+    static let ceilingFans: PLPCategory = {
+        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "ceiling-fans") else {
+            // Fallback to SF Symbols if JSON not found
+            return PLPCategory(
+                title: "CEILING FANS",
+                breadcrumbFilter: "Ceiling Fan",
+                stylePills: [
+                    DSStylePillItem(text: "Indoor\nCeiling Fans", image: Image(systemName: "fan.fill")),
+                    DSStylePillItem(text: "Outdoor\nCeiling Fans", image: Image(systemName: "fan.fill")),
+                    DSStylePillItem(text: "Fans with\nLight", image: Image(systemName: "lightbulb.fill")),
+                    DSStylePillItem(text: "Smart\nCeiling Fans", image: Image(systemName: "antenna.radiowaves.left.and.right"))
+                ],
+                filterPills: [
+                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                    DSFilterPillItem(text: "Brand"),
+                    DSFilterPillItem(text: "Blade Span"),
+                    DSFilterPillItem(text: "Light Kit"),
+                    DSFilterPillItem(text: "Style")
+                ],
+                subFilterPills: [
+                    DSFilterPillItem(text: "In Stock At Store Today"),
+                    DSFilterPillItem(text: "Free 1-2 Day Delivery")
+                ]
+            )
+        }
+        
+        // Extract quick filters if available
+        let subFilterPills: [DSFilterPillItem]
+        if !categoryData.quickFilters.isEmpty {
+            subFilterPills = categoryData.quickFilters.map { DSFilterPillItem(text: $0.label) }
+        } else {
+            subFilterPills = [
+                DSFilterPillItem(text: "In Stock At Store Today"),
+                DSFilterPillItem(text: "Free 1-2 Day Delivery")
+            ]
+        }
+        
+        // Extract main filters
+        let filterPills: [DSFilterPillItem]
+        if !categoryData.filters.isEmpty {
+            var pills = [DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle"))]
+            pills.append(contentsOf: categoryData.filters.prefix(6).map { DSFilterPillItem(text: $0.filterGroupName) })
+            filterPills = pills
+        } else {
+            filterPills = [
+                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                DSFilterPillItem(text: "Brand"),
+                DSFilterPillItem(text: "Blade Span"),
+                DSFilterPillItem(text: "Light Kit"),
+                DSFilterPillItem(text: "Style")
+            ]
+        }
+        
+        print("🎨 Created Ceiling Fans category from JSON")
+        
+        return PLPCategory(
+            title: categoryData.pageInfo.categoryName.uppercased(),
+            breadcrumbFilter: "Ceiling Fan",
+            stylePills: [
+                DSStylePillItem(text: "Indoor\nCeiling Fans", image: Image(systemName: "fan.fill")),
+                DSStylePillItem(text: "Outdoor\nCeiling Fans", image: Image(systemName: "fan.fill")),
+                DSStylePillItem(text: "Fans with\nLight", image: Image(systemName: "lightbulb.fill")),
+                DSStylePillItem(text: "Smart\nCeiling Fans", image: Image(systemName: "antenna.radiowaves.left.and.right"))
+            ],
+            filterPills: filterPills,
+            subFilterPills: subFilterPills,
+            categoryJSONFilename: "ceiling-fans"
+        )
+    }()
+    
+    // MARK: - Lawn Mowers Category
+    static let lawnMowers: PLPCategory = {
+        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "lawn-mowers") else {
+            // Fallback to SF Symbols if JSON not found
+            return PLPCategory(
+                title: "LAWN MOWERS",
+                breadcrumbFilter: "Lawn Mower",
+                stylePills: [
+                    DSStylePillItem(text: "Push\nMowers", image: Image(systemName: "figure.walk")),
+                    DSStylePillItem(text: "Self-Propelled\nMowers", image: Image(systemName: "gear")),
+                    DSStylePillItem(text: "Riding\nMowers", image: Image(systemName: "figure.seated.side")),
+                    DSStylePillItem(text: "Robotic\nMowers", image: Image(systemName: "robot.fill"))
+                ],
+                filterPills: [
+                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                    DSFilterPillItem(text: "Brand"),
+                    DSFilterPillItem(text: "Power Type"),
+                    DSFilterPillItem(text: "Cutting Width"),
+                    DSFilterPillItem(text: "Drive Type")
+                ],
+                subFilterPills: [
+                    DSFilterPillItem(text: "In Stock At Store Today"),
+                    DSFilterPillItem(text: "Free 1-2 Day Delivery")
+                ]
+            )
+        }
+        
+        // Extract quick filters if available
+        let subFilterPills: [DSFilterPillItem]
+        if !categoryData.quickFilters.isEmpty {
+            subFilterPills = categoryData.quickFilters.map { DSFilterPillItem(text: $0.label) }
+        } else {
+            subFilterPills = [
+                DSFilterPillItem(text: "In Stock At Store Today"),
+                DSFilterPillItem(text: "Free 1-2 Day Delivery")
+            ]
+        }
+        
+        // Extract main filters
+        let filterPills: [DSFilterPillItem]
+        if !categoryData.filters.isEmpty {
+            var pills = [DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle"))]
+            pills.append(contentsOf: categoryData.filters.prefix(6).map { DSFilterPillItem(text: $0.filterGroupName) })
+            filterPills = pills
+        } else {
+            filterPills = [
+                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                DSFilterPillItem(text: "Brand"),
+                DSFilterPillItem(text: "Power Type"),
+                DSFilterPillItem(text: "Cutting Width"),
+                DSFilterPillItem(text: "Drive Type")
+            ]
+        }
+        
+        print("🎨 Created Lawn Mowers category from JSON")
+        
+        return PLPCategory(
+            title: categoryData.pageInfo.categoryName.uppercased(),
+            breadcrumbFilter: "Lawn Mower",
+            stylePills: [
+                DSStylePillItem(text: "Push\nMowers", image: Image(systemName: "figure.walk")),
+                DSStylePillItem(text: "Self-Propelled\nMowers", image: Image(systemName: "gear")),
+                DSStylePillItem(text: "Riding\nMowers", image: Image(systemName: "figure.seated.side")),
+                DSStylePillItem(text: "Robotic\nMowers", image: Image(systemName: "robot.fill"))
+            ],
+            filterPills: filterPills,
+            subFilterPills: subFilterPills,
+            categoryJSONFilename: "lawn-mowers"
+        )
+    }()
+    
+    // MARK: - Smart Thermostats Category
+    static let smartThermostats: PLPCategory = {
+        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "smart-thermostats") else {
+            // Fallback to SF Symbols if JSON not found
+            return PLPCategory(
+                title: "SMART THERMOSTATS",
+                breadcrumbFilter: "Smart Thermostat",
+                stylePills: [
+                    DSStylePillItem(text: "WiFi\nThermostats", image: Image(systemName: "wifi")),
+                    DSStylePillItem(text: "Learning\nThermostats", image: Image(systemName: "brain.head.profile")),
+                    DSStylePillItem(text: "Programmable\nThermostats", image: Image(systemName: "calendar")),
+                    DSStylePillItem(text: "Voice Control\nThermostats", image: Image(systemName: "mic.fill"))
+                ],
+                filterPills: [
+                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                    DSFilterPillItem(text: "Brand"),
+                    DSFilterPillItem(text: "System Type"),
+                    DSFilterPillItem(text: "Voice Assistant"),
+                    DSFilterPillItem(text: "Display Type")
+                ],
+                subFilterPills: [
+                    DSFilterPillItem(text: "In Stock At Store Today"),
+                    DSFilterPillItem(text: "Free 1-2 Day Delivery")
+                ]
+            )
+        }
+        
+        // Extract quick filters if available
+        let subFilterPills: [DSFilterPillItem]
+        if !categoryData.quickFilters.isEmpty {
+            subFilterPills = categoryData.quickFilters.map { DSFilterPillItem(text: $0.label) }
+        } else {
+            subFilterPills = [
+                DSFilterPillItem(text: "In Stock At Store Today"),
+                DSFilterPillItem(text: "Free 1-2 Day Delivery")
+            ]
+        }
+        
+        // Extract main filters
+        let filterPills: [DSFilterPillItem]
+        if !categoryData.filters.isEmpty {
+            var pills = [DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle"))]
+            pills.append(contentsOf: categoryData.filters.prefix(6).map { DSFilterPillItem(text: $0.filterGroupName) })
+            filterPills = pills
+        } else {
+            filterPills = [
+                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                DSFilterPillItem(text: "Brand"),
+                DSFilterPillItem(text: "System Type"),
+                DSFilterPillItem(text: "Voice Assistant"),
+                DSFilterPillItem(text: "Display Type")
+            ]
+        }
+        
+        print("🎨 Created Smart Thermostats category from JSON")
+        
+        return PLPCategory(
+            title: categoryData.pageInfo.categoryName.uppercased(),
+            breadcrumbFilter: "Smart Thermostat",
+            stylePills: [
+                DSStylePillItem(text: "WiFi\nThermostats", image: Image(systemName: "wifi")),
+                DSStylePillItem(text: "Learning\nThermostats", image: Image(systemName: "brain.head.profile")),
+                DSStylePillItem(text: "Programmable\nThermostats", image: Image(systemName: "calendar")),
+                DSStylePillItem(text: "Voice Control\nThermostats", image: Image(systemName: "mic.fill"))
+            ],
+            filterPills: filterPills,
+            subFilterPills: subFilterPills,
+            categoryJSONFilename: "smart-thermostats"
+        )
+    }()
+    
+    // MARK: - Tool Chests Category
+    static let toolChests: PLPCategory = {
+        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "tool-chests") else {
+            // Fallback to SF Symbols if JSON not found
+            return PLPCategory(
+                title: "TOOL CHESTS",
+                breadcrumbFilter: "Tool Chest",
+                stylePills: [
+                    DSStylePillItem(text: "Rolling\nTool Cabinets", image: Image(systemName: "shippingbox.fill")),
+                    DSStylePillItem(text: "Top\nChests", image: Image(systemName: "square.stack.fill")),
+                    DSStylePillItem(text: "Combo\nSets", image: Image(systemName: "square.stack.3d.up.fill")),
+                    DSStylePillItem(text: "Mobile\nWorkbenches", image: Image(systemName: "wrench.and.screwdriver.fill"))
+                ],
+                filterPills: [
+                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                    DSFilterPillItem(text: "Brand"),
+                    DSFilterPillItem(text: "Width"),
+                    DSFilterPillItem(text: "Number of Drawers"),
+                    DSFilterPillItem(text: "Material")
+                ],
+                subFilterPills: [
+                    DSFilterPillItem(text: "In Stock At Store Today"),
+                    DSFilterPillItem(text: "Free 1-2 Day Delivery")
+                ]
+            )
+        }
+        
+        // Extract quick filters if available
+        let subFilterPills: [DSFilterPillItem]
+        if !categoryData.quickFilters.isEmpty {
+            subFilterPills = categoryData.quickFilters.map { DSFilterPillItem(text: $0.label) }
+        } else {
+            subFilterPills = [
+                DSFilterPillItem(text: "In Stock At Store Today"),
+                DSFilterPillItem(text: "Free 1-2 Day Delivery")
+            ]
+        }
+        
+        // Extract main filters
+        let filterPills: [DSFilterPillItem]
+        if !categoryData.filters.isEmpty {
+            var pills = [DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle"))]
+            pills.append(contentsOf: categoryData.filters.prefix(6).map { DSFilterPillItem(text: $0.filterGroupName) })
+            filterPills = pills
+        } else {
+            filterPills = [
+                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+                DSFilterPillItem(text: "Brand"),
+                DSFilterPillItem(text: "Width"),
+                DSFilterPillItem(text: "Number of Drawers"),
+                DSFilterPillItem(text: "Material")
+            ]
+        }
+        
+        print("🎨 Created Tool Chests category from JSON")
+        
+        return PLPCategory(
+            title: categoryData.pageInfo.categoryName.uppercased(),
+            breadcrumbFilter: "Tool Chest",
+            stylePills: [
+                DSStylePillItem(text: "Rolling\nTool Cabinets", image: Image(systemName: "shippingbox.fill")),
+                DSStylePillItem(text: "Top\nChests", image: Image(systemName: "square.stack.fill")),
+                DSStylePillItem(text: "Combo\nSets", image: Image(systemName: "square.stack.3d.up.fill")),
+                DSStylePillItem(text: "Mobile\nWorkbenches", image: Image(systemName: "wrench.and.screwdriver.fill"))
+            ],
+            filterPills: filterPills,
+            subFilterPills: subFilterPills,
+            categoryJSONFilename: "tool-chests"
+        )
+    }()
+    
 }
 
 // MARK: - =============================================
@@ -970,4 +1500,24 @@ enum PLPViewMode {
 
 #Preview("PLP - Sanders") {
     PLPView(category: .sanders)
+}
+
+#Preview("PLP - Bathroom Vanities") {
+    PLPView(category: .bathroomVanities)
+}
+
+#Preview("PLP - Ceiling Fans") {
+    PLPView(category: .ceilingFans)
+}
+
+#Preview("PLP - Lawn Mowers") {
+    PLPView(category: .lawnMowers)
+}
+
+#Preview("PLP - Smart Thermostats") {
+    PLPView(category: .smartThermostats)
+}
+
+#Preview("PLP - Tool Chests") {
+    PLPView(category: .toolChests)
 }

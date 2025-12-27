@@ -1,5 +1,10 @@
 import SwiftUI
 
+import SwiftUI
+
+// Typealias for spacing tokens
+typealias TokensSpacing = TokensCoreLight
+
 // MARK: - DSAlert Showcase View
 
 /// Comprehensive showcase of the DSAlert component

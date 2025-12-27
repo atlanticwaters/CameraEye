@@ -1,0 +1,9 @@
+{
+  "info": {
+    "author": "figma-asset-pipeline",
+    "version": 1
+  },
+  "properties": {
+    "provides-namespace": true
+  }
+}

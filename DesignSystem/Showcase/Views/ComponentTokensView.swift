@@ -351,26 +351,28 @@ struct ComponentTokensView: View {
                 Divider()
                 
                 // Badge Example
-                TokenSection(title: "Badge Component", description: "Badge-specific tokens") {
+                TokenSection(title: "Badge Component", description: "Example badge usage with component tokens") {
                     VStack(alignment: .leading, spacing: 12) {
-                        HStack {
-                            Text("Label:")
-                                .font(.system(size: TokensCoreLight.FontSizeBodySm))
-                                .foregroundColor(TokensSemanticLight.TextOnSurfaceColorSecondary)
-                            
-                            Text(TokensComponentsLight.BadgeLabel)
-                                .font(.system(size: TokensCoreLight.FontSizeBodySm, weight: .semibold))
-                                .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
-                        }
+                        Text("Note: Badges use semantic color tokens, not component-specific tokens.")
+                            .font(.system(size: TokensCoreLight.FontSizeBodySm))
+                            .foregroundColor(TokensSemanticLight.TextOnSurfaceColorSecondary)
                         
                         // Visual example
-                        HStack {
-                            Text(TokensComponentsLight.BadgeLabel)
+                        HStack(spacing: 8) {
+                            Text("NEW")
                                 .font(.system(size: TokensCoreLight.FontSizeBodyXs, weight: .bold))
                                 .foregroundColor(.white)
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 4)
                                 .background(TokensSemanticLight.BackgroundAccentColorRed)
+                                .cornerRadius(4)
+                            
+                            Text("SALE")
+                                .font(.system(size: TokensCoreLight.FontSizeBodyXs, weight: .bold))
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(TokensSemanticLight.BackgroundButtonColorBrandFilledDefault)
                                 .cornerRadius(4)
                         }
                         .padding()

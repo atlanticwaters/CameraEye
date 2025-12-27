@@ -21,7 +21,7 @@ struct HomeScreenView: View {
 
                 // MARK: - Hero Banner 1 (HomeImg16 - "40% OFF SELECT APPLIANCES")
                 HeroBannerView(banner: HomeScreenData.heroBanners[0])
-                    .padding(.top, 96) // Top padding to clear menu icons
+                    .padding(.top, 12) // Top padding to clear menu icons
                     .padding(.bottom, 12)
 
                 // MARK: - Hero Banner 2 (HomeImg17 - "LAST-MINUTE GIFT IDEAS")
@@ -220,7 +220,7 @@ enum HomeTab: Int, TabBarItem {
 
     var iconName: String {
         switch self {
-        case .home: return "logo"
+        case .home: return "home-logo"
         case .shop: return "Bucket"
         case .catalog: return "square.grid.2x2"
         case .cart: return "Cart"
@@ -240,36 +240,80 @@ enum HomeTab: Int, TabBarItem {
 struct HomeScreenDemoView: View {
     @State private var selectedTab: HomeTab = .home
     @State private var isShopNavigationPresented: Bool = false
+    @State private var isSearchPresented: Bool = false
     @State private var previousTab: HomeTab = .home
     @State private var showBackButton: Bool = false
 
     var body: some View {
         ZStack {
-            BottomTabBar_iOS(selectedTab: $selectedTab) { tab in
-                tabContent(for: tab)
-            }
-            .onChange(of: selectedTab) { oldValue, newValue in
-                if newValue == .shop {
-                    // Store previous tab and show shop navigation
-                    previousTab = oldValue
-                    withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
-                        isShopNavigationPresented = true
-                    }
-                    // Reset to previous tab so Shop doesn't stay selected
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                        selectedTab = previousTab
+            // Main navigation stack for tab content
+            NavigationStack {
+                BottomTabBar_iOS(selectedTab: $selectedTab) { tab in
+                    tabContent(for: tab)
+                }
+                .onChange(of: selectedTab) { oldValue, newValue in
+                    if newValue == .shop {
+                        // Store previous tab and show shop navigation
+                        previousTab = oldValue
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                            isShopNavigationPresented = true
+                        }
+                        // Reset to previous tab so Shop doesn't stay selected
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            selectedTab = previousTab
+                        }
                     }
                 }
             }
 
-            // Shop Navigation - slides in from right
+            // Shop Navigation - slides in from right using ShopByCategoryList
+            // Has its own NavigationStack for independent navigation
             if isShopNavigationPresented {
-                ShopNavigationView(isPresented: $isShopNavigationPresented)
+                shopNavigationSlideIn
                     .transition(.move(edge: .trailing))
                     .zIndex(1)
             }
+            
+            // Search View - full screen overlay
+            // Has its own NavigationStack for independent navigation
+            if isSearchPresented {
+                NavigationStack {
+                    SearchDemoView(onDismiss: {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                            isSearchPresented = false
+                        }
+                    })
+                }
+                .transition(.move(edge: .bottom))
+                .zIndex(2)
+            }
         }
         .animation(.spring(response: 0.35, dampingFraction: 0.85), value: isShopNavigationPresented)
+        .animation(.spring(response: 0.35, dampingFraction: 0.85), value: isSearchPresented)
+    }
+    
+    // MARK: - Shop Navigation Slide-In (using ShopByCategoryList)
+    private var shopNavigationSlideIn: some View {
+        NavigationStack {
+            ZStack {
+                // Background
+                Color.surfaceBackground
+                    .ignoresSafeArea()
+                
+                VStack(spacing: 0) {
+                    // Use ShopByCategoryList in slide-in mode
+                    ShopByCategoryList(
+                        categories: HomeScreenData.categories,
+                        isSlideInMode: true,
+                        onClose: {
+                            withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                                isShopNavigationPresented = false
+                            }
+                        }
+                    )
+                }
+            }
+        }
     }
 
     @ViewBuilder
@@ -283,16 +327,47 @@ struct HomeScreenDemoView: View {
         case .catalog:
             ComponentCatalogView(showBackButton: $showBackButton)
         case .cart:
-            placeholderView(title: "Cart", icon: "bag.fill")
+            cartView
         }
     }
 
     // MARK: - Home Screen with Morph Nav
     private var homeScreenWithNav: some View {
         HomeScreenScrollableContent()
-            .safeAreaBar(edge: .top) {
-                MorphingNavHeader(showBackButton: false)
+            .safeAreaBar(edge: .top, spacing: 48) {
+                MorphingNavHeader(
+                    showBackButton: false,
+                    onSearchTapped: {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                            isSearchPresented = true
+                        }
+                    }
+                )
             }
+    }
+    
+    // MARK: - Cart View with App Guide
+    private var cartView: some View {
+        ZStack {
+            Color.surfaceBackground
+                .ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+                // Header
+                HStack {
+                    Text("App Guide")
+                        .font(.system(size: 28, weight: .bold))
+                        .foregroundColor(Color.brandPrimary)
+                    Spacer()
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 60)
+                .padding(.bottom, 16)
+                
+                // Interstitial Content
+                AppFeatureInterstitialContent()
+            }
+        }
     }
 
     // MARK: - Placeholder View for other tabs
@@ -320,13 +395,17 @@ struct HomeScreenScrollableContent: View {
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
+                // Top spacer to clear the navigation header
+                Color.clear
+                    .frame(height: 48)
+                
                 // ==========================================
                 // MARK: - SCREEN 1 CONTENT (home_1.jpg)
                 // ==========================================
 
                 // MARK: - Hero Banner 1 (HomeImg16 - "40% OFF SELECT APPLIANCES")
                 HeroBannerView(banner: HomeScreenData.heroBanners[0])
-                    .padding(.top, 96) // Top padding to clear menu icons
+                    .padding(.top, 12) // Top padding to clear menu icons
                     .padding(.bottom, 12)
 
                 // MARK: - Hero Banner 2 (HomeImg17 - "LAST-MINUTE GIFT IDEAS")

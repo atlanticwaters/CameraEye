@@ -12,6 +12,7 @@ struct MorphingNavHeader: View {
     // MARK: - Configuration
     let showBackButton: Bool
     let onBackTapped: (() -> Void)?
+    let onSearchTapped: (() -> Void)?
 
     // MARK: - State
     @State private var isSearching = false
@@ -27,9 +28,10 @@ struct MorphingNavHeader: View {
     @Namespace private var morphNamespace
 
     // MARK: - Initializer
-    init(showBackButton: Bool = true, onBackTapped: (() -> Void)? = nil) {
+    init(showBackButton: Bool = true, onBackTapped: (() -> Void)? = nil, onSearchTapped: (() -> Void)? = nil) {
         self.showBackButton = showBackButton
         self.onBackTapped = onBackTapped
+        self.onSearchTapped = onSearchTapped
     }
 
     // MARK: - Sizing from Design System
@@ -41,7 +43,7 @@ struct MorphingNavHeader: View {
     // MARK: - Spacing from Design System
     private let innerButtonSpacing = DS.Spacing2   // 12pt - spacing between buttons in glass container
     private let containerSpacing = DS.Spacing1     // 12pt - space between back button and content
-    private let horizontalPadding = DS.Spacing4    // 16pt - outer horizontal padding
+    private let horizontalPadding = DS.Spacing4    // 16pt - (Not used - safeAreaBar provides horizontal padding)
     private let verticalPadding = DS.Spacing3      // 12pt - outer vertical padding
 
     // MARK: - Colors from Design System
@@ -70,7 +72,6 @@ struct MorphingNavHeader: View {
                     .transition(.opacity.combined(with: .scale(scale: 0.98)))
             }
         }
-        .padding(.horizontal, horizontalPadding)
         .padding(.vertical, verticalPadding)
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isSearching)
         .animation(.spring(response: 0.4, dampingFraction: 0.8), value: isStoreExpanded)
@@ -201,8 +202,14 @@ struct MorphingNavHeader: View {
     // MARK: - Search Button
     private var searchButton: some View {
         Button(action: {
-            withAnimation {
-                isSearching = true
+            if let onSearchTapped = onSearchTapped {
+                // Call the external handler if provided
+                onSearchTapped()
+            } else {
+                // Fall back to internal search animation
+                withAnimation {
+                    isSearching = true
+                }
             }
         }) {
             Image(systemName: "magnifyingglass")

@@ -4,15 +4,15 @@ import SwiftUI
 
 #Preview("Alert Variants") {
     ScrollView {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing4) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
             Text("Alert Variants")
                 .font(.custom("THD SmVar Beta", size: 20))
                 .fontWeight(.heavy)
-                .padding(.horizontal, TokensSpacing.Spacing4)
-                .padding(.top, TokensSpacing.Spacing4)
+                .padding(.horizontal, DesignSystemGlobal.Spacing4)
+                .padding(.top, DesignSystemGlobal.Spacing4)
             
-            VStack(spacing: TokensSpacing.Spacing4) {
-                VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
+            VStack(spacing: DesignSystemGlobal.Spacing4) {
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Informational")
                         .font(.custom("THD SmVar Beta", size: 14))
                         .fontWeight(.semibold)
@@ -23,7 +23,7 @@ import SwiftUI
                     )
                 }
                 
-                VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Success")
                         .font(.custom("THD SmVar Beta", size: 14))
                         .fontWeight(.semibold)
@@ -34,7 +34,7 @@ import SwiftUI
                     )
                 }
                 
-                VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Warning")
                         .font(.custom("THD SmVar Beta", size: 14))
                         .fontWeight(.semibold)
@@ -45,7 +45,7 @@ import SwiftUI
                     )
                 }
                 
-                VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Error")
                         .font(.custom("THD SmVar Beta", size: 14))
                         .fontWeight(.semibold)
@@ -56,7 +56,7 @@ import SwiftUI
                     )
                 }
             }
-            .padding(TokensSpacing.Spacing4)
+            .padding(DesignSystemGlobal.Spacing4)
         }
     }
 }
@@ -65,14 +65,14 @@ import SwiftUI
 
 #Preview("Alert Without Title") {
     ScrollView {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing4) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
             Text("Without Title")
                 .font(.custom("THD SmVar Beta", size: 20))
                 .fontWeight(.heavy)
-                .padding(.horizontal, TokensSpacing.Spacing4)
-                .padding(.top, TokensSpacing.Spacing4)
+                .padding(.horizontal, DesignSystemGlobal.Spacing4)
+                .padding(.top, DesignSystemGlobal.Spacing4)
             
-            VStack(spacing: TokensSpacing.Spacing4) {
+            VStack(spacing: DesignSystemGlobal.Spacing4) {
                 DSAlert.informational(
                     message: "This is helpful information you should know."
                 )
@@ -89,7 +89,7 @@ import SwiftUI
                     message: "You cannot proceed until you resolve this issue."
                 )
             }
-            .padding(TokensSpacing.Spacing4)
+            .padding(DesignSystemGlobal.Spacing4)
         }
     }
 }
@@ -98,14 +98,14 @@ import SwiftUI
 
 #Preview("Alert With Dismiss") {
     ScrollView {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing4) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
             Text("With Dismiss Action")
                 .font(.custom("THD SmVar Beta", size: 20))
                 .fontWeight(.heavy)
-                .padding(.horizontal, TokensSpacing.Spacing4)
-                .padding(.top, TokensSpacing.Spacing4)
+                .padding(.horizontal, DesignSystemGlobal.Spacing4)
+                .padding(.top, DesignSystemGlobal.Spacing4)
             
-            VStack(spacing: TokensSpacing.Spacing4) {
+            VStack(spacing: DesignSystemGlobal.Spacing4) {
                 DSAlert.informational(
                     title: "Alert title (optional)",
                     message: "This is helpful information you should know.",
@@ -130,7 +130,7 @@ import SwiftUI
                     onDismiss: { print("Dismissed") }
                 )
             }
-            .padding(TokensSpacing.Spacing4)
+            .padding(DesignSystemGlobal.Spacing4)
         }
     }
 }
@@ -139,14 +139,14 @@ import SwiftUI
 
 #Preview("Floating Alerts") {
     ScrollView {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing4) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
             Text("Floating Style")
                 .font(.custom("THD SmVar Beta", size: 20))
                 .fontWeight(.heavy)
-                .padding(.horizontal, TokensSpacing.Spacing4)
-                .padding(.top, TokensSpacing.Spacing4)
+                .padding(.horizontal, DesignSystemGlobal.Spacing4)
+                .padding(.top, DesignSystemGlobal.Spacing4)
             
-            VStack(spacing: TokensSpacing.Spacing4) {
+            VStack(spacing: DesignSystemGlobal.Spacing4) {
                 DSAlert.informational(
                     title: "Alert title (optional)",
                     message: "This is helpful information you should know.",
@@ -175,7 +175,7 @@ import SwiftUI
                     onDismiss: { print("Dismissed") }
                 )
             }
-            .padding(TokensSpacing.Spacing4)
+            .padding(DesignSystemGlobal.Spacing4)
         }
         .background(Color(red: 0.973, green: 0.961, blue: 0.949))
     }
@@ -185,21 +185,21 @@ import SwiftUI
 
 #Preview("Side by Side Comparison") {
     ScrollView {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing4) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
             Text("Comparison: Standard vs Floating")
                 .font(.custom("THD SmVar Beta", size: 20))
                 .fontWeight(.heavy)
-                .padding(.horizontal, TokensSpacing.Spacing4)
-                .padding(.top, TokensSpacing.Spacing4)
+                .padding(.horizontal, DesignSystemGlobal.Spacing4)
+                .padding(.top, DesignSystemGlobal.Spacing4)
             
-            VStack(spacing: TokensSpacing.Spacing6) {
+            VStack(spacing: DesignSystemGlobal.Spacing6) {
                 // Standard
-                VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Standard (No Shadow)")
                         .font(.custom("THD SmVar Beta", size: 16))
                         .fontWeight(.semibold)
                     
-                    VStack(spacing: TokensSpacing.Spacing3) {
+                    VStack(spacing: DesignSystemGlobal.Spacing3) {
                         DSAlert.informational(
                             title: "Informational",
                             message: "Standard alert without shadow."
@@ -215,12 +215,12 @@ import SwiftUI
                 Divider()
                 
                 // Floating
-                VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Floating (With Shadow)")
                         .font(.custom("THD SmVar Beta", size: 16))
                         .fontWeight(.semibold)
                     
-                    VStack(spacing: TokensSpacing.Spacing3) {
+                    VStack(spacing: DesignSystemGlobal.Spacing3) {
                         DSAlert.informational(
                             title: "Informational",
                             message: "Floating alert with shadow.",
@@ -235,7 +235,7 @@ import SwiftUI
                     }
                 }
             }
-            .padding(TokensSpacing.Spacing4)
+            .padding(DesignSystemGlobal.Spacing4)
         }
         .background(Color(red: 0.973, green: 0.961, blue: 0.949))
     }
@@ -250,21 +250,21 @@ import SwiftUI
         
         var body: some View {
             ScrollView {
-                VStack(alignment: .leading, spacing: TokensSpacing.Spacing4) {
+                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
                     Text("Interactive Alert Demo")
                         .font(.custom("THD SmVar Beta", size: 20))
                         .fontWeight(.heavy)
-                        .padding(.horizontal, TokensSpacing.Spacing4)
-                        .padding(.top, TokensSpacing.Spacing4)
+                        .padding(.horizontal, DesignSystemGlobal.Spacing4)
+                        .padding(.top, DesignSystemGlobal.Spacing4)
                     
-                    VStack(spacing: TokensSpacing.Spacing4) {
+                    VStack(spacing: DesignSystemGlobal.Spacing4) {
                         // Controls
-                        VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
+                        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                             Text("Alert Type")
                                 .font(.custom("THD SmVar Beta", size: 14))
                                 .fontWeight(.semibold)
                             
-                            HStack(spacing: TokensSpacing.Spacing2) {
+                            HStack(spacing: DesignSystemGlobal.Spacing2) {
                                 Button("Info") {
                                     alertType = .informational
                                     showAlert = true
@@ -308,13 +308,13 @@ import SwiftUI
                             Text("Alert dismissed. Select a type above to show it again.")
                                 .font(.custom("THD Sm Beta", size: 14))
                                 .foregroundColor(.secondary)
-                                .padding(TokensSpacing.Spacing4)
+                                .padding(DesignSystemGlobal.Spacing4)
                                 .frame(maxWidth: .infinity)
                                 .background(Color.gray.opacity(0.1))
-                                .cornerRadius(TokensSemanticLight.BorderRadius2xl)
+                                .cornerRadius(DesignSystemGlobal.BorderRadius2xl)
                         }
                     }
-                    .padding(TokensSpacing.Spacing4)
+                    .padding(DesignSystemGlobal.Spacing4)
                 }
             }
         }
@@ -327,14 +327,14 @@ import SwiftUI
 
 #Preview("Dark Mode") {
     ScrollView {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing4) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
             Text("Dark Mode")
                 .font(.custom("THD SmVar Beta", size: 20))
                 .fontWeight(.heavy)
-                .padding(.horizontal, TokensSpacing.Spacing4)
-                .padding(.top, TokensSpacing.Spacing4)
+                .padding(.horizontal, DesignSystemGlobal.Spacing4)
+                .padding(.top, DesignSystemGlobal.Spacing4)
             
-            VStack(spacing: TokensSpacing.Spacing4) {
+            VStack(spacing: DesignSystemGlobal.Spacing4) {
                 DSAlert.informational(
                     title: "Alert title (optional)",
                     message: "This is helpful information you should know.",
@@ -359,7 +359,7 @@ import SwiftUI
                     onDismiss: { print("Dismissed") }
                 )
             }
-            .padding(TokensSpacing.Spacing4)
+            .padding(DesignSystemGlobal.Spacing4)
         }
     }
     .preferredColorScheme(.dark)
@@ -369,12 +369,12 @@ import SwiftUI
 
 #Preview("All Configurations") {
     ScrollView {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing6) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
             Text("All Alert Configurations")
                 .font(.custom("THD SmVar Beta", size: 24))
                 .fontWeight(.heavy)
-                .padding(.horizontal, TokensSpacing.Spacing4)
-                .padding(.top, TokensSpacing.Spacing4)
+                .padding(.horizontal, DesignSystemGlobal.Spacing4)
+                .padding(.top, DesignSystemGlobal.Spacing4)
             
             Group {
                 // With Title
@@ -382,7 +382,7 @@ import SwiftUI
                     title: "With Title",
                     description: "Standard alerts with title and message"
                 ) {
-                    VStack(spacing: TokensSpacing.Spacing3) {
+                    VStack(spacing: DesignSystemGlobal.Spacing3) {
                         DSAlert.informational(
                             title: "Informational Alert",
                             message: "This is helpful information you should know."
@@ -407,7 +407,7 @@ import SwiftUI
                     title: "Without Title",
                     description: "Message-only alerts"
                 ) {
-                    VStack(spacing: TokensSpacing.Spacing3) {
+                    VStack(spacing: DesignSystemGlobal.Spacing3) {
                         DSAlert.informational(message: "This is helpful information.")
                         DSAlert.success(message: "Success! Whatever you did worked.")
                         DSAlert.warning(message: "There's an issue you should know about.")
@@ -420,7 +420,7 @@ import SwiftUI
                     title: "With Dismiss Button",
                     description: "Dismissible alerts"
                 ) {
-                    VStack(spacing: TokensSpacing.Spacing3) {
+                    VStack(spacing: DesignSystemGlobal.Spacing3) {
                         DSAlert.informational(
                             title: "Dismissible Alert",
                             message: "Tap X to dismiss.",
@@ -439,7 +439,7 @@ import SwiftUI
                     title: "Floating Style",
                     description: "Alerts with shadow elevation"
                 ) {
-                    VStack(spacing: TokensSpacing.Spacing3) {
+                    VStack(spacing: DesignSystemGlobal.Spacing3) {
                         DSAlert.informational(
                             title: "Floating Alert",
                             message: "This alert has a subtle shadow.",
@@ -456,7 +456,7 @@ import SwiftUI
                 }
             }
         }
-        .padding(.bottom, TokensSpacing.Spacing6)
+        .padding(.bottom, DesignSystemGlobal.Spacing6)
     }
     .background(Color(red: 0.973, green: 0.961, blue: 0.949))
 }
@@ -469,8 +469,8 @@ private func sectionView<Content: View>(
     description: String,
     @ViewBuilder content: () -> Content
 ) -> some View {
-    VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing1) {
+    VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
+        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
                 .font(.custom("THD SmVar Beta", size: 16))
                 .fontWeight(.bold)
@@ -482,8 +482,8 @@ private func sectionView<Content: View>(
         
         content()
     }
-    .padding(TokensSpacing.Spacing4)
+    .padding(DesignSystemGlobal.Spacing4)
     .background(Color.white)
-    .cornerRadius(TokensSemanticLight.BorderRadiusXl)
-    .padding(.horizontal, TokensSpacing.Spacing4)
+    .cornerRadius(DesignSystemGlobal.BorderRadiusXl)
+    .padding(.horizontal, DesignSystemGlobal.Spacing4)
 }

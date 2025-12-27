@@ -167,7 +167,7 @@ public struct DesignSystemGlobal {
     public static let Moonlight900 = TokensSemanticLight.Moonlight900
     public static let Moonlight950 = TokensSemanticLight.Moonlight950
     
-    // MARK: - Color Tokens - BottleGreen Scale
+    // MARK: - Color Tokens - BottleGreen Scale (Green)
     public static let BottleGreen025 = TokensSemanticLight.BottleGreen025
     public static let BottleGreen050 = TokensSemanticLight.BottleGreen050
     public static let BottleGreen100 = TokensSemanticLight.BottleGreen100
@@ -180,7 +180,7 @@ public struct DesignSystemGlobal {
     public static let BottleGreen800 = TokensSemanticLight.BottleGreen800
     public static let BottleGreen900 = TokensSemanticLight.BottleGreen900
     public static let BottleGreen950 = TokensSemanticLight.BottleGreen950
-    
+
     // MARK: - Color Tokens - Lemon Scale (Yellow)
     public static let Lemon025 = TokensSemanticLight.Lemon025
     public static let Lemon050 = TokensSemanticLight.Lemon050

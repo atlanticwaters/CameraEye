@@ -577,67 +577,133 @@ struct PairedPromoCard: View {
     }
 }
 
-// MARK: - Shop by Category List (Screen 4)
-/// Always-expanded category list with native NavigationLinks
+// MARK: - Shop by Category List (Screen 4 / Slide-in Navigation)
+/// Unified category list used both in home screen and as slide-in navigation
+/// Uses SF Pro typeface and links to respective PLP views based on category
 struct ShopByCategoryList: View {
     let categories: [ShopCategory]
+    let isSlideInMode: Bool
+    let onClose: (() -> Void)?
+    
+    init(categories: [ShopCategory], isSlideInMode: Bool = false, onClose: (() -> Void)? = nil) {
+        self.categories = categories
+        self.isSlideInMode = isSlideInMode
+        self.onClose = onClose
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // Header
-            Text("Shop by Category")
-                .font(.system(size: 18, weight: .bold))
-                .foregroundStyle(Color.textPrimary)
+            if isSlideInMode {
+                // Header for slide-in mode with close button
+                HStack(spacing: DesignSystemGlobal.Spacing3) {
+                    Text("Shop by Category")
+                        .font(.system(size: 24, weight: .semibold))
+                        .foregroundStyle(Color.textPrimary)
+                    
+                    Spacer()
+                    
+                    Button {
+                        onClose?()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 18, weight: .medium))
+                            .foregroundStyle(Color.textSecondary)
+                            .frame(width: 44, height: 44)
+                            .contentShape(Circle())
+                    }
+                }
                 .padding(.horizontal, 16)
-                .padding(.vertical, 12)
+                .padding(.top, DesignSystemGlobal.Spacing6)
+                .padding(.bottom, DesignSystemGlobal.Spacing4)
+            } else {
+                // Header for home screen embedded mode
+                Text("Shop by Category")
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundStyle(Color.textPrimary)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
+            }
 
             // Always visible category list
-            VStack(spacing: 0) {
-                ForEach(categories) { category in
-                    CategoryListRow(category: category)
+            ScrollView {
+                VStack(spacing: 0) {
+                    ForEach(categories) { category in
+                        CategoryListRow(category: category, isSlideInMode: isSlideInMode)
+                    }
                 }
             }
         }
-        .background(Color.containerBackground)
-        .clipShape(RoundedRectangle(cornerRadius: AppTheme.cornerRadiusMedium))
+        .background(isSlideInMode ? Color.clear : Color.containerBackground)
+        .if(!isSlideInMode) { view in
+            view.clipShape(RoundedRectangle(cornerRadius: AppTheme.cornerRadiusMedium))
+        }
     }
 }
 
 struct CategoryListRow: View {
     let category: ShopCategory
+    let isSlideInMode: Bool
 
     var body: some View {
-        NavigationLink(destination: CategoryDetailView(category: category)) {
-            HStack(spacing: 12) {
-                // Category Icon
-                ZStack {
-                    Circle()
-                        .fill(DesignSystemGlobal.Brand050)
-                        .frame(width: 40, height: 40)
-
-                    Image(systemName: category.iconName)
-                        .font(.system(size: 18))
-                        .foregroundStyle(Color.brandPrimary)
+        Group {
+            if let plpCategory = category.plpCategory {
+                // Category has a PLP - navigate to it
+                Button {
+                    // Navigation is handled by the parent using NavigationLink
+                } label: {
+                    NavigationLink(destination: PLPView(category: plpCategory)) {
+                        categoryContent
+                    }
                 }
+                .buttonStyle(.plain)
+            } else {
+                // Category doesn't have PLP yet - show coming soon
+                categoryContent
+                    .opacity(0.6)
+            }
+        }
+        
+        Divider()
+            .padding(.leading, isSlideInMode ? 16 + 32 + 12 : 72)
+    }
+    
+    private var categoryContent: some View {
+        HStack(spacing: 12) {
+            // Category Icon
+            ZStack {
+                Circle()
+                    .fill(DesignSystemGlobal.Brand050)
+                    .frame(width: isSlideInMode ? 32 : 40, height: isSlideInMode ? 32 : 40)
 
+                Image(systemName: category.iconName)
+                    .font(.system(size: isSlideInMode ? 16 : 18, weight: .medium))
+                    .foregroundStyle(Color.brandPrimary)
+            }
+
+            VStack(alignment: .leading, spacing: 2) {
                 Text(category.name)
-                    .font(.system(size: 16))
+                    .font(.system(size: isSlideInMode ? 17 : 16, weight: .regular))
                     .foregroundStyle(Color.textPrimary)
+                
+                if category.plpCategory == nil {
+                    Text("Coming Soon")
+                        .font(.system(size: 13, weight: .regular))
+                        .foregroundStyle(Color.textTertiary)
+                }
+            }
 
-                Spacer()
+            Spacer()
 
+            if category.plpCategory != nil {
                 Image(systemName: "chevron.right")
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(.system(size: 12, weight: .medium))
                     .foregroundStyle(Color.textTertiary)
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            .background(Color.containerBackground)
         }
-        .buttonStyle(.plain)
-
-        Divider()
-            .padding(.leading, 72)
+        .padding(.horizontal, 16)
+        .padding(.vertical, isSlideInMode ? 14 : 10)
+        .background(isSlideInMode ? Color.clear : Color.containerBackground)
+        .contentShape(Rectangle())
     }
 }
 

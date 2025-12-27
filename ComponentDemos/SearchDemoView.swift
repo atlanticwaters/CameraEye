@@ -82,12 +82,12 @@ struct ProductImageView: View {
                 // Fallback placeholder
                 Image(systemName: "photo")
                     .font(.system(size: size * 0.4))
-                    .foregroundColor(.gray.opacity(0.5))
+                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorTertiary.opacity(0.5))
             }
         }
         .frame(width: size, height: size)
-        .background(Color(.systemBackground))
-        .cornerRadius(8)
+        .background(DesignSystemGlobal.BackgroundContainerColorWhite)
+        .cornerRadius(DesignSystemGlobal.BorderRadiusLg)
     }
 
     private func loadImage() -> UIImage? {
@@ -241,6 +241,10 @@ class SearchViewModel: ObservableObject {
 struct SearchDemoView: View {
     @StateObject private var viewModel = SearchViewModel()
     @FocusState private var isSearchFieldFocused: Bool
+    @Environment(\.dismiss) private var dismiss
+    
+    // Optional callback for custom dismiss behavior (when embedded in navigation)
+    var onDismiss: (() -> Void)?
 
     var body: some View {
         VStack(spacing: 0) {
@@ -252,6 +256,13 @@ struct SearchDemoView: View {
                 onBack: {
                     viewModel.clearSearch()
                     isSearchFieldFocused = false
+                    
+                    // Use custom dismiss if provided, otherwise use environment dismiss
+                    if let onDismiss = onDismiss {
+                        onDismiss()
+                    } else {
+                        dismiss()
+                    }
                 }
             )
             .padding(.horizontal, 16)
@@ -299,7 +310,7 @@ struct SearchDemoView: View {
             BottomActionBar()
                 .padding(.bottom, 8)
         }
-        .background(Color(.systemGroupedBackground))
+        .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
         .onChange(of: isSearchFieldFocused) { oldValue, newValue in
             viewModel.isSearchFocused = newValue
         }
@@ -316,40 +327,46 @@ struct SearchBarView: View {
 
     var body: some View {
         HStack(spacing: 12) {
-            // Back Button
+            // Back Button with glass effect
             Button(action: onBack) {
                 Image(systemName: "chevron.left")
                     .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(.primary)
+                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
                     .frame(width: 40, height: 40)
-                    .background(Color(.systemBackground))
-                    .clipShape(Circle())
-                    .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
+                    .background(
+                        Circle()
+                            .fill(.clear)
+                            .glassEffect(.regular.interactive(), in: .circle)
+                    )
             }
+            .buttonStyle(.plain)
 
-            // Search Field
+            // Search Field with glass effect
             HStack(spacing: 8) {
                 Image(systemName: "magnifyingglass")
-                    .foregroundColor(.gray)
+                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorTertiary)
                     .font(.system(size: 16))
 
-                TextField("", text: $searchText)
+                TextField("Search", text: $searchText)
                     .focused($isSearchFieldFocused)
                     .font(.system(size: 16))
+                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
 
                 if !searchText.isEmpty {
                     Button(action: onClear) {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(.gray)
+                            .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorTertiary)
                             .font(.system(size: 18))
                     }
                 }
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 10)
-            .background(Color(.systemBackground))
-            .cornerRadius(24)
-            .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
+            .background(
+                Capsule()
+                    .fill(.clear)
+                    .glassEffect(.regular, in: .capsule)
+            )
         }
     }
 }
@@ -428,12 +445,16 @@ struct RecentSearchesSection: View {
                 Button(action: onClearAll) {
                     Text("Clear All")
                         .font(.thdBodySm)
-                        .foregroundColor(.secondary)
+                        .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorSecondary)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
-                        .background(Color(.systemBackground))
-                        .cornerRadius(16)
+                        .background(
+                            RoundedRectangle(cornerRadius: 16)
+                                .fill(.clear)
+                                .glassEffect(.regular.interactive(), in: .rect(cornerRadius: 16))
+                        )
                 }
+                .buttonStyle(.plain)
             }
             .padding(.horizontal, 16)
             .padding(.top, 20)
@@ -539,19 +560,18 @@ struct MatchedProductCard: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("Purchased September 24, 2025")
                     .font(.thdBodySm)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 Text("\(Text(product.brandName).fontWeight(.semibold)) \(product.productDescription)")
                     .font(.thdBodyMd)
-                    .foregroundColor(.primary)
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
             }
-            .foregroundColor(.primary)
 
             Spacer()
         }
         .padding(12)
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
+        .background(DesignSystemGlobal.BackgroundContainerColorWhite)
+        .cornerRadius(DesignSystemGlobal.BorderRadiusLg)
         .shadow(color: .black.opacity(0.05), radius: 4, x: 0, y: 2)
     }
 }
@@ -620,33 +640,23 @@ struct SearchSuggestionRow: View {
 struct BottomActionBar: View {
     var body: some View {
         HStack(spacing: 12) {
-            ActionButton(icon: "barcode.viewfinder", title: "Barcode Scanner")
-            ActionButton(icon: "camera", title: "Camera")
+            DSButton(
+                "Barcode Scanner",
+                style: .outlined,
+                size: .medium,
+                leadingIcon: Image(systemName: "barcode.viewfinder"),
+                action: {}
+            )
+            
+            DSButton(
+                "Camera",
+                style: .outlined,
+                size: .medium,
+                leadingIcon: Image(systemName: "camera"),
+                action: {}
+            )
         }
         .padding(.horizontal, 16)
-    }
-}
-
-struct ActionButton: View {
-    let icon: String
-    let title: String
-
-    var body: some View {
-        Button(action: {}) {
-            HStack(spacing: 8) {
-                Image(systemName: icon)
-                    .font(.system(size: 14))
-                Text(title)
-                    .font(.thdBodySm)
-                    .fontWeight(.medium)
-            }
-            .foregroundColor(.primary)
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
-            .background(Color(.systemBackground))
-            .cornerRadius(24)
-            .shadow(color: .black.opacity(0.05), radius: 2, x: 0, y: 1)
-        }
     }
 }
 

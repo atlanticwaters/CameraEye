@@ -303,14 +303,14 @@ public struct DSPlpFilterPanel: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 16, height: 14)
-                        .foregroundColor(filterPillTextColor)
+                        .foregroundColor(filterPillFilledTextColor)
                 }
                 
                 Text(item.text)
                     .font(.custom(DesignSystemGlobal.FontFamilyInformational, size: DesignSystemGlobal.FontSizeBodySm))
                     .fontWeight(.regular)
                     .lineLimit(1)
-                    .foregroundColor(filterPillTextColor)
+                    .foregroundColor(filterPillFilledTextColor)
             }
             .padding(.horizontal, item.icon != nil ? 0 : DesignSystemGlobal.Spacing3)
             .padding(.leading, item.icon != nil ? 0 : 0)
@@ -333,11 +333,11 @@ public struct DSPlpFilterPanel: View {
                 .font(.custom(DesignSystemGlobal.FontFamilyInformational, size: DesignSystemGlobal.FontSizeBodySm))
                 .fontWeight(.regular)
                 .lineLimit(1)
-                .foregroundColor(subFilterPillTextColor)
+                .foregroundColor(subFilterPillFilledTextColor)
                 .padding(.horizontal, DesignSystemGlobal.Spacing4)
                 .padding(.vertical, DesignSystemGlobal.Spacing2 - 2)
                 .frame(minHeight: 36)
-                .background(subFilterPillBackgroundColor)
+                .background(subFilterPillFilledBackgroundColor)
                 .clipShape(Capsule())
         }
         .buttonStyle(PlainButtonStyle())
@@ -443,22 +443,38 @@ public struct DSPlpFilterPanel: View {
     }
     
     private var stylePillBackgroundColor: Color {
-        colorScheme == .dark ? TokensSemanticDark.Greige050 : TokensSemanticLight.Greige050
+        colorScheme == .dark 
+            ? TokensSemanticDark.BackgroundButtonColorTransparent10Default 
+            : TokensSemanticLight.BackgroundButtonColorTransparent10Default
     }
     
     private var stylePillTextColor: Color {
         colorScheme == .dark ? TokensSemanticDark.TextSelectorColorDefault : TokensSemanticLight.TextSelectorColorDefault
     }
     
-    private var filterPillTextColor: Color {
-        colorScheme == .dark ? TokensSemanticDark.TextSelectorColorDefault : TokensSemanticLight.TextSelectorColorDefault
+    // Filter Pills - Filled State with Transparent Background
+    private var filterPillFilledBackgroundColor: Color {
+        colorScheme == .dark 
+            ? TokensSemanticDark.BackgroundButtonColorTransparent10Default 
+            : TokensSemanticLight.BackgroundButtonColorTransparent10Default
     }
     
-    private var subFilterPillBackgroundColor: Color {
-        colorScheme == .dark ? TokensSemanticDark.Greige050 : TokensSemanticLight.Greige050
+    private var filterPillFilledTextColor: Color {
+        colorScheme == .dark 
+            ? TokensSemanticDark.TextOnSurfaceColorPrimary 
+            : TokensSemanticLight.TextOnSurfaceColorPrimary
     }
     
-    private var subFilterPillTextColor: Color {
-        colorScheme == .dark ? TokensSemanticDark.TextSelectorColorDefault : TokensSemanticLight.TextSelectorColorDefault
+    // Sub Filter Pills - Filled State with Transparent Background
+    private var subFilterPillFilledBackgroundColor: Color {
+        colorScheme == .dark 
+            ? TokensSemanticDark.BackgroundButtonColorTransparent10Default 
+            : TokensSemanticLight.BackgroundButtonColorTransparent10Default
+    }
+    
+    private var subFilterPillFilledTextColor: Color {
+        colorScheme == .dark 
+            ? TokensSemanticDark.TextOnSurfaceColorPrimary 
+            : TokensSemanticLight.TextOnSurfaceColorPrimary
     }
 }
