@@ -1,480 +1,279 @@
 import SwiftUI
 
-// MARK: - DSStylePillItem
+// MARK: - DSPLPCategoryPill
 
-/// Configuration for a style pill with image and text
-public struct DSStylePillItem: Identifiable {
+/// Category pill data with image for style pill container.
+public struct DSPLPCategoryPill: Identifiable, Equatable, Sendable {
     public let id: String
-    public let text: String
+    public let label: String
     public let image: Image?
-    public let imageURL: String?  // NEW: Support for remote image URLs
-    
-    public init(id: String = UUID().uuidString, text: String, image: Image? = nil, imageURL: String? = nil) {
+
+    public init(id: String = UUID().uuidString, label: String, image: Image? = nil) {
         self.id = id
-        self.text = text
+        self.label = label
         self.image = image
-        self.imageURL = imageURL
     }
 }
 
-// MARK: - DSFilterPillItem
+// MARK: - DSPLPFilterPill
 
-/// Configuration for a filter pill
-public struct DSFilterPillItem: Identifiable {
+/// Filter pill data for filter rows.
+public struct DSPLPFilterPill: Identifiable, Equatable, Sendable {
     public let id: String
-    public let text: String
-    public let icon: Image?
-    
-    public init(id: String = UUID().uuidString, text: String, icon: Image? = nil) {
+    public let label: String
+    public let isSelected: Bool
+    public let hasDropdown: Bool
+
+    public init(
+        id: String = UUID().uuidString,
+        label: String,
+        isSelected: Bool = false,
+        hasDropdown: Bool = false
+    ) {
         self.id = id
-        self.text = text
-        self.icon = icon
+        self.label = label
+        self.isSelected = isSelected
+        self.hasDropdown = hasDropdown
     }
 }
 
-// MARK: - DSPlpFilterPanel
+// MARK: - DSPLPFilterPanelData
 
-/// A Product Listing Page (PLP) filter panel displaying title, style pills, results count, and filter options.
+/// Data model for the PLP Filter Panel.
+public struct DSPLPFilterPanelData: Equatable, Sendable {
+    public let categoryTitle: String
+    public let categoryPills: [DSPLPCategoryPill]
+    public let resultsCount: Int
+    public let primaryFilters: [DSPLPFilterPill]
+    public let secondaryFilters: [DSPLPFilterPill]
+
+    public init(
+        categoryTitle: String,
+        categoryPills: [DSPLPCategoryPill] = [],
+        resultsCount: Int = 0,
+        primaryFilters: [DSPLPFilterPill] = [],
+        secondaryFilters: [DSPLPFilterPill] = []
+    ) {
+        self.categoryTitle = categoryTitle
+        self.categoryPills = categoryPills
+        self.resultsCount = resultsCount
+        self.primaryFilters = primaryFilters
+        self.secondaryFilters = secondaryFilters
+    }
+}
+
+// MARK: - DSPLPFilterPanel
+
+/// A component for displaying PLP (Product Listing Page) filter panel.
 ///
-/// DSPlpFilterPanel is a composite component that combines:
-/// - Title (category name)
-/// - Style Pills (large pills with images for browsing product styles)
-/// - Results count
-/// - Filter Pills (top-level filter categories)
-/// - Sub-Filter Pills (applied filters/quick filters)
+/// DSPLPFilterPanel displays a category title, category style pills with images,
+/// result count, and filter pill rows. This component is used at the top of
+/// product listing pages to help users navigate and filter products.
 ///
 /// Example usage:
 /// ```swift
-/// DSPlpFilterPanel(
-///     title: "REFRIGERATOR",
-///     stylePills: [
-///         DSStylePillItem(text: "French Door\nRefrigerators", image: Image("french-door")),
-///         DSStylePillItem(text: "Side by Side\nRefrigerators", image: Image("side-by-side"))
-///     ],
-///     resultsCount: "5,007 RESULTS",
-///     filterPills: [
-///         DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-///         DSFilterPillItem(text: "Category")
-///     ],
-///     subFilterPills: [
-///         DSFilterPillItem(text: "In Stock At Store Today"),
-///         DSFilterPillItem(text: "Free 1-2 Day Delivery")
-///     ],
-///     onStylePillTap: { item in print("Tapped: \(item.text)") },
-///     onFilterPillTap: { item in print("Filter: \(item.text)") },
-///     onSubFilterPillTap: { item in print("Sub-filter: \(item.text)") }
+/// DSPLPFilterPanel(
+///     data: DSPLPFilterPanelData(
+///         categoryTitle: "REFRIGERATOR",
+///         categoryPills: [
+///             DSPLPCategoryPill(label: "French Door Refrigerators"),
+///             DSPLPCategoryPill(label: "Side by Side Refrigerators")
+///         ],
+///         resultsCount: 102,
+///         primaryFilters: [
+///             DSPLPFilterPill(label: "Brand", hasDropdown: true),
+///             DSPLPFilterPill(label: "Price", hasDropdown: true)
+///         ],
+///         secondaryFilters: [
+///             DSPLPFilterPill(label: "In Stock", isSelected: true),
+///             DSPLPFilterPill(label: "Free Delivery")
+///         ]
+///     ),
+///     onCategoryPillTap: { pill in print("Category: \(pill.label)") },
+///     onFilterPillTap: { pill in print("Filter: \(pill.label)") }
 /// )
 /// ```
-public struct DSPlpFilterPanel: View {
-    // MARK: Lifecycle
+public struct DSPLPFilterPanel: View {
+    // MARK: - Properties
 
-    /// Creates a DSPlpFilterPanel with the specified configuration.
-    public init(
-        title: String,
-        stylePills: [DSStylePillItem] = [],
-        resultsCount: String? = nil,
-        filterPills: [DSFilterPillItem] = [],
-        subFilterPills: [DSFilterPillItem] = [],
-        onStylePillTap: ((DSStylePillItem) -> Void)? = nil,
-        onFilterPillTap: ((DSFilterPillItem) -> Void)? = nil,
-        onSubFilterPillTap: ((DSFilterPillItem) -> Void)? = nil
-    ) {
-        self.title = title
-        self.stylePills = stylePills
-        self.resultsCount = resultsCount
-        self.filterPills = filterPills
-        self.subFilterPills = subFilterPills
-        self.onStylePillTap = onStylePillTap
-        self.onFilterPillTap = onFilterPillTap
-        self.onSubFilterPillTap = onSubFilterPillTap
+    private let data: DSPLPFilterPanelData
+    private let selectedCategoryId: String?
+    private let onCategoryPillTap: ((DSPLPCategoryPill) -> Void)?
+    private let onPrimaryFilterTap: ((DSPLPFilterPill) -> Void)?
+    private let onSecondaryFilterTap: ((DSPLPFilterPill) -> Void)?
+
+    // MARK: - Layout Constants
+
+    private enum Layout {
+        static let sectionSpacing: CGFloat = 24
+        static let categoryPillSpacing: CGFloat = 12
+        static let filterTopSpacing: CGFloat = 8
+        static let filterSubSpacing: CGFloat = 8
+        static let filterRowSpacing: CGFloat = 4
     }
 
-    // MARK: Public
+    // MARK: - Initializer
+
+    public init(
+        data: DSPLPFilterPanelData,
+        selectedCategoryId: String? = nil,
+        onCategoryPillTap: ((DSPLPCategoryPill) -> Void)? = nil,
+        onPrimaryFilterTap: ((DSPLPFilterPill) -> Void)? = nil,
+        onSecondaryFilterTap: ((DSPLPFilterPill) -> Void)? = nil
+    ) {
+        self.data = data
+        self.selectedCategoryId = selectedCategoryId
+        self.onCategoryPillTap = onCategoryPillTap
+        self.onPrimaryFilterTap = onPrimaryFilterTap
+        self.onSecondaryFilterTap = onSecondaryFilterTap
+    }
+
+    // MARK: - Body
 
     public var body: some View {
-        VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing6) {
-            // Title - Using Display font family for headings
-            Text(title)
-                .font(.custom(DesignSystemGlobal.FontFamilyDisplay, size: DesignSystemGlobal.FontSizeH1))
-                .fontWeight(.bold)
-                .tracking(0.32)
-                .lineLimit(1)
-                .foregroundColor(titleColor)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            // Style Pills Container
-            if !stylePills.isEmpty {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: DesignSystemGlobal.Spacing3) {
-                        ForEach(stylePills) { item in
-                            stylePillView(item)
-                        }
-                    }
-                }
-                .frame(height: 68)
+        VStack(alignment: .leading, spacing: Layout.sectionSpacing) {
+            // Category Title
+            categoryTitleSection
+
+            // Style Pill Container (Category Pills)
+            if !data.categoryPills.isEmpty {
+                categoryPillsSection
             }
-            
-            // Results Count - Using Display font family for prominent text
-            if let resultsCount = resultsCount {
-                Text(resultsCount)
-                    .font(.custom(DesignSystemGlobal.FontFamilyDisplay, size: DesignSystemGlobal.FontSizeH3))
-                    .fontWeight(.semibold)
-                    .tracking(0.24)
-                    .lineLimit(1)
-                    .foregroundColor(resultsColor)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            
-            // Filter Items Container
-            if !filterPills.isEmpty || !subFilterPills.isEmpty {
-                VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
-                    // Filter Top Pills
-                    if !filterPills.isEmpty {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: DesignSystemGlobal.Spacing2) {
-                                ForEach(filterPills) { item in
-                                    filterPillView(item)
-                                }
-                            }
-                        }
-                    }
-                    
-                    // Filter Sub Pills
-                    if !subFilterPills.isEmpty {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: DesignSystemGlobal.Spacing2) {
-                                ForEach(subFilterPills) { item in
-                                    subFilterPillView(item)
-                                }
-                            }
-                        }
-                    }
-                }
+
+            // Product Results
+            resultsSection
+
+            // Filter Items
+            if !data.primaryFilters.isEmpty || !data.secondaryFilters.isEmpty {
+                filterItemsSection
             }
         }
-        .padding(.vertical, DesignSystemGlobal.Spacing4)
     }
 
-    // MARK: Internal
-    
-    let title: String
-    let stylePills: [DSStylePillItem]
-    let resultsCount: String?
-    let filterPills: [DSFilterPillItem]
-    let subFilterPills: [DSFilterPillItem]
-    let onStylePillTap: ((DSStylePillItem) -> Void)?
-    let onFilterPillTap: ((DSFilterPillItem) -> Void)?
-    let onSubFilterPillTap: ((DSFilterPillItem) -> Void)?
+    // MARK: - Category Title Section
 
-    @Environment(\.colorScheme) private var colorScheme
-
-    // MARK: Private
-    
-    // MARK: - Style Pill View
-    
     @ViewBuilder
-    private func stylePillView(_ item: DSStylePillItem) -> some View {
-        Button(action: {
-            onStylePillTap?(item)
-        }) {
-            HStack(spacing: DesignSystemGlobal.Spacing1) {
-                // Image container - supports both local file paths and remote URLs
-                if let imageURL = item.imageURL {
-                    if imageURL.hasPrefix("http://") || imageURL.hasPrefix("https://") {
-                        // Remote URL - use AsyncImage
-                        let _ = print("   → Using AsyncImage for remote URL: \(imageURL)")
-                        AsyncImage(url: URL(string: imageURL)) { phase in
-                            switch phase {
-                            case .empty:
-                                ZStack {
-                                    Circle()
-                                        .fill(Color.gray.opacity(0.2))
-                                        .frame(width: 48, height: 48)
-                                    ProgressView()
-                                }
-                            case .success(let image):
-                                image
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 48, height: 48)
-                                    .clipShape(Circle())
-                            case .failure(let error):
-                                ZStack {
-                                    Circle()
-                                        .fill(Color.red.opacity(0.2))
-                                        .frame(width: 48, height: 48)
-
-                                    if let fallbackImage = item.image {
-                                        fallbackImage
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 24, height: 24)
-                                            .foregroundColor(.gray)
-                                    } else {
-                                        Image(systemName: "exclamationmark.triangle")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .frame(width: 24, height: 24)
-                                            .foregroundColor(.red)
-                                    }
-                                }
-                                .onAppear {
-                                    print("❌ Failed to load remote image: \(imageURL)")
-                                    print("   Error: \(error)")
-                                }
-                            @unknown default:
-                                EmptyView()
-                            }
-                        }
-                    } else {
-                        // Local file path - load from bundle or file system
-                        let _ = print("   → Attempting to load LOCAL file: \(imageURL)")
-                        if let loadedImage = loadLocalImage(from: imageURL) {
-                            let _ = print("   ✅ Successfully loaded local image!")
-                            loadedImage
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 48, height: 48)
-                                .clipShape(Circle())
-                        } else {
-                            let _ = print("   ❌ Local image load failed, showing fallback")
-                            // Failed to load local image - show fallback
-                            ZStack {
-                                Circle()
-                                    .fill(Color.orange.opacity(0.2))
-                                    .frame(width: 48, height: 48)
-
-                                if let fallbackImage = item.image {
-                                    fallbackImage
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 24, height: 24)
-                                        .foregroundColor(.gray)
-                                } else {
-                                    Image(systemName: "photo")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 24, height: 24)
-                                        .foregroundColor(.orange)
-                                }
-                            }
-                            .onAppear {
-                                print("⚠️ Failed to load local image: \(imageURL)")
-                            }
-                        }
-                    }
-                } else if let image = item.image {
-                    // Local image asset or SF Symbol
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 48, height: 48)
-                        .foregroundColor(stylePillTextColor)
-                }
-                
-                // Text - Using Informational font family for UI elements
-                Text(item.text)
-                    .font(.custom(DesignSystemGlobal.FontFamilyInformational, size: DesignSystemGlobal.FontSizeBodySm))
-                    .fontWeight(.regular)
-                    .lineLimit(2)
-                    .foregroundColor(stylePillTextColor)
-                    .multilineTextAlignment(.leading)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            .padding(.horizontal, DesignSystemGlobal.Spacing4)
-            .padding(.vertical, DesignSystemGlobal.Spacing3)
-            .frame(height: 68)
-            .background(stylePillBackgroundColor)
-            .clipShape(Capsule())
-        }
-        .buttonStyle(PlainButtonStyle())
+    private var categoryTitleSection: some View {
+        Text(data.categoryTitle.uppercased())
+            .font(.system(size: 32, weight: .heavy))
+            .foregroundColor(DSPLPFilterPanelColorHelper.categoryTitleColor())
+            .tracking(0.32)
     }
-    
-    // MARK: - Filter Pill View
-    
+
+    // MARK: - Category Pills Section
+
     @ViewBuilder
-    private func filterPillView(_ item: DSFilterPillItem) -> some View {
-        Button(action: {
-            onFilterPillTap?(item)
-        }) {
-            HStack(spacing: DesignSystemGlobal.Spacing1) {
-                if let icon = item.icon {
-                    icon
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 16, height: 14)
-                        .foregroundColor(filterPillFilledTextColor)
+    private var categoryPillsSection: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: Layout.categoryPillSpacing) {
+                ForEach(data.categoryPills) { pill in
+                    categoryPillView(pill)
                 }
-                
-                Text(item.text)
-                    .font(.custom(DesignSystemGlobal.FontFamilyInformational, size: DesignSystemGlobal.FontSizeBodySm))
-                    .fontWeight(.regular)
-                    .lineLimit(1)
-                    .foregroundColor(filterPillFilledTextColor)
             }
-            .padding(.horizontal, item.icon != nil ? 0 : DesignSystemGlobal.Spacing3)
-            .padding(.leading, item.icon != nil ? 0 : 0)
-            .padding(.trailing, item.icon != nil ? DesignSystemGlobal.Spacing4 : 0)
-            .padding(.vertical, DesignSystemGlobal.Spacing3)
-            .frame(height: 44)
-            .background(Color.clear)
         }
-        .buttonStyle(PlainButtonStyle())
     }
-    
-    // MARK: - Sub Filter Pill View
-    
+
     @ViewBuilder
-    private func subFilterPillView(_ item: DSFilterPillItem) -> some View {
-        Button(action: {
-            onSubFilterPillTap?(item)
-        }) {
-            Text(item.text)
-                .font(.custom(DesignSystemGlobal.FontFamilyInformational, size: DesignSystemGlobal.FontSizeBodySm))
-                .fontWeight(.regular)
-                .lineLimit(1)
-                .foregroundColor(subFilterPillFilledTextColor)
-                .padding(.horizontal, DesignSystemGlobal.Spacing4)
-                .padding(.vertical, DesignSystemGlobal.Spacing2 - 2)
-                .frame(minHeight: 36)
-                .background(subFilterPillFilledBackgroundColor)
-                .clipShape(Capsule())
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
-    
-    // MARK: - Image Loading Helpers
+    private func categoryPillView(_ pill: DSPLPCategoryPill) -> some View {
+        let isSelected = pill.id == selectedCategoryId
 
-    /// Load a local image from a file path
-    /// Supports paths like "french-door-images/imgi_39_...jpg" or just "imgi_39_...jpg"
-    /// Tries both asset catalog and bundle folders (images, french-door-images)
-    private func loadLocalImage(from path: String) -> Image? {
-        // Extract just the filename without extension
-        let filename = (path as NSString).lastPathComponent
-        let nameWithoutExt = filename
-            .replacingOccurrences(of: ".jpg", with: "")
-            .replacingOccurrences(of: ".png", with: "")
-            .replacingOccurrences(of: ".jpeg", with: "")
-        
-        print("      🔧 Looking for asset: \(nameWithoutExt)")
-        
-        // Strategy 1: Try as asset catalog image
-        #if canImport(UIKit)
-        if UIImage(named: nameWithoutExt) != nil {
-            print("      ✅ Found in asset catalog!")
-            return Image(nameWithoutExt)
+        if let image = pill.image {
+            DSPill(
+                pill.label,
+                leadingImage: image,
+                style: .filled,
+                size: .xl,
+                isSelected: isSelected
+            ) {
+                onCategoryPillTap?(pill)
+            }
+        } else {
+            DSPill(
+                pill.label,
+                style: .filled,
+                size: .xl,
+                isSelected: isSelected
+            ) {
+                onCategoryPillTap?(pill)
+            }
         }
-        #elseif canImport(AppKit)
-        if NSImage(named: nameWithoutExt) != nil {
-            print("      ✅ Found in asset catalog!")
-            return Image(nameWithoutExt)
+    }
+
+    // MARK: - Results Section
+
+    @ViewBuilder
+    private var resultsSection: some View {
+        Text("\(data.resultsCount) Results")
+            .font(.system(size: 14, weight: .medium))
+            .foregroundColor(DSPLPFilterPanelColorHelper.resultsTextColor())
+    }
+
+    // MARK: - Filter Items Section
+
+    @ViewBuilder
+    private var filterItemsSection: some View {
+        VStack(alignment: .leading, spacing: Layout.filterRowSpacing) {
+            // Primary Filters (Lg size)
+            if !data.primaryFilters.isEmpty {
+                primaryFiltersRow
+            }
+
+            // Secondary Filters (Md size)
+            if !data.secondaryFilters.isEmpty {
+                secondaryFiltersRow
+            }
         }
-        #endif
-        
-        // Strategy 2: Try to load from bundle folders
-        let ext = filename.hasSuffix(".png") ? "png" : (filename.hasSuffix(".jpeg") ? "jpeg" : "jpg")
-        let possibleFolders = ["images", "french-door-images", ""]
-        
-        for folder in possibleFolders {
-            if folder.isEmpty {
-                // Try root level
-                if let url = Bundle.main.url(forResource: nameWithoutExt, withExtension: ext) {
-                    print("      ✅ Found in bundle root!")
-                    #if canImport(UIKit)
-                    if let uiImage = UIImage(contentsOfFile: url.path) {
-                        return Image(uiImage: uiImage)
+    }
+
+    @ViewBuilder
+    private var primaryFiltersRow: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: Layout.filterTopSpacing) {
+                ForEach(data.primaryFilters) { filter in
+                    filterPillView(filter, size: .lg) {
+                        onPrimaryFilterTap?(filter)
                     }
-                    #elseif canImport(AppKit)
-                    if let nsImage = NSImage(contentsOf: url) {
-                        return Image(nsImage: nsImage)
-                    }
-                    #endif
-                }
-            } else {
-                // Try subdirectory
-                if let url = Bundle.main.url(forResource: nameWithoutExt, withExtension: ext, subdirectory: folder) {
-                    print("      ✅ Found in \(folder) folder!")
-                    #if canImport(UIKit)
-                    if let uiImage = UIImage(contentsOfFile: url.path) {
-                        return Image(uiImage: uiImage)
-                    }
-                    #elseif canImport(AppKit)
-                    if let nsImage = NSImage(contentsOf: url) {
-                        return Image(nsImage: nsImage)
-                    }
-                    #endif
                 }
             }
         }
-        
-        // Strategy 3: Try direct file path
-        if let resourcePath = Bundle.main.resourcePath {
-            for folder in possibleFolders {
-                let filePath = folder.isEmpty ? 
-                    "\(resourcePath)/\(filename)" : 
-                    "\(resourcePath)/\(folder)/\(filename)"
-                
-                #if canImport(UIKit)
-                if let uiImage = UIImage(contentsOfFile: filePath) {
-                    print("      ✅ Found at direct path: \(folder.isEmpty ? "root" : folder)")
-                    return Image(uiImage: uiImage)
+    }
+
+    @ViewBuilder
+    private var secondaryFiltersRow: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: Layout.filterSubSpacing) {
+                ForEach(data.secondaryFilters) { filter in
+                    filterPillView(filter, size: .md) {
+                        onSecondaryFilterTap?(filter)
+                    }
                 }
-                #elseif canImport(AppKit)
-                if let nsImage = NSImage(contentsOfFile: filePath) {
-                    print("      ✅ Found at direct path: \(folder.isEmpty ? "root" : folder)")
-                    return Image(nsImage: nsImage)
-                }
-                #endif
             }
         }
-        
-        print("      ❌ Not found in asset catalog or folders: images, french-door-images")
-        return nil
     }
 
-    // MARK: - Color Helpers
-
-    private var titleColor: Color {
-        colorScheme == .dark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary
-    }
-    
-    private var resultsColor: Color {
-        colorScheme == .dark ? TokensSemanticDark.Greige900 : TokensSemanticLight.Greige900
-    }
-    
-    private var stylePillBackgroundColor: Color {
-        colorScheme == .dark 
-            ? TokensSemanticDark.BackgroundButtonColorTransparent10Default 
-            : TokensSemanticLight.BackgroundButtonColorTransparent10Default
-    }
-    
-    private var stylePillTextColor: Color {
-        colorScheme == .dark ? TokensSemanticDark.TextSelectorColorDefault : TokensSemanticLight.TextSelectorColorDefault
-    }
-    
-    // Filter Pills - Filled State with Transparent Background
-    private var filterPillFilledBackgroundColor: Color {
-        colorScheme == .dark 
-            ? TokensSemanticDark.BackgroundButtonColorTransparent10Default 
-            : TokensSemanticLight.BackgroundButtonColorTransparent10Default
-    }
-    
-    private var filterPillFilledTextColor: Color {
-        colorScheme == .dark 
-            ? TokensSemanticDark.TextOnSurfaceColorPrimary 
-            : TokensSemanticLight.TextOnSurfaceColorPrimary
-    }
-    
-    // Sub Filter Pills - Filled State with Transparent Background
-    private var subFilterPillFilledBackgroundColor: Color {
-        colorScheme == .dark 
-            ? TokensSemanticDark.BackgroundButtonColorTransparent10Default 
-            : TokensSemanticLight.BackgroundButtonColorTransparent10Default
-    }
-    
-    private var subFilterPillFilledTextColor: Color {
-        colorScheme == .dark 
-            ? TokensSemanticDark.TextOnSurfaceColorPrimary 
-            : TokensSemanticLight.TextOnSurfaceColorPrimary
+    @ViewBuilder
+    private func filterPillView(
+        _ filter: DSPLPFilterPill,
+        size: DSPillSize,
+        action: @escaping () -> Void
+    ) -> some View {
+        if filter.hasDropdown {
+            DSPill(
+                filter.label,
+                trailingIcon: Image(systemName: "chevron.down"),
+                style: .filled,
+                size: size,
+                isSelected: filter.isSelected,
+                action: action
+            )
+        } else {
+            DSPill(
+                filter.label,
+                style: .filled,
+                size: size,
+                isSelected: filter.isSelected,
+                action: action
+            )
+        }
     }
 }

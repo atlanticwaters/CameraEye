@@ -2,201 +2,134 @@ import SwiftUI
 
 // MARK: - DSButtonColorHelper
 
-/// Helper structure for computing DSButton colors based on style, state, and color scheme.
+/// Helper structure for computing DSButton colors based on style and state.
+///
+/// Colors automatically resolve to light/dark mode via `DSColor`.
+/// No `isDark` parameter needed - the color scheme is handled automatically.
 enum DSButtonColorHelper {
     // MARK: - Background Colors
 
-    static func backgroundColor(style: DSButton.Style, isDisabled: Bool, isDark: Bool) -> Color {
+    /// Returns the background color for a button style and state.
+    /// The color automatically adapts to light/dark mode.
+    static func backgroundColor(style: DSButtonStyle, isDisabled: Bool) -> Color {
         switch style {
-        case .orangeFilled: orangeFilledBackground(isDisabled: isDisabled, isDark: isDark)
-        case .gradientFilled: gradientFilledBackground(isDisabled: isDisabled, isDark: isDark)
-        case .outlined: Color.clear
-        case .whiteFilled: whiteFilledBackground(isDisabled: isDisabled, isDark: isDark)
-        case .black5: black5Background(isDisabled: isDisabled, isDark: isDark)
-        case .black10: black10Background(isDisabled: isDisabled, isDark: isDark)
-        case .ghost: ghostBackground(isDisabled: isDisabled, isDark: isDark)
+        case .orangeFilled:
+            (isDisabled ? DSColor.buttonBackgroundBrandFilledInactive : DSColor.buttonBackgroundBrandFilledDefault)
+                .resolve
+        case .gradientFilled:
+            (isDisabled
+                ? DSColor.buttonBackgroundBrandGradientFilledInactive
+                : DSColor.buttonBackgroundBrandGradientFilledDefault).resolve
+        case .outlined:
+            Color.clear
+        case .whiteFilled:
+            (isDisabled ? DSColor.buttonBackgroundWhiteFilledInactive : DSColor.buttonBackgroundWhiteFilledDefault)
+                .resolve
+        case .black5:
+            (isDisabled ? DSColor.buttonBackgroundTransparent05Inactive : DSColor.buttonBackgroundTransparent05Default)
+                .resolve
+        case .black10:
+            (isDisabled ? DSColor.buttonBackgroundTransparent10Inactive : DSColor.buttonBackgroundTransparent10Default)
+                .resolve
+        case .ghost:
+            (isDisabled ? DSColor.buttonBackgroundGhostFilledInactive : DSColor.buttonBackgroundGhostFilledDefault)
+                .resolve
         }
     }
 
     // MARK: - Foreground Colors
 
-    static func foregroundColor(style: DSButton.Style, isDisabled: Bool, isDark: Bool) -> Color {
+    /// Returns the foreground (text/icon) color for a button style and state.
+    /// The color automatically adapts to light/dark mode.
+    static func foregroundColor(style: DSButtonStyle, isDisabled: Bool) -> Color {
         switch style {
-        case .orangeFilled: orangeFilledForeground(isDisabled: isDisabled, isDark: isDark)
-        case .gradientFilled: gradientFilledForeground(isDisabled: isDisabled, isDark: isDark)
-        case .outlined: outlinedForeground(isDisabled: isDisabled, isDark: isDark)
-        case .whiteFilled: whiteFilledForeground(isDisabled: isDisabled, isDark: isDark)
-        case .black5: black5Foreground(isDisabled: isDisabled, isDark: isDark)
-        case .black10: black10Foreground(isDisabled: isDisabled, isDark: isDark)
-        case .ghost: ghostForeground(isDisabled: isDisabled, isDark: isDark)
+        case .orangeFilled:
+            (isDisabled ? DSColor.buttonTextOrangeFilledInactive : DSColor.buttonTextOrangeFilledDefault).resolve
+        case .gradientFilled:
+            (isDisabled ? DSColor.buttonTextGradientFilledInactive : DSColor.buttonTextGradientFilledDefault).resolve
+        case .outlined:
+            (isDisabled ? DSColor.buttonTextOrangeOutlineInactive : DSColor.buttonTextOrangeOutlineDefault).resolve
+        case .whiteFilled:
+            (isDisabled ? DSColor.buttonTextWhiteFilledInactive : DSColor.buttonTextWhiteFilledDefault).resolve
+        case .black5:
+            (isDisabled ? DSColor.buttonTextTransparent05FilledInactive : DSColor.buttonTextTransparent05FilledDefault)
+                .resolve
+        case .black10:
+            (isDisabled ? DSColor.buttonTextTransparent10FilledInactive : DSColor.buttonTextTransparent10FilledDefault)
+                .resolve
+        case .ghost:
+            (isDisabled ? DSColor.buttonTextGhostFilledInactive : DSColor.buttonTextGhostFilledDefault).resolve
         }
     }
-}
 
-// MARK: - Background Color Helpers
+    // MARK: - Border Colors
 
-extension DSButtonColorHelper {
-    fileprivate typealias Light = TokensSemanticLight
-    fileprivate typealias Dark = TokensSemanticDark
-
-    fileprivate static func orangeFilledBackground(isDisabled: Bool, isDark: Bool) -> Color {
-        if isDark {
-            return isDisabled
-                ? Dark.BackgroundButtonColorBrandFilledInactive
-                : Dark.BackgroundButtonColorBrandFilledDefault
-        }
-        return isDisabled
-            ? Light.BackgroundButtonColorBrandFilledInactive
-            : Light.BackgroundButtonColorBrandFilledDefault
+    /// Returns the border color for outlined buttons.
+    /// The color automatically adapts to light/dark mode.
+    static func borderColor(isDisabled: Bool) -> Color {
+        (isDisabled ? DSColor.buttonBorderOrangeOutlineInactive : DSColor.buttonBorderOrangeOutlineDefault).resolve
     }
 
-    fileprivate static func gradientFilledBackground(isDisabled: Bool, isDark: Bool) -> Color {
-        if isDark {
-            return isDisabled
-                ? Dark.BackgroundButtonColorBrandGradientFilledInactive
-                : Dark.BackgroundButtonColorBrandGradientFilledDefault
-        }
-        return isDisabled
-            ? Light.BackgroundButtonColorBrandGradientFilledInactive
-            : Light.BackgroundButtonColorBrandGradientFilledDefault
-    }
+    // MARK: - Background Fill
 
-    fileprivate static func whiteFilledBackground(isDisabled: Bool, isDark: Bool) -> Color {
-        if isDark {
-            return isDisabled
-                ? Dark.BackgroundButtonColorWhiteFilledInactive
-                : Dark.BackgroundButtonColorWhiteFilledDefault
-        }
-        return isDisabled
-            ? Light.BackgroundButtonColorWhiteFilledInactive
-            : Light.BackgroundButtonColorWhiteFilledDefault
-    }
-
-    fileprivate static func black5Background(isDisabled: Bool, isDark: Bool) -> Color {
-        if isDark {
-            return isDisabled
-                ? Dark.BackgroundButtonColorTransparent05Inactive
-                : Dark.BackgroundButtonColorTransparent05Default
-        }
-        return isDisabled
-            ? Light.BackgroundButtonColorTransparent05Inactive
-            : Light.BackgroundButtonColorTransparent05Default
-    }
-
-    fileprivate static func black10Background(isDisabled: Bool, isDark: Bool) -> Color {
-        if isDark {
-            return isDisabled
-                ? Dark.BackgroundButtonColorTransparent10Inactive
-                : Dark.BackgroundButtonColorTransparent10Default
-        }
-        return isDisabled
-            ? Light.BackgroundButtonColorTransparent10Inactive
-            : Light.BackgroundButtonColorTransparent10Default
-    }
-
-    fileprivate static func ghostBackground(isDisabled: Bool, isDark: Bool) -> Color {
-        if isDark {
-            return isDisabled
-                ? Dark.BackgroundButtonColorGhostFilledInactive
-                : Dark.BackgroundButtonColorGhostFilledDefault
-        }
-        return isDisabled
-            ? Light.BackgroundButtonColorGhostFilledInactive
-            : Light.BackgroundButtonColorGhostFilledDefault
-    }
-}
-
-// MARK: - Foreground Color Helpers
-
-extension DSButtonColorHelper {
-    fileprivate static func orangeFilledForeground(isDisabled: Bool, isDark: Bool) -> Color {
-        if isDark {
-            return isDisabled ? Dark.TextButtonColorOrangeFilledInactive : Dark.TextButtonColorOrangeFilledDefault
-        }
-        return isDisabled ? Light.TextButtonColorOrangeFilledInactive : Light.TextButtonColorOrangeFilledDefault
-    }
-
-    fileprivate static func gradientFilledForeground(isDisabled: Bool, isDark: Bool) -> Color {
-        if isDark {
-            return isDisabled ? Dark.TextButtonColorGradientFilledInactive : Dark.TextButtonColorGradientFilledDefault
-        }
-        return isDisabled ? Light.TextButtonColorGradientFilledInactive : Light.TextButtonColorGradientFilledDefault
-    }
-
-    fileprivate static func outlinedForeground(isDisabled: Bool, isDark: Bool) -> Color {
-        if isDark {
-            return isDisabled ? Dark.TextButtonColorOrangeOutlineInactive : Dark.TextButtonColorOrangeOutlineDefault
-        }
-        return isDisabled ? Light.TextButtonColorOrangeOutlineInactive : Light.TextButtonColorOrangeOutlineDefault
-    }
-
-    fileprivate static func whiteFilledForeground(isDisabled: Bool, isDark: Bool) -> Color {
-        if isDark {
-            return isDisabled ? Dark.TextButtonColorWhiteFilledInactive : Dark.TextButtonColorWhiteFilledDefault
-        }
-        return isDisabled ? Light.TextButtonColorWhiteFilledInactive : Light.TextButtonColorWhiteFilledDefault
-    }
-
-    fileprivate static func black5Foreground(isDisabled: Bool, isDark: Bool) -> Color {
-        if isDark {
-            return isDisabled
-                ? Dark.TextButtonColorTransparent05FilledInactive
-                : Dark.TextButtonColorTransparent05FilledDefault
-        }
-        return isDisabled
-            ? Light.TextButtonColorTransparent05FilledInactive
-            : Light.TextButtonColorTransparent05FilledDefault
-    }
-
-    fileprivate static func black10Foreground(isDisabled: Bool, isDark: Bool) -> Color {
-        if isDark {
-            return isDisabled
-                ? Dark.TextButtonColorTransparent10FilledInactive
-                : Dark.TextButtonColorTransparent10FilledDefault
-        }
-        return isDisabled
-            ? Light.TextButtonColorTransparent10FilledInactive
-            : Light.TextButtonColorTransparent10FilledDefault
-    }
-
-    fileprivate static func ghostForeground(isDisabled: Bool, isDark: Bool) -> Color {
-        if isDark {
-            return isDisabled ? Dark.TextButtonColorGhostFilledInactive : Dark.TextButtonColorGhostFilledDefault
-        }
-        return isDisabled ? Light.TextButtonColorGhostFilledInactive : Light.TextButtonColorGhostFilledDefault
-    }
-}
-
-// MARK: - Border and Gradient Colors
-
-extension DSButtonColorHelper {
-    static func borderColor(isDisabled: Bool, isDark: Bool) -> Color {
-        if isDark {
-            return isDisabled ? Dark.BorderButtonColorOrangeOutlineInactive : Dark.BorderButtonColorOrangeOutlineDefault
-        }
-        return isDisabled ? Light.BorderButtonColorOrangeOutlineInactive : Light.BorderButtonColorOrangeOutlineDefault
-    }
-
-    static func gradientColors(isDark: Bool) -> [Color] {
-        let startColor = isDark
-            ? Dark.BackgroundButtonColorBrandFilledDefault
-            : Light.BackgroundButtonColorBrandFilledDefault
-        let endColor = isDark ? Dark.Brand400 : Light.Brand400
-        return [startColor, endColor]
-    }
-
-    static func pressedBackgroundColor(style: DSButton.Style, isDark: Bool) -> Color {
+    /// Returns the background fill for a button style and state.
+    /// Uses DSBackgroundFill for unified color/gradient handling with automatic theme support.
+    static func backgroundFill(style: DSButtonStyle, isDisabled: Bool) -> DSBackgroundFill {
         switch style {
-        case .ghost: isDark
-            ? Dark.BackgroundButtonColorGhostFilledPressed
-            : Light.BackgroundButtonColorGhostFilledPressed
-        case .black5: isDark
-            ? Dark.BackgroundButtonColorTransparent05Pressed
-            : Light.BackgroundButtonColorTransparent05Pressed
-        case .black10: isDark
-            ? Dark.BackgroundButtonColorTransparent10Pressed
-            : Light.BackgroundButtonColorTransparent10Pressed
-        default: Color.clear
+        case .gradientFilled:
+            if isDisabled {
+                return DSBackgroundFill(
+                    light: DSColor.buttonBackgroundBrandGradientFilledInactive.lightColor,
+                    dark: DSColor.buttonBackgroundBrandGradientFilledInactive.darkColor
+                )
+            } else {
+                return .brandGradientPrimary
+            }
+        case .orangeFilled:
+            let dsColor = isDisabled
+                ? DSColor.buttonBackgroundBrandFilledInactive
+                : DSColor.buttonBackgroundBrandFilledDefault
+            return DSBackgroundFill(light: dsColor.lightColor, dark: dsColor.darkColor)
+        case .whiteFilled:
+            let dsColor = isDisabled
+                ? DSColor.buttonBackgroundWhiteFilledInactive
+                : DSColor.buttonBackgroundWhiteFilledDefault
+            return DSBackgroundFill(light: dsColor.lightColor, dark: dsColor.darkColor)
+        case .black5:
+            let dsColor = isDisabled
+                ? DSColor.buttonBackgroundTransparent05Inactive
+                : DSColor.buttonBackgroundTransparent05Default
+            return DSBackgroundFill(light: dsColor.lightColor, dark: dsColor.darkColor)
+        case .black10:
+            let dsColor = isDisabled
+                ? DSColor.buttonBackgroundTransparent10Inactive
+                : DSColor.buttonBackgroundTransparent10Default
+            return DSBackgroundFill(light: dsColor.lightColor, dark: dsColor.darkColor)
+        case .ghost:
+            let dsColor = isDisabled
+                ? DSColor.buttonBackgroundGhostFilledInactive
+                : DSColor.buttonBackgroundGhostFilledDefault
+            return DSBackgroundFill(light: dsColor.lightColor, dark: dsColor.darkColor)
+        case .outlined:
+            // Outlined uses transparent background
+            return DSBackgroundFill(light: .clear, dark: .clear)
+        }
+    }
+
+    // MARK: - Pressed Background Colors
+
+    /// Returns the pressed background color for styles that need it.
+    /// The color automatically adapts to light/dark mode.
+    static func pressedBackgroundColor(style: DSButtonStyle) -> Color {
+        switch style {
+        case .ghost:
+            DSColor.buttonBackgroundGhostFilledPressed.resolve
+        case .black5:
+            DSColor.buttonBackgroundTransparent05Pressed.resolve
+        case .black10:
+            DSColor.buttonBackgroundTransparent10Pressed.resolve
+        default:
+            Color.clear
         }
     }
 }

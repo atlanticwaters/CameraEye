@@ -1,131 +1,136 @@
 //
 // DesignSystemGlobal.swift
-// Design System Token Aggregator
+// Design System Token Aggregator (Compatibility Layer)
 //
-// This file aggregates tokens from TokensSemanticLight and TokensCoreLight
-// into a single namespace for easy access throughout the app.
+// This file provides backward compatibility with the old DesignSystemGlobal API
+// while using the new token system under the hood.
+//
+// For new code, prefer using DSColor for theme-aware colors:
+//   DSColor.textOnSurfaceColorPrimary.resolve
 //
 
 import SwiftUI
 
-/// Global design system namespace that aggregates all design tokens
+/// Global design system namespace that aggregates all design tokens.
+/// For theme-aware colors, use DSColor instead.
 public struct DesignSystemGlobal {
-    
-    // MARK: - Spacing Tokens
-    public static let Spacing0 = CGFloat(0)
-    public static let Spacing1 = CGFloat(4)
-    public static let Spacing1px = CGFloat(1)
-    public static let Spacing2px = CGFloat(2)
-    public static let Spacing2 = CGFloat(8)
-    public static let Spacing3 = CGFloat(12)
-    public static let Spacing4 = CGFloat(16)
-    public static let Spacing5 = CGFloat(20)
-    public static let Spacing6 = CGFloat(24)
-    public static let Spacing7 = CGFloat(28)
-    public static let Spacing8 = CGFloat(32)
-    public static let Spacing9 = CGFloat(36)
-    public static let Spacing10 = CGFloat(40)
-    public static let Spacing11 = CGFloat(44)
-    public static let Spacing12 = CGFloat(48)
-    public static let Spacing13 = CGFloat(52)
-    public static let Spacing14 = CGFloat(56)
-    public static let Spacing15 = CGFloat(60)
-    public static let Spacing16 = CGFloat(64)
-    public static let Spacing17 = CGFloat(68)
-    public static let Spacing18 = CGFloat(72)
-    public static let Spacing20 = CGFloat(80)
-    
+
+    // MARK: - Spacing Tokens (from TokensCoreLight)
+    public static let Spacing0 = TokensCoreLight.Spacing0
+    public static let Spacing1 = TokensCoreLight.Spacing1
+    public static let Spacing1px = TokensCoreLight.Spacing1px
+    public static let Spacing2px = TokensCoreLight.Spacing2px
+    public static let Spacing2 = TokensCoreLight.Spacing2
+    public static let Spacing3 = TokensCoreLight.Spacing3
+    public static let Spacing4 = TokensCoreLight.Spacing4
+    public static let Spacing5 = TokensCoreLight.Spacing5
+    public static let Spacing6 = TokensCoreLight.Spacing6
+    public static let Spacing7 = TokensCoreLight.Spacing7
+    public static let Spacing8 = TokensCoreLight.Spacing8
+    public static let Spacing9 = TokensCoreLight.Spacing9
+    public static let Spacing10 = TokensCoreLight.Spacing10
+    public static let Spacing11 = TokensCoreLight.Spacing11
+    public static let Spacing12 = TokensCoreLight.Spacing12
+    public static let Spacing13 = TokensCoreLight.Spacing13
+    public static let Spacing14 = TokensCoreLight.Spacing14
+    public static let Spacing15 = TokensCoreLight.Spacing15
+    public static let Spacing16 = TokensCoreLight.Spacing16
+    public static let Spacing17 = TokensCoreLight.Spacing17
+    public static let Spacing18 = TokensCoreLight.Spacing18
+    public static let Spacing20 = TokensCoreLight.Spacing20
+
     // MARK: - Font Size Tokens (from TokensCoreLight)
-    public static let FontSizeBodyXs = TokensCoreLight.FontSizeBodyXs      // 12pt
-    public static let FontSizeBodySm = TokensCoreLight.FontSizeBodySm      // 14pt
-    public static let FontSizeBodyMd = TokensCoreLight.FontSizeBodyMd      // 16pt
-    public static let FontSizeBodyLg = TokensCoreLight.FontSizeBodyLg      // 18pt
-    public static let FontSizeBodyXl = TokensCoreLight.FontSizeBodyXl      // 20pt
-    
+    public static let FontSizeBodyXs = TokensCoreLight.FontSizeBodyXs
+    public static let FontSizeBodySm = TokensCoreLight.FontSizeBodySm
+    public static let FontSizeBodyMd = TokensCoreLight.FontSizeBodyMd
+    public static let FontSizeBodyLg = TokensCoreLight.FontSizeBodyLg
+    public static let FontSizeBodyXl = TokensCoreLight.FontSizeBodyXl
+
     // MARK: - Font Family Tokens (from TokensCoreLight)
-    public static let FontFamilyDisplay = TokensCoreLight.FontFamilyDisplay             // "THD LgVar Beta"
-    public static let FontFamilyInformational = TokensCoreLight.FontFamilyInformational // "THD SmVar Beta"
-    
-    // MARK: - Extended Font Sizes (for Headings and Hero Text)
-    // These are not in TokensCoreLight but are needed for the design system
-    public static let FontSizeCaption = CGFloat(10)    // Caption text
-    public static let FontSizeH6 = CGFloat(16)         // Smallest heading
-    public static let FontSizeH5 = CGFloat(18)         // Small heading
-    public static let FontSizeH4 = CGFloat(20)         // Medium-small heading
-    public static let FontSizeH3 = CGFloat(24)         // Medium heading
-    public static let FontSizeH2 = CGFloat(28)         // Large heading
-    public static let FontSizeH1 = CGFloat(32)         // Largest heading
-    public static let FontSizeHero5 = CGFloat(36)      // Small hero
-    public static let FontSizeHero4 = CGFloat(40)      // Medium-small hero
-    public static let FontSizeHero3 = CGFloat(48)      // Medium hero
-    public static let FontSizeHero2 = CGFloat(56)      // Large hero
-    public static let FontSizeHero1 = CGFloat(64)      // Largest hero
-    
+    public static let FontFamilyDisplay = TokensCoreLight.FontFamilyDisplay
+    public static let FontFamilyInformational = TokensCoreLight.FontFamilyInformational
+
+    // MARK: - Extended Font Sizes
+    public static let FontSizeCaption = CGFloat(10)
+    public static let FontSizeH6 = CGFloat(16)
+    public static let FontSizeH5 = CGFloat(18)
+    public static let FontSizeH4 = CGFloat(20)
+    public static let FontSizeH3 = CGFloat(24)
+    public static let FontSizeH2 = CGFloat(28)
+    public static let FontSizeH1 = CGFloat(32)
+    public static let FontSizeHero5 = CGFloat(36)
+    public static let FontSizeHero4 = CGFloat(40)
+    public static let FontSizeHero3 = CGFloat(48)
+    public static let FontSizeHero2 = CGFloat(56)
+    public static let FontSizeHero1 = CGFloat(64)
+
     // MARK: - Font Line Heights
-    public static let FontLineHeightNone = CGFloat(1.0)   // No additional line spacing
-    public static let FontLineHeightTight = CGFloat(1.25) // Tight line spacing
-    public static let FontLineHeightBase = CGFloat(1.5)   // Standard line spacing
-    
-    // MARK: - Color Tokens - Background
-    public static let BackgroundSurfaceColorGreige = TokensSemanticLight.BackgroundSurfaceColorGreige
-    public static let BackgroundSurfaceColorInverse = TokensSemanticLight.BackgroundSurfaceColorInverse
-    public static let BackgroundContainerColorWhite = TokensSemanticLight.BackgroundContainerColorWhite
-    public static let BackgroundContainerColorGreige = TokensSemanticLight.BackgroundContainerColorGreige
-    public static let BackgroundContainerColorBrand = TokensSemanticLight.BackgroundContainerColorBrand
-    public static let BackgroundContainerColorBrandAccent = TokensSemanticLight.BackgroundContainerColorBrandAccent
-    public static let BackgroundContainerColorInverse = TokensSemanticLight.BackgroundContainerColorInverse
-    public static let BackgroundContainerColorTransparent05 = TokensSemanticLight.BackgroundContainerColorTransparent05
-    public static let BackgroundContainerColorTransparent10 = TokensSemanticLight.BackgroundContainerColorTransparent10
-    public static let BackgroundContainerColorTransparent20 = TokensSemanticLight.BackgroundContainerColorTransparent20
-    
+    public static let FontLineHeightNone = CGFloat(1.0)
+    public static let FontLineHeightTight = CGFloat(1.25)
+    public static let FontLineHeightBase = CGFloat(1.5)
+
+    // MARK: - Color Tokens - Background (using theme-aware resolution)
+    public static var BackgroundSurfaceColorGreige: Color { DSColor.backgroundSurfaceColorGreige.resolve }
+    public static var BackgroundSurfaceColorInverse: Color { DSColor.backgroundSurfaceColorInverse.resolve }
+    public static var BackgroundContainerColorWhite: Color { DSColor.containerBackgroundWhite.resolve }
+    public static var BackgroundContainerColorGreige: Color { DSColor.containerBackgroundGreige.resolve }
+    public static var BackgroundContainerColorBrand: Color { DSColor.containerBackgroundBrand.resolve }
+    public static var BackgroundContainerColorBrandAccent: Color { DSColor.containerBackgroundBrandAccent.resolve }
+    public static var BackgroundContainerColorInverse: Color { DSColor.containerBackgroundInverse.resolve }
+    public static var BackgroundContainerColorTransparent05: Color { DSColor.containerBackgroundTransparent05.resolve }
+    public static var BackgroundContainerColorTransparent10: Color { DSColor.containerBackgroundTransparent10.resolve }
+    public static var BackgroundContainerColorTransparent20: Color { DSColor.containerBackgroundTransparent20.resolve }
+
     // MARK: - Color Tokens - Button Backgrounds
-    public static let BackgroundButtonColorBrandFilledDefault = TokensSemanticLight.BackgroundButtonColorBrandFilledDefault
-    public static let BackgroundButtonColorBrandFilledInactive = TokensSemanticLight.BackgroundButtonColorBrandFilledInactive
-    public static let BackgroundButtonColorWhiteFilledDefault = TokensSemanticLight.BackgroundButtonColorWhiteFilledDefault
-    public static let BackgroundButtonColorWhiteFilledInactive = TokensSemanticLight.BackgroundButtonColorWhiteFilledInactive
-    public static let BackgroundButtonColorGhostFilledDefault = TokensSemanticLight.BackgroundButtonColorGhostFilledDefault
-    public static let BackgroundButtonColorGhostFilledInactive = TokensSemanticLight.BackgroundButtonColorGhostFilledInactive
-    public static let BackgroundButtonColorGhostFilledPressed = TokensSemanticLight.BackgroundButtonColorGhostFilledPressed
-    public static let BackgroundButtonColorTransparent05Default = TokensSemanticLight.BackgroundButtonColorTransparent05Default
-    public static let BackgroundButtonColorTransparent10Default = TokensSemanticLight.BackgroundButtonColorTransparent10Default
-    
+    public static var BackgroundButtonColorBrandFilledDefault: Color { DSColor.buttonBackgroundBrandFilledDefault.resolve }
+    public static var BackgroundButtonColorBrandFilledInactive: Color { DSColor.buttonBackgroundBrandFilledInactive.resolve }
+    public static var BackgroundButtonColorWhiteFilledDefault: Color { DSColor.buttonBackgroundWhiteFilledDefault.resolve }
+    public static var BackgroundButtonColorWhiteFilledInactive: Color { DSColor.buttonBackgroundWhiteFilledInactive.resolve }
+    public static var BackgroundButtonColorGhostFilledDefault: Color { DSColor.buttonBackgroundGhostFilledDefault.resolve }
+    public static var BackgroundButtonColorGhostFilledInactive: Color { DSColor.buttonBackgroundGhostFilledInactive.resolve }
+    public static var BackgroundButtonColorGhostFilledPressed: Color { DSColor.buttonBackgroundGhostFilledPressed.resolve }
+    public static var BackgroundButtonColorTransparent05Default: Color { DSColor.buttonBackgroundTransparent05Default.resolve }
+    public static var BackgroundButtonColorTransparent10Default: Color { DSColor.buttonBackgroundTransparent10Default.resolve }
+
     // MARK: - Color Tokens - Feedback
-    public static let BackgroundFeedbackColorSuccessAccent1 = TokensSemanticLight.BackgroundFeedbackColorSuccessAccent1
-    public static let BackgroundFeedbackColorSuccessAccent2 = TokensSemanticLight.BackgroundFeedbackColorSuccessAccent2
-    public static let BackgroundFeedbackColorErrorAccent1 = TokensSemanticLight.BackgroundFeedbackColorErrorAccent1
-    public static let BackgroundFeedbackColorErrorAccent2 = TokensSemanticLight.BackgroundFeedbackColorErrorAccent2
-    public static let BackgroundFeedbackColorWarningAccent1 = TokensSemanticLight.BackgroundFeedbackColorWarningAccent1
-    public static let BackgroundFeedbackColorWarningAccent2 = TokensSemanticLight.BackgroundFeedbackColorWarningAccent2
-    public static let BackgroundFeedbackColorInformationalAccent1 = TokensSemanticLight.BackgroundFeedbackColorInformationalAccent1
-    public static let BackgroundFeedbackColorInformationalAccent2 = TokensSemanticLight.BackgroundFeedbackColorInformationalAccent2
-    
+    public static var BackgroundFeedbackColorSuccessAccent1: Color { DSColor.feedbackBackgroundSuccessAccent1.resolve }
+    public static var BackgroundFeedbackColorSuccessAccent2: Color { DSColor.feedbackBackgroundSuccessAccent2.resolve }
+    public static var BackgroundFeedbackColorErrorAccent1: Color { DSColor.feedbackBackgroundErrorAccent1.resolve }
+    public static var BackgroundFeedbackColorErrorAccent2: Color { DSColor.feedbackBackgroundErrorAccent2.resolve }
+    public static var BackgroundFeedbackColorWarningAccent1: Color { DSColor.feedbackBackgroundWarningAccent1.resolve }
+    public static var BackgroundFeedbackColorWarningAccent2: Color { DSColor.feedbackBackgroundWarningAccent2.resolve }
+    public static var BackgroundFeedbackColorInformationalAccent1: Color { DSColor.feedbackBackgroundInformationalAccent1.resolve }
+    public static var BackgroundFeedbackColorInformationalAccent2: Color { DSColor.feedbackBackgroundInformationalAccent2.resolve }
+
     // MARK: - Color Tokens - Accent Backgrounds
-    public static let BackgroundAccentColorBlue = TokensSemanticLight.BackgroundAccentColorBlue
-    public static let BackgroundAccentColorGreen = TokensSemanticLight.BackgroundAccentColorGreen
-    public static let BackgroundAccentColorYellow = TokensSemanticLight.BackgroundAccentColorYellow
-    public static let BackgroundAccentColorRed = TokensSemanticLight.BackgroundAccentColorRed
-    public static let BackgroundAccentColorBrown = TokensSemanticLight.BackgroundAccentColorBrown
-    
+    public static var BackgroundAccentColorBlue: Color { DSColor.accentBackgroundBlue.resolve }
+    public static var BackgroundAccentColorGreen: Color { DSColor.accentBackgroundGreen.resolve }
+    public static var BackgroundAccentColorYellow: Color { DSColor.accentBackgroundYellow.resolve }
+    public static var BackgroundAccentColorRed: Color { DSColor.accentBackgroundRed.resolve }
+    public static var BackgroundAccentColorBrown: Color { DSColor.accentBackgroundBrown.resolve }
+
     // MARK: - Color Tokens - Text
-    public static let TextOnSurfaceColorPrimary = TokensSemanticLight.TextOnSurfaceColorPrimary
-    public static let TextOnSurfaceColorSecondary = TokensSemanticLight.TextOnSurfaceColorSecondary
-    public static let TextOnSurfaceColorTertiary = TokensSemanticLight.TextOnSurfaceColorTertiary
-    public static let TextOnSurfaceColorAccent = TokensSemanticLight.TextOnSurfaceColorAccent
-    public static let TextOnSurfaceColorAccent2 = TokensSemanticLight.TextOnSurfaceColorAccent2
-    public static let TextOnSurfaceColorError = TokensSemanticLight.TextOnSurfaceColorError
-    public static let TextOnSurfaceColorSuccess = TokensSemanticLight.TextOnSurfaceColorSuccess
-    public static let TextOnSurfaceColorWarning = TokensSemanticLight.TextOnSurfaceColorWarning
-    public static let TextOnSurfaceColorInformational = TokensSemanticLight.TextOnSurfaceColorInformational
-    public static let TextOnSurfaceColorInactive = TokensSemanticLight.TextOnSurfaceColorInactive
-    public static let TextOnSurfaceColorInverse = TokensSemanticLight.TextOnSurfaceColorInverse
-    
-    public static let TextOnContainerColorPrimary = TokensSemanticLight.TextOnContainerColorPrimary
-    public static let TextOnContainerColorSecondary = TokensSemanticLight.TextOnContainerColorSecondary
-    public static let TextOnContainerColorTertiary = TokensSemanticLight.TextOnContainerColorTertiary
-    public static let TextOnContainerColorAccent = TokensSemanticLight.TextOnContainerColorAccent
-    public static let TextOnContainerColorAccent2 = TokensSemanticLight.TextOnContainerColorAccent2
-    
-    // MARK: - Color Tokens - Greige Scale
+    public static var TextOnSurfaceColorPrimary: Color { DSColor.textOnSurfaceColorPrimary.resolve }
+    public static var TextOnSurfaceColorSecondary: Color { DSColor.textOnSurfaceColorSecondary.resolve }
+    public static var TextOnSurfaceColorTertiary: Color { DSColor.textOnSurfaceColorTertiary.resolve }
+    public static var TextOnSurfaceColorAccent: Color { DSColor.textOnSurfaceColorAccent.resolve }
+    public static var TextOnSurfaceColorAccent2: Color { DSColor.textOnSurfaceColorAccent2.resolve }
+    public static var TextOnSurfaceColorError: Color { DSColor.textOnSurfaceColorError.resolve }
+    public static var TextOnSurfaceColorSuccess: Color { DSColor.textOnSurfaceColorSuccess.resolve }
+    public static var TextOnSurfaceColorWarning: Color { DSColor.textOnSurfaceColorWarning.resolve }
+    public static var TextOnSurfaceColorInformational: Color { DSColor.textOnSurfaceColorInformational.resolve }
+    public static var TextOnSurfaceColorInactive: Color { DSColor.textOnSurfaceColorInactive.resolve }
+    public static var TextOnSurfaceColorInverse: Color { DSColor.textOnSurfaceColorInverse.resolve }
+
+    public static var TextOnContainerColorPrimary: Color { DSColor.textOnContainerColorPrimary.resolve }
+    public static var TextOnContainerColorSecondary: Color { DSColor.textOnContainerColorSecondary.resolve }
+    public static var TextOnContainerColorTertiary: Color { DSColor.textOnContainerColorTertiary.resolve }
+    public static var TextOnContainerColorAccent: Color { DSColor.textOnContainerColorAccent.resolve }
+    public static var TextOnContainerColorAccent2: Color { DSColor.textOnContainerColorAccent2.resolve }
+    public static var TextOnContainerColorInactive: Color { DSColor.textOnContainerColorInactive.resolve }
+    public static var TextOnContainerColorInverse: Color { DSColor.textOnContainerColorInverse.resolve }
+
+    // MARK: - Color Tokens - Greige Scale (direct access for gradients)
     public static let Greige025 = TokensSemanticLight.Greige025
     public static let Greige050 = TokensSemanticLight.Greige050
     public static let Greige100 = TokensSemanticLight.Greige100
@@ -138,7 +143,11 @@ public struct DesignSystemGlobal {
     public static let Greige800 = TokensSemanticLight.Greige800
     public static let Greige900 = TokensSemanticLight.Greige900
     public static let Greige950 = TokensSemanticLight.Greige950
-    
+
+    // Legacy aliases (old naming pattern)
+    public static let GreigeGreige050 = Greige050
+    public static let GreigeGreige100 = Greige100
+
     // MARK: - Color Tokens - Brand Scale
     public static let Brand025 = TokensSemanticLight.Brand025
     public static let Brand050 = TokensSemanticLight.Brand050
@@ -152,7 +161,13 @@ public struct DesignSystemGlobal {
     public static let Brand800 = TokensSemanticLight.Brand800
     public static let Brand900 = TokensSemanticLight.Brand900
     public static let Brand950 = TokensSemanticLight.Brand950
-    
+
+    // Legacy aliases (old naming pattern)
+    public static let BrandBrand050 = Brand050
+    public static let BrandBrand200 = Brand200
+    public static let BrandBrand300 = Brand300
+    public static let BrandBrand400 = Brand400
+
     // MARK: - Color Tokens - Moonlight Scale (Blue)
     public static let Moonlight025 = TokensSemanticLight.Moonlight025
     public static let Moonlight050 = TokensSemanticLight.Moonlight050
@@ -166,20 +181,29 @@ public struct DesignSystemGlobal {
     public static let Moonlight800 = TokensSemanticLight.Moonlight800
     public static let Moonlight900 = TokensSemanticLight.Moonlight900
     public static let Moonlight950 = TokensSemanticLight.Moonlight950
-    
+
+    // Legacy aliases
+    public static let MoonlightMoonlight300 = Moonlight300
+    public static let MoonlightMoonlight500 = Moonlight500
+
     // MARK: - Color Tokens - BottleGreen Scale (Green)
-    public static let BottleGreen025 = TokensSemanticLight.BottleGreen025
-    public static let BottleGreen050 = TokensSemanticLight.BottleGreen050
-    public static let BottleGreen100 = TokensSemanticLight.BottleGreen100
-    public static let BottleGreen200 = TokensSemanticLight.BottleGreen200
-    public static let BottleGreen300 = TokensSemanticLight.BottleGreen300
-    public static let BottleGreen400 = TokensSemanticLight.BottleGreen400
-    public static let BottleGreen500 = TokensSemanticLight.BottleGreen500
-    public static let BottleGreen600 = TokensSemanticLight.BottleGreen600
-    public static let BottleGreen700 = TokensSemanticLight.BottleGreen700
-    public static let BottleGreen800 = TokensSemanticLight.BottleGreen800
-    public static let BottleGreen900 = TokensSemanticLight.BottleGreen900
-    public static let BottleGreen950 = TokensSemanticLight.BottleGreen950
+    // Note: BottleGreen palette not in new tokens, using hardcoded values from legacy
+    public static let BottleGreen025 = Color(red: 0.980, green: 0.988, blue: 0.984, opacity: 1)
+    public static let BottleGreen050 = Color(red: 0.941, green: 0.969, blue: 0.953, opacity: 1)
+    public static let BottleGreen100 = Color(red: 0.847, green: 0.894, blue: 0.871, opacity: 1)
+    public static let BottleGreen200 = Color(red: 0.627, green: 0.745, blue: 0.682, opacity: 1)
+    public static let BottleGreen300 = Color(red: 0.451, green: 0.608, blue: 0.533, opacity: 1)
+    public static let BottleGreen400 = Color(red: 0.388, green: 0.576, blue: 0.482, opacity: 1)
+    public static let BottleGreen500 = Color(red: 0.290, green: 0.506, blue: 0.396, opacity: 1)
+    public static let BottleGreen600 = Color(red: 0.224, green: 0.455, blue: 0.337, opacity: 1)
+    public static let BottleGreen700 = Color(red: 0.133, green: 0.384, blue: 0.259, opacity: 1)
+    public static let BottleGreen800 = Color(red: 0.051, green: 0.314, blue: 0.180, opacity: 1)
+    public static let BottleGreen900 = Color(red: 0.008, green: 0.761, blue: 0.071, opacity: 1)
+    public static let BottleGreen950 = Color(red: 0.004, green: 0.063, blue: 0.024, opacity: 1)
+
+    // Legacy aliases
+    public static let BottleGreenBottleGreen300 = BottleGreen300
+    public static let BottleGreenBottleGreen500 = BottleGreen500
 
     // MARK: - Color Tokens - Lemon Scale (Yellow)
     public static let Lemon025 = TokensSemanticLight.Lemon025
@@ -194,7 +218,7 @@ public struct DesignSystemGlobal {
     public static let Lemon800 = TokensSemanticLight.Lemon800
     public static let Lemon900 = TokensSemanticLight.Lemon900
     public static let Lemon950 = TokensSemanticLight.Lemon950
-    
+
     // MARK: - Color Tokens - Cinnabar Scale (Red)
     public static let Cinnabar025 = TokensSemanticLight.Cinnabar025
     public static let Cinnabar050 = TokensSemanticLight.Cinnabar050
@@ -208,7 +232,7 @@ public struct DesignSystemGlobal {
     public static let Cinnabar800 = TokensSemanticLight.Cinnabar800
     public static let Cinnabar900 = TokensSemanticLight.Cinnabar900
     public static let Cinnabar950 = TokensSemanticLight.Cinnabar950
-    
+
     // MARK: - Border Tokens
     public static let BorderRadius3xl = TokensSemanticLight.BorderRadius3xl
     public static let BorderRadius2xl = TokensSemanticLight.BorderRadius2xl
@@ -219,7 +243,7 @@ public struct DesignSystemGlobal {
     public static let BorderRadiusXs = TokensSemanticLight.BorderRadiusXs
     public static let BorderRadiusNone = TokensSemanticLight.BorderRadiusNone
     public static let BorderRadiusFull = TokensSemanticLight.BorderRadiusFull
-    
+
     public static let BorderWidthXs = TokensSemanticLight.BorderWidthXs
     public static let BorderWidthSm = TokensSemanticLight.BorderWidthSm
     public static let BorderWidthMd = TokensSemanticLight.BorderWidthMd
@@ -227,93 +251,93 @@ public struct DesignSystemGlobal {
     public static let BorderWidthXl = TokensSemanticLight.BorderWidthXl
     public static let BorderWidth2xl = TokensSemanticLight.BorderWidth2xl
     public static let BorderWidthNone = TokensSemanticLight.BorderWidthNone
-    
-    public static let BorderButtonColorAccent = TokensSemanticLight.BorderButtonColorAccent
-    public static let BorderButtonColorAccent2 = TokensSemanticLight.BorderButtonColorAccent2
-    public static let BorderButtonColorDefault = TokensSemanticLight.BorderButtonColorDefault
-    public static let BorderButtonColorPressed = TokensSemanticLight.BorderButtonColorPressed
-    public static let BorderButtonColorInactive = TokensSemanticLight.BorderButtonColorInactive
-    public static let BorderButtonColorFocus = TokensSemanticLight.BorderButtonColorFocus
-    public static let BorderButtonColorOrangeOutlineDefault = TokensSemanticLight.BorderButtonColorOrangeOutlineDefault
-    public static let BorderButtonColorOrangeOutlineInactive = TokensSemanticLight.BorderButtonColorOrangeOutlineInactive
-    
-    public static let BorderInputColorDefault = TokensSemanticLight.BorderInputColorDefault
-    public static let BorderInputColorActive = TokensSemanticLight.BorderInputColorActive
-    public static let BorderInputColorPressed = TokensSemanticLight.BorderInputColorPressed
-    public static let BorderInputColorInactive = TokensSemanticLight.BorderInputColorInactive
-    public static let BorderInputColorFocus = TokensSemanticLight.BorderInputColorFocus
-    public static let BorderInputColorAccent = TokensSemanticLight.BorderInputColorAccent
-    public static let BorderInputColorAccent2 = TokensSemanticLight.BorderInputColorAccent2
-    public static let BorderInputColorError = TokensSemanticLight.BorderInputColorError
-    public static let BorderInputColorSuccess = TokensSemanticLight.BorderInputColorSuccess
-    public static let BorderInputColorWarning = TokensSemanticLight.BorderInputColorWarning
-    
-    public static let BorderOnContainerDefault = TokensSemanticLight.BorderInputColorDefault
-    public static let BorderOnContainerActive = TokensSemanticLight.BorderInputColorActive
-    public static let BorderOnContainerPressed = TokensSemanticLight.BorderInputColorPressed
-    public static let BorderOnContainerInactive = TokensSemanticLight.BorderInputColorInactive
-    public static let BorderOnContainerInverse = TokensSemanticLight.BorderButtonColorAccent2
-    
+
+    public static var BorderButtonColorAccent: Color { DSColor.buttonBorderAccent.resolve }
+    public static var BorderButtonColorAccent2: Color { DSColor.buttonBorderAccent2.resolve }
+    public static var BorderButtonColorDefault: Color { DSColor.buttonBorderDefault.resolve }
+    public static var BorderButtonColorPressed: Color { DSColor.buttonBorderPressed.resolve }
+    public static var BorderButtonColorInactive: Color { DSColor.buttonBorderInactive.resolve }
+    public static var BorderButtonColorFocus: Color { DSColor.buttonBorderFocus.resolve }
+    public static var BorderButtonColorOrangeOutlineDefault: Color { DSColor.buttonBorderOrangeOutlineDefault.resolve }
+    public static var BorderButtonColorOrangeOutlineInactive: Color { DSColor.buttonBorderOrangeOutlineInactive.resolve }
+
+    public static var BorderInputColorDefault: Color { DSColor.inputBorderDefault.resolve }
+    public static var BorderInputColorActive: Color { DSColor.inputBorderActive.resolve }
+    public static var BorderInputColorPressed: Color { DSColor.inputBorderPressed.resolve }
+    public static var BorderInputColorInactive: Color { DSColor.inputBorderInactive.resolve }
+    public static var BorderInputColorFocus: Color { DSColor.inputBorderFocus.resolve }
+    public static var BorderInputColorAccent: Color { DSColor.inputBorderAccent.resolve }
+    public static var BorderInputColorAccent2: Color { DSColor.inputBorderAccent2.resolve }
+    public static var BorderInputColorError: Color { DSColor.inputBorderError.resolve }
+    public static var BorderInputColorSuccess: Color { DSColor.inputBorderSuccess.resolve }
+    public static var BorderInputColorWarning: Color { DSColor.inputBorderWarning.resolve }
+
+    public static var BorderOnContainerDefault: Color { DSColor.borderOnContainerDefault.resolve }
+    public static var BorderOnContainerActive: Color { DSColor.borderOnContainerActive.resolve }
+    public static var BorderOnContainerPressed: Color { DSColor.borderOnContainerPressed.resolve }
+    public static var BorderOnContainerInactive: Color { DSColor.borderOnContainerInactive.resolve }
+    public static var BorderOnContainerInverse: Color { DSColor.borderOnContainerInverse.resolve }
+
     // MARK: - Elevation Tokens (from TokensCoreLight)
     public static let ElevationLowest = TokensCoreLight.ElevationLowest
     public static let ElevationLow = TokensCoreLight.ElevationLow
     public static let ElevationMed = TokensCoreLight.ElevationMed
     public static let ElevationHigh = TokensCoreLight.ElevationHigh
     public static let ElevationHighest = TokensCoreLight.ElevationHighest
-    
+
     public static let ElevationBlurRadiusBlur1 = CGFloat(TokensCoreLight.ElevationBlurRadiusBlur1)
     public static let ElevationBlurRadiusBlur2 = CGFloat(TokensCoreLight.ElevationBlurRadiusBlur2)
     public static let ElevationBlurRadiusBlur3 = CGFloat(TokensCoreLight.ElevationBlurRadiusBlur3)
     public static let ElevationBlurRadiusBlur4 = CGFloat(TokensCoreLight.ElevationBlurRadiusBlur4)
     public static let ElevationBlurRadiusBlur5 = CGFloat(TokensCoreLight.ElevationBlurRadiusBlur5)
-    
+
     public static let ElevationPositionX1 = CGFloat(0)
     public static let ElevationPositionX2 = CGFloat(0)
     public static let ElevationPositionX3 = CGFloat(0)
     public static let ElevationPositionX4 = CGFloat(0)
     public static let ElevationPositionX5 = CGFloat(0)
-    
+
     public static let ElevationPositionY1 = CGFloat(TokensCoreLight.ElevationPositionY1)
     public static let ElevationPositionY2 = CGFloat(TokensCoreLight.ElevationPositionY2)
     public static let ElevationPositionY3 = CGFloat(TokensCoreLight.ElevationPositionY3)
     public static let ElevationPositionY4 = CGFloat(TokensCoreLight.ElevationPositionY4)
     public static let ElevationPositionY5 = CGFloat(TokensCoreLight.ElevationPositionY5)
-    
+
     // MARK: - Neutrals
-    public static let NeutralsWhite = TokensSemanticLight.NeutralsWhite
-    public static let NeutralsBlack = TokensSemanticLight.NeutralsBlack
-    public static let NeutralsTransparent = TokensSemanticLight.NeutralsTransparent
-    
+    public static var NeutralsWhite: Color { DSColor.neutralsWhite.resolve }
+    public static var NeutralsBlack: Color { DSColor.neutralsBlack.resolve }
+    public static var NeutralsTransparent: Color { DSColor.neutralsTransparent.resolve }
+
     // MARK: - Transparent Black Scale
-    public static let TransparentBlack025 = TokensSemanticLight.TransparentBlackTransparentBlack025
-    public static let TransparentBlack050 = TokensSemanticLight.TransparentBlackTransparentBlack050
-    public static let TransparentBlack075 = TokensSemanticLight.TransparentBlackTransparentBlack075
-    public static let TransparentBlack100 = TokensSemanticLight.TransparentBlackTransparentBlack100
-    public static let TransparentBlack200 = TokensSemanticLight.TransparentBlackTransparentBlack200
-    public static let TransparentBlack300 = TokensSemanticLight.TransparentBlackTransparentBlack300
-    public static let TransparentBlack400 = TokensSemanticLight.TransparentBlackTransparentBlack400
-    public static let TransparentBlack500 = TokensSemanticLight.TransparentBlackTransparentBlack500
-    public static let TransparentBlack600 = TokensSemanticLight.TransparentBlackTransparentBlack600
-    public static let TransparentBlack700 = TokensSemanticLight.TransparentBlackTransparentBlack700
-    public static let TransparentBlack800 = TokensSemanticLight.TransparentBlackTransparentBlack800
-    public static let TransparentBlack900 = TokensSemanticLight.TransparentBlackTransparentBlack900
-    public static let TransparentBlack950 = TokensSemanticLight.TransparentBlackTransparentBlack950
-    
+    public static var TransparentBlack025: Color { DSColor.transparentBlackTransparentBlack025.resolve }
+    public static var TransparentBlack050: Color { DSColor.transparentBlackTransparentBlack050.resolve }
+    public static var TransparentBlack075: Color { DSColor.transparentBlackTransparentBlack075.resolve }
+    public static var TransparentBlack100: Color { DSColor.transparentBlackTransparentBlack100.resolve }
+    public static var TransparentBlack200: Color { DSColor.transparentBlackTransparentBlack200.resolve }
+    public static var TransparentBlack300: Color { DSColor.transparentBlackTransparentBlack300.resolve }
+    public static var TransparentBlack400: Color { DSColor.transparentBlackTransparentBlack400.resolve }
+    public static var TransparentBlack500: Color { DSColor.transparentBlackTransparentBlack500.resolve }
+    public static var TransparentBlack600: Color { DSColor.transparentBlackTransparentBlack600.resolve }
+    public static var TransparentBlack700: Color { DSColor.transparentBlackTransparentBlack700.resolve }
+    public static var TransparentBlack800: Color { DSColor.transparentBlackTransparentBlack800.resolve }
+    public static var TransparentBlack900: Color { DSColor.transparentBlackTransparentBlack900.resolve }
+    public static var TransparentBlack950: Color { DSColor.transparentBlackTransparentBlack950.resolve }
+
     // MARK: - Transparent White Scale
-    public static let TransparentWhite025 = TokensSemanticLight.TransparentWhiteTransparentWhite025
-    public static let TransparentWhite050 = TokensSemanticLight.TransparentWhiteTransparentWhite050
-    public static let TransparentWhite075 = TokensSemanticLight.TransparentWhiteTransparentWhite075
-    public static let TransparentWhite100 = TokensSemanticLight.TransparentWhiteTransparentWhite100
-    public static let TransparentWhite200 = TokensSemanticLight.TransparentWhiteTransparentWhite200
-    public static let TransparentWhite300 = TokensSemanticLight.TransparentWhiteTransparentWhite300
-    public static let TransparentWhite400 = TokensSemanticLight.TransparentWhiteTransparentWhite400
-    public static let TransparentWhite500 = TokensSemanticLight.TransparentWhiteTransparentWhite500
-    public static let TransparentWhite600 = TokensSemanticLight.TransparentWhiteTransparentWhite600
-    public static let TransparentWhite700 = TokensSemanticLight.TransparentWhiteTransparentWhite700
-    public static let TransparentWhite800 = TokensSemanticLight.TransparentWhiteTransparentWhite800
-    public static let TransparentWhite900 = TokensSemanticLight.TransparentWhiteTransparentWhite900
-    public static let TransparentWhite950 = TokensSemanticLight.TransparentWhiteTransparentWhite950
-    
+    public static var TransparentWhite025: Color { DSColor.transparentWhiteTransparentWhite025.resolve }
+    public static var TransparentWhite050: Color { DSColor.transparentWhiteTransparentWhite050.resolve }
+    public static var TransparentWhite075: Color { DSColor.transparentWhiteTransparentWhite075.resolve }
+    public static var TransparentWhite100: Color { DSColor.transparentWhiteTransparentWhite100.resolve }
+    public static var TransparentWhite200: Color { DSColor.transparentWhiteTransparentWhite200.resolve }
+    public static var TransparentWhite300: Color { DSColor.transparentWhiteTransparentWhite300.resolve }
+    public static var TransparentWhite400: Color { DSColor.transparentWhiteTransparentWhite400.resolve }
+    public static var TransparentWhite500: Color { DSColor.transparentWhiteTransparentWhite500.resolve }
+    public static var TransparentWhite600: Color { DSColor.transparentWhiteTransparentWhite600.resolve }
+    public static var TransparentWhite700: Color { DSColor.transparentWhiteTransparentWhite700.resolve }
+    public static var TransparentWhite800: Color { DSColor.transparentWhiteTransparentWhite800.resolve }
+    public static var TransparentWhite900: Color { DSColor.transparentWhiteTransparentWhite900.resolve }
+    public static var TransparentWhite950: Color { DSColor.transparentWhiteTransparentWhite950.resolve }
+
     // MARK: - Icon Tokens (from TokensComponentsLight)
     public static let IconOnContainerColorInactive = TokensComponentsLight.IconOnContainerColorInactive
     public static let IconOnContainerColorPrimary = TokensComponentsLight.IconOnContainerColorPrimary

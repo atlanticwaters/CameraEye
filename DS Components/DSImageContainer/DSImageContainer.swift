@@ -1,137 +1,220 @@
 import SwiftUI
 
+// MARK: - DSImageContainerSize
+
+/// Size variants for DSImageContainer matching Figma specs.
+public enum DSImageContainerSize: CaseIterable, Sendable {
+    /// Pico size (22pt)
+    case pico
+    /// Nano size (32pt)
+    case nano
+    /// Micro size (60pt)
+    case micro
+    /// XXSmall size (76pt)
+    case xxSmall
+    /// XSmall size (106pt)
+    case xSmall
+    /// Small size (148pt)
+    case small
+    /// Medium size (186pt)
+    case medium
+    /// Large size (260pt)
+    case large
+    /// XLarge size (320pt)
+    case xLarge
+    /// XXLarge size (398pt)
+    case xxLarge
+
+    /// The dimension (width and height) for this size.
+    public var dimension: CGFloat {
+        switch self {
+        case .pico: 22
+        case .nano: 32
+        case .micro: 60
+        case .xxSmall: 76
+        case .xSmall: 106
+        case .small: 148
+        case .medium: 186
+        case .large: 260
+        case .xLarge: 320
+        case .xxLarge: 398
+        }
+    }
+
+    /// The corner radius for this size.
+    public var cornerRadius: CGFloat {
+        switch self {
+        case .pico, .nano: 4
+        case .micro, .xxSmall: 6
+        case .xSmall, .small: 8
+        case .medium, .large: 10
+        case .xLarge, .xxLarge: 12
+        }
+    }
+}
+
 // MARK: - DSImageContainer
 
-/// A responsive image container component with predefined sizes.
+/// A standardized image container component for displaying images at consistent sizes.
 ///
-/// DSImageContainer provides 8 standardized sizes for displaying images
-/// consistently across the app. Images fill their container using aspectRatio(.fill)
-/// to maintain proper aspect ratios.
+/// DSImageContainer provides a square container with predefined sizes matching the design system.
+/// It supports loading images from URLs, SwiftUI Image, or displaying a placeholder.
 ///
 /// Example usage:
 /// ```swift
-/// DSImageContainer(
-///     image: Image("product"),
-///     size: .large
-/// )
+/// // With URL
+/// DSImageContainer(url: imageURL, size: .medium)
+///
+/// // With Image
+/// DSImageContainer(image: Image("product"), size: .large)
+///
+/// // Placeholder only
+/// DSImageContainer(size: .small)
 /// ```
 public struct DSImageContainer: View {
-    // MARK: Lifecycle
+    // MARK: - Properties
 
-    /// Creates a DSImageContainer with the specified image and size.
+    private let size: DSImageContainerSize
+    private let image: Image?
+    private let url: URL?
+    private let contentMode: ContentMode
+    private let placeholder: AnyView?
+
+    // MARK: - Styling
+
+    private var backgroundColor: Color {
+        DSImageContainerColorHelper.backgroundColor()
+    }
+
+    private var borderColor: Color {
+        DSImageContainerColorHelper.borderColor()
+    }
+
+    // MARK: - Initializers
+
+    /// Creates an image container with a SwiftUI Image.
+    /// - Parameters:
+    ///   - image: The image to display.
+    ///   - size: The size of the container.
+    ///   - contentMode: How the image should be scaled. Defaults to `.fill`.
     public init(
         image: Image,
-        size: Size = .large,
+        size: DSImageContainerSize,
         contentMode: ContentMode = .fill
     ) {
         self.image = image
         self.size = size
         self.contentMode = contentMode
+        self.url = nil
+        self.placeholder = nil
     }
 
-    // MARK: Public
+    /// Creates an image container with a URL for async loading.
+    /// - Parameters:
+    ///   - url: The URL to load the image from.
+    ///   - size: The size of the container.
+    ///   - contentMode: How the image should be scaled. Defaults to `.fill`.
+    ///   - placeholder: Optional placeholder view while loading.
+    public init(
+        url: URL?,
+        size: DSImageContainerSize,
+        contentMode: ContentMode = .fill,
+        placeholder: (() -> some View)? = nil
+    ) {
+        self.url = url
+        self.size = size
+        self.contentMode = contentMode
+        self.image = nil
+        self.placeholder = placeholder.map { AnyView($0()) }
+    }
 
-    /// Image container size variants
-    public enum Size: CaseIterable {
-        case xxLarge
-        case xLarge
-        case large
-        case medium
-        case small
-        case xSmall
-        case xxSmall
-        case micro
+    /// Creates an empty image container (placeholder only).
+    /// - Parameters:
+    ///   - size: The size of the container.
+    ///   - placeholder: Optional placeholder view.
+    public init(
+        size: DSImageContainerSize,
+        placeholder: (() -> some View)? = nil
+    ) {
+        self.size = size
+        self.image = nil
+        self.url = nil
+        self.contentMode = .fill
+        self.placeholder = placeholder.map { AnyView($0()) }
+    }
 
-        // MARK: Internal
+    // MARK: - Body
 
-        /// Container dimensions (square containers)
-        var dimension: CGFloat {
-            switch self {
-            case .xxLarge: 320
-            case .xLarge: 240
-            case .large: 160
-            case .medium: 120
-            case .small: 80
-            case .xSmall: 64
-            case .xxSmall: 48
-            case .micro: 32
+    public var body: some View {
+        ZStack {
+            // Background
+            RoundedRectangle(cornerRadius: size.cornerRadius)
+                .fill(backgroundColor)
+
+            // Border
+            RoundedRectangle(cornerRadius: size.cornerRadius)
+                .stroke(borderColor, lineWidth: 1)
+
+            // Content
+            contentView
+        }
+        .frame(width: size.dimension, height: size.dimension)
+        .clipShape(RoundedRectangle(cornerRadius: size.cornerRadius))
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(Text("Image"))
+    }
+
+    @ViewBuilder
+    private var contentView: some View {
+        if let image {
+            image
+                .resizable()
+                .aspectRatio(contentMode: contentMode)
+        } else if let url {
+            AsyncImage(url: url) { phase in
+                switch phase {
+                case .empty:
+                    placeholderView
+                case .success(let loadedImage):
+                    loadedImage
+                        .resizable()
+                        .aspectRatio(contentMode: contentMode)
+                case .failure:
+                    placeholderView
+                @unknown default:
+                    placeholderView
+                }
             }
+        } else {
+            placeholderView
         }
     }
 
-    /// Content mode for image display
-    public enum ContentMode {
-        case fill
-        case fit
-    }
-
-    public var body: some View {
-        imageView
-            .frame(width: size.dimension, height: size.dimension)
-            .clipped()
-    }
-
-    // MARK: Private
-
-    private let image: Image
-    private let size: Size
-    private let contentMode: ContentMode
-
     @ViewBuilder
-    private var imageView: some View {
-        switch contentMode {
-        case .fill:
-            image
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-        case .fit:
-            image
-                .resizable()
-                .aspectRatio(contentMode: .fit)
+    private var placeholderView: some View {
+        if let placeholder {
+            placeholder
+        } else {
+            DSImageContainerPlaceholder(size: size)
         }
     }
 }
 
-// MARK: - Factory Methods
+// MARK: - DSImageContainerPlaceholder
 
-extension DSImageContainer {
-    /// Creates an extra-extra-large image container (320x320).
-    public static func xxLarge(_ image: Image) -> DSImageContainer {
-        DSImageContainer(image: image, size: .xxLarge)
+/// Default placeholder view for image containers.
+struct DSImageContainerPlaceholder: View {
+    let size: DSImageContainerSize
+
+    private var iconSize: CGFloat {
+        size.dimension * 0.4
     }
 
-    /// Creates an extra-large image container (240x240).
-    public static func xLarge(_ image: Image) -> DSImageContainer {
-        DSImageContainer(image: image, size: .xLarge)
-    }
-
-    /// Creates a large image container (160x160).
-    public static func large(_ image: Image) -> DSImageContainer {
-        DSImageContainer(image: image, size: .large)
-    }
-
-    /// Creates a medium image container (120x120).
-    public static func medium(_ image: Image) -> DSImageContainer {
-        DSImageContainer(image: image, size: .medium)
-    }
-
-    /// Creates a small image container (80x80).
-    public static func small(_ image: Image) -> DSImageContainer {
-        DSImageContainer(image: image, size: .small)
-    }
-
-    /// Creates an extra-small image container (64x64).
-    public static func xSmall(_ image: Image) -> DSImageContainer {
-        DSImageContainer(image: image, size: .xSmall)
-    }
-
-    /// Creates an extra-extra-small image container (48x48).
-    public static func xxSmall(_ image: Image) -> DSImageContainer {
-        DSImageContainer(image: image, size: .xxSmall)
-    }
-
-    /// Creates a micro image container (32x32).
-    public static func micro(_ image: Image) -> DSImageContainer {
-        DSImageContainer(image: image, size: .micro)
+    var body: some View {
+        Image(systemName: "photo")
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: iconSize, height: iconSize)
+            .foregroundColor(DSImageContainerColorHelper.placeholderIconColor())
     }
 }

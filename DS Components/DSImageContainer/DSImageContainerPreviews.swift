@@ -1,26 +1,17 @@
 import SwiftUI
 
-// MARK: - DSImageContainer Previews
+// MARK: - Size Previews
 
-// All Sizes Preview
 #Preview("All Sizes") {
     ScrollView {
-        VStack(alignment: .leading, spacing: 16) {
-            ForEach(DSImageContainer.Size.allCases, id: \.self) { size in
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("\(sizeLabel(size)) - \(Int(size.dimension))x\(Int(size.dimension))")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                    
-                    DSImageContainer(
-                        image: Image(systemName: "photo.fill"),
-                        size: size
-                    )
-                    .background(Color.gray.opacity(0.1))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 0)
-                            .stroke(Color.gray.opacity(0.3), lineWidth: 1)
-                    )
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 16) {
+            ForEach(DSImageContainerSize.allCases, id: \.self) { size in
+                VStack(spacing: 8) {
+                    DSImageContainer(size: size, placeholder: nil as (() -> EmptyView)?)
+
+                    Text(sizeName(size))
+                        .font(.caption2)
+                        .foregroundStyle(.secondary)
                 }
             }
         }
@@ -28,101 +19,121 @@ import SwiftUI
     }
 }
 
-// Individual Size Previews
-#Preview("XXLarge (320x320)") {
-    DSImageContainer.xxLarge(Image(systemName: "photo.fill"))
+#Preview("Pico - 22pt") {
+    DSImageContainer(size: .pico, placeholder: nil as (() -> EmptyView)?)
         .padding()
 }
 
-#Preview("XLarge (240x240)") {
-    DSImageContainer.xLarge(Image(systemName: "photo.fill"))
+#Preview("Nano - 32pt") {
+    DSImageContainer(size: .nano, placeholder: nil as (() -> EmptyView)?)
         .padding()
 }
 
-#Preview("Large (160x160)") {
-    DSImageContainer.large(Image(systemName: "photo.fill"))
+#Preview("Micro - 60pt") {
+    DSImageContainer(size: .micro, placeholder: nil as (() -> EmptyView)?)
         .padding()
 }
 
-#Preview("Medium (120x120)") {
-    DSImageContainer.medium(Image(systemName: "photo.fill"))
+#Preview("XXSmall - 76pt") {
+    DSImageContainer(size: .xxSmall, placeholder: nil as (() -> EmptyView)?)
         .padding()
 }
 
-#Preview("Small (80x80)") {
-    DSImageContainer.small(Image(systemName: "photo.fill"))
+#Preview("XSmall - 106pt") {
+    DSImageContainer(size: .xSmall, placeholder: nil as (() -> EmptyView)?)
         .padding()
 }
 
-#Preview("XSmall (64x64)") {
-    DSImageContainer.xSmall(Image(systemName: "photo.fill"))
+#Preview("Small - 148pt") {
+    DSImageContainer(size: .small, placeholder: nil as (() -> EmptyView)?)
         .padding()
 }
 
-#Preview("XXSmall (48x48)") {
-    DSImageContainer.xxSmall(Image(systemName: "photo.fill"))
+#Preview("Medium - 186pt") {
+    DSImageContainer(size: .medium, placeholder: nil as (() -> EmptyView)?)
         .padding()
 }
 
-#Preview("Micro (32x32)") {
-    DSImageContainer.micro(Image(systemName: "photo.fill"))
+#Preview("Large - 260pt") {
+    DSImageContainer(size: .large, placeholder: nil as (() -> EmptyView)?)
         .padding()
 }
 
-// Content Mode Comparison
-#Preview("Content Modes") {
-    VStack(spacing: 24) {
-        VStack(spacing: 8) {
-            Text("Fill (default)")
-                .font(.headline)
-            DSImageContainer(
-                image: Image(systemName: "photo.fill"),
-                size: .large,
-                contentMode: .fill
-            )
-            .background(Color.gray.opacity(0.1))
-        }
-        
-        VStack(spacing: 8) {
-            Text("Fit")
-                .font(.headline)
-            DSImageContainer(
-                image: Image(systemName: "photo.fill"),
-                size: .large,
-                contentMode: .fit
-            )
-            .background(Color.gray.opacity(0.1))
-        }
+#Preview("XLarge - 320pt") {
+    DSImageContainer(size: .xLarge, placeholder: nil as (() -> EmptyView)?)
+        .padding()
+}
+
+#Preview("XXLarge - 398pt") {
+    ScrollView {
+        DSImageContainer(size: .xxLarge, placeholder: nil as (() -> EmptyView)?)
+            .padding()
+    }
+}
+
+// MARK: - With Image
+
+#Preview("With System Image") {
+    DSImageContainer(
+        image: Image(systemName: "star.fill"),
+        size: .medium
+    )
+    .padding()
+}
+
+// MARK: - Content Modes
+
+#Preview("Content Mode - Fill") {
+    DSImageContainer(
+        image: Image(systemName: "photo.artframe"),
+        size: .large,
+        contentMode: .fill
+    )
+    .padding()
+}
+
+#Preview("Content Mode - Fit") {
+    DSImageContainer(
+        image: Image(systemName: "photo.artframe"),
+        size: .large,
+        contentMode: .fit
+    )
+    .padding()
+}
+
+// MARK: - Dark Mode
+
+#Preview("Dark Mode") {
+    VStack(spacing: 16) {
+        DSImageContainer(size: .medium, placeholder: nil as (() -> EmptyView)?)
+        DSImageContainer(size: .large, placeholder: nil as (() -> EmptyView)?)
+    }
+    .padding()
+    .preferredColorScheme(.dark)
+}
+
+// MARK: - Custom Placeholder
+
+#Preview("Custom Placeholder") {
+    DSImageContainer(size: .large) {
+        ProgressView()
     }
     .padding()
 }
 
-// Grid Layout Example
-#Preview("Grid Layout") {
-    ScrollView {
-        LazyVGrid(columns: [
-            GridItem(.adaptive(minimum: 80))
-        ], spacing: 16) {
-            ForEach(0..<12, id: \.self) { _ in
-                DSImageContainer.small(Image(systemName: "photo.fill"))
-                    .background(Color.gray.opacity(0.1))
-            }
-        }
-        .padding()
-    }
-}
+// MARK: - Helpers
 
-// MARK: - Helper Functions
-
-private func sizeLabel(_ size: DSImageContainer.Size) -> String {
+private func sizeName(_ size: DSImageContainerSize) -> String {
     switch size {
-    case .xxLarge: return "XXLarge"
-    case .xLarge: return "XLarge"
-    case .large: return "Large"
-    case .medium: return "Medium"
-    case .small: return "Small"
-    case .xSmall: return "XSmall"
-    case .xxSmall: return "XXSmall"
-    case .micro: return "Micro"
+    case .pico: "Pico (22)"
+    case .nano: "Nano (32)"
+    case .micro: "Micro (60)"
+    case .xxSmall: "XXSmall (76)"
+    case .xSmall: "XSmall (106)"
+    case .small: "Small (148)"
+    case .medium: "Medium (186)"
+    case .large: "Large (260)"
+    case .xLarge: "XLarge (320)"
+    case .xxLarge: "XXLarge (398)"
     }
 }

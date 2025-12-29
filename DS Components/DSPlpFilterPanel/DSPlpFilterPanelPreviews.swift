@@ -1,171 +1,180 @@
 import SwiftUI
 
-struct DSPlpFilterPanel_Previews: PreviewProvider {
-    static var previews: some View {
-        Group {
-            // Basic example
-            basicExample
-                .previewDisplayName("Basic Example")
-                .preferredColorScheme(.light)
-            
-            // Complete example with all sections
-            completeExample
-                .previewDisplayName("Complete Example")
-                .preferredColorScheme(.light)
-            
-            // Dark mode
-            completeExample
-                .previewDisplayName("Dark Mode")
-                .preferredColorScheme(.dark)
-            
-            // Minimal example
-            minimalExample
-                .previewDisplayName("Minimal")
-                .preferredColorScheme(.light)
-            
-            // Style pills only
-            stylePillsOnly
-                .previewDisplayName("Style Pills Only")
-                .preferredColorScheme(.light)
-        }
-        .padding()
-        .previewLayout(.sizeThatFits)
-    }
-    
-    // MARK: - Basic Example
-    
-    static var basicExample: some View {
-        DSPlpFilterPanel(
-            title: "REFRIGERATOR",
-            stylePills: sampleStylePills.prefix(3).map { $0 },
-            resultsCount: "5,007 RESULTS",
-            filterPills: [
-                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                DSFilterPillItem(text: "Category"),
-                DSFilterPillItem(text: "Width")
+// MARK: - Previews
+
+#Preview("Full Filter Panel") {
+    DSPLPFilterPanel(
+        data: DSPLPFilterPanelData(
+            categoryTitle: "REFRIGERATOR",
+            categoryPills: [
+                DSPLPCategoryPill(label: "French Door Refrigerators"),
+                DSPLPCategoryPill(label: "Side by Side Refrigerators"),
+                DSPLPCategoryPill(label: "Top Freezer Refrigerators"),
+                DSPLPCategoryPill(label: "Bottom Freezer Refrigerators"),
+                DSPLPCategoryPill(label: "Freezerless Refrigerators"),
+                DSPLPCategoryPill(label: "Mini Fridges")
             ],
-            subFilterPills: [
-                DSFilterPillItem(text: "In Stock At Store Today"),
-                DSFilterPillItem(text: "Free 1-2 Day Delivery")
+            resultsCount: 102,
+            primaryFilters: [
+                DSPLPFilterPill(label: "Brand", hasDropdown: true),
+                DSPLPFilterPill(label: "Price", hasDropdown: true),
+                DSPLPFilterPill(label: "Size", hasDropdown: true),
+                DSPLPFilterPill(label: "Color", hasDropdown: true),
+                DSPLPFilterPill(label: "Features", hasDropdown: true),
+                DSPLPFilterPill(label: "Rating", hasDropdown: true),
+                DSPLPFilterPill(label: "Availability", hasDropdown: true)
             ],
-            onStylePillTap: { item in
-                print("Style pill tapped: \(item.text)")
-            },
-            onFilterPillTap: { item in
-                print("Filter pill tapped: \(item.text)")
-            },
-            onSubFilterPillTap: { item in
-                print("Sub-filter pill tapped: \(item.text)")
-            }
-        )
-    }
-    
-    // MARK: - Complete Example
-    
-    static var completeExample: some View {
-        ScrollView {
-            DSPlpFilterPanel(
-                title: "REFRIGERATOR",
-                stylePills: sampleStylePills,
-                resultsCount: "5,007 RESULTS",
-                filterPills: sampleFilterPills,
-                subFilterPills: sampleSubFilterPills,
-                onStylePillTap: { item in
-                    print("Style pill tapped: \(item.text)")
-                },
-                onFilterPillTap: { item in
-                    print("Filter pill tapped: \(item.text)")
-                },
-                onSubFilterPillTap: { item in
-                    print("Sub-filter pill tapped: \(item.text)")
-                }
-            )
-        }
-    }
-    
-    // MARK: - Minimal Example
-    
-    static var minimalExample: some View {
-        DSPlpFilterPanel(
-            title: "DISHWASHERS",
-            resultsCount: "1,234 RESULTS"
-        )
-    }
-    
-    // MARK: - Style Pills Only
-    
-    static var stylePillsOnly: some View {
-        DSPlpFilterPanel(
-            title: "WASHING MACHINES",
-            stylePills: [
-                DSStylePillItem(
-                    text: "Front Load\nWashers",
-                    image: Image(systemName: "washer.fill")
-                ),
-                DSStylePillItem(
-                    text: "Top Load\nWashers",
-                    image: Image(systemName: "washer.fill")
-                ),
-                DSStylePillItem(
-                    text: "Combo\nWasher-Dryers",
-                    image: Image(systemName: "washer.fill")
-                )
+            secondaryFilters: [
+                DSPLPFilterPill(label: "In Stock", isSelected: true),
+                DSPLPFilterPill(label: "Free Delivery"),
+                DSPLPFilterPill(label: "On Sale"),
+                DSPLPFilterPill(label: "Top Rated"),
+                DSPLPFilterPill(label: "Energy Star"),
+                DSPLPFilterPill(label: "Smart Home")
+            ]
+        ),
+        selectedCategoryId: nil,
+        onCategoryPillTap: { pill in print("Category: \(pill.label)") },
+        onPrimaryFilterTap: { filter in print("Primary: \(filter.label)") },
+        onSecondaryFilterTap: { filter in print("Secondary: \(filter.label)") }
+    )
+    .padding()
+}
+
+#Preview("Power Tools") {
+    DSPLPFilterPanel(
+        data: DSPLPFilterPanelData(
+            categoryTitle: "POWER TOOLS",
+            categoryPills: [
+                DSPLPCategoryPill(label: "Drills"),
+                DSPLPCategoryPill(label: "Saws"),
+                DSPLPCategoryPill(label: "Sanders"),
+                DSPLPCategoryPill(label: "Grinders"),
+                DSPLPCategoryPill(label: "Routers")
             ],
-            resultsCount: "2,456 RESULTS"
-        )
-    }
-    
-    // MARK: - Sample Data
-    
-    static var sampleStylePills: [DSStylePillItem] {
-        [
-            DSStylePillItem(
-                text: "French Door\nRefrigerators",
-                image: Image(systemName: "refrigerator.fill")
-            ),
-            DSStylePillItem(
-                text: "Side by Side\nRefrigerators",
-                image: Image(systemName: "refrigerator.fill")
-            ),
-            DSStylePillItem(
-                text: "Top Freezer\nRefrigerators",
-                image: Image(systemName: "refrigerator.fill")
-            ),
-            DSStylePillItem(
-                text: "Bottom Freezer\nRefrigerators",
-                image: Image(systemName: "refrigerator.fill")
-            ),
-            DSStylePillItem(
-                text: "Freezerless\nRefrigerators",
-                image: Image(systemName: "refrigerator.fill")
-            ),
-            DSStylePillItem(
-                text: "Mini Fridges",
-                image: Image(systemName: "refrigerator.fill")
-            )
-        ]
-    }
-    
-    static var sampleFilterPills: [DSFilterPillItem] {
-        [
-            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-            DSFilterPillItem(text: "Category"),
-            DSFilterPillItem(text: "Refrigerator Width"),
-            DSFilterPillItem(text: "Decorative Shelving Type"),
-            DSFilterPillItem(text: "Filter Attribute 4"),
-            DSFilterPillItem(text: "Filter Attribute 5"),
-            DSFilterPillItem(text: "Filter Attribute 6")
-        ]
-    }
-    
-    static var sampleSubFilterPills: [DSFilterPillItem] {
-        [
-            DSFilterPillItem(text: "In Stock At Store Today"),
-            DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-            DSFilterPillItem(text: "Same Day Delivery"),
-            DSFilterPillItem(text: "Sub Filter Attribute 4"),
-            DSFilterPillItem(text: "Sub Filter Attribute 5"),
-            DSFilterPillItem(text: "Sub Filter Attribute 6")
-        ]
-    }
+            resultsCount: 458,
+            primaryFilters: [
+                DSPLPFilterPill(label: "Brand", hasDropdown: true),
+                DSPLPFilterPill(label: "Voltage", hasDropdown: true),
+                DSPLPFilterPill(label: "Price", hasDropdown: true),
+                DSPLPFilterPill(label: "Type", hasDropdown: true)
+            ],
+            secondaryFilters: [
+                DSPLPFilterPill(label: "Cordless"),
+                DSPLPFilterPill(label: "DEWALT", isSelected: true),
+                DSPLPFilterPill(label: "Milwaukee"),
+                DSPLPFilterPill(label: "Ryobi")
+            ]
+        ),
+        onCategoryPillTap: { _ in },
+        onPrimaryFilterTap: { _ in },
+        onSecondaryFilterTap: { _ in }
+    )
+    .padding()
+}
+
+#Preview("Minimal - No Categories") {
+    DSPLPFilterPanel(
+        data: DSPLPFilterPanelData(
+            categoryTitle: "PAINT",
+            categoryPills: [],
+            resultsCount: 234,
+            primaryFilters: [
+                DSPLPFilterPill(label: "Color Family", hasDropdown: true),
+                DSPLPFilterPill(label: "Brand", hasDropdown: true),
+                DSPLPFilterPill(label: "Finish", hasDropdown: true)
+            ],
+            secondaryFilters: []
+        ),
+        onPrimaryFilterTap: { _ in }
+    )
+    .padding()
+}
+
+#Preview("Selected Category") {
+    let firstCategoryId = "category-1"
+
+    return DSPLPFilterPanel(
+        data: DSPLPFilterPanelData(
+            categoryTitle: "FLOORING",
+            categoryPills: [
+                DSPLPCategoryPill(id: firstCategoryId, label: "Hardwood"),
+                DSPLPCategoryPill(label: "Laminate"),
+                DSPLPCategoryPill(label: "Vinyl"),
+                DSPLPCategoryPill(label: "Tile"),
+                DSPLPCategoryPill(label: "Carpet")
+            ],
+            resultsCount: 567,
+            primaryFilters: [
+                DSPLPFilterPill(label: "Species", hasDropdown: true),
+                DSPLPFilterPill(label: "Width", hasDropdown: true),
+                DSPLPFilterPill(label: "Color", hasDropdown: true)
+            ],
+            secondaryFilters: [
+                DSPLPFilterPill(label: "Water Resistant", isSelected: true),
+                DSPLPFilterPill(label: "Scratch Resistant")
+            ]
+        ),
+        selectedCategoryId: firstCategoryId,
+        onCategoryPillTap: { _ in },
+        onPrimaryFilterTap: { _ in },
+        onSecondaryFilterTap: { _ in }
+    )
+    .padding()
+}
+
+#Preview("Filters Only") {
+    DSPLPFilterPanel(
+        data: DSPLPFilterPanelData(
+            categoryTitle: "SEARCH RESULTS",
+            categoryPills: [],
+            resultsCount: 1234,
+            primaryFilters: [
+                DSPLPFilterPill(label: "Department", hasDropdown: true),
+                DSPLPFilterPill(label: "Brand", hasDropdown: true),
+                DSPLPFilterPill(label: "Price", hasDropdown: true),
+                DSPLPFilterPill(label: "Rating", hasDropdown: true)
+            ],
+            secondaryFilters: [
+                DSPLPFilterPill(label: "In Stock"),
+                DSPLPFilterPill(label: "Free Shipping"),
+                DSPLPFilterPill(label: "On Sale"),
+                DSPLPFilterPill(label: "New Arrivals")
+            ]
+        ),
+        onPrimaryFilterTap: { _ in },
+        onSecondaryFilterTap: { _ in }
+    )
+    .padding()
+}
+
+#Preview("With Active Filters") {
+    DSPLPFilterPanel(
+        data: DSPLPFilterPanelData(
+            categoryTitle: "APPLIANCES",
+            categoryPills: [
+                DSPLPCategoryPill(label: "Refrigerators"),
+                DSPLPCategoryPill(label: "Ranges"),
+                DSPLPCategoryPill(label: "Dishwashers"),
+                DSPLPCategoryPill(label: "Washers & Dryers")
+            ],
+            resultsCount: 45,
+            primaryFilters: [
+                DSPLPFilterPill(label: "LG", isSelected: true),
+                DSPLPFilterPill(label: "$1000-$2000", isSelected: true),
+                DSPLPFilterPill(label: "Brand", hasDropdown: true),
+                DSPLPFilterPill(label: "Price", hasDropdown: true)
+            ],
+            secondaryFilters: [
+                DSPLPFilterPill(label: "Energy Star", isSelected: true),
+                DSPLPFilterPill(label: "In Stock", isSelected: true),
+                DSPLPFilterPill(label: "Smart Home"),
+                DSPLPFilterPill(label: "Counter Depth")
+            ]
+        ),
+        onCategoryPillTap: { _ in },
+        onPrimaryFilterTap: { _ in },
+        onSecondaryFilterTap: { _ in }
+    )
+    .padding()
 }

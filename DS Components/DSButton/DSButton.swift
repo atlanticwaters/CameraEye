@@ -1,5 +1,56 @@
 import SwiftUI
 
+// MARK: - DSButtonStyle
+
+/// Button style variants for DSButton
+public enum DSButtonStyle: CaseIterable, Sendable {
+    case orangeFilled
+    case gradientFilled
+    case outlined
+    case whiteFilled
+    case black5
+    case black10
+    case ghost
+}
+
+// MARK: - DSButtonSize
+
+/// Button size variants matching Figma specs
+public enum DSButtonSize: CaseIterable, Sendable {
+    case small
+    case medium
+    case large
+
+    // MARK: Internal
+
+    /// Button height from Figma: Sm=28, Md=36, Lg=44
+    var height: CGFloat {
+        switch self {
+        case .small: 28
+        case .medium: 36
+        case .large: 44
+        }
+    }
+
+    /// Horizontal padding from Figma: 16px (spacing-4) for all sizes
+    var horizontalPadding: CGFloat { 16 }
+
+    /// Icon size from Figma: 14px for Sm/Md, 15px for Lg
+    var iconSize: CGFloat {
+        switch self {
+        case .small,
+             .medium: 14
+        case .large: 15
+        }
+    }
+
+    /// Spinner size: 16px for all sizes
+    var spinnerSize: CGFloat { 16 }
+
+    /// Large buttons are full-width per Figma spec
+    var isFullWidth: Bool { self == .large }
+}
+
 // MARK: - DSButton
 
 /// A versatile button component with multiple styles and sizes.
@@ -10,218 +61,205 @@ import SwiftUI
 ///
 /// Example usage:
 /// ```swift
+/// // Simple string label
 /// DSButton("Add to Cart", style: .orangeFilled, size: .medium) {
 ///     // Action
 /// }
+///
+/// // LocalizedStringKey for localization
+/// DSButton("add_to_cart_key", style: .orangeFilled) {
+///     // Action
+/// }
+///
+/// // Custom label content
+/// DSButton(style: .orangeFilled) {
+///     // Action
+/// } label: {
+///     Label("Add to Cart", systemImage: "cart")
+/// }
 /// ```
-public struct DSButton: View {
-    // MARK: Lifecycle
-
+public struct DSButton<Label: View>: View {
     // MARK: - Initializers
 
-    /// Creates a DSButton with the specified configuration.
+    /// Creates a DSButton with a custom label view.
+    ///
+    /// - Important: When using a custom label that doesn't contain text,
+    ///   provide an explicit `accessibilityLabel` for VoiceOver users.
     public init(
-        _ label: String,
-        style: Style = .orangeFilled,
-        size: Size = .medium,
-        leadingIcon: Image? = nil,
-        trailingIcon: Image? = nil,
+        style: DSButtonStyle = .orangeFilled,
+        size: DSButtonSize = .medium,
+        role: ButtonRole? = nil,
         isDisabled: Bool = false,
         isLoading: Bool = false,
-        action: @escaping () -> Void
+        accessibilityLabel: String? = nil,
+        action: @escaping () -> Void,
+        @ViewBuilder label: () -> Label
     ) {
-        self.label = label
         self.style = style
         self.size = size
-        self.leadingIcon = leadingIcon
-        self.trailingIcon = trailingIcon
+        self.role = role
         self.isDisabled = isDisabled
         self.isLoading = isLoading
         self.action = action
+        self.labelContent = label()
+        self.accessibilityLabelOverride = accessibilityLabel
     }
 
     // MARK: Public
 
-    // MARK: - Types
-
-    /// Button style variants
-    public enum Style: CaseIterable {
-        case orangeFilled
-        case gradientFilled
-        case outlined
-        case whiteFilled
-        case black5
-        case black10
-        case ghost
-    }
-
-    /// Button size variants matching Figma specs
-    public enum Size: CaseIterable {
-        case small
-        case medium
-        case large
-
-        // MARK: Internal
-
-        /// Button height from Figma: Sm=28, Md=36, Lg=44
-        var height: CGFloat {
-            switch self {
-            case .small: 28
-            case .medium: 36
-            case .large: 44
-            }
-        }
-
-        /// Horizontal padding from Figma: 16px (spacing-4) for all sizes
-        var horizontalPadding: CGFloat {
-            16 // Figma: spacing-4
-        }
-
-        /// Font size from Figma: Body Sm (14px) for all sizes
-        var fontSize: CGFloat { TokensCoreLight.FontSizeBodySm }
-
-        /// Icon size from Figma: 14px for Sm/Md, 12px for Lg
-        var iconSize: CGFloat {
-            switch self {
-            case .small: 14
-            case .medium: 14
-            case .large: 12
-            }
-        }
-
-        /// Spinner size matches icon size
-        var spinnerSize: CGFloat {
-            switch self {
-            case .small: 16
-            case .medium: 16
-            case .large: 16
-            }
-        }
-
-        /// Large buttons are full-width per Figma spec
-        var isFullWidth: Bool {
-            self == .large
-        }
-    }
-
     // MARK: - Body
 
     public var body: some View {
-        Button(action: action) {
-            buttonContent
+        Button(role: role, action: action) {
+            // Empty label - ButtonStyle renders everything
+            Color.clear
+                .frame(height: size.height)
+                .frame(maxWidth: size.isFullWidth ? .infinity : nil)
         }
-        .buttonStyle(DSButtonPressStyle(style: style, isDisabled: effectivelyDisabled))
+        .buttonStyle(
+            DSButtonInternalStyle(
+                style: style,
+                size: size,
+                isDisabled: effectivelyDisabled,
+                isLoading: isLoading,
+                foregroundColor: foregroundColor,
+                labelContent: AnyView(labelContent)
+            )
+        )
         .disabled(effectivelyDisabled)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(accessibilityLabelOverride.map { Text($0) } ?? Text("Button"))
+        .accessibilityAddTraits(.isButton)
+        .accessibilityAddTraits(accessibilityTraits)
+        .modifier(AccessibilityValueModifier(value: accessibilityValueText))
+    }
+
+    // MARK: - Accessibility
+
+    private var accessibilityValueText: String? {
+        isLoading ? "Loading" : nil
+    }
+
+    private var accessibilityTraits: AccessibilityTraits {
+        isLoading ? .updatesFrequently : []
     }
 
     // MARK: Private
 
-    @Environment(\.colorScheme)
-    private var colorScheme
-
-    private let label: String
-    private let style: Style
-    private let size: Size
-    private let leadingIcon: Image?
-    private let trailingIcon: Image?
+    private let style: DSButtonStyle
+    private let size: DSButtonSize
+    private let role: ButtonRole?
     private let isDisabled: Bool
     private let isLoading: Bool
     private let action: () -> Void
+    private let labelContent: Label
+    private let accessibilityLabelOverride: String?
 
     private var effectivelyDisabled: Bool { isDisabled || isLoading }
-    private var isDark: Bool { colorScheme == .dark }
-
-    private var backgroundColor: Color {
-        DSButtonColorHelper.backgroundColor(style: style, isDisabled: effectivelyDisabled, isDark: isDark)
-    }
 
     private var foregroundColor: Color {
-        DSButtonColorHelper.foregroundColor(style: style, isDisabled: effectivelyDisabled, isDark: isDark)
+        DSButtonColorHelper.foregroundColor(style: style, isDisabled: effectivelyDisabled)
+    }
+}
+
+// MARK: - String Label Convenience Initializers
+
+extension DSButton where Label == DSButtonLabel {
+    /// Creates a DSButton with a string label.
+    public init(
+        _ label: String,
+        style: DSButtonStyle = .orangeFilled,
+        size: DSButtonSize = .medium,
+        leadingIcon: Image? = nil,
+        trailingIcon: Image? = nil,
+        role: ButtonRole? = nil,
+        isDisabled: Bool = false,
+        isLoading: Bool = false,
+        action: @escaping () -> Void
+    ) {
+        self.style = style
+        self.size = size
+        self.role = role
+        self.isDisabled = isDisabled
+        self.isLoading = isLoading
+        self.action = action
+        self.accessibilityLabelOverride = label
+        self.labelContent = DSButtonLabel(
+            text: label,
+            size: size,
+            leadingIcon: leadingIcon,
+            trailingIcon: trailingIcon,
+            isLoading: isLoading,
+            foregroundColor: DSButtonColorHelper.foregroundColor(style: style, isDisabled: isDisabled || isLoading)
+        )
     }
 
-    private var borderColor: Color {
-        DSButtonColorHelper.borderColor(isDisabled: effectivelyDisabled, isDark: isDark)
+    /// Creates a DSButton with a localized string key.
+    public init(
+        _ titleKey: LocalizedStringKey,
+        style: DSButtonStyle = .orangeFilled,
+        size: DSButtonSize = .medium,
+        leadingIcon: Image? = nil,
+        trailingIcon: Image? = nil,
+        role: ButtonRole? = nil,
+        isDisabled: Bool = false,
+        isLoading: Bool = false,
+        action: @escaping () -> Void
+    ) {
+        // For now, convert to string - in production would use proper localization
+        self.init(
+            String(describing: titleKey),
+            style: style,
+            size: size,
+            leadingIcon: leadingIcon,
+            trailingIcon: trailingIcon,
+            role: role,
+            isDisabled: isDisabled,
+            isLoading: isLoading,
+            action: action
+        )
     }
+}
 
-    @ViewBuilder
-    private var buttonContent: some View {
-        ZStack {
-            buttonBackground
-            contentStack
-        }
-        .frame(height: size.height)
-        .frame(maxWidth: size.isFullWidth ? .infinity : nil)
-    }
+// MARK: - DSButtonLabel
 
-    /// Content gap from Figma: spacing-2 (8px)
-    @ViewBuilder
-    private var contentStack: some View {
-        HStack(spacing: 8) { // Figma: spacing-2
+/// The default label view for DSButton with text and optional icons.
+public struct DSButtonLabel: View {
+    let text: String
+    let size: DSButtonSize
+    let leadingIcon: Image?
+    let trailingIcon: Image?
+    let isLoading: Bool
+    let foregroundColor: Color
+
+    public var body: some View {
+        HStack(spacing: 8) {
             if isLoading {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle(tint: foregroundColor))
                     .frame(width: size.spinnerSize, height: size.spinnerSize)
             } else {
-                iconView(leadingIcon)
-                labelView
-                iconView(trailingIcon)
+                if let leadingIcon {
+                    leadingIcon.resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: size.iconSize, height: size.iconSize)
+                }
+                Text(text)
+                    .font(DSTypography.buttonLabel)
+                if let trailingIcon {
+                    trailingIcon.resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: size.iconSize, height: size.iconSize)
+                }
             }
         }
-        .padding(.horizontal, size.horizontalPadding)
-    }
-
-    @ViewBuilder
-    private var labelView: some View {
-        Text(label)
-            .font(.custom(TokensCoreLight.FontFamilyInformational, size: size.fontSize).weight(.bold))
-            .foregroundColor(foregroundColor)
-    }
-
-    @ViewBuilder
-    private var buttonBackground: some View {
-        let cornerRadius = TokensSemanticLight.BorderRadiusFull
-        switch style {
-        case .gradientFilled:
-            gradientBackground(cornerRadius: cornerRadius)
-        case .outlined:
-            outlinedBackground(cornerRadius: cornerRadius)
-        default:
-            RoundedRectangle(cornerRadius: cornerRadius).fill(backgroundColor)
-        }
-    }
-
-    @ViewBuilder
-    private func iconView(_ icon: Image?) -> some View {
-        if let icon {
-            icon.resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: size.iconSize, height: size.iconSize)
-                .foregroundColor(foregroundColor)
-        }
-    }
-
-    @ViewBuilder
-    private func gradientBackground(cornerRadius: CGFloat) -> some View {
-        let gradient = LinearGradient(
-            colors: DSButtonColorHelper.gradientColors(isDark: isDark),
-            startPoint: .leading,
-            endPoint: .trailing
-        )
-        RoundedRectangle(cornerRadius: cornerRadius)
-            .fill(effectivelyDisabled ? AnyShapeStyle(backgroundColor) : AnyShapeStyle(gradient))
-    }
-
-    @ViewBuilder
-    private func outlinedBackground(cornerRadius: CGFloat) -> some View {
-        RoundedRectangle(cornerRadius: cornerRadius)
-            .stroke(borderColor, lineWidth: TokensSemanticLight.BorderWidthXs)
-            .background(RoundedRectangle(cornerRadius: cornerRadius).fill(Color.clear))
+        .foregroundColor(foregroundColor)
     }
 }
 
 // MARK: - Factory Methods
 
-extension DSButton {
+extension DSButton where Label == DSButtonLabel {
     /// Creates a primary (orange filled) button.
     public static func primary(_ label: String, action: @escaping () -> Void) -> DSButton {
         DSButton(label, style: .orangeFilled, action: action)
@@ -236,29 +274,46 @@ extension DSButton {
     public static func tertiary(_ label: String, action: @escaping () -> Void) -> DSButton {
         DSButton(label, style: .ghost, action: action)
     }
+
+    /// Creates a destructive button with the appropriate role.
+    public static func destructive(_ label: String, action: @escaping () -> Void) -> DSButton {
+        DSButton(label, style: .orangeFilled, role: .destructive, action: action)
+    }
 }
 
-// MARK: - DSButtonPressStyle
+// MARK: - DSButtonInternalStyle
 
-/// A custom button style that handles press states for DSButton.
-private struct DSButtonPressStyle: ButtonStyle {
-    // MARK: Internal
-
-    let style: DSButton.Style
+/// Internal ButtonStyle that handles all visual rendering including backgrounds and pressed states.
+/// This avoids the double-background issue by keeping all visuals in one place.
+private struct DSButtonInternalStyle: ButtonStyle {
+    let style: DSButtonStyle
+    let size: DSButtonSize
     let isDisabled: Bool
+    let isLoading: Bool
+    let foregroundColor: Color
+    let labelContent: AnyView
 
     func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .scaleEffect(configuration.isPressed && !isDisabled ? 0.97 : 1.0)
-            .opacity(configuration.isPressed && !isDisabled ? pressedOpacity : 1.0)
-            .background(pressedBackground(isPressed: configuration.isPressed))
-            .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
+        let isPressed = configuration.isPressed && !isDisabled
+
+        ZStack {
+            // Background - all background rendering happens here, not in label
+            buttonBackground(isPressed: isPressed)
+
+            // Content
+            labelContent
+                .padding(.horizontal, size.horizontalPadding)
+        }
+        .frame(height: size.height)
+        .frame(maxWidth: size.isFullWidth ? .infinity : nil)
+        .scaleEffect(isPressed ? 0.97 : 1.0)
+        .opacity(isPressed ? pressedOpacity : 1.0)
+        .animation(DSAnimation.press, value: isPressed)
     }
 
-    // MARK: Private
-
-    @Environment(\.colorScheme)
-    private var colorScheme
+    private var cornerRadius: CGFloat {
+        TokensSemanticLight.BorderRadiusFull
+    }
 
     private var pressedOpacity: Double {
         switch style {
@@ -272,17 +327,63 @@ private struct DSButtonPressStyle: ButtonStyle {
         }
     }
 
-    private var needsPressedBackground: Bool {
-        style == .ghost || style == .black5 || style == .black10
+    private var backgroundFill: DSBackgroundFill {
+        DSButtonColorHelper.backgroundFill(style: style, isDisabled: isDisabled)
     }
 
     @ViewBuilder
-    private func pressedBackground(isPressed: Bool) -> some View {
-        if isPressed && !isDisabled && needsPressedBackground {
-            RoundedRectangle(cornerRadius: TokensSemanticLight.BorderRadiusFull)
-                .fill(DSButtonColorHelper.pressedBackgroundColor(
-                    style: style, isDark: colorScheme == .dark
-                ))
+    private func buttonBackground(isPressed: Bool) -> some View {
+        switch style {
+        case .outlined:
+            outlinedBackground()
+        case .ghost,
+             .black5,
+             .black10:
+            // These styles need pressed background overlay
+            ZStack {
+                Self.shape(cornerRadius: cornerRadius)
+                    .dsBackgroundFill(backgroundFill)
+                if isPressed {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .fill(DSButtonColorHelper.pressedBackgroundColor(style: style))
+                }
+            }
+        default:
+            // orangeFilled, gradientFilled, whiteFilled all use DSBackgroundFill
+            Self.shape(cornerRadius: cornerRadius)
+                .dsBackgroundFill(backgroundFill)
+        }
+    }
+
+    // MARK: - Static (Performance)
+
+    private static func shape(cornerRadius: CGFloat) -> RoundedRectangle {
+        RoundedRectangle(cornerRadius: cornerRadius)
+    }
+
+    @ViewBuilder
+    private func outlinedBackground() -> some View {
+        // Just the stroke - no redundant clear background
+        RoundedRectangle(cornerRadius: cornerRadius)
+            .stroke(
+                DSButtonColorHelper.borderColor(isDisabled: isDisabled),
+                lineWidth: TokensSemanticLight.BorderWidthXs
+            )
+    }
+}
+
+// MARK: - AccessibilityValueModifier
+
+/// A modifier that conditionally applies an accessibility value.
+/// Only sets the value when it's non-nil, avoiding empty string announcements.
+private struct AccessibilityValueModifier: ViewModifier {
+    let value: String?
+
+    func body(content: Content) -> some View {
+        if let value {
+            content.accessibilityValue(Text(value))
+        } else {
+            content
         }
     }
 }

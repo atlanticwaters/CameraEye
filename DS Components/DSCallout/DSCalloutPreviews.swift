@@ -1,168 +1,131 @@
 import SwiftUI
 
-#Preview("Callout Variants") {
-    VStack(spacing: 16) {
-        DSCallout.neutral(
-            message: "This is supplementary information.",
-            buttonText: "Button Text",
-            onButtonTap: { print("Tapped") }
-        )
-        
-        DSCallout.brand(
-            title: "Callout Title (Optional)",
+// MARK: - DSCallout Previews
+
+#if DEBUG
+
+#Preview("Neutral Variant") {
+    VStack(spacing: 20) {
+        DSCallout(
+            title: "Callout Title",
             subtitle: "Subtitle",
-            message: "This is supplementary information.",
-            buttonText: "Button Text",
-            onButtonTap: { print("Tapped") }
+            body: "This is supplementary information."
         )
-        
-        DSCallout.inverse(
-            title: "Callout Title (Optional)",
-            subtitle: "Subtitle",
-            message: "This is supplementary information.",
-            buttonText: "Button Text",
-            onButtonTap: { print("Tapped") }
+
+        DSCallout(
+            title: "With Button",
+            body: "This callout has an action button.",
+            buttonTitle: "Button Text"
+        ) {
+            print("Button tapped")
+        }
+
+        DSCallout(
+            body: "Body only callout without title or subtitle."
         )
     }
     .padding()
 }
 
-#Preview("Callout Without Button") {
-    VStack(spacing: 16) {
-        DSCallout.neutral(
-            title: "Callout Title (Optional)",
-            subtitle: "Subtitle",
-            message: "This is supplementary information."
+#Preview("Brand Variant") {
+    VStack(spacing: 20) {
+        DSCallout(
+            title: "Brand Callout",
+            subtitle: "With accent background",
+            body: "This is a brand-styled callout.",
+            variant: .brand
         )
-        
-        DSCallout.brand(
-            title: "Callout Title (Optional)",
-            subtitle: "Subtitle",
-            message: "This is supplementary information."
-        )
-        
-        DSCallout.inverse(
-            title: "Callout Title (Optional)",
-            subtitle: "Subtitle",
-            message: "This is supplementary information."
-        )
+
+        DSCallout(
+            title: "Brand with Button",
+            body: "Brand callout with action.",
+            variant: .brand,
+            buttonTitle: "Shop Now"
+        ) {
+            print("Shop tapped")
+        }
     }
     .padding()
 }
 
-#Preview("Callout With Icon") {
-    VStack(spacing: 16) {
-        DSCallout.neutral(
-            leadingIcon: Image(systemName: "tag.fill"),
-            title: "Callout Title (Optional)",
-            subtitle: "Subtitle",
-            message: "This is supplementary information.",
-            buttonText: "Button Text",
-            onButtonTap: { print("Tapped") }
+#Preview("Inverse Variant") {
+    VStack(spacing: 20) {
+        DSCallout(
+            title: "Inverse Callout",
+            subtitle: "For dark backgrounds",
+            body: "This callout uses inverse colors.",
+            variant: .inverse
         )
-        
-        DSCallout.brand(
-            leadingIcon: Image(systemName: "tag.fill"),
-            title: "Callout Title (Optional)",
-            subtitle: "Subtitle",
-            message: "This is supplementary information.",
-            buttonText: "Button Text",
-            onButtonTap: { print("Tapped") }
-        )
-        
-        DSCallout.inverse(
-            leadingIcon: Image(systemName: "tag.fill"),
-            title: "Callout Title (Optional)",
-            subtitle: "Subtitle",
-            message: "This is supplementary information.",
-            buttonText: "Button Text",
-            onButtonTap: { print("Tapped") }
-        )
+
+        DSCallout(
+            title: "Inverse with Button",
+            body: "Inverse callout with action.",
+            variant: .inverse,
+            buttonTitle: "Learn More"
+        ) {
+            print("Learn more tapped")
+        }
     }
     .padding()
+    .background(Color.white)
 }
 
-#Preview("Floating Callouts") {
-    VStack(spacing: 16) {
-        DSCallout.neutral(
-            leadingIcon: Image(systemName: "tag.fill"),
-            title: "Callout Title (Optional)",
-            subtitle: "Subtitle",
-            message: "This is supplementary information.",
-            buttonText: "Button Text",
-            isFloating: true,
-            onButtonTap: { print("Tapped") }
+#Preview("Floating Variants") {
+    VStack(spacing: 20) {
+        DSCallout(
+            title: "Floating Neutral",
+            body: "This callout has elevation shadow.",
+            isFloating: true
         )
-        
-        DSCallout.brand(
-            leadingIcon: Image(systemName: "tag.fill"),
-            title: "Callout Title (Optional)",
-            subtitle: "Subtitle",
-            message: "This is supplementary information.",
-            buttonText: "Button Text",
-            isFloating: true,
-            onButtonTap: { print("Tapped") }
+
+        DSCallout(
+            title: "Floating Brand",
+            body: "Floating brand callout.",
+            variant: .brand,
+            isFloating: true
         )
-        
-        DSCallout.inverse(
-            leadingIcon: Image(systemName: "tag.fill"),
-            title: "Callout Title (Optional)",
-            subtitle: "Subtitle",
-            message: "This is supplementary information.",
-            buttonText: "Button Text",
-            isFloating: true,
-            onButtonTap: { print("Tapped") }
+
+        DSCallout(
+            title: "Floating Inverse",
+            body: "Floating inverse callout.",
+            variant: .inverse,
+            isFloating: true
         )
     }
     .padding()
+    .background(Color.gray.opacity(0.1))
 }
 
-#Preview("Message Only") {
-    VStack(spacing: 16) {
-        DSCallout.neutral(
-            message: "This is supplementary information."
-        )
-        
-        DSCallout.brand(
-            message: "This is supplementary information."
-        )
-        
-        DSCallout.inverse(
-            message: "This is supplementary information."
-        )
+#Preview("All Configurations") {
+    ScrollView {
+        VStack(spacing: 24) {
+            ForEach(DSCalloutVariant.allCases, id: \.self) { variant in
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("\(String(describing: variant).capitalized) Variant")
+                        .font(.headline)
+
+                    // Inline
+                    DSCallout(
+                        title: "Inline Callout",
+                        subtitle: "With subtitle",
+                        body: "This is the body text.",
+                        variant: variant,
+                        isFloating: false,
+                        buttonTitle: "Action"
+                    ) {}
+
+                    // Floating
+                    DSCallout(
+                        title: "Floating Callout",
+                        body: "With shadow elevation.",
+                        variant: variant,
+                        isFloating: true
+                    )
+                }
+            }
+        }
+        .padding()
     }
-    .padding()
 }
 
-#Preview("Dark Mode") {
-    VStack(spacing: 16) {
-        DSCallout.neutral(
-            leadingIcon: Image(systemName: "tag.fill"),
-            title: "Callout Title (Optional)",
-            subtitle: "Subtitle",
-            message: "This is supplementary information.",
-            buttonText: "Button Text",
-            onButtonTap: { print("Tapped") }
-        )
-        
-        DSCallout.brand(
-            leadingIcon: Image(systemName: "tag.fill"),
-            title: "Callout Title (Optional)",
-            subtitle: "Subtitle",
-            message: "This is supplementary information.",
-            buttonText: "Button Text",
-            onButtonTap: { print("Tapped") }
-        )
-        
-        DSCallout.inverse(
-            leadingIcon: Image(systemName: "tag.fill"),
-            title: "Callout Title (Optional)",
-            subtitle: "Subtitle",
-            message: "This is supplementary information.",
-            buttonText: "Button Text",
-            onButtonTap: { print("Tapped") }
-        )
-    }
-    .padding()
-    .preferredColorScheme(.dark)
-}
+#endif

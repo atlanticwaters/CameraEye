@@ -258,26 +258,26 @@ public protocol CoreTokensProvider {
     var ElevationBelow3: DSShadow { get }
     var ElevationBelow4: DSShadow { get }
     var ElevationBelow5: DSShadow { get }
-    var ElevationBlurRadiusBlur1: Int { get }
-    var ElevationBlurRadiusBlur2: Int { get }
-    var ElevationBlurRadiusBlur3: Int { get }
-    var ElevationBlurRadiusBlur4: Int { get }
-    var ElevationBlurRadiusBlur5: Int { get }
+    var ElevationBlurRadiusBlur1: CGFloat { get }
+    var ElevationBlurRadiusBlur2: CGFloat { get }
+    var ElevationBlurRadiusBlur3: CGFloat { get }
+    var ElevationBlurRadiusBlur4: CGFloat { get }
+    var ElevationBlurRadiusBlur5: CGFloat { get }
     var ElevationHigh: Color { get }
     var ElevationHighest: Color { get }
     var ElevationLow: Color { get }
     var ElevationLowest: Color { get }
     var ElevationMed: Color { get }
-    var ElevationPositionX1: Int { get }
-    var ElevationPositionX2: Int { get }
-    var ElevationPositionX3: Int { get }
-    var ElevationPositionX4: Int { get }
-    var ElevationPositionX5: Int { get }
-    var ElevationPositionY1: Int { get }
-    var ElevationPositionY2: Int { get }
-    var ElevationPositionY3: Int { get }
-    var ElevationPositionY4: Int { get }
-    var ElevationPositionY5: Int { get }
+    var ElevationPositionX1: CGFloat { get }
+    var ElevationPositionX2: CGFloat { get }
+    var ElevationPositionX3: CGFloat { get }
+    var ElevationPositionX4: CGFloat { get }
+    var ElevationPositionX5: CGFloat { get }
+    var ElevationPositionY1: CGFloat { get }
+    var ElevationPositionY2: CGFloat { get }
+    var ElevationPositionY3: CGFloat { get }
+    var ElevationPositionY4: CGFloat { get }
+    var ElevationPositionY5: CGFloat { get }
     var FontFamilyDisplay: String { get }
     var FontFamilyInformational: String { get }
     var FontLetterSpacingBase: CGFloat { get }
@@ -293,18 +293,18 @@ public protocol CoreTokensProvider {
     var FontSizeBodySm: CGFloat { get }
     var FontSizeBodyXl: CGFloat { get }
     var FontSizeBodyXs: CGFloat { get }
-    var FontSizeCaption: Int { get }
-    var FontSizeH1: Int { get }
-    var FontSizeH2: Int { get }
-    var FontSizeH3: Int { get }
-    var FontSizeH4: Int { get }
-    var FontSizeH5: Int { get }
-    var FontSizeH6: Int { get }
-    var FontSizeHero1: Int { get }
-    var FontSizeHero2: Int { get }
-    var FontSizeHero3: Int { get }
-    var FontSizeHero4: Int { get }
-    var FontSizeHero5: Int { get }
+    var FontSizeCaption: CGFloat { get }
+    var FontSizeH1: CGFloat { get }
+    var FontSizeH2: CGFloat { get }
+    var FontSizeH3: CGFloat { get }
+    var FontSizeH4: CGFloat { get }
+    var FontSizeH5: CGFloat { get }
+    var FontSizeH6: CGFloat { get }
+    var FontSizeHero1: CGFloat { get }
+    var FontSizeHero2: CGFloat { get }
+    var FontSizeHero3: CGFloat { get }
+    var FontSizeHero4: CGFloat { get }
+    var FontSizeHero5: CGFloat { get }
     var FontWeightBodyBold: String { get }
     var FontWeightBodyLight: String { get }
     var FontWeightBodyMedium: String { get }
@@ -546,6 +546,7 @@ public protocol CoreTokensProvider {
     var Spacing27: CGFloat { get }
     var Spacing28: CGFloat { get }
     var Spacing29: CGFloat { get }
+    var Spacing2Tba: CGFloat { get }
     var Spacing2px: CGFloat { get }
     var Spacing3: CGFloat { get }
     var Spacing30: CGFloat { get }
@@ -802,26 +803,26 @@ extension TokensCoreLight: CoreTokensProvider {
     public var ElevationBelow3: DSShadow { Self.ElevationBelow3 }
     public var ElevationBelow4: DSShadow { Self.ElevationBelow4 }
     public var ElevationBelow5: DSShadow { Self.ElevationBelow5 }
-    public var ElevationBlurRadiusBlur1: Int { Self.ElevationBlurRadiusBlur1 }
-    public var ElevationBlurRadiusBlur2: Int { Self.ElevationBlurRadiusBlur2 }
-    public var ElevationBlurRadiusBlur3: Int { Self.ElevationBlurRadiusBlur3 }
-    public var ElevationBlurRadiusBlur4: Int { Self.ElevationBlurRadiusBlur4 }
-    public var ElevationBlurRadiusBlur5: Int { Self.ElevationBlurRadiusBlur5 }
+    public var ElevationBlurRadiusBlur1: CGFloat { Self.ElevationBlurRadiusBlur1 }
+    public var ElevationBlurRadiusBlur2: CGFloat { Self.ElevationBlurRadiusBlur2 }
+    public var ElevationBlurRadiusBlur3: CGFloat { Self.ElevationBlurRadiusBlur3 }
+    public var ElevationBlurRadiusBlur4: CGFloat { Self.ElevationBlurRadiusBlur4 }
+    public var ElevationBlurRadiusBlur5: CGFloat { Self.ElevationBlurRadiusBlur5 }
     public var ElevationHigh: Color { Self.ElevationHigh }
     public var ElevationHighest: Color { Self.ElevationHighest }
     public var ElevationLow: Color { Self.ElevationLow }
     public var ElevationLowest: Color { Self.ElevationLowest }
     public var ElevationMed: Color { Self.ElevationMed }
-    public var ElevationPositionX1: Int { Self.ElevationPositionX1 }
-    public var ElevationPositionX2: Int { Self.ElevationPositionX2 }
-    public var ElevationPositionX3: Int { Self.ElevationPositionX3 }
-    public var ElevationPositionX4: Int { Self.ElevationPositionX4 }
-    public var ElevationPositionX5: Int { Self.ElevationPositionX5 }
-    public var ElevationPositionY1: Int { Self.ElevationPositionY1 }
-    public var ElevationPositionY2: Int { Self.ElevationPositionY2 }
-    public var ElevationPositionY3: Int { Self.ElevationPositionY3 }
-    public var ElevationPositionY4: Int { Self.ElevationPositionY4 }
-    public var ElevationPositionY5: Int { Self.ElevationPositionY5 }
+    public var ElevationPositionX1: CGFloat { Self.ElevationPositionX1 }
+    public var ElevationPositionX2: CGFloat { Self.ElevationPositionX2 }
+    public var ElevationPositionX3: CGFloat { Self.ElevationPositionX3 }
+    public var ElevationPositionX4: CGFloat { Self.ElevationPositionX4 }
+    public var ElevationPositionX5: CGFloat { Self.ElevationPositionX5 }
+    public var ElevationPositionY1: CGFloat { Self.ElevationPositionY1 }
+    public var ElevationPositionY2: CGFloat { Self.ElevationPositionY2 }
+    public var ElevationPositionY3: CGFloat { Self.ElevationPositionY3 }
+    public var ElevationPositionY4: CGFloat { Self.ElevationPositionY4 }
+    public var ElevationPositionY5: CGFloat { Self.ElevationPositionY5 }
     public var FontFamilyDisplay: String { Self.FontFamilyDisplay }
     public var FontFamilyInformational: String { Self.FontFamilyInformational }
     public var FontLetterSpacingBase: CGFloat { Self.FontLetterSpacingBase }
@@ -837,18 +838,18 @@ extension TokensCoreLight: CoreTokensProvider {
     public var FontSizeBodySm: CGFloat { Self.FontSizeBodySm }
     public var FontSizeBodyXl: CGFloat { Self.FontSizeBodyXl }
     public var FontSizeBodyXs: CGFloat { Self.FontSizeBodyXs }
-    public var FontSizeCaption: Int { Self.FontSizeCaption }
-    public var FontSizeH1: Int { Self.FontSizeH1 }
-    public var FontSizeH2: Int { Self.FontSizeH2 }
-    public var FontSizeH3: Int { Self.FontSizeH3 }
-    public var FontSizeH4: Int { Self.FontSizeH4 }
-    public var FontSizeH5: Int { Self.FontSizeH5 }
-    public var FontSizeH6: Int { Self.FontSizeH6 }
-    public var FontSizeHero1: Int { Self.FontSizeHero1 }
-    public var FontSizeHero2: Int { Self.FontSizeHero2 }
-    public var FontSizeHero3: Int { Self.FontSizeHero3 }
-    public var FontSizeHero4: Int { Self.FontSizeHero4 }
-    public var FontSizeHero5: Int { Self.FontSizeHero5 }
+    public var FontSizeCaption: CGFloat { Self.FontSizeCaption }
+    public var FontSizeH1: CGFloat { Self.FontSizeH1 }
+    public var FontSizeH2: CGFloat { Self.FontSizeH2 }
+    public var FontSizeH3: CGFloat { Self.FontSizeH3 }
+    public var FontSizeH4: CGFloat { Self.FontSizeH4 }
+    public var FontSizeH5: CGFloat { Self.FontSizeH5 }
+    public var FontSizeH6: CGFloat { Self.FontSizeH6 }
+    public var FontSizeHero1: CGFloat { Self.FontSizeHero1 }
+    public var FontSizeHero2: CGFloat { Self.FontSizeHero2 }
+    public var FontSizeHero3: CGFloat { Self.FontSizeHero3 }
+    public var FontSizeHero4: CGFloat { Self.FontSizeHero4 }
+    public var FontSizeHero5: CGFloat { Self.FontSizeHero5 }
     public var FontWeightBodyBold: String { Self.FontWeightBodyBold }
     public var FontWeightBodyLight: String { Self.FontWeightBodyLight }
     public var FontWeightBodyMedium: String { Self.FontWeightBodyMedium }
@@ -1090,6 +1091,7 @@ extension TokensCoreLight: CoreTokensProvider {
     public var Spacing27: CGFloat { Self.Spacing27 }
     public var Spacing28: CGFloat { Self.Spacing28 }
     public var Spacing29: CGFloat { Self.Spacing29 }
+    public var Spacing2Tba: CGFloat { Self.Spacing2Tba }
     public var Spacing2px: CGFloat { Self.Spacing2px }
     public var Spacing3: CGFloat { Self.Spacing3 }
     public var Spacing30: CGFloat { Self.Spacing30 }
@@ -1346,26 +1348,26 @@ extension TokensCoreDark: CoreTokensProvider {
     public var ElevationBelow3: DSShadow { Self.ElevationBelow3 }
     public var ElevationBelow4: DSShadow { Self.ElevationBelow4 }
     public var ElevationBelow5: DSShadow { Self.ElevationBelow5 }
-    public var ElevationBlurRadiusBlur1: Int { Self.ElevationBlurRadiusBlur1 }
-    public var ElevationBlurRadiusBlur2: Int { Self.ElevationBlurRadiusBlur2 }
-    public var ElevationBlurRadiusBlur3: Int { Self.ElevationBlurRadiusBlur3 }
-    public var ElevationBlurRadiusBlur4: Int { Self.ElevationBlurRadiusBlur4 }
-    public var ElevationBlurRadiusBlur5: Int { Self.ElevationBlurRadiusBlur5 }
+    public var ElevationBlurRadiusBlur1: CGFloat { Self.ElevationBlurRadiusBlur1 }
+    public var ElevationBlurRadiusBlur2: CGFloat { Self.ElevationBlurRadiusBlur2 }
+    public var ElevationBlurRadiusBlur3: CGFloat { Self.ElevationBlurRadiusBlur3 }
+    public var ElevationBlurRadiusBlur4: CGFloat { Self.ElevationBlurRadiusBlur4 }
+    public var ElevationBlurRadiusBlur5: CGFloat { Self.ElevationBlurRadiusBlur5 }
     public var ElevationHigh: Color { Self.ElevationHigh }
     public var ElevationHighest: Color { Self.ElevationHighest }
     public var ElevationLow: Color { Self.ElevationLow }
     public var ElevationLowest: Color { Self.ElevationLowest }
     public var ElevationMed: Color { Self.ElevationMed }
-    public var ElevationPositionX1: Int { Self.ElevationPositionX1 }
-    public var ElevationPositionX2: Int { Self.ElevationPositionX2 }
-    public var ElevationPositionX3: Int { Self.ElevationPositionX3 }
-    public var ElevationPositionX4: Int { Self.ElevationPositionX4 }
-    public var ElevationPositionX5: Int { Self.ElevationPositionX5 }
-    public var ElevationPositionY1: Int { Self.ElevationPositionY1 }
-    public var ElevationPositionY2: Int { Self.ElevationPositionY2 }
-    public var ElevationPositionY3: Int { Self.ElevationPositionY3 }
-    public var ElevationPositionY4: Int { Self.ElevationPositionY4 }
-    public var ElevationPositionY5: Int { Self.ElevationPositionY5 }
+    public var ElevationPositionX1: CGFloat { Self.ElevationPositionX1 }
+    public var ElevationPositionX2: CGFloat { Self.ElevationPositionX2 }
+    public var ElevationPositionX3: CGFloat { Self.ElevationPositionX3 }
+    public var ElevationPositionX4: CGFloat { Self.ElevationPositionX4 }
+    public var ElevationPositionX5: CGFloat { Self.ElevationPositionX5 }
+    public var ElevationPositionY1: CGFloat { Self.ElevationPositionY1 }
+    public var ElevationPositionY2: CGFloat { Self.ElevationPositionY2 }
+    public var ElevationPositionY3: CGFloat { Self.ElevationPositionY3 }
+    public var ElevationPositionY4: CGFloat { Self.ElevationPositionY4 }
+    public var ElevationPositionY5: CGFloat { Self.ElevationPositionY5 }
     public var FontFamilyDisplay: String { Self.FontFamilyDisplay }
     public var FontFamilyInformational: String { Self.FontFamilyInformational }
     public var FontLetterSpacingBase: CGFloat { Self.FontLetterSpacingBase }
@@ -1381,18 +1383,18 @@ extension TokensCoreDark: CoreTokensProvider {
     public var FontSizeBodySm: CGFloat { Self.FontSizeBodySm }
     public var FontSizeBodyXl: CGFloat { Self.FontSizeBodyXl }
     public var FontSizeBodyXs: CGFloat { Self.FontSizeBodyXs }
-    public var FontSizeCaption: Int { Self.FontSizeCaption }
-    public var FontSizeH1: Int { Self.FontSizeH1 }
-    public var FontSizeH2: Int { Self.FontSizeH2 }
-    public var FontSizeH3: Int { Self.FontSizeH3 }
-    public var FontSizeH4: Int { Self.FontSizeH4 }
-    public var FontSizeH5: Int { Self.FontSizeH5 }
-    public var FontSizeH6: Int { Self.FontSizeH6 }
-    public var FontSizeHero1: Int { Self.FontSizeHero1 }
-    public var FontSizeHero2: Int { Self.FontSizeHero2 }
-    public var FontSizeHero3: Int { Self.FontSizeHero3 }
-    public var FontSizeHero4: Int { Self.FontSizeHero4 }
-    public var FontSizeHero5: Int { Self.FontSizeHero5 }
+    public var FontSizeCaption: CGFloat { Self.FontSizeCaption }
+    public var FontSizeH1: CGFloat { Self.FontSizeH1 }
+    public var FontSizeH2: CGFloat { Self.FontSizeH2 }
+    public var FontSizeH3: CGFloat { Self.FontSizeH3 }
+    public var FontSizeH4: CGFloat { Self.FontSizeH4 }
+    public var FontSizeH5: CGFloat { Self.FontSizeH5 }
+    public var FontSizeH6: CGFloat { Self.FontSizeH6 }
+    public var FontSizeHero1: CGFloat { Self.FontSizeHero1 }
+    public var FontSizeHero2: CGFloat { Self.FontSizeHero2 }
+    public var FontSizeHero3: CGFloat { Self.FontSizeHero3 }
+    public var FontSizeHero4: CGFloat { Self.FontSizeHero4 }
+    public var FontSizeHero5: CGFloat { Self.FontSizeHero5 }
     public var FontWeightBodyBold: String { Self.FontWeightBodyBold }
     public var FontWeightBodyLight: String { Self.FontWeightBodyLight }
     public var FontWeightBodyMedium: String { Self.FontWeightBodyMedium }
@@ -1634,6 +1636,7 @@ extension TokensCoreDark: CoreTokensProvider {
     public var Spacing27: CGFloat { Self.Spacing27 }
     public var Spacing28: CGFloat { Self.Spacing28 }
     public var Spacing29: CGFloat { Self.Spacing29 }
+    public var Spacing2Tba: CGFloat { Self.Spacing2Tba }
     public var Spacing2px: CGFloat { Self.Spacing2px }
     public var Spacing3: CGFloat { Self.Spacing3 }
     public var Spacing30: CGFloat { Self.Spacing30 }

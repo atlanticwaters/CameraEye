@@ -28,6 +28,8 @@ public protocol SemanticTokensProvider {
     var BackgroundAccentColorGreen: Color { get }
     var BackgroundAccentColorRed: Color { get }
     var BackgroundAccentColorYellow: Color { get }
+    var BackgroundActionColorPrimary: Color { get }
+    var BackgroundActionColorSecondary: Color { get }
     var BackgroundButtonColorBrandFilledDefault: Color { get }
     var BackgroundButtonColorBrandFilledInactive: Color { get }
     var BackgroundButtonColorBrandGradientFilledDefault: Color { get }
@@ -81,6 +83,8 @@ public protocol SemanticTokensProvider {
     var BackgroundSelectorColorOutlineSelectedAccent: Color { get }
     var BackgroundSurfaceColorGreige: Color { get }
     var BackgroundSurfaceColorInverse: Color { get }
+    var BackgroundSurfaceColorSecondary: Color { get }
+    var BackgroundSurfaceColorTertiary: Color { get }
     var Border0: CGFloat { get }
     var Border1: CGFloat { get }
     var Border10: CGFloat { get }
@@ -301,6 +305,8 @@ extension TokensSemanticLight: SemanticTokensProvider {
     public var BackgroundAccentColorGreen: Color { Self.BackgroundAccentColorGreen }
     public var BackgroundAccentColorRed: Color { Self.BackgroundAccentColorRed }
     public var BackgroundAccentColorYellow: Color { Self.BackgroundAccentColorYellow }
+    public var BackgroundActionColorPrimary: Color { Self.BackgroundActionColorPrimary }
+    public var BackgroundActionColorSecondary: Color { Self.BackgroundActionColorSecondary }
     public var BackgroundButtonColorBrandFilledDefault: Color { Self.BackgroundButtonColorBrandFilledDefault }
     public var BackgroundButtonColorBrandFilledInactive: Color { Self.BackgroundButtonColorBrandFilledInactive }
     public var BackgroundButtonColorBrandGradientFilledDefault: Color { Self.BackgroundButtonColorBrandGradientFilledDefault }
@@ -354,6 +360,8 @@ extension TokensSemanticLight: SemanticTokensProvider {
     public var BackgroundSelectorColorOutlineSelectedAccent: Color { Self.BackgroundSelectorColorOutlineSelectedAccent }
     public var BackgroundSurfaceColorGreige: Color { Self.BackgroundSurfaceColorGreige }
     public var BackgroundSurfaceColorInverse: Color { Self.BackgroundSurfaceColorInverse }
+    public var BackgroundSurfaceColorSecondary: Color { Self.BackgroundSurfaceColorSecondary }
+    public var BackgroundSurfaceColorTertiary: Color { Self.BackgroundSurfaceColorTertiary }
     public var Border0: CGFloat { Self.Border0 }
     public var Border1: CGFloat { Self.Border1 }
     public var Border10: CGFloat { Self.Border10 }
@@ -574,6 +582,8 @@ extension TokensSemanticDark: SemanticTokensProvider {
     public var BackgroundAccentColorGreen: Color { Self.BackgroundAccentColorGreen }
     public var BackgroundAccentColorRed: Color { Self.BackgroundAccentColorRed }
     public var BackgroundAccentColorYellow: Color { Self.BackgroundAccentColorYellow }
+    public var BackgroundActionColorPrimary: Color { Self.BackgroundActionColorPrimary }
+    public var BackgroundActionColorSecondary: Color { Self.BackgroundActionColorSecondary }
     public var BackgroundButtonColorBrandFilledDefault: Color { Self.BackgroundButtonColorBrandFilledDefault }
     public var BackgroundButtonColorBrandFilledInactive: Color { Self.BackgroundButtonColorBrandFilledInactive }
     public var BackgroundButtonColorBrandGradientFilledDefault: Color { Self.BackgroundButtonColorBrandGradientFilledDefault }
@@ -627,6 +637,8 @@ extension TokensSemanticDark: SemanticTokensProvider {
     public var BackgroundSelectorColorOutlineSelectedAccent: Color { Self.BackgroundSelectorColorOutlineSelectedAccent }
     public var BackgroundSurfaceColorGreige: Color { Self.BackgroundSurfaceColorGreige }
     public var BackgroundSurfaceColorInverse: Color { Self.BackgroundSurfaceColorInverse }
+    public var BackgroundSurfaceColorSecondary: Color { Self.BackgroundSurfaceColorSecondary }
+    public var BackgroundSurfaceColorTertiary: Color { Self.BackgroundSurfaceColorTertiary }
     public var Border0: CGFloat { Self.Border0 }
     public var Border1: CGFloat { Self.Border1 }
     public var Border10: CGFloat { Self.Border10 }

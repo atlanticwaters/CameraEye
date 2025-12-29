@@ -1,193 +1,235 @@
 import SwiftUI
 
-/// A notification banner that provides contextual feedback messages with optional title and dismiss action
+// MARK: - DSAlertVariant
+
+/// Style variants for DSAlert matching Figma specs.
+public enum DSAlertVariant: CaseIterable, Sendable {
+    /// Informational alert (blue)
+    case informational
+    /// Success alert (green)
+    case success
+    /// Warning alert (yellow)
+    case warning
+    /// Error alert (red)
+    case error
+}
+
+// MARK: - DSAlert
+
+/// An alert component for displaying feedback messages to the user.
+///
+/// DSAlert displays a status icon, optional title, body text, and a dismiss button.
+/// It supports four variants (informational, success, warning, error) and can be
+/// displayed as floating (with shadow) or inline. It automatically adapts to
+/// light/dark mode using design tokens.
+///
+/// Example usage:
+/// ```swift
+/// // Simple alert with body only
+/// DSAlert(
+///     body: "Your changes have been saved.",
+///     variant: .success
+/// )
+///
+/// // Full-featured alert
+/// DSAlert(
+///     title: "Connection Error",
+///     body: "Unable to connect to the server. Please try again.",
+///     variant: .error,
+///     isFloating: true
+/// ) {
+///     print("Alert dismissed")
+/// }
+/// ```
 public struct DSAlert: View {
-    // MARK: - Types
-    
-    /// Visual variant of the alert
-    public enum Variant {
-        case informational
-        case success
-        case warning
-        case error
-    }
-    
     // MARK: - Properties
-    
-    private let variant: Variant
+
     private let title: String?
-    private let message: String
+    private let body: String
+    private let variant: DSAlertVariant
     private let isFloating: Bool
     private let onDismiss: (() -> Void)?
-    
-    @Environment(\.colorScheme) private var colorScheme
-    
-    private var isDark: Bool {
-        colorScheme == .dark
+
+    // MARK: - Token-based styling
+
+    private var backgroundColor: Color {
+        DSAlertColorHelper.backgroundColor(variant: variant)
     }
-    
-    // MARK: - Initialization
-    
-    /// Creates an alert with a message and optional title
+
+    private var iconColor: Color {
+        DSAlertColorHelper.iconColor(variant: variant)
+    }
+
+    private var textColor: Color {
+        DSColor.textOnSurfaceColorPrimary.resolve
+    }
+
+    private var closeButtonColor: Color {
+        DSColor.textOnSurfaceColorSecondary.resolve
+    }
+
+    private var cornerRadius: CGFloat {
+        CGFloat(TokensSemanticLight.BorderRadiusXl)
+    }
+
+    /// Shadow token from design system (only used for floating variant)
+    private var shadowToken: DSShadow {
+        TokensCoreLight.ElevationBelow3
+    }
+
+    // MARK: - Spacing per Figma spec
+
+    private let horizontalPadding: CGFloat = 8
+    private let topPadding: CGFloat = 6
+    private let bottomPadding: CGFloat = 12
+    private let contentLeftPadding: CGFloat = 16
+    private let contentTopPadding: CGFloat = 16
+    private let contentSpacing: CGFloat = 8
+    private let iconTextSpacing: CGFloat = 8
+
+    // MARK: - Initializers
+
+    /// Creates an alert with the specified configuration.
     /// - Parameters:
-    ///   - variant: Visual style variant (default: .informational)
-    ///   - title: Optional title text
-    ///   - message: Primary message text
-    ///   - isFloating: Whether to show with floating elevation (default: false)
-    ///   - onDismiss: Optional dismiss action
+    ///   - title: Optional headline text displayed at the top.
+    ///   - body: The main body text.
+    ///   - variant: The alert type (informational, success, warning, error).
+    ///   - isFloating: Whether to display with shadow elevation.
+    ///   - onDismiss: Action to perform when the dismiss button is tapped.
     public init(
-        variant: Variant = .informational,
         title: String? = nil,
-        message: String,
+        body: String,
+        variant: DSAlertVariant = .informational,
         isFloating: Bool = false,
         onDismiss: (() -> Void)? = nil
     ) {
-        self.variant = variant
         self.title = title
-        self.message = message
+        self.body = body
+        self.variant = variant
         self.isFloating = isFloating
         self.onDismiss = onDismiss
     }
-    
+
     // MARK: - Body
-    
+
     public var body: some View {
-        HStack(alignment: .top, spacing: TokensSpacing.Spacing2) {
-            // Leading icon
-            iconView
-                .frame(width: 16, height: 16)
-            
-            // Content
-            VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
-                if let title = title {
-                    Text(title)
-                        .thdFont(.bodyMd)
+        HStack(alignment: .top, spacing: 0) {
+            // Left column: Icon + Content
+            HStack(alignment: .top, spacing: iconTextSpacing) {
+                // Status icon
+                statusIcon
+                    .frame(width: 16, height: 16)
+                    .foregroundColor(iconColor)
+                    .padding(.top, contentTopPadding)
+
+                // Content
+                VStack(alignment: .leading, spacing: contentSpacing) {
+                    if let title {
+                        Text(title)
+                            .font(DSTypography.bodyMdMedium)
+                            .foregroundColor(textColor)
+                    }
+
+                    Text(body)
+                        .font(DSTypography.bodyMdMedium)
                         .foregroundColor(textColor)
-                        .lineLimit(nil)
                 }
-                
-                Text(message)
-                    .thdFont(.bodySm)
-                    .foregroundColor(textColor)
-                    .lineLimit(nil)
-                    .fixedSize(horizontal: false, vertical: true)
+                .padding(.top, contentTopPadding)
+                .padding(.bottom, 6)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
-            
-            // Dismiss button
+            .padding(.leading, contentLeftPadding)
+
+            Spacer(minLength: 0)
+
+            // Close button
             if onDismiss != nil {
-                dismissButton
-                    .frame(width: 44, height: 44)
+                closeButton
             }
         }
-        .padding(TokensSpacing.Spacing4)
+        .padding(.leading, horizontalPadding)
+        .padding(.top, topPadding)
+        .padding(.bottom, bottomPadding)
         .background(backgroundColor)
-        .cornerRadius(TokensSemanticLight.BorderRadius2xl)
-        .shadow(color: isFloating ? shadowColor : .clear, radius: isFloating ? 6 : 0, x: 0, y: isFloating ? 3 : 0)
+        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+        .modifier(FloatingShadowModifier(isFloating: isFloating, shadow: shadowToken))
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(accessibilityLabelText)
+        .accessibilityAddTraits(.isStaticText)
     }
-    
-    // MARK: - Subviews
-    
+
+    // MARK: - Private Views
+
     @ViewBuilder
-    private var iconView: some View {
+    private var statusIcon: some View {
         switch variant {
         case .informational:
             Image(systemName: "info.circle.fill")
-                .foregroundColor(isDark ? TokensComponentsDark.IconOnContainerColorInformational : TokensComponentsLight.IconOnContainerColorInformational)
+                .resizable()
         case .success:
             Image(systemName: "checkmark.circle.fill")
-                .foregroundColor(isDark ? TokensComponentsDark.IconOnContainerColorSuccess : TokensComponentsLight.IconOnContainerColorSuccess)
+                .resizable()
         case .warning:
             Image(systemName: "exclamationmark.triangle.fill")
-                .foregroundColor(isDark ? TokensComponentsDark.IconOnContainerColorWarning : TokensComponentsLight.IconOnContainerColorWarning)
+                .resizable()
         case .error:
-            Image(systemName: "exclamationmark.circle.fill")
-                .foregroundColor(isDark ? TokensComponentsDark.IconOnContainerColorError : TokensComponentsLight.IconOnContainerColorError)
+            Image(systemName: "xmark.circle.fill")
+                .resizable()
         }
     }
-    
-    private var dismissButton: some View {
-        Button(action: {
+
+    @ViewBuilder
+    private var closeButton: some View {
+        Button {
             onDismiss?()
-        }) {
-            ZStack {
-                Circle()
-                    .fill(Color.clear)
-                    .frame(width: 36, height: 36)
-                
-                Image(systemName: "xmark")
-                    .font(.system(size: 12, weight: .medium))
-                    .foregroundColor(isDark ? TokensComponentsDark.IconOnContainerColorPrimary : TokensComponentsLight.IconOnContainerColorPrimary)
-            }
+        } label: {
+            Image(systemName: "xmark")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 12, height: 12)
+                .foregroundColor(closeButtonColor)
+                .padding(16)
+                .contentShape(Rectangle())
         }
-        .buttonStyle(PlainButtonStyle())
-        .padding(4)
+        .buttonStyle(.plain)
+        .accessibilityLabel("Dismiss alert")
     }
-    
-    // MARK: - Colors
-    
-    private var backgroundColor: Color {
+
+    // MARK: - Accessibility
+
+    private var accessibilityLabelText: Text {
+        let variantLabel: String
         switch variant {
         case .informational:
-            return isDark ? TokensSemanticDark.BackgroundFeedbackColorInformationalAccent1 : TokensSemanticLight.BackgroundFeedbackColorInformationalAccent1
+            variantLabel = "Information"
         case .success:
-            return isDark ? TokensSemanticDark.BackgroundFeedbackColorSuccessAccent1 : TokensSemanticLight.BackgroundFeedbackColorSuccessAccent1
+            variantLabel = "Success"
         case .warning:
-            return isDark ? TokensSemanticDark.BackgroundFeedbackColorWarningAccent1 : TokensSemanticLight.BackgroundFeedbackColorWarningAccent1
+            variantLabel = "Warning"
         case .error:
-            return isDark ? TokensSemanticDark.BackgroundFeedbackColorErrorAccent1 : TokensSemanticLight.BackgroundFeedbackColorErrorAccent1
+            variantLabel = "Error"
         }
-    }
-    
-    private var textColor: Color {
-        isDark ? TokensSemanticDark.TextOnContainerColorPrimary : TokensSemanticLight.TextOnContainerColorPrimary
-    }
-    
-    private var shadowColor: Color {
-        Color.black.opacity(0.1)
+
+        var components: [String] = [variantLabel]
+        if let title {
+            components.append(title)
+        }
+        components.append(body)
+        return Text(components.joined(separator: ". "))
     }
 }
 
-// MARK: - Convenience Factory Methods
+// MARK: - FloatingShadowModifier
 
-extension DSAlert {
-    /// Creates an informational alert
-    public static func informational(
-        title: String? = nil,
-        message: String,
-        isFloating: Bool = false,
-        onDismiss: (() -> Void)? = nil
-    ) -> DSAlert {
-        DSAlert(variant: .informational, title: title, message: message, isFloating: isFloating, onDismiss: onDismiss)
-    }
-    
-    /// Creates a success alert
-    public static func success(
-        title: String? = nil,
-        message: String,
-        isFloating: Bool = false,
-        onDismiss: (() -> Void)? = nil
-    ) -> DSAlert {
-        DSAlert(variant: .success, title: title, message: message, isFloating: isFloating, onDismiss: onDismiss)
-    }
-    
-    /// Creates a warning alert
-    public static func warning(
-        title: String? = nil,
-        message: String,
-        isFloating: Bool = false,
-        onDismiss: (() -> Void)? = nil
-    ) -> DSAlert {
-        DSAlert(variant: .warning, title: title, message: message, isFloating: isFloating, onDismiss: onDismiss)
-    }
-    
-    /// Creates an error alert
-    public static func error(
-        title: String? = nil,
-        message: String,
-        isFloating: Bool = false,
-        onDismiss: (() -> Void)? = nil
-    ) -> DSAlert {
-        DSAlert(variant: .error, title: title, message: message, isFloating: isFloating, onDismiss: onDismiss)
+/// Modifier that conditionally applies shadow for floating alerts.
+private struct FloatingShadowModifier: ViewModifier {
+    let isFloating: Bool
+    let shadow: DSShadow
+
+    func body(content: Content) -> some View {
+        if isFloating {
+            content.shadow(shadow)
+        } else {
+            content
+        }
     }
 }

@@ -1,329 +1,180 @@
-//
-// DSBadgePreviews.swift
-//
-
 import SwiftUI
 
-// MARK: - Size Variants - Outline
+// MARK: - DSBadge Previews
 
-#Preview("Sizes - Outline") {
+#if DEBUG
+
+#Preview("All Colors - Outline") {
+    VStack(alignment: .leading, spacing: 12) {
+        Text("Outline Variant").font(.headline)
+
+        HStack(spacing: 8) {
+            DSBadge("Info", color: .info)
+            DSBadge("Success", color: .success)
+            DSBadge("Warning", color: .warning)
+            DSBadge("Danger", color: .danger)
+        }
+
+        HStack(spacing: 8) {
+            DSBadge("Primary", color: .primary)
+            DSBadge("Medium", color: .medium)
+            DSBadge("Brand", color: .brand)
+        }
+    }
+    .padding()
+}
+
+#Preview("All Colors - Filled Subtle") {
+    VStack(alignment: .leading, spacing: 12) {
+        Text("Filled Subtle Variant").font(.headline)
+
+        HStack(spacing: 8) {
+            DSBadge("Info", variant: .filledSubtle, color: .info)
+            DSBadge("Success", variant: .filledSubtle, color: .success)
+            DSBadge("Warning", variant: .filledSubtle, color: .warning)
+            DSBadge("Danger", variant: .filledSubtle, color: .danger)
+        }
+
+        HStack(spacing: 8) {
+            DSBadge("Primary", variant: .filledSubtle, color: .primary)
+            DSBadge("Medium", variant: .filledSubtle, color: .medium)
+            DSBadge("Brand", variant: .filledSubtle, color: .brand)
+        }
+    }
+    .padding()
+}
+
+#Preview("All Colors - Filled Strong") {
+    VStack(alignment: .leading, spacing: 12) {
+        Text("Filled Strong Variant").font(.headline)
+
+        HStack(spacing: 8) {
+            DSBadge("Info", variant: .filledStrong, color: .info)
+            DSBadge("Success", variant: .filledStrong, color: .success)
+            DSBadge("Warning", variant: .filledStrong, color: .warning)
+            DSBadge("Danger", variant: .filledStrong, color: .danger)
+        }
+
+        HStack(spacing: 8) {
+            DSBadge("Primary", variant: .filledStrong, color: .primary)
+            DSBadge("Medium", variant: .filledStrong, color: .medium)
+            DSBadge("Brand", variant: .filledStrong, color: .brand)
+        }
+    }
+    .padding()
+}
+
+#Preview("Sizes") {
     VStack(alignment: .leading, spacing: 16) {
-        Text("Small").font(.caption).foregroundColor(.secondary)
-        HStack(spacing: 12) {
-            DSBadge(label: "Badge", size: .small, variant: .outline, color: .info)
-            DSBadge(label: "Badge", size: .small, variant: .outline, color: .success)
-            DSBadge(label: "Badge", size: .small, variant: .outline, color: .warning)
-            DSBadge(label: "Badge", size: .small, variant: .outline, color: .danger)
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Small Size").font(.headline)
+            HStack(spacing: 8) {
+                DSBadge("Outline", size: .small, variant: .outline, color: .info)
+                DSBadge("Subtle", size: .small, variant: .filledSubtle, color: .success)
+                DSBadge("Strong", size: .small, variant: .filledStrong, color: .danger)
+            }
         }
-        
-        Text("Base").font(.caption).foregroundColor(.secondary)
-        HStack(spacing: 12) {
-            DSBadge(label: "Badge", size: .base, variant: .outline, color: .info)
-            DSBadge(label: "Badge", size: .base, variant: .outline, color: .success)
-            DSBadge(label: "Badge", size: .base, variant: .outline, color: .warning)
-            DSBadge(label: "Badge", size: .base, variant: .outline, color: .danger)
-        }
-    }
-    .padding()
-}
 
-// MARK: - Size Variants - Filled Subtle
-
-#Preview("Sizes - Filled Subtle") {
-    VStack(alignment: .leading, spacing: 16) {
-        Text("Small").font(.caption).foregroundColor(.secondary)
-        HStack(spacing: 12) {
-            DSBadge(label: "Badge", size: .small, variant: .filledSubtle, color: .info)
-            DSBadge(label: "Badge", size: .small, variant: .filledSubtle, color: .success)
-            DSBadge(label: "Badge", size: .small, variant: .filledSubtle, color: .warning)
-            DSBadge(label: "Badge", size: .small, variant: .filledSubtle, color: .danger)
-        }
-        
-        Text("Base").font(.caption).foregroundColor(.secondary)
-        HStack(spacing: 12) {
-            DSBadge(label: "Badge", size: .base, variant: .filledSubtle, color: .info)
-            DSBadge(label: "Badge", size: .base, variant: .filledSubtle, color: .success)
-            DSBadge(label: "Badge", size: .base, variant: .filledSubtle, color: .warning)
-            DSBadge(label: "Badge", size: .base, variant: .filledSubtle, color: .danger)
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Base Size").font(.headline)
+            HStack(spacing: 8) {
+                DSBadge("Outline", size: .base, variant: .outline, color: .info)
+                DSBadge("Subtle", size: .base, variant: .filledSubtle, color: .success)
+                DSBadge("Strong", size: .base, variant: .filledStrong, color: .danger)
+            }
         }
     }
     .padding()
 }
 
-// MARK: - Size Variants - Filled Strong
-
-#Preview("Sizes - Filled Strong") {
-    VStack(alignment: .leading, spacing: 16) {
-        Text("Small").font(.caption).foregroundColor(.secondary)
-        HStack(spacing: 12) {
-            DSBadge(label: "Badge", size: .small, variant: .filledStrong, color: .info)
-            DSBadge(label: "Badge", size: .small, variant: .filledStrong, color: .success)
-            DSBadge(label: "Badge", size: .small, variant: .filledStrong, color: .warning)
-            DSBadge(label: "Badge", size: .small, variant: .filledStrong, color: .danger)
-        }
-        
-        Text("Base").font(.caption).foregroundColor(.secondary)
-        HStack(spacing: 12) {
-            DSBadge(label: "Badge", size: .base, variant: .filledStrong, color: .info)
-            DSBadge(label: "Badge", size: .base, variant: .filledStrong, color: .success)
-            DSBadge(label: "Badge", size: .base, variant: .filledStrong, color: .warning)
-            DSBadge(label: "Badge", size: .base, variant: .filledStrong, color: .danger)
-        }
-    }
-    .padding()
-}
-
-// MARK: - All Colors - Outline Small
-
-#Preview("All Colors - Outline Small") {
+#Preview("With Icons") {
     VStack(alignment: .leading, spacing: 12) {
-        HStack(spacing: 12) {
-            DSBadge(label: "Info", size: .small, variant: .outline, color: .info)
-            DSBadge(label: "Success", size: .small, variant: .outline, color: .success)
-        }
-        HStack(spacing: 12) {
-            DSBadge(label: "Warning", size: .small, variant: .outline, color: .warning)
-            DSBadge(label: "Danger", size: .small, variant: .outline, color: .danger)
-        }
-        HStack(spacing: 12) {
-            DSBadge(label: "Medium", size: .small, variant: .outline, color: .medium)
-            DSBadge(label: "Primary", size: .small, variant: .outline, color: .primary)
-        }
-        HStack(spacing: 12) {
-            DSBadge(label: "Brand", size: .small, variant: .outline, color: .brand)
-        }
-    }
-    .padding()
-}
+        Text("With Leading Icons").font(.headline)
 
-// MARK: - All Colors - Filled Subtle Base
-
-#Preview("All Colors - Filled Subtle Base") {
-    VStack(alignment: .leading, spacing: 12) {
-        HStack(spacing: 12) {
-            DSBadge(label: "Info", size: .base, variant: .filledSubtle, color: .info)
-            DSBadge(label: "Success", size: .base, variant: .filledSubtle, color: .success)
-        }
-        HStack(spacing: 12) {
-            DSBadge(label: "Warning", size: .base, variant: .filledSubtle, color: .warning)
-            DSBadge(label: "Danger", size: .base, variant: .filledSubtle, color: .danger)
-        }
-        HStack(spacing: 12) {
-            DSBadge(label: "Medium", size: .base, variant: .filledSubtle, color: .medium)
-            DSBadge(label: "Primary", size: .base, variant: .filledSubtle, color: .primary)
-        }
-        HStack(spacing: 12) {
-            DSBadge(label: "Brand", size: .base, variant: .filledSubtle, color: .brand)
-        }
-    }
-    .padding()
-}
-
-// MARK: - All Colors - Filled Strong Base
-
-#Preview("All Colors - Filled Strong Base") {
-    VStack(alignment: .leading, spacing: 12) {
-        HStack(spacing: 12) {
-            DSBadge(label: "Info", size: .base, variant: .filledStrong, color: .info)
-            DSBadge(label: "Success", size: .base, variant: .filledStrong, color: .success)
-        }
-        HStack(spacing: 12) {
-            DSBadge(label: "Warning", size: .base, variant: .filledStrong, color: .warning)
-            DSBadge(label: "Danger", size: .base, variant: .filledStrong, color: .danger)
-        }
-        HStack(spacing: 12) {
-            DSBadge(label: "Medium", size: .base, variant: .filledStrong, color: .medium)
-            DSBadge(label: "Primary", size: .base, variant: .filledStrong, color: .primary)
-        }
-        HStack(spacing: 12) {
-            DSBadge(label: "Brand", size: .base, variant: .filledStrong, color: .brand)
-        }
-    }
-    .padding()
-}
-
-// MARK: - With Icons - Outline
-
-#Preview("With Icons - Outline") {
-    VStack(alignment: .leading, spacing: 12) {
-        Text("Small with Icon").font(.caption).foregroundColor(.secondary)
-        HStack(spacing: 12) {
+        HStack(spacing: 8) {
             DSBadge(
-                label: "New",
-                size: .small,
-                variant: .outline,
-                color: .info,
-                leadingIcon: Image(systemName: "star.fill")
-            )
-            DSBadge(
-                label: "Sale",
-                size: .small,
-                variant: .outline,
-                color: .danger,
-                leadingIcon: Image(systemName: "tag.fill")
-            )
-        }
-        
-        Text("Base with Icon").font(.caption).foregroundColor(.secondary)
-        HStack(spacing: 12) {
-            DSBadge(
-                label: "Featured",
-                size: .base,
-                variant: .outline,
+                "New",
+                variant: .filledStrong,
                 color: .brand,
                 leadingIcon: Image(systemName: "sparkles")
             )
+
             DSBadge(
-                label: "Verified",
-                size: .base,
-                variant: .outline,
+                "In Stock",
+                variant: .filledSubtle,
                 color: .success,
-                leadingIcon: Image(systemName: "checkmark.seal.fill")
+                leadingIcon: Image(systemName: "checkmark")
             )
-        }
-    }
-    .padding()
-}
 
-// MARK: - With Icons - Filled Subtle
-
-#Preview("With Icons - Filled Subtle") {
-    VStack(alignment: .leading, spacing: 12) {
-        HStack(spacing: 12) {
             DSBadge(
-                label: "Special",
-                size: .base,
-                variant: .filledSubtle,
-                color: .info,
-                leadingIcon: Image(systemName: "gift.fill")
-            )
-            DSBadge(
-                label: "Alert",
-                size: .base,
-                variant: .filledSubtle,
+                "Limited",
+                variant: .outline,
                 color: .warning,
-                leadingIcon: Image(systemName: "exclamationmark.triangle.fill")
+                leadingIcon: Image(systemName: "exclamationmark.triangle")
             )
         }
-    }
-    .padding()
-}
 
-// MARK: - With Icons - Filled Strong
-
-#Preview("With Icons - Filled Strong") {
-    VStack(alignment: .leading, spacing: 12) {
-        HStack(spacing: 12) {
+        HStack(spacing: 8) {
             DSBadge(
-                label: "Premium",
-                size: .base,
-                variant: .filledStrong,
-                color: .brand,
-                leadingIcon: Image(systemName: "crown.fill")
-            )
-            DSBadge(
-                label: "Error",
+                "Sale",
                 size: .base,
                 variant: .filledStrong,
                 color: .danger,
-                leadingIcon: Image(systemName: "xmark.circle.fill")
+                leadingIcon: Image(systemName: "tag")
+            )
+
+            DSBadge(
+                "Info",
+                size: .base,
+                variant: .outline,
+                color: .info,
+                leadingIcon: Image(systemName: "info.circle")
             )
         }
     }
     .padding()
 }
 
-// MARK: - Dark Mode - Outline
-
-#Preview("Dark Mode - Outline") {
+#Preview("Factory Methods") {
     VStack(alignment: .leading, spacing: 12) {
-        HStack(spacing: 12) {
-            DSBadge(label: "Info", variant: .outline, color: .info)
-            DSBadge(label: "Success", variant: .outline, color: .success)
-            DSBadge(label: "Warning", variant: .outline, color: .warning)
+        Text("Factory Methods").font(.headline)
+
+        HStack(spacing: 8) {
+            DSBadge.info("Info")
+            DSBadge.success("Success")
+            DSBadge.warning("Warning")
+            DSBadge.danger("Danger")
         }
-        HStack(spacing: 12) {
-            DSBadge(label: "Danger", variant: .outline, color: .danger)
-            DSBadge(label: "Primary", variant: .outline, color: .primary)
-            DSBadge(label: "Brand", variant: .outline, color: .brand)
+
+        HStack(spacing: 8) {
+            DSBadge.primary("Primary")
+            DSBadge.brand("Brand")
         }
     }
     .padding()
-    .background(Color.black)
-    .preferredColorScheme(.dark)
 }
 
-// MARK: - Dark Mode - Filled Subtle
-
-#Preview("Dark Mode - Filled Subtle") {
-    VStack(alignment: .leading, spacing: 12) {
-        HStack(spacing: 12) {
-            DSBadge(label: "Info", variant: .filledSubtle, color: .info)
-            DSBadge(label: "Success", variant: .filledSubtle, color: .success)
-            DSBadge(label: "Warning", variant: .filledSubtle, color: .warning)
-        }
-        HStack(spacing: 12) {
-            DSBadge(label: "Danger", variant: .filledSubtle, color: .danger)
-            DSBadge(label: "Primary", variant: .filledSubtle, color: .primary)
-            DSBadge(label: "Brand", variant: .filledSubtle, color: .brand)
-        }
-    }
-    .padding()
-    .background(Color.black)
-    .preferredColorScheme(.dark)
-}
-
-// MARK: - Dark Mode - Filled Strong
-
-#Preview("Dark Mode - Filled Strong") {
-    VStack(alignment: .leading, spacing: 12) {
-        HStack(spacing: 12) {
-            DSBadge(label: "Info", variant: .filledStrong, color: .info)
-            DSBadge(label: "Success", variant: .filledStrong, color: .success)
-            DSBadge(label: "Warning", variant: .filledStrong, color: .warning)
-        }
-        HStack(spacing: 12) {
-            DSBadge(label: "Danger", variant: .filledStrong, color: .danger)
-            DSBadge(label: "Primary", variant: .filledStrong, color: .primary)
-            DSBadge(label: "Brand", variant: .filledStrong, color: .brand)
-        }
-    }
-    .padding()
-    .background(Color.black)
-    .preferredColorScheme(.dark)
-}
-
-// MARK: - All Variants Comparison
-
-#Preview("All Variants - Comparison") {
+#Preview("All Combinations") {
     ScrollView {
         VStack(alignment: .leading, spacing: 24) {
-            // Outline
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Outline").font(.headline)
-                HStack(spacing: 8) {
-                    ForEach([DSBadge.Color.info, .success, .warning, .danger, .medium, .primary, .brand], id: \.self) { color in
-                        DSBadge(label: "Badge", size: .base, variant: .outline, color: color)
-                    }
-                }
-            }
-            
-            // Filled Subtle
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Filled Subtle").font(.headline)
-                HStack(spacing: 8) {
-                    ForEach([DSBadge.Color.info, .success, .warning, .danger, .medium, .primary, .brand], id: \.self) { color in
-                        DSBadge(label: "Badge", size: .base, variant: .filledSubtle, color: color)
-                    }
-                }
-            }
-            
-            // Filled Strong
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Filled Strong").font(.headline)
-                HStack(spacing: 8) {
-                    ForEach([DSBadge.Color.info, .success, .warning, .danger, .medium, .primary, .brand], id: \.self) { color in
-                        DSBadge(label: "Badge", size: .base, variant: .filledStrong, color: color)
+            ForEach(DSBadgeVariant.allCases, id: \.self) { variant in
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("\(String(describing: variant))")
+                        .font(.headline)
+
+                    LazyVGrid(columns: [
+                        GridItem(.flexible()),
+                        GridItem(.flexible()),
+                        GridItem(.flexible()),
+                        GridItem(.flexible()),
+                    ], spacing: 8) {
+                        ForEach(DSBadgeColor.allCases, id: \.self) { color in
+                            DSBadge(
+                                "\(String(describing: color).prefix(4))",
+                                variant: variant,
+                                color: color
+                            )
+                        }
                     }
                 }
             }
@@ -331,3 +182,5 @@ import SwiftUI
         .padding()
     }
 }
+
+#endif

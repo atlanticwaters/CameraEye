@@ -32,7 +32,12 @@
 		10840B8A2EF9F0B5004553F0 /* TokensCoreTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B772EF9F0B5004553F0 /* TokensCoreTheme.swift */; };
 		10840B8B2EF9F0B5004553F0 /* TokensSemanticLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B7E2EF9F0B5004553F0 /* TokensSemanticLight.swift */; };
 		10840B8C2EF9F0B5004553F0 /* CoreTokensProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B7A2EF9F0B5004553F0 /* CoreTokensProvider.swift */; };
-		10840B8E2EF9F698004553F0 /* DesignSystemTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B8D2EF9F698004553F0 /* DesignSystemTypes.swift */; };
+		10A5A5892F00247B00DE4535 /* DesignSystemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5A5862F00247B00DE4535 /* DesignSystemVersion.swift */; };
+		10A5A6952F0026F400DE4535 /* DSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5A6942F0026F400DE4535 /* DSColor.swift */; };
+		10A5A6972F00942500DE4535 /* DSIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5A6962F00942500DE4535 /* DSIcon.swift */; };
+		10A5A6992F00974700DE4535 /* DSTypography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5A6982F00974700DE4535 /* DSTypography.swift */; };
+		10A5A69D2F00F75F00DE4535 /* DSShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5A69C2F00F75F00DE4535 /* DSShadow.swift */; };
+		10A5A69F2F00F86000DE4535 /* DSAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5A69E2F00F86000DE4535 /* DSAnimation.swift */; };
 		10F4172E2EEBA067004A9FD3 /* BottomTabBar_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F4172D2EEBA067004A9FD3 /* BottomTabBar_iOS.swift */; };
 		10F417362EEBACE7004A9FD3 /* Acorn.png in Resources */ = {isa = PBXBuildFile; fileRef = 10F417352EEBACE7004A9FD3 /* Acorn.png */; };
 		10F4173C2EEBB46C004A9FD3 /* Fridge.png in Resources */ = {isa = PBXBuildFile; fileRef = 10F4173B2EEBB46C004A9FD3 /* Fridge.png */; };
@@ -91,7 +96,12 @@
 		10840B7D2EF9F0B5004553F0 /* TokensSemanticDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensSemanticDark.swift; sourceTree = "<group>"; };
 		10840B7E2EF9F0B5004553F0 /* TokensSemanticLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensSemanticLight.swift; sourceTree = "<group>"; };
 		10840B7F2EF9F0B5004553F0 /* TokensSemanticTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensSemanticTheme.swift; sourceTree = "<group>"; };
-		10840B8D2EF9F698004553F0 /* DesignSystemTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystemTypes.swift; sourceTree = "<group>"; };
+		10A5A5862F00247B00DE4535 /* DesignSystemVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystemVersion.swift; sourceTree = "<group>"; };
+		10A5A6942F0026F400DE4535 /* DSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSColor.swift; sourceTree = "<group>"; };
+		10A5A6962F00942500DE4535 /* DSIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSIcon.swift; sourceTree = "<group>"; };
+		10A5A6982F00974700DE4535 /* DSTypography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSTypography.swift; sourceTree = "<group>"; };
+		10A5A69C2F00F75F00DE4535 /* DSShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSShadow.swift; sourceTree = "<group>"; };
+		10A5A69E2F00F86000DE4535 /* DSAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSAnimation.swift; sourceTree = "<group>"; };
 		10BAEF4E2EE72ACB00C8435B /* BottomTabBar_Standard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomTabBar_Standard.swift; sourceTree = "<group>"; };
 		10BAEF502EE72B0800C8435B /* Bucket.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = Bucket.svg; sourceTree = "<group>"; };
 		10BAEF512EE72B0800C8435B /* Cart.svg */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cart.svg; sourceTree = "<group>"; };
@@ -211,7 +221,6 @@
 				10840B752EF9F0B5004553F0 /* TokensCoreDark.swift */,
 				10840B762EF9F0B5004553F0 /* TokensCoreLight.swift */,
 				10840B772EF9F0B5004553F0 /* TokensCoreTheme.swift */,
-				10840B8D2EF9F698004553F0 /* DesignSystemTypes.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -239,6 +248,7 @@
 		A1000050230F0000 = {
 			isa = PBXGroup;
 			children = (
+				10A5A5862F00247B00DE4535 /* DesignSystemVersion.swift */,
 				A1000051230F0000 /* Components */,
 				A1000052230F0000 /* DesignSystem */,
 				A1000053230F0000 /* ComponentDemos */,
@@ -252,6 +262,11 @@
 				10358A982EF725CD00501170 /* home-logo.svg */,
 				1065C9A32EFB89870046590A /* BUG_FIXES_NAVIGATION_HAPTICS.md */,
 				1065C9A52EFB89BB0046590A /* NAVIGATION_ARCHITECTURE_DIAGRAM.md */,
+				10A5A6942F0026F400DE4535 /* DSColor.swift */,
+				10A5A6962F00942500DE4535 /* DSIcon.swift */,
+				10A5A6982F00974700DE4535 /* DSTypography.swift */,
+				10A5A69C2F00F75F00DE4535 /* DSShadow.swift */,
+				10A5A69E2F00F86000DE4535 /* DSAnimation.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -469,10 +484,12 @@
 				10840B822EF9F0B5004553F0 /* TokensCoreLight.swift in Sources */,
 				10840B832EF9F0B5004553F0 /* TokensCoreDark.swift in Sources */,
 				10840B842EF9F0B5004553F0 /* TokensSemanticTheme.swift in Sources */,
+				10A5A69D2F00F75F00DE4535 /* DSShadow.swift in Sources */,
 				10840B852EF9F0B5004553F0 /* TokensSemanticDark.swift in Sources */,
 				10840B862EF9F0B5004553F0 /* TokensComponentsDark.swift in Sources */,
 				10840B872EF9F0B5004553F0 /* SemanticTokensProvider.swift in Sources */,
 				10840B882EF9F0B5004553F0 /* TokensComponentsTheme.swift in Sources */,
+				10A5A5892F00247B00DE4535 /* DesignSystemVersion.swift in Sources */,
 				10840B892EF9F0B5004553F0 /* TokensComponentsLight.swift in Sources */,
 				10840B8A2EF9F0B5004553F0 /* TokensCoreTheme.swift in Sources */,
 				10840B8B2EF9F0B5004553F0 /* TokensSemanticLight.swift in Sources */,
@@ -491,9 +508,12 @@
 				10358A9B2EF7623600501170 /* NavigationLayoutDemo.swift in Sources */,
 				10FB00F22EEA690C00A65E91 /* FontVerificationView.swift in Sources */,
 				10FB00F52EEA690C00A65E91 /* AddToSheet.swift in Sources */,
-				10840B8E2EF9F698004553F0 /* DesignSystemTypes.swift in Sources */,
+				10A5A6972F00942500DE4535 /* DSIcon.swift in Sources */,
+				10A5A6952F0026F400DE4535 /* DSColor.swift in Sources */,
 				10FB00F62EEA690C00A65E91 /* SoftScrollEdgeModifier.swift in Sources */,
+				10A5A69F2F00F86000DE4535 /* DSAnimation.swift in Sources */,
 				AD29C4AD2EED0C8400AA5B40 /* PLPView.swift in Sources */,
+				10A5A6992F00974700DE4535 /* DSTypography.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

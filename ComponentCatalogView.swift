@@ -14,21 +14,38 @@ struct ComponentCatalogView: View {
     @State private var navigationPath = NavigationPath()
 
     var body: some View {
-        NavigationStack(path: $navigationPath) {
-            ComponentCatalogScrollableContent(
-                showBackButton: $showBackButton,
-                navigationPath: $navigationPath
-            )
-            .navigationDestination(for: String.self) { destination in
-                componentDetailView(for: destination)
+        ZStack {
+            NavigationStack(path: $navigationPath) {
+                ComponentCatalogScrollableContent(
+                    showBackButton: $showBackButton,
+                    navigationPath: $navigationPath
+                )
+                .navigationDestination(for: String.self) { destination in
+                    componentDetailView(for: destination)
+                }
+                .navigationBarHidden(true)
             }
-            .navigationBarHidden(true)
+            .onAppear {
+                // Only reset if we're at the root (empty path)
+                if navigationPath.isEmpty {
+                    showBackButton = false
+                }
+            }
+            .onChange(of: navigationPath.count) { oldValue, newValue in
+                // Update back button state based on navigation depth
+                withAnimation {
+                    showBackButton = newValue > 0
+                }
+            }
         }
         .safeAreaBar(edge: .top, spacing: 48) {
             MorphingNavHeader(
-                showBackButton: false,
+                showBackButton: showBackButton,
                 onBackTapped: {
-                    // Not used on catalog list view
+                    // Custom back action that pops the navigation
+                    if !navigationPath.isEmpty {
+                        navigationPath.removeLast()
+                    }
                 }
             )
         }
@@ -37,45 +54,43 @@ struct ComponentCatalogView: View {
     // MARK: - Component Detail View Router
     @ViewBuilder
     private func componentDetailView(for destination: String) -> some View {
-        Group {
-            switch destination {
-            case "Button":
-                DSButtonView()
-            case "Card":
-                DSCardView()
-            case "ProductCard":
-                DSProductCardView()
-            case "Badge":
-                DSBadgeView()
-            case "Alert":
-                DSAlertView()
-            case "Callout":
-                DSCalloutView()
-            case "Pill":
-                DSPillView()
-            case "Tile":
-                DSTileView()
-            case "QuantityPicker":
-                DSQuantityPickerView()
-            case "Typography":
-                TypographyDemoView()
-            case "DesignTokens":
-                DesignSystemDemoView()
-            default:
-                Text("Unknown component")
-            }
-        }
-        .catalogDetailStyle()
-        .safeAreaBar(edge: .top, spacing: 48) {
-            MorphingNavHeader(
-                showBackButton: true,
-                onBackTapped: {
-                    // Pop the navigation when back is tapped
-                    if !navigationPath.isEmpty {
-                        navigationPath.removeLast()
-                    }
-                }
-            )
+        switch destination {
+        case "Button":
+            DSButtonView()
+                .catalogDetailStyle()
+        case "Card":
+            DSCardView()
+                .catalogDetailStyle()
+        case "ProductCard":
+            DSProductCardView()
+                .catalogDetailStyle()
+        case "Badge":
+            DSBadgeView()
+                .catalogDetailStyle()
+        case "Alert":
+            DSAlertView()
+                .catalogDetailStyle()
+        case "Callout":
+            DSCalloutView()
+                .catalogDetailStyle()
+        case "Pill":
+            DSPillView()
+                .catalogDetailStyle()
+        case "Tile":
+            DSTileView()
+                .catalogDetailStyle()
+        case "QuantityPicker":
+            DSQuantityPickerView()
+                .catalogDetailStyle()
+        case "Typography":
+            TypographyDemoView()
+                .catalogDetailStyle()
+        case "DesignTokens":
+            DesignSystemDemoView()
+                .catalogDetailStyle()
+        default:
+            Text("Unknown component")
+                .catalogDetailStyle()
         }
     }
 }

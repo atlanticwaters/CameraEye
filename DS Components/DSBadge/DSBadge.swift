@@ -1,118 +1,140 @@
-//
-// DSBadge.swift
-//
-
 import SwiftUI
 
-/// A badge component for displaying status, categories, or informational labels
+// MARK: - DSBadgeSize
+
+/// Size variants for DSBadge matching Figma specs.
+public enum DSBadgeSize: CaseIterable, Sendable {
+    /// Small badge (16pt min height, 12pt font)
+    case small
+    /// Base badge (20pt min height, 14pt font)
+    case base
+
+    var minHeight: CGFloat {
+        switch self {
+        case .small: 16
+        case .base: 20
+        }
+    }
+
+    var fontSize: CGFloat {
+        switch self {
+        case .small: 12
+        case .base: 14
+        }
+    }
+
+    var iconSize: CGFloat {
+        switch self {
+        case .small: 12
+        case .base: 14
+        }
+    }
+
+    var cornerRadius: CGFloat {
+        switch self {
+        case .small: 6
+        case .base: 8
+        }
+    }
+
+    var padding: CGFloat { 4 }
+}
+
+// MARK: - DSBadgeVariant
+
+/// Visual style variants for DSBadge.
+public enum DSBadgeVariant: CaseIterable, Sendable {
+    /// Outline style with border and no fill
+    case outline
+    /// Subtle filled background
+    case filledSubtle
+    /// Strong filled background
+    case filledStrong
+}
+
+// MARK: - DSBadgeColor
+
+/// Color variants for DSBadge matching Figma specs.
+public enum DSBadgeColor: CaseIterable, Sendable {
+    /// Info/Teal color
+    case info
+    /// Success/Green color
+    case success
+    /// Warning/Yellow color
+    case warning
+    /// Danger/Red color
+    case danger
+    /// Primary/Black color
+    case primary
+    /// Medium/Gray color
+    case medium
+    /// Brand/Orange color
+    case brand
+}
+
+// MARK: - DSBadge
+
+/// A badge component for displaying status labels and tags.
 ///
-/// DSBadge supports multiple sizes, visual variants, and semantic colors. It can optionally
-/// include a leading icon for added visual context.
+/// DSBadge displays a text label with an optional leading icon. It supports
+/// multiple sizes (small, base), variants (outline, filledSubtle, filledStrong),
+/// and colors. It automatically adapts to light/dark mode using design tokens.
 ///
-/// **Note**: This component currently uses core color tokens as semantic badge-specific tokens
-/// have not yet been defined in Figma. When badge tokens are added, this implementation should
-/// be refactored to use `BadgeColor*` semantic tokens instead of direct core color references.
-///
-/// ## Usage
+/// Example usage:
 /// ```swift
-/// // Basic badge
-/// DSBadge(label: "New")
+/// // Simple badge
+/// DSBadge("New")
 ///
-/// // With custom variant and color
-/// DSBadge(label: "Sale", variant: .filledStrong, color: .danger)
-///
-/// // With icon
-/// DSBadge(label: "Top Rated", leadingIcon: Image(systemName: "star.fill"))
-///
-/// // Different size
-/// DSBadge(label: "Featured", size: .base, variant: .filledSubtle, color: .brand)
+/// // Badge with all options
+/// DSBadge(
+///     "In Stock",
+///     size: .base,
+///     variant: .filledStrong,
+///     color: .success,
+///     leadingIcon: Image(systemName: "checkmark")
+/// )
 /// ```
 public struct DSBadge: View {
-    
-    // MARK: - Types
-    
-    /// Badge size variants
-    public enum Size {
-        case small
-        case base
-        
-        var fontSize: CGFloat {
-            switch self {
-            case .small: return TokensCoreLight.FontSizeBodyXs  // 12px
-            case .base: return TokensCoreLight.FontSizeBodySm    // 14px
-            }
-        }
-        
-        var iconSize: CGFloat {
-            switch self {
-            case .small: return 9
-            case .base: return 12.25
-            }
-        }
-        
-        var iconContainerWidth: CGFloat {
-            switch self {
-            case .small: return 12
-            case .base: return 14
-            }
-        }
-        
-        var horizontalPadding: CGFloat {
-            return 4  // Figma: spacing-1 (no token available)
-        }
-        
-        var topPadding: CGFloat {
-            return 4  // 2px base + 2px additional
-        }
-        
-        var bottomPadding: CGFloat {
-            return 2  // 2px base
-        }
-    }
-    
-    /// Badge visual variant
-    public enum Variant {
-        case outline
-        case filledSubtle
-        case filledStrong
-    }
-    
-    /// Badge semantic color
-    public enum Color: Hashable {
-        case info       // Teal/Moonlight
-        case success    // Green
-        case warning    // Yellow/Lemon
-        case danger     // Red/Cinnabar
-        case medium     // Gray/Greige
-        case primary    // Black/Greige
-        case brand      // Orange
-    }
-    
     // MARK: - Properties
-    
+
     private let label: String
-    private let size: Size
-    private let variant: Variant
-    private let color: Color
+    private let size: DSBadgeSize
+    private let variant: DSBadgeVariant
+    private let color: DSBadgeColor
     private let leadingIcon: Image?
-    
-    @Environment(\.colorScheme) var colorScheme
-    
-    // MARK: - Initialization
-    
-    /// Creates a badge with the specified configuration
-    ///
+
+    // MARK: - Computed Styling
+
+    private var foregroundColor: Color {
+        DSBadgeColorHelper.foregroundColor(variant: variant, color: color)
+    }
+
+    private var backgroundColor: Color {
+        DSBadgeColorHelper.backgroundColor(variant: variant, color: color)
+    }
+
+    private var borderColor: Color {
+        DSBadgeColorHelper.borderColor(variant: variant, color: color)
+    }
+
+    private var hasBorder: Bool {
+        variant == .outline
+    }
+
+    // MARK: - Initializers
+
+    /// Creates a badge with the specified configuration.
     /// - Parameters:
-    ///   - label: The text to display in the badge
-    ///   - size: The size variant (default: `.small`)
-    ///   - variant: The visual variant (default: `.outline`)
-    ///   - color: The semantic color (default: `.info`)
-    ///   - leadingIcon: Optional icon to display before the label
+    ///   - label: The text to display in the badge.
+    ///   - size: The size of the badge (small or base).
+    ///   - variant: The visual style (outline, filledSubtle, filledStrong).
+    ///   - color: The color theme of the badge.
+    ///   - leadingIcon: Optional icon displayed before the label.
     public init(
-        label: String,
-        size: Size = .small,
-        variant: Variant = .outline,
-        color: Color = .info,
+        _ label: String,
+        size: DSBadgeSize = .small,
+        variant: DSBadgeVariant = .outline,
+        color: DSBadgeColor = .info,
         leadingIcon: Image? = nil
     ) {
         self.label = label
@@ -121,167 +143,73 @@ public struct DSBadge: View {
         self.color = color
         self.leadingIcon = leadingIcon
     }
-    
+
     // MARK: - Body
-    
+
     public var body: some View {
-        HStack(spacing: 4) {  // Figma: spacing-1 (no token available)
-            if let icon = leadingIcon {
-                icon
+        HStack(spacing: 4) {
+            if let leadingIcon {
+                leadingIcon
                     .resizable()
+                    .aspectRatio(contentMode: .fit)
                     .frame(width: size.iconSize, height: size.iconSize)
-                    .foregroundColor(textColor)
+                    .foregroundColor(foregroundColor)
             }
-            
+
             Text(label)
-                .font(.custom(
-                    TokensCoreLight.FontFamilyInformational,
-                    size: size.fontSize
-                ))
-                .fontWeight(.bold)
-                .foregroundColor(textColor)
-                .lineLimit(1)
+                .font(.system(size: size.fontSize, weight: .bold))
+                .foregroundColor(foregroundColor)
         }
-        .padding(.horizontal, size.horizontalPadding)
-        .padding(.top, size.topPadding)
-        .padding(.bottom, size.bottomPadding)
-        .background(backgroundColor)
-        .overlay(
-            RoundedRectangle(cornerRadius: 4)  // Figma: border-radius-md (4px, no exact token)
-                .stroke(borderColor, lineWidth: borderWidth)
-        )
-        .cornerRadius(4)  // Figma: border-radius-md (4px)
+        .padding(.horizontal, size.padding)
+        .padding(.vertical, size.padding)
+        .frame(minHeight: size.minHeight)
+        .background(backgroundView)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(Text(label))
     }
-    
-    // MARK: - Computed Colors
-    
-    private var backgroundColor: SwiftUI.Color {
-        let isDark = colorScheme == .dark
-        
-        switch (variant, color) {
-        // Outline variants have transparent backgrounds
-        case (.outline, _):
-            return .clear
-            
-        // Filled Subtle variants
-        case (.filledSubtle, .info):
-            return isDark ? TokensSemanticDark.Moonlight050 : TokensSemanticLight.Moonlight050
-        case (.filledSubtle, .success):
-            // Note: Using approximate green value - needs proper BottleGreen050 token
-            return isDark 
-                ? SwiftUI.Color(red: 0.89, green: 0.95, blue: 0.92, opacity: 1)
-                : SwiftUI.Color(red: 0.89, green: 0.95, blue: 0.92, opacity: 1)
-        case (.filledSubtle, .warning):
-            return isDark ? TokensSemanticDark.Lemon050 : TokensSemanticLight.Lemon050
-        case (.filledSubtle, .danger):
-            return isDark ? TokensSemanticDark.Cinnabar050 : TokensSemanticLight.Cinnabar050
-        case (.filledSubtle, .medium):
-            return isDark ? TokensSemanticDark.Greige050 : TokensSemanticLight.Greige050
-        case (.filledSubtle, .primary):
-            return isDark ? TokensSemanticDark.Greige050 : TokensSemanticLight.Greige050
-        case (.filledSubtle, .brand):
-            return isDark ? TokensSemanticDark.Brand025 : TokensSemanticLight.Brand025
-            
-        // Filled Strong variants
-        case (.filledStrong, .info):
-            return isDark ? TokensSemanticDark.Moonlight500 : TokensSemanticLight.Moonlight500
-        case (.filledStrong, .success):
-            // Note: Using BackgroundAccentColorGreen - needs proper BottleGreen500 token
-            return isDark ? TokensSemanticDark.BackgroundAccentColorGreen : TokensSemanticLight.BackgroundAccentColorGreen
-        case (.filledStrong, .warning):
-            return isDark ? TokensSemanticDark.Lemon100 : TokensSemanticLight.Lemon100
-        case (.filledStrong, .danger):
-            return isDark ? TokensSemanticDark.Cinnabar500 : TokensSemanticLight.Cinnabar500
-        case (.filledStrong, .medium):
-            return isDark ? TokensSemanticDark.Greige600 : TokensSemanticLight.Greige600
-        case (.filledStrong, .primary):
-            return isDark ? TokensSemanticDark.Greige900 : TokensSemanticLight.Greige900
-        case (.filledStrong, .brand):
-            return isDark ? TokensSemanticDark.Brand300 : TokensSemanticLight.Brand300
+
+    @ViewBuilder
+    private var backgroundView: some View {
+        if hasBorder {
+            RoundedRectangle(cornerRadius: size.cornerRadius)
+                .stroke(borderColor, lineWidth: 1)
+        } else {
+            RoundedRectangle(cornerRadius: size.cornerRadius)
+                .fill(backgroundColor)
         }
     }
-    
-    private var borderColor: SwiftUI.Color {
-        let isDark = colorScheme == .dark
-        
-        switch (variant, color) {
-        // Only outline variant has borders
-        case (.outline, .info):
-            return isDark ? TokensSemanticDark.Moonlight500 : TokensSemanticLight.Moonlight500
-        case (.outline, .success):
-            // Note: Using approximate green value - needs proper BottleGreen500 token
-            return isDark
-                ? SwiftUI.Color(red: 0.29, green: 0.506, blue: 0.396, opacity: 1)
-                : SwiftUI.Color(red: 0.29, green: 0.506, blue: 0.396, opacity: 1)
-        case (.outline, .warning):
-            return isDark ? TokensSemanticDark.Lemon500 : TokensSemanticLight.Lemon500
-        case (.outline, .danger):
-            return isDark ? TokensSemanticDark.Cinnabar600 : TokensSemanticLight.Cinnabar600
-        case (.outline, .medium):
-            return isDark ? TokensSemanticDark.Greige600 : TokensSemanticLight.Greige600
-        case (.outline, .primary):
-            return isDark ? TokensSemanticDark.Greige900 : TokensSemanticLight.Greige900
-        case (.outline, .brand):
-            return isDark ? TokensSemanticDark.Brand300 : TokensSemanticLight.Brand300
-        default:
-            return .clear
-        }
+}
+
+// MARK: - Convenience Factory Methods
+
+extension DSBadge {
+    /// Creates an info badge.
+    public static func info(_ label: String, size: DSBadgeSize = .small, variant: DSBadgeVariant = .outline) -> DSBadge {
+        DSBadge(label, size: size, variant: variant, color: .info)
     }
-    
-    private var borderWidth: CGFloat {
-        variant == .outline ? TokensSemanticLight.BorderWidthXs : 0
+
+    /// Creates a success badge.
+    public static func success(_ label: String, size: DSBadgeSize = .small, variant: DSBadgeVariant = .outline) -> DSBadge {
+        DSBadge(label, size: size, variant: variant, color: .success)
     }
-    
-    private var textColor: SwiftUI.Color {
-        let isDark = colorScheme == .dark
-        
-        switch (variant, color) {
-        // Outline text colors
-        case (.outline, .info):
-            return isDark ? TokensSemanticDark.Moonlight500 : TokensSemanticLight.Moonlight500
-        case (.outline, .success):
-            // Note: Using approximate green value - needs proper BottleGreen500 token
-            return isDark
-                ? SwiftUI.Color(red: 0.29, green: 0.506, blue: 0.396, opacity: 1)
-                : SwiftUI.Color(red: 0.29, green: 0.506, blue: 0.396, opacity: 1)
-        case (.outline, .warning):
-            return isDark ? TokensSemanticDark.Lemon500 : TokensSemanticLight.Lemon500
-        case (.outline, .danger):
-            return isDark ? TokensSemanticDark.Cinnabar600 : TokensSemanticLight.Cinnabar600
-        case (.outline, .medium):
-            return isDark ? TokensSemanticDark.TextOnSurfaceColorTertiary : TokensSemanticLight.TextOnSurfaceColorTertiary
-        case (.outline, .primary):
-            return isDark ? TokensSemanticDark.Greige900 : TokensSemanticLight.Greige900
-        case (.outline, .brand):
-            return isDark ? TokensSemanticDark.Brand300 : TokensSemanticLight.Brand300
-            
-        // Filled Subtle text colors
-        case (.filledSubtle, .info):
-            return isDark ? TokensSemanticDark.Moonlight800 : TokensSemanticLight.Moonlight800
-        case (.filledSubtle, .success):
-            // Note: Using approximate green value - needs proper BottleGreen700 token
-            return isDark
-                ? SwiftUI.Color(red: 0.133, green: 0.384, blue: 0.259, opacity: 1)
-                : SwiftUI.Color(red: 0.133, green: 0.384, blue: 0.259, opacity: 1)
-        case (.filledSubtle, .warning):
-            return isDark ? TokensSemanticDark.Lemon900 : TokensSemanticLight.Lemon900
-        case (.filledSubtle, .danger):
-            return isDark ? TokensSemanticDark.Cinnabar700 : TokensSemanticLight.Cinnabar700
-        case (.filledSubtle, .medium):
-            return isDark ? TokensSemanticDark.TextOnSurfaceColorTertiary : TokensSemanticLight.TextOnSurfaceColorTertiary
-        case (.filledSubtle, .primary):
-            return isDark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary
-        case (.filledSubtle, .brand):
-            // Note: Using Brand950 - should be semantic BadgeColorTextSubtleBrand token
-            return isDark ? TokensSemanticDark.Brand950 : TokensSemanticLight.Brand950
-            
-        // Filled Strong text colors - all use inverse/white for contrast
-        case (.filledStrong, .warning):
-            // Warning filled strong uses primary text (dark on yellow)
-            return isDark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary
-        case (.filledStrong, _):
-            // All other filled strong variants use white text
-            return isDark ? TokensSemanticDark.NeutralsWhite : TokensSemanticLight.NeutralsWhite
-        }
+
+    /// Creates a warning badge.
+    public static func warning(_ label: String, size: DSBadgeSize = .small, variant: DSBadgeVariant = .outline) -> DSBadge {
+        DSBadge(label, size: size, variant: variant, color: .warning)
+    }
+
+    /// Creates a danger badge.
+    public static func danger(_ label: String, size: DSBadgeSize = .small, variant: DSBadgeVariant = .outline) -> DSBadge {
+        DSBadge(label, size: size, variant: variant, color: .danger)
+    }
+
+    /// Creates a primary badge.
+    public static func primary(_ label: String, size: DSBadgeSize = .small, variant: DSBadgeVariant = .outline) -> DSBadge {
+        DSBadge(label, size: size, variant: variant, color: .primary)
+    }
+
+    /// Creates a brand badge.
+    public static func brand(_ label: String, size: DSBadgeSize = .small, variant: DSBadgeVariant = .outline) -> DSBadge {
+        DSBadge(label, size: size, variant: variant, color: .brand)
     }
 }

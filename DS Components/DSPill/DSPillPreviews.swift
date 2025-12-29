@@ -1,400 +1,242 @@
 import SwiftUI
 
-#Preview("Sizes - Outlined") {
-    VStack(spacing: 20) {
-        DSPill(
-            "Cumberland",
-            style: .outlined,
-            size: .extraLarge,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
+// MARK: - DSPill Previews
 
-        DSPill(
-            "Cumberland",
-            style: .outlined,
-            size: .large,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
+#if DEBUG
 
-        DSPill(
-            "Cumberland",
-            style: .outlined,
-            size: .medium,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
+#Preview("Outlined Style") {
+    VStack(spacing: 16) {
+        Text("Outlined Style").font(.headline)
 
-        DSPill(
-            "Cumberland",
-            style: .outlined,
-            size: .small,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-    }
-    .padding()
-}
-
-#Preview("Sizes - Filled") {
-    VStack(spacing: 20) {
-        DSPill(
-            "Cumberland",
-            style: .filled,
-            size: .extraLarge,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Cumberland",
-            style: .filled,
-            size: .large,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Cumberland",
-            style: .filled,
-            size: .medium,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Cumberland",
-            style: .filled,
-            size: .small,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-    }
-    .padding()
-}
-
-#Preview("States - Outlined") {
-    VStack(spacing: 20) {
-        DSPill(
-            "Default",
-            style: .outlined,
-            size: .medium,
-            state: .default,
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Pressed",
-            style: .outlined,
-            size: .medium,
-            state: .pressed,
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Selected",
-            style: .outlined,
-            size: .medium,
-            state: .selected,
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Disabled",
-            style: .outlined,
-            size: .medium,
-            state: .disabled,
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-    }
-    .padding()
-}
-
-#Preview("States - Filled") {
-    VStack(spacing: 20) {
-        DSPill(
-            "Default",
-            style: .filled,
-            size: .medium,
-            state: .default,
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Pressed",
-            style: .filled,
-            size: .medium,
-            state: .pressed,
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Selected",
-            style: .filled,
-            size: .medium,
-            state: .selected,
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Disabled",
-            style: .filled,
-            size: .medium,
-            state: .disabled,
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-    }
-    .padding()
-}
-
-#Preview("Icon Variants - Outlined") {
-    VStack(spacing: 20) {
-        DSPill(
-            "Leading Only",
-            style: .outlined,
-            size: .medium,
-            leadingIcon: Image(systemName: "mappin.circle.fill")
-        )
-
-        DSPill(
-            "Trailing Only",
-            style: .outlined,
-            size: .medium,
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Both Icons",
-            style: .outlined,
-            size: .medium,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "No Icons",
-            style: .outlined,
-            size: .medium
-        )
-    }
-    .padding()
-}
-
-#Preview("Icon Variants - Filled") {
-    VStack(spacing: 20) {
-        DSPill(
-            "Leading Only",
-            style: .filled,
-            size: .medium,
-            leadingIcon: Image(systemName: "mappin.circle.fill")
-        )
-
-        DSPill(
-            "Trailing Only",
-            style: .filled,
-            size: .medium,
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Both Icons",
-            style: .filled,
-            size: .medium,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "No Icons",
-            style: .filled,
-            size: .medium
-        )
-    }
-    .padding()
-}
-
-#Preview("Dark Mode - Outlined") {
-    VStack(spacing: 20) {
-        DSPill(
-            "Default",
-            style: .outlined,
-            size: .medium,
-            state: .default,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Pressed",
-            style: .outlined,
-            size: .medium,
-            state: .pressed,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Selected",
-            style: .outlined,
-            size: .medium,
-            state: .selected,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Disabled",
-            style: .outlined,
-            size: .medium,
-            state: .disabled,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-    }
-    .padding()
-    .preferredColorScheme(.dark)
-}
-
-#Preview("Dark Mode - Filled") {
-    VStack(spacing: 20) {
-        DSPill(
-            "Default",
-            style: .filled,
-            size: .medium,
-            state: .default,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Pressed",
-            style: .filled,
-            size: .medium,
-            state: .pressed,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Selected",
-            style: .filled,
-            size: .medium,
-            state: .selected,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-
-        DSPill(
-            "Disabled",
-            style: .filled,
-            size: .medium,
-            state: .disabled,
-            leadingIcon: Image(systemName: "mappin.circle.fill"),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-    }
-    .padding()
-    .preferredColorScheme(.dark)
-}
-
-#Preview("Filled Without Background") {
-    VStack(spacing: 20) {
-        DSPill(
-            "Transparent",
-            style: .filled,
-            size: .medium,
-            state: .default,
-            trailingIcon: Image(systemName: "chevron.down"),
-            showBackground: false
-        )
-
-        DSPill(
-            "With Background",
-            style: .filled,
-            size: .medium,
-            state: .default,
-            trailingIcon: Image(systemName: "chevron.down"),
-            showBackground: true
-        )
-    }
-    .padding()
-}
-
-#Preview("Interactive") {
-    struct InteractiveDemo: View {
-        @State private var selectedPill: String?
-
-        var body: some View {
-            VStack(spacing: 20) {
-                ForEach(["Atlanta", "Cumberland", "Charlotte", "Nashville"], id: \.self) { location in
-                    DSPill(
-                        location,
-                        style: .outlined,
-                        size: .medium,
-                        state: selectedPill == location ? .selected : .default,
-                        leadingIcon: Image(systemName: "mappin.circle.fill"),
-                        trailingIcon: Image(systemName: "chevron.down")
-                    ) {
-                        selectedPill = location
-                    }
-                }
-            }
-            .padding()
+        HStack(spacing: 8) {
+            DSPill("Category") {}
+            DSPill("Filter", isSelected: true) {}
+            DSPill("Tag", isDisabled: true) {}
         }
     }
-
-    return InteractiveDemo()
+    .padding()
 }
 
-#Preview("All Variants") {
+#Preview("Filled Style") {
+    VStack(spacing: 16) {
+        Text("Filled Style").font(.headline)
+
+        HStack(spacing: 8) {
+            DSPill("Category", style: .filled) {}
+            DSPill("Filter", style: .filled, isSelected: true) {}
+            DSPill("Tag", style: .filled, isDisabled: true) {}
+        }
+    }
+    .padding()
+}
+
+#Preview("All Sizes") {
+    VStack(spacing: 16) {
+        Text("All Sizes").font(.headline)
+
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 8) {
+                Text("Sm:").frame(width: 30, alignment: .leading)
+                DSPill("Small", size: .sm) {}
+                DSPill("Selected", size: .sm, isSelected: true) {}
+            }
+
+            HStack(spacing: 8) {
+                Text("Md:").frame(width: 30, alignment: .leading)
+                DSPill("Medium", size: .md) {}
+                DSPill("Selected", size: .md, isSelected: true) {}
+            }
+
+            HStack(spacing: 8) {
+                Text("Lg:").frame(width: 30, alignment: .leading)
+                DSPill("Large", size: .lg) {}
+                DSPill("Selected", size: .lg, isSelected: true) {}
+            }
+
+            HStack(spacing: 8) {
+                Text("XL:").frame(width: 30, alignment: .leading)
+                DSPill("Extra Large", size: .xl) {}
+                DSPill("Selected", size: .xl, isSelected: true) {}
+            }
+        }
+    }
+    .padding()
+}
+
+#Preview("With Leading Icons") {
+    VStack(spacing: 16) {
+        Text("With Leading Icons").font(.headline)
+
+        VStack(spacing: 8) {
+            DSPill(
+                "Store",
+                leadingIcon: Image(systemName: "building.2")
+            ) {}
+
+            DSPill(
+                "Location",
+                leadingIcon: Image(systemName: "mappin"),
+                isSelected: true
+            ) {}
+
+            DSPill(
+                "Search",
+                leadingIcon: Image(systemName: "magnifyingglass"),
+                style: .filled
+            ) {}
+        }
+    }
+    .padding()
+}
+
+#Preview("With Trailing Icons") {
+    VStack(spacing: 16) {
+        Text("With Trailing Icons").font(.headline)
+
+        VStack(spacing: 8) {
+            DSPill(
+                "Dropdown",
+                trailingIcon: Image(systemName: "chevron.down")
+            ) {}
+
+            DSPill(
+                "Remove",
+                trailingIcon: Image(systemName: "xmark"),
+                isSelected: true
+            ) {}
+
+            DSPill(
+                "Select",
+                leadingIcon: Image(systemName: "building.2"),
+                trailingIcon: Image(systemName: "chevron.down")
+            ) {}
+        }
+    }
+    .padding()
+}
+
+#Preview("Color Swatches") {
+    VStack(spacing: 16) {
+        Text("Color Swatches").font(.headline)
+
+        HStack(spacing: 8) {
+            DSPill("Red", swatchColor: .red) {}
+            DSPill("Blue", swatchColor: .blue, isSelected: true) {}
+            DSPill("Green", swatchColor: .green) {}
+        }
+
+        HStack(spacing: 8) {
+            DSPill(
+                "Red",
+                swatchColor: .red,
+                trailingIcon: Image(systemName: "chevron.down")
+            ) {}
+        }
+    }
+    .padding()
+}
+
+#Preview("States") {
+    VStack(spacing: 16) {
+        Text("States").font(.headline)
+
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 8) {
+                Text("Default:").frame(width: 80, alignment: .leading)
+                DSPill("Label") {}
+            }
+
+            HStack(spacing: 8) {
+                Text("Selected:").frame(width: 80, alignment: .leading)
+                DSPill("Label", isSelected: true) {}
+            }
+
+            HStack(spacing: 8) {
+                Text("Disabled:").frame(width: 80, alignment: .leading)
+                DSPill("Label", isDisabled: true) {}
+            }
+
+            HStack(spacing: 8) {
+                Text("No BG:").frame(width: 80, alignment: .leading)
+                DSPill("Label", hasBackground: false) {}
+            }
+        }
+    }
+    .padding()
+}
+
+#Preview("Filter Bar Example") {
+    ScrollView(.horizontal, showsIndicators: false) {
+        HStack(spacing: 8) {
+            DSPill(
+                "All",
+                style: .filled,
+                isSelected: true
+            ) {}
+
+            DSPill("In Stock") {}
+            DSPill("On Sale") {}
+            DSPill("Free Shipping") {}
+
+            DSPill(
+                "Price",
+                trailingIcon: Image(systemName: "chevron.down")
+            ) {}
+
+            DSPill(
+                "Brand",
+                trailingIcon: Image(systemName: "chevron.down")
+            ) {}
+        }
+        .padding(.horizontal)
+    }
+    .padding(.vertical)
+}
+
+#Preview("Store Selector Example") {
+    VStack(alignment: .leading, spacing: 12) {
+        Text("Select Store").font(.headline)
+
+        VStack(spacing: 8) {
+            DSPill(
+                "Cumberland",
+                leadingIcon: Image(systemName: "building.2"),
+                trailingIcon: Image(systemName: "chevron.down"),
+                size: .xl
+            ) {}
+
+            DSPill(
+                "Nearby Stores",
+                leadingIcon: Image(systemName: "mappin"),
+                size: .xl
+            ) {}
+        }
+    }
+    .padding()
+}
+
+#Preview("All Combinations") {
     ScrollView {
-        VStack(spacing: 30) {
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Outlined Pills")
-                    .font(.headline)
+        VStack(spacing: 24) {
+            ForEach(DSPillStyle.allCases, id: \.self) { style in
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("\(String(describing: style))")
+                        .font(.headline)
 
-                HStack(spacing: 10) {
-                    DSPill("XL", style: .outlined, size: .extraLarge, trailingIcon: Image(systemName: "chevron.down"))
-                    DSPill("Lg", style: .outlined, size: .large, trailingIcon: Image(systemName: "chevron.down"))
-                    DSPill("Md", style: .outlined, size: .medium, trailingIcon: Image(systemName: "chevron.down"))
-                    DSPill("Sm", style: .outlined, size: .small, trailingIcon: Image(systemName: "chevron.down"))
-                }
-            }
-
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Filled Pills")
-                    .font(.headline)
-
-                HStack(spacing: 10) {
-                    DSPill("XL", style: .filled, size: .extraLarge, trailingIcon: Image(systemName: "chevron.down"))
-                    DSPill("Lg", style: .filled, size: .large, trailingIcon: Image(systemName: "chevron.down"))
-                    DSPill("Md", style: .filled, size: .medium, trailingIcon: Image(systemName: "chevron.down"))
-                    DSPill("Sm", style: .filled, size: .small, trailingIcon: Image(systemName: "chevron.down"))
-                }
-            }
-
-            VStack(alignment: .leading, spacing: 10) {
-                Text("States (Outlined)")
-                    .font(.headline)
-
-                HStack(spacing: 10) {
-                    DSPill("Default", style: .outlined, size: .medium, state: .default)
-                    DSPill("Pressed", style: .outlined, size: .medium, state: .pressed)
-                    DSPill("Selected", style: .outlined, size: .medium, state: .selected)
-                    DSPill("Disabled", style: .outlined, size: .medium, state: .disabled)
-                }
-            }
-
-            VStack(alignment: .leading, spacing: 10) {
-                Text("States (Filled)")
-                    .font(.headline)
-
-                HStack(spacing: 10) {
-                    DSPill("Default", style: .filled, size: .medium, state: .default)
-                    DSPill("Pressed", style: .filled, size: .medium, state: .pressed)
-                    DSPill("Selected", style: .filled, size: .medium, state: .selected)
-                    DSPill("Disabled", style: .filled, size: .medium, state: .disabled)
+                    VStack(spacing: 8) {
+                        HStack(spacing: 8) {
+                            DSPill("Default", style: style) {}
+                            DSPill("Selected", style: style, isSelected: true) {}
+                        }
+                        HStack(spacing: 8) {
+                            DSPill("Disabled", style: style, isDisabled: true) {}
+                            DSPill(
+                                "With Icon",
+                                leadingIcon: Image(systemName: "star"),
+                                style: style
+                            ) {}
+                        }
+                    }
                 }
             }
         }
@@ -402,177 +244,4 @@ import SwiftUI
     }
 }
 
-#Preview("Media - Icon") {
-    VStack(spacing: 20) {
-        DSPill(
-            "Icon SM",
-            style: .outlined,
-            size: .small,
-            leadingMedia: .icon(Image(systemName: "house.fill")),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-        
-        DSPill(
-            "Icon SM",
-            style: .outlined,
-            size: .medium,
-            leadingMedia: .icon(Image(systemName: "house.fill")),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-        
-        DSPill(
-            "Icon LG",
-            style: .outlined,
-            size: .large,
-            leadingMedia: .icon(Image(systemName: "house.fill")),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-        
-        DSPill(
-            "Icon LG",
-            style: .outlined,
-            size: .extraLarge,
-            leadingMedia: .icon(Image(systemName: "house.fill")),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-    }
-    .padding()
-}
-
-#Preview("Media - Image") {
-    VStack(spacing: 20) {
-        DSPill(
-            "Image SM",
-            style: .outlined,
-            size: .small,
-            leadingMedia: .image(Image(systemName: "photo.fill")),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-        
-        DSPill(
-            "Image SM",
-            style: .outlined,
-            size: .medium,
-            leadingMedia: .image(Image(systemName: "photo.fill")),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-        
-        DSPill(
-            "Image LG",
-            style: .outlined,
-            size: .large,
-            leadingMedia: .image(Image(systemName: "photo.fill")),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-        
-        DSPill(
-            "Image LG",
-            style: .outlined,
-            size: .extraLarge,
-            leadingMedia: .image(Image(systemName: "photo.fill")),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-    }
-    .padding()
-}
-
-#Preview("Media - Swatch") {
-    let brandGradientStart = Color(red: 251/255, green: 162/255, blue: 104/255)
-    let brandGradientEnd = Color(red: 249/255, green: 99/255, blue: 2/255)
-    
-    return VStack(spacing: 20) {
-        DSPill(
-            "Swatch SM",
-            style: .outlined,
-            size: .small,
-            leadingMedia: .swatch(brandGradientStart, brandGradientEnd),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-        
-        DSPill(
-            "Swatch SM",
-            style: .outlined,
-            size: .medium,
-            leadingMedia: .swatch(brandGradientStart, brandGradientEnd),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-        
-        DSPill(
-            "Swatch LG",
-            style: .outlined,
-            size: .large,
-            leadingMedia: .swatch(brandGradientStart, brandGradientEnd),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-        
-        DSPill(
-            "Swatch LG",
-            style: .outlined,
-            size: .extraLarge,
-            leadingMedia: .swatch(brandGradientStart, brandGradientEnd),
-            trailingIcon: Image(systemName: "chevron.down")
-        )
-    }
-    .padding()
-}
-
-#Preview("Media - All Variants") {
-    let brandGradientStart = Color(red: 251/255, green: 162/255, blue: 104/255)
-    let brandGradientEnd = Color(red: 249/255, green: 99/255, blue: 2/255)
-    
-    return VStack(spacing: 20) {
-        Text("Icon + Image + Swatch").font(.headline)
-        
-        HStack(spacing: 10) {
-            DSPill(
-                "Icon",
-                style: .outlined,
-                size: .medium,
-                leadingMedia: .icon(Image(systemName: "house.fill"))
-            )
-            
-            DSPill(
-                "Image",
-                style: .outlined,
-                size: .medium,
-                leadingMedia: .image(Image(systemName: "photo.fill"))
-            )
-            
-            DSPill(
-                "Swatch",
-                style: .outlined,
-                size: .medium,
-                leadingMedia: .swatch(brandGradientStart, brandGradientEnd)
-            )
-        }
-        
-        Text("Filled Style").font(.headline)
-        
-        HStack(spacing: 10) {
-            DSPill(
-                "Icon",
-                style: .filled,
-                size: .medium,
-                leadingMedia: .icon(Image(systemName: "house.fill")),
-                trailingIcon: Image(systemName: "chevron.down")
-            )
-            
-            DSPill(
-                "Image",
-                style: .filled,
-                size: .medium,
-                leadingMedia: .image(Image(systemName: "photo.fill")),
-                trailingIcon: Image(systemName: "chevron.down")
-            )
-            
-            DSPill(
-                "Swatch",
-                style: .filled,
-                size: .medium,
-                leadingMedia: .swatch(brandGradientStart, brandGradientEnd),
-                trailingIcon: Image(systemName: "chevron.down")
-            )
-        }
-    }
-    .padding()
-}
+#endif

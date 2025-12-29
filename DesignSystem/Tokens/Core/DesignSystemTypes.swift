@@ -1,23 +1,12 @@
 //
 // DesignSystemTypes.swift
+// Compatibility shim - DSShadow is now defined in DesignSystem/Types/DSShadow.swift
+//
+// This file exists only to prevent Xcode build errors.
+// You can safely remove this file and its reference from the Xcode project.
 //
 
 import SwiftUI
 
-/// A structure representing a shadow with offset, blur, spread, and color properties.
-/// Used by design tokens to define elevation and shadow effects.
-public struct DSShadow {
-    public let x: CGFloat
-    public let y: CGFloat
-    public let blur: CGFloat
-    public let spread: CGFloat
-    public let color: Color
-    
-    public init(x: CGFloat, y: CGFloat, blur: CGFloat, spread: CGFloat, color: Color) {
-        self.x = x
-        self.y = y
-        self.blur = blur
-        self.spread = spread
-        self.color = color
-    }
-}
+// DSShadow is now defined in DesignSystem/Types/DSShadow.swift
+// No additional types needed here.

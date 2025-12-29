@@ -1,419 +1,308 @@
 import SwiftUI
 
+// MARK: - DSTileVariant
+
+/// Visual style variants for DSTile matching Figma specs.
+public enum DSTileVariant: CaseIterable, Sendable {
+    /// Outlined tile with border
+    case outlined
+    /// Filled tile with solid background
+    case filled
+    /// Ghost tile with no background
+    case ghost
+}
+
 // MARK: - DSTile
 
-/// A tile selector component with multiple styles, sizes, and interaction states.
+/// A selectable tile component for displaying options with optional media and text.
 ///
-/// DSTile supports 3 variants (outlined, filled, ghost), 2 sizes (regular, small),
-/// and various interaction states (default, pressed, loading, inactive). Tiles can display
-/// an image with optional swatch, text label, and support selected/available states.
+/// DSTile is used for selection interfaces like color swatches, size selectors,
+/// or option pickers. It supports media (images/colors), text labels, and various
+/// states including selected, disabled, and loading.
 ///
 /// Example usage:
 /// ```swift
+/// // Simple text tile
+/// DSTile("Small", isSelected: true) {
+///     print("Selected Small")
+/// }
+///
+/// // Color swatch tile
 /// DSTile(
-///     "Wacky",
-///     variant: .outlined,
-///     size: .regular,
-///     image: Image("product"),
-///     swatch: Color.orange
+///     color: .red,
+///     label: "Red",
+///     isSelected: false
 /// ) {
-///     // Action
+///     print("Selected Red")
+/// }
+///
+/// // Image tile
+/// DSTile(
+///     image: Image("product"),
+///     label: "Product",
+///     variant: .outlined,
+///     isSelected: true
+/// ) {
+///     print("Selected Product")
 /// }
 /// ```
 public struct DSTile: View {
-    // MARK: Lifecycle
+    // MARK: - Properties
 
-    /// Creates a DSTile with the specified configuration.
-    public init(
-        _ label: String,
-        variant: Variant = .outlined,
-        size: Size = .regular,
-        interaction: Interaction = .default,
-        isSelected: Bool = false,
-        isAvailable: Bool = true,
-        image: Image? = nil,
-        swatch: Color? = nil,
-        showFocus: Bool = false,
-        action: (() -> Void)? = nil
-    ) {
-        self.label = label
-        self.variant = variant
-        self.size = size
-        self.interaction = interaction
-        self.isSelected = isSelected
-        self.isAvailable = isAvailable
-        self.image = image
-        self.swatch = swatch
-        self.showFocus = showFocus
-        self.action = action
-    }
-
-    // MARK: Public
-
-    /// Tile variant styles
-    public enum Variant: CaseIterable {
-        case outlined
-        case filled
-        case ghost
-    }
-
-    /// Tile size variants
-    public enum Size: CaseIterable {
-        case regular
-        case small
-
-        // MARK: Internal
-
-        /// Tile height from Figma
-        var height: CGFloat {
-            switch self {
-            case .regular: 44
-            case .small: 28
-            }
-        }
-
-        /// Image size from Figma
-        var imageSize: CGFloat {
-            switch self {
-            case .regular: 28
-            case .small: 28
-            }
-        }
-
-        /// Swatch size from Figma
-        var swatchSize: CGFloat {
-            switch self {
-            case .regular: 28
-            case .small: 28
-            }
-        }
-
-        /// Font size
-        var fontSize: CGFloat {
-            TokensCoreLight.FontSizeBodySm
-        }
-
-        /// Content spacing (between image and text)
-        var contentSpacing: CGFloat {
-            8 // spacing-2
-        }
-    }
-
-    /// Tile interaction state
-    public enum Interaction: CaseIterable {
-        case `default`
-        case pressed
-        case loading
-        case inactive
-    }
-
-    public var body: some View {
-        if let action {
-            Button(action: action) {
-                tileContent
-            }
-            .buttonStyle(TileButtonStyle(variant: variant, interaction: interaction))
-            .disabled(interaction == .inactive || !isAvailable)
-        } else {
-            tileContent
-        }
-    }
-
-    // MARK: Private
-
-    private let label: String
-    private let variant: Variant
-    private let size: Size
-    private let interaction: Interaction
-    private let isSelected: Bool
-    private let isAvailable: Bool
+    private let label: String?
     private let image: Image?
-    private let swatch: Color?
-    private let showFocus: Bool
-    private let action: (() -> Void)?
+    private let color: Color?
+    private let variant: DSTileVariant
+    private let isSelected: Bool
+    private let isDisabled: Bool
+    private let isLoading: Bool
+    private let action: () -> Void
 
-    @Environment(\.colorScheme) private var colorScheme
-
-    @ViewBuilder
-    private var tileContent: some View {
-        ZStack {
-            HStack(spacing: size.contentSpacing) {
-                // Leading media (image + optional swatch)
-                if let image {
-                    imageView(image)
-                }
-
-                // Label
-                Text(label)
-                    .font(.custom(TokensCoreLight.FontFamilyInformational, size: size.fontSize))
-                    .fontWeight(.semibold)
-                    .foregroundColor(textColor)
-                    .lineLimit(1)
-            }
-            .padding(.horizontal, 8) // spacing-2
-            .frame(height: size.height)
-            .background(backgroundColor)
-            .overlay(
-                RoundedRectangle(cornerRadius: borderRadius)
-                    .stroke(borderColor, lineWidth: borderWidth)
-            )
-            .clipShape(RoundedRectangle(cornerRadius: borderRadius))
-
-            // Focus outline
-            if showFocus {
-                RoundedRectangle(cornerRadius: borderRadius)
-                    .stroke(focusColor, lineWidth: 1)
-                    .padding(-2)
-            }
-
-            // Loading indicator
-            if interaction == .loading {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: textColor))
-                    .frame(width: 16, height: 16)
-            }
-        }
-    }
-
-    @ViewBuilder
-    private func imageView(_ img: Image) -> some View {
-        ZStack(alignment: .bottomTrailing) {
-            // Main image container
-            RoundedRectangle(cornerRadius: 4)
-                .fill(Color.gray.opacity(0.1))
-                .frame(width: size.imageSize, height: size.imageSize)
-                .overlay(
-                    img
-                        .resizable()
-                        .scaledToFit()
-                        .padding(2)
-                )
-                .clipShape(RoundedRectangle(cornerRadius: 4))
-
-            // Diagonal strikethrough if not available
-            if !isAvailable {
-                diagonalStrikethrough
-            }
-
-            // Optional swatch
-            if let swatch {
-                Circle()
-                    .fill(swatch)
-                    .frame(width: size.swatchSize * 0.35, height: size.swatchSize * 0.35)
-                    .overlay(
-                        Circle()
-                            .stroke(Color.white, lineWidth: 1)
-                    )
-                    .offset(x: 6, y: 6)
-            }
-        }
-        .frame(width: size.imageSize, height: size.imageSize)
-    }
-
-    @ViewBuilder
-    private var diagonalStrikethrough: some View {
-        ZStack {
-            // Dark diagonal
-            Path { path in
-                path.move(to: CGPoint(x: 0, y: size.imageSize))
-                path.addLine(to: CGPoint(x: size.imageSize, y: 0))
-            }
-            .stroke(Color.gray, lineWidth: 2)
-
-            // Light diagonal
-            Path { path in
-                path.move(to: CGPoint(x: 0, y: size.imageSize))
-                path.addLine(to: CGPoint(x: size.imageSize, y: 0))
-            }
-            .stroke(Color.white.opacity(0.7), lineWidth: 1)
-        }
-    }
-
-    // MARK: - Color Helpers
+    // MARK: - Computed Styling
 
     private var backgroundColor: Color {
-        let isDark = colorScheme == .dark
-
-        switch (variant, isSelected, interaction) {
-        case (.outlined, false, .default):
-            return isDark ? TokensSemanticDark.BackgroundSelectorColorOutlineDefault : TokensSemanticLight.BackgroundSelectorColorOutlineDefault
-        case (.outlined, false, .pressed):
-            return isDark ? TokensSemanticDark.BackgroundSelectorColorOutlinePressed : TokensSemanticLight.BackgroundSelectorColorOutlinePressed
-        case (.outlined, false, .inactive), (.outlined, false, .loading):
-            return isDark ? TokensSemanticDark.BackgroundSelectorColorOutlineInactive : TokensSemanticLight.BackgroundSelectorColorOutlineInactive
-        case (.outlined, true, .default):
-            return isDark ? TokensSemanticDark.BackgroundSelectorColorOutlineSelected : TokensSemanticLight.BackgroundSelectorColorOutlineSelected
-        case (.outlined, true, .pressed):
-            return isDark ? TokensSemanticDark.BackgroundSelectorColorOutlinePressed : TokensSemanticLight.BackgroundSelectorColorOutlinePressed
-        case (.outlined, true, .inactive), (.outlined, true, .loading):
-            return isDark ? TokensSemanticDark.BackgroundSelectorColorOutlineInactive : TokensSemanticLight.BackgroundSelectorColorOutlineInactive
-
-        case (.filled, false, .default):
-            return isDark ? TokensSemanticDark.BackgroundSelectorColorFilledDefault : TokensSemanticLight.BackgroundSelectorColorFilledDefault
-        case (.filled, false, .pressed):
-            return isDark ? TokensSemanticDark.BackgroundSelectorColorFilledPressed : TokensSemanticLight.BackgroundSelectorColorFilledPressed
-        case (.filled, false, .inactive), (.filled, false, .loading):
-            return isDark ? TokensSemanticDark.BackgroundSelectorColorFilledInactive : TokensSemanticLight.BackgroundSelectorColorFilledInactive
-        case (.filled, true, .default):
-            return isDark ? TokensSemanticDark.BackgroundSelectorColorFilledSelected : TokensSemanticLight.BackgroundSelectorColorFilledSelected
-        case (.filled, true, .pressed):
-            return isDark ? TokensSemanticDark.BackgroundSelectorColorFilledPressed : TokensSemanticLight.BackgroundSelectorColorFilledPressed
-        case (.filled, true, .inactive), (.filled, true, .loading):
-            return isDark ? TokensSemanticDark.BackgroundSelectorColorFilledInactive : TokensSemanticLight.BackgroundSelectorColorFilledInactive
-
-        case (.ghost, _, .default):
-            return Color.clear
-        case (.ghost, _, .pressed):
-            return isDark ? TokensSemanticDark.BackgroundSelectorColorOutlinePressed : TokensSemanticLight.BackgroundSelectorColorOutlinePressed
-        case (.ghost, _, .inactive), (.ghost, _, .loading):
-            return isDark ? TokensSemanticDark.BackgroundSelectorColorOutlineInactive : TokensSemanticLight.BackgroundSelectorColorOutlineInactive
-        }
-    }
-
-    private var textColor: Color {
-        let isDark = colorScheme == .dark
-
-        switch (variant, isSelected, interaction) {
-        case (.outlined, false, .default), (.outlined, false, .pressed), (.outlined, false, .loading):
-            return isDark ? TokensSemanticDark.TextSelectorColorOutlineDefault : TokensSemanticLight.TextSelectorColorOutlineDefault
-        case (.outlined, false, .inactive):
-            return isDark ? TokensSemanticDark.TextSelectorColorOutlineInactive : TokensSemanticLight.TextSelectorColorOutlineInactive
-        case (.outlined, true, _):
-            return isDark ? TokensSemanticDark.TextSelectorColorOutlineSelected : TokensSemanticLight.TextSelectorColorOutlineSelected
-
-        case (.filled, false, .default), (.filled, false, .pressed), (.filled, false, .loading):
-            return isDark ? TokensSemanticDark.TextSelectorColorFilledDefault : TokensSemanticLight.TextSelectorColorFilledDefault
-        case (.filled, false, .inactive):
-            return isDark ? TokensSemanticDark.TextSelectorColorFilledInactive : TokensSemanticLight.TextSelectorColorFilledInactive
-        case (.filled, true, _):
-            return isDark ? TokensSemanticDark.TextSelectorColorFilledSelected : TokensSemanticLight.TextSelectorColorFilledSelected
-
-        case (.ghost, false, _):
-            return isDark ? TokensSemanticDark.TextSelectorColorDefault : TokensSemanticLight.TextSelectorColorDefault
-        case (.ghost, true, _):
-            return isDark ? TokensSemanticDark.TextSelectorColorSelected : TokensSemanticLight.TextSelectorColorSelected
-        }
+        DSTileColorHelper.backgroundColor(variant: variant, isSelected: isSelected, isDisabled: isDisabled)
     }
 
     private var borderColor: Color {
-        let isDark = colorScheme == .dark
+        DSTileColorHelper.borderColor(variant: variant, isSelected: isSelected, isDisabled: isDisabled)
+    }
 
-        switch (variant, isSelected, interaction) {
-        case (.outlined, false, .default):
-            return isDark ? TokensSemanticDark.BorderSelectorColorOutlineDefault : TokensSemanticLight.BorderSelectorColorOutlineDefault
-        case (.outlined, false, .pressed):
-            return isDark ? TokensSemanticDark.BorderSelectorColorOutlinePressed : TokensSemanticLight.BorderSelectorColorOutlinePressed
-        case (.outlined, false, .inactive), (.outlined, false, .loading):
-            return isDark ? TokensSemanticDark.BorderSelectorColorOutlineInactive : TokensSemanticLight.BorderSelectorColorOutlineInactive
-        case (.outlined, true, _):
-            return isDark ? TokensSemanticDark.BorderSelectorColorOutlineSelected : TokensSemanticLight.BorderSelectorColorOutlineSelected
-
-        case (.filled, false, .default):
-            return isDark ? TokensSemanticDark.BorderSelectorColorFilledDefault : TokensSemanticLight.BorderSelectorColorFilledDefault
-        case (.filled, false, .pressed):
-            return isDark ? TokensSemanticDark.BorderSelectorColorFilledPressed : TokensSemanticLight.BorderSelectorColorFilledPressed
-        case (.filled, false, .inactive), (.filled, false, .loading):
-            return isDark ? TokensSemanticDark.BorderSelectorColorFilledInactive : TokensSemanticLight.BorderSelectorColorFilledInactive
-        case (.filled, true, _):
-            return isDark ? TokensSemanticDark.BorderSelectorColorFilledSelected : TokensSemanticLight.BorderSelectorColorFilledSelected
-
-        case (.ghost, _, _):
-            return Color.clear
-        }
+    private var textColor: Color {
+        DSTileColorHelper.textColor(isSelected: isSelected, isDisabled: isDisabled)
     }
 
     private var borderWidth: CGFloat {
-        switch variant {
-        case .outlined, .filled:
-            return TokensSemanticLight.BorderWidthXs
-        case .ghost:
-            return 0
+        isSelected ? 2 : 1
+    }
+
+    private var cornerRadius: CGFloat {
+        CGFloat(TokensSemanticLight.BorderRadiusXl)
+    }
+
+    private var mediaCornerRadius: CGFloat {
+        4
+    }
+
+    // MARK: - Sizing
+
+    private let minHeight: CGFloat = 44
+    private let horizontalPadding: CGFloat = 12
+    private let verticalPadding: CGFloat = 8
+    private let mediaSize: CGFloat = 28
+    private let spacing: CGFloat = 8
+
+    // MARK: - Initializers
+
+    /// Creates a tile with a text label.
+    /// - Parameters:
+    ///   - label: The text to display.
+    ///   - variant: The visual style (outlined, filled, ghost).
+    ///   - isSelected: Whether the tile is selected.
+    ///   - isDisabled: Whether the tile is disabled.
+    ///   - isLoading: Whether the tile is in a loading state.
+    ///   - action: Action to perform when tapped.
+    public init(
+        _ label: String,
+        variant: DSTileVariant = .outlined,
+        isSelected: Bool = false,
+        isDisabled: Bool = false,
+        isLoading: Bool = false,
+        action: @escaping () -> Void
+    ) {
+        self.label = label
+        self.image = nil
+        self.color = nil
+        self.variant = variant
+        self.isSelected = isSelected
+        self.isDisabled = isDisabled
+        self.isLoading = isLoading
+        self.action = action
+    }
+
+    /// Creates a tile with a color swatch.
+    /// - Parameters:
+    ///   - color: The color to display as a swatch.
+    ///   - label: Optional text label.
+    ///   - variant: The visual style (outlined, filled, ghost).
+    ///   - isSelected: Whether the tile is selected.
+    ///   - isDisabled: Whether the tile is disabled.
+    ///   - isLoading: Whether the tile is in a loading state.
+    ///   - action: Action to perform when tapped.
+    public init(
+        color: Color,
+        label: String? = nil,
+        variant: DSTileVariant = .outlined,
+        isSelected: Bool = false,
+        isDisabled: Bool = false,
+        isLoading: Bool = false,
+        action: @escaping () -> Void
+    ) {
+        self.label = label
+        self.image = nil
+        self.color = color
+        self.variant = variant
+        self.isSelected = isSelected
+        self.isDisabled = isDisabled
+        self.isLoading = isLoading
+        self.action = action
+    }
+
+    /// Creates a tile with an image.
+    /// - Parameters:
+    ///   - image: The image to display.
+    ///   - label: Optional text label.
+    ///   - variant: The visual style (outlined, filled, ghost).
+    ///   - isSelected: Whether the tile is selected.
+    ///   - isDisabled: Whether the tile is disabled.
+    ///   - isLoading: Whether the tile is in a loading state.
+    ///   - action: Action to perform when tapped.
+    public init(
+        image: Image,
+        label: String? = nil,
+        variant: DSTileVariant = .outlined,
+        isSelected: Bool = false,
+        isDisabled: Bool = false,
+        isLoading: Bool = false,
+        action: @escaping () -> Void
+    ) {
+        self.label = label
+        self.image = image
+        self.color = nil
+        self.variant = variant
+        self.isSelected = isSelected
+        self.isDisabled = isDisabled
+        self.isLoading = isLoading
+        self.action = action
+    }
+
+    // MARK: - Body
+
+    public var body: some View {
+        Button(action: action) {
+            contentView
         }
+        .buttonStyle(TileButtonStyle(
+            backgroundColor: backgroundColor,
+            borderColor: borderColor,
+            borderWidth: borderWidth,
+            cornerRadius: cornerRadius,
+            variant: variant,
+            isDisabled: isDisabled
+        ))
+        .disabled(isDisabled || isLoading)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(accessibilityLabelText)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .accessibilityAddTraits(.isButton)
     }
 
-    private var borderRadius: CGFloat {
-        8 // From Figma: border-radius (8px)
+    @ViewBuilder
+    private var contentView: some View {
+        HStack(spacing: spacing) {
+            // Media (color swatch or image)
+            if let color {
+                colorSwatchView(color: color)
+            } else if let image {
+                imageView(image: image)
+            }
+
+            // Label
+            if let label {
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .frame(width: 16, height: 16)
+                } else {
+                    Text(label)
+                        .font(.system(size: 14, weight: isSelected ? .semibold : .regular))
+                        .foregroundColor(textColor)
+                }
+            }
+        }
+        .padding(.horizontal, horizontalPadding)
+        .padding(.vertical, verticalPadding)
+        .frame(minHeight: minHeight)
     }
 
-    private var focusColor: Color {
-        Color.black
+    @ViewBuilder
+    private func colorSwatchView(color: Color) -> some View {
+        RoundedRectangle(cornerRadius: mediaCornerRadius)
+            .fill(color)
+            .frame(width: mediaSize, height: mediaSize)
+            .overlay(
+                RoundedRectangle(cornerRadius: mediaCornerRadius)
+                    .stroke(Color.black.opacity(0.1), lineWidth: 1)
+            )
+    }
+
+    @ViewBuilder
+    private func imageView(image: Image) -> some View {
+        image
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(width: mediaSize, height: mediaSize)
+            .clipShape(RoundedRectangle(cornerRadius: mediaCornerRadius))
+    }
+
+    // MARK: - Accessibility
+
+    private var accessibilityLabelText: Text {
+        var components: [String] = []
+        if let label {
+            components.append(label)
+        }
+        if isSelected {
+            components.append("Selected")
+        }
+        if isDisabled {
+            components.append("Disabled")
+        }
+        if isLoading {
+            components.append("Loading")
+        }
+        return Text(components.joined(separator: ", "))
     }
 }
 
 // MARK: - TileButtonStyle
 
-/// A custom button style that handles press states for DSTile.
+/// Custom button style for tiles with press animation.
 private struct TileButtonStyle: ButtonStyle {
-    let variant: DSTile.Variant
-    let interaction: DSTile.Interaction
+    let backgroundColor: Color
+    let borderColor: Color
+    let borderWidth: CGFloat
+    let cornerRadius: CGFloat
+    let variant: DSTileVariant
+    let isDisabled: Bool
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
-            .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
-    }
-}
-
-// MARK: - Factory Methods
-
-extension DSTile {
-    /// Creates an outlined tile.
-    public static func outlined(
-        _ label: String,
-        image: Image? = nil,
-        swatch: Color? = nil,
-        isSelected: Bool = false,
-        isAvailable: Bool = true,
-        action: (() -> Void)? = nil
-    ) -> DSTile {
-        DSTile(
-            label,
-            variant: .outlined,
-            isSelected: isSelected,
-            isAvailable: isAvailable,
-            image: image,
-            swatch: swatch,
-            action: action
-        )
+            .background(backgroundView(isPressed: configuration.isPressed))
+            .scaleEffect(configuration.isPressed ? 0.97 : 1.0)
+            .animation(DSAnimation.press, value: configuration.isPressed)
     }
 
-    /// Creates a filled tile.
-    public static func filled(
-        _ label: String,
-        image: Image? = nil,
-        swatch: Color? = nil,
-        isSelected: Bool = false,
-        isAvailable: Bool = true,
-        action: (() -> Void)? = nil
-    ) -> DSTile {
-        DSTile(
-            label,
-            variant: .filled,
-            isSelected: isSelected,
-            isAvailable: isAvailable,
-            image: image,
-            swatch: swatch,
-            action: action
-        )
-    }
+    @ViewBuilder
+    private func backgroundView(isPressed: Bool) -> some View {
+        let shape = RoundedRectangle(cornerRadius: cornerRadius)
 
-    /// Creates a ghost tile.
-    public static func ghost(
-        _ label: String,
-        image: Image? = nil,
-        swatch: Color? = nil,
-        isSelected: Bool = false,
-        isAvailable: Bool = true,
-        action: (() -> Void)? = nil
-    ) -> DSTile {
-        DSTile(
-            label,
-            variant: .ghost,
-            isSelected: isSelected,
-            isAvailable: isAvailable,
-            image: image,
-            swatch: swatch,
-            action: action
-        )
+        switch variant {
+        case .outlined:
+            shape
+                .fill(isPressed ? backgroundColor.opacity(0.9) : backgroundColor)
+                .overlay(
+                    shape.stroke(borderColor, lineWidth: borderWidth)
+                )
+        case .filled:
+            shape
+                .fill(isPressed ? backgroundColor.opacity(0.9) : backgroundColor)
+        case .ghost:
+            if isPressed {
+                shape.fill(Color.black.opacity(0.05))
+            } else {
+                Color.clear
+            }
+        }
     }
 }

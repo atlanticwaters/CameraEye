@@ -1,374 +1,390 @@
 import SwiftUI
 
-// MARK: - PillMedia
+// MARK: - DSPillStyle
 
-/// Media content for pills - icons, images, or color swatches
-public enum PillMedia {
-    case icon(Image)
-    case image(Image)
-    case swatch(Color, Color)  // gradient colors: start, end
-    
-    // MARK: Internal
-    
-    /// Size of the media based on pill size
-    func size(for pillSize: DSPill.Size) -> CGFloat {
-        switch (self, pillSize) {
-        case (.icon, .extraLarge), (.icon, .large):
-            return 48  // Icon LG
-        case (.icon, .medium), (.icon, .small):
-            return 14  // Icon SM
-        case (.image, .extraLarge), (.image, .large), (.swatch, .extraLarge), (.swatch, .large):
-            return 48  // Image/Swatch LG
-        case (.image, .medium), (.image, .small), (.swatch, .medium), (.swatch, .small):
-            return 32  // Image/Swatch SM
+/// Visual style variants for DSPill matching Figma specs.
+public enum DSPillStyle: CaseIterable, Sendable {
+    /// Outlined pill with border
+    case outlined
+    /// Filled pill with solid background
+    case filled
+}
+
+// MARK: - DSPillSize
+
+/// Size variants for DSPill matching Figma specs.
+public enum DSPillSize: CaseIterable, Sendable {
+    /// Small size (24dp height)
+    case sm
+    /// Medium size (28dp height)
+    case md
+    /// Large size (32dp height)
+    case lg
+    /// Extra large size (40dp height)
+    case xl
+
+    var height: CGFloat {
+        switch self {
+        case .sm: return 24
+        case .md: return 28
+        case .lg: return 32
+        case .xl: return 40
+        }
+    }
+
+    var fontSize: CGFloat {
+        switch self {
+        case .sm: return 12
+        case .md: return 12
+        case .lg: return 14
+        case .xl: return 16
+        }
+    }
+
+    var iconSize: CGFloat {
+        switch self {
+        case .sm: return 12
+        case .md: return 14
+        case .lg: return 14
+        case .xl: return 16
+        }
+    }
+
+    var horizontalPadding: CGFloat {
+        switch self {
+        case .sm: return 8
+        case .md: return 10
+        case .lg: return 12
+        case .xl: return 16
+        }
+    }
+
+    var verticalPadding: CGFloat {
+        switch self {
+        case .sm: return 4
+        case .md: return 6
+        case .lg: return 8
+        case .xl: return 10
+        }
+    }
+
+    var spacing: CGFloat {
+        switch self {
+        case .sm: return 4
+        case .md: return 4
+        case .lg: return 6
+        case .xl: return 8
         }
     }
 }
 
 // MARK: - DSPill
 
-/// A pill-shaped selector component (also known as a chip or tag) with multiple styles and sizes.
+/// A pill component for displaying selectable tags, filters, and chips.
 ///
-/// DSPill supports 2 styles (outlined, filled), 4 sizes (xl, lg, md, sm), and
-/// various interaction states (default, pressed, selected, disabled). Optional leading and
-/// trailing media (icons, images, swatches) and icons can be displayed alongside the label text.
+/// DSPill is used for filter interfaces, tag displays, and selection chips.
+/// It supports leading/trailing icons, images, color swatches, and various
+/// interaction states.
 ///
 /// Example usage:
 /// ```swift
+/// // Simple pill
+/// DSPill("Category") {
+///     print("Tapped")
+/// }
+///
+/// // Pill with icons
 /// DSPill(
-///     "Cumberland",
+///     "Store",
+///     leadingIcon: Image(systemName: "building.2"),
+///     trailingIcon: Image(systemName: "chevron.down"),
 ///     style: .outlined,
-///     size: .medium,
-///     leadingMedia: .icon(Image(systemName: "mappin")),
-///     trailingIcon: Image(systemName: "chevron.down")
+///     size: .lg
 /// ) {
-///     // Action
+///     print("Tapped")
+/// }
+///
+/// // Selected pill
+/// DSPill(
+///     "Selected",
+///     style: .filled,
+///     isSelected: true
+/// ) {
+///     print("Tapped")
 /// }
 /// ```
 public struct DSPill: View {
-    // MARK: Lifecycle
+    // MARK: - Properties
 
-    /// Creates a DSPill with the specified configuration.
-    public init(
-        _ label: String,
-        style: Style = .outlined,
-        size: Size = .medium,
-        state: State = .default,
-        leadingMedia: PillMedia? = nil,
-        leadingIcon: Image? = nil,
-        trailingIcon: Image? = nil,
-        showBackground: Bool = true,
-        action: (() -> Void)? = nil
-    ) {
-        self.label = label
-        self.style = style
-        self.size = size
-        self.state = state
-        self.leadingMedia = leadingMedia
-        self.leadingIcon = leadingIcon
-        self.trailingIcon = trailingIcon
-        self.showBackground = showBackground
-        self.action = action
-    }
-
-    // MARK: Public
-
-    /// Pill style variants
-    public enum Style: CaseIterable {
-        case outlined
-        case filled
-    }
-
-    /// Pill size variants matching Figma specs
-    public enum Size: CaseIterable {
-        case extraLarge
-        case large
-        case medium
-        case small
-
-        // MARK: Internal
-
-        /// Pill height from Figma: XL=68, Lg=44, Md=36, Sm=28
-        var height: CGFloat {
-            switch self {
-            case .extraLarge: 68
-            case .large: 44
-            case .medium: 36
-            case .small: 28
-            }
-        }
-
-        /// Vertical padding from Figma
-        var verticalPadding: CGFloat {
-            switch self {
-            case .extraLarge, .large: 8  // Figma: spacing-2
-            case .medium, .small: 6      // Figma: spacing-6px
-            }
-        }
-
-        /// Horizontal padding from Figma: 16px for all sizes
-        var horizontalPadding: CGFloat {
-            16 // Figma: spacing-4
-        }
-
-        /// Icon size
-        var iconSize: CGFloat {
-            switch self {
-            case .extraLarge, .large: 14
-            case .medium, .small: 14
-            }
-        }
-    }
-
-    /// Pill interaction state
-    public enum State: CaseIterable {
-        case `default`
-        case pressed
-        case selected
-        case disabled
-    }
-
-    public var body: some View {
-        Button(action: {
-            action?()
-        }) {
-            HStack(spacing: 4) { // Figma: spacing-1
-                // Leading media (icon, image, or swatch)
-                if let media = leadingMedia {
-                    mediaView(media)
-                } else if let icon = leadingIcon {
-                    // Fallback to legacy leadingIcon
-                    icon
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: size.iconSize, height: size.iconSize)
-                        .foregroundColor(iconColor)
-                }
-
-                Text(label)
-                    .font(.custom(TokensCoreLight.FontFamilyInformational, size: TokensCoreLight.FontSizeBodySm))
-                    .foregroundColor(textColor)
-                    .lineLimit(1)
-
-                if let trailingIcon {
-                    trailingIcon
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: size.iconSize, height: size.iconSize)
-                        .foregroundColor(iconColor)
-                }
-            }
-            .padding(.horizontal, size.horizontalPadding)
-            .padding(.vertical, size.verticalPadding)
-            .frame(minHeight: size.height)
-            .background(backgroundColor)
-            .overlay(
-                RoundedRectangle(cornerRadius: TokensSemanticLight.BorderRadiusFull)
-                    .stroke(borderColor, lineWidth: borderWidth)
-            )
-            .clipShape(RoundedRectangle(cornerRadius: TokensSemanticLight.BorderRadiusFull))
-        }
-        .buttonStyle(PillButtonStyle())
-        .disabled(state == .disabled)
-    }
-
-    // MARK: Private
-
-    private let label: String
-    private let style: Style
-    private let size: Size
-    private let state: State
-    private let leadingMedia: PillMedia?
+    private let label: String?
     private let leadingIcon: Image?
     private let trailingIcon: Image?
-    private let showBackground: Bool
-    private let action: (() -> Void)?
+    private let leadingColor: Color?
+    private let leadingImage: Image?
+    private let style: DSPillStyle
+    private let size: DSPillSize
+    private let isSelected: Bool
+    private let isDisabled: Bool
+    private let hasBackground: Bool
+    private let action: () -> Void
 
-    @Environment(\.colorScheme) private var colorScheme
-    
-    // MARK: - Media View Helper
-    
-    @ViewBuilder
-    private func mediaView(_ media: PillMedia) -> some View {
-        let mediaSize = media.size(for: size)
-        
-        switch media {
-        case .icon(let image):
-            image
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: mediaSize, height: mediaSize)
-                .foregroundColor(iconColor)
-            
-        case .image(let image):
-            image
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: mediaSize, height: mediaSize)
-                .clipShape(Circle())
-            
-        case .swatch(let startColor, let endColor):
-            LinearGradient(
-                gradient: Gradient(colors: [startColor, endColor]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .frame(width: mediaSize, height: mediaSize)
-            .clipShape(Circle())
-        }
-    }
-
-    // MARK: - Color Helpers
+    // MARK: - Computed Styling
 
     private var backgroundColor: Color {
-        let lightColor: Color
-        let darkColor: Color
-
-        switch (style, state, showBackground) {
-        case (.outlined, .default, true):
-            lightColor = TokensSemanticLight.BackgroundSelectorColorOutlineDefault
-            darkColor = TokensSemanticDark.BackgroundSelectorColorOutlineDefault
-        case (.outlined, .pressed, true):
-            lightColor = TokensSemanticLight.BackgroundSelectorColorOutlinePressed
-            darkColor = TokensSemanticDark.BackgroundSelectorColorOutlinePressed
-        case (.outlined, .selected, true):
-            lightColor = TokensSemanticLight.BackgroundSelectorColorOutlineSelected
-            darkColor = TokensSemanticDark.BackgroundSelectorColorOutlineSelected
-        case (.outlined, .disabled, true):
-            lightColor = TokensSemanticLight.BackgroundSelectorColorOutlineInactive
-            darkColor = TokensSemanticDark.BackgroundSelectorColorOutlineInactive
-
-        case (.filled, .default, true):
-            lightColor = TokensSemanticLight.BackgroundButtonColorTransparent05Default
-            darkColor = TokensSemanticDark.BackgroundButtonColorTransparent05Default
-        case (.filled, .default, false):
-            lightColor = TokensSemanticLight.BackgroundSelectorColorFilledTransparent
-            darkColor = TokensSemanticDark.BackgroundSelectorColorFilledTransparent
-        case (.filled, .pressed, _):
-            lightColor = TokensSemanticLight.BackgroundButtonColorTransparent05Pressed
-            darkColor = TokensSemanticDark.BackgroundButtonColorTransparent05Pressed
-        case (.filled, .selected, _):
-            lightColor = TokensSemanticLight.BackgroundSelectorColorFilledSelected
-            darkColor = TokensSemanticDark.BackgroundSelectorColorFilledSelected
-        case (.filled, .disabled, _):
-            lightColor = TokensSemanticLight.BackgroundSelectorColorFilledInactive
-            darkColor = TokensSemanticDark.BackgroundSelectorColorFilledInactive
-
-        default:
-            lightColor = .clear
-            darkColor = .clear
-        }
-
-        return colorScheme == .dark ? darkColor : lightColor
+        DSPillColorHelper.backgroundColor(style: style, isSelected: isSelected, isDisabled: isDisabled, hasBackground: hasBackground)
     }
 
     private var borderColor: Color {
-        let lightColor: Color
-        let darkColor: Color
+        DSPillColorHelper.borderColor(style: style, isSelected: isSelected, isDisabled: isDisabled)
+    }
 
-        switch (style, state) {
-        case (.outlined, .default):
-            lightColor = TokensSemanticLight.BorderSelectorColorOutlineDefault
-            darkColor = TokensSemanticDark.BorderSelectorColorOutlineDefault
-        case (.outlined, .pressed):
-            lightColor = TokensSemanticLight.BorderSelectorColorOutlinePressed
-            darkColor = TokensSemanticDark.BorderSelectorColorOutlinePressed
-        case (.outlined, .selected):
-            lightColor = TokensSemanticLight.BorderSelectorColorOutlineSelected
-            darkColor = TokensSemanticDark.BorderSelectorColorOutlineSelected
-        case (.outlined, .disabled):
-            lightColor = TokensSemanticLight.BorderSelectorColorOutlineInactive
-            darkColor = TokensSemanticDark.BorderSelectorColorOutlineInactive
-
-        case (.filled, _):
-            lightColor = .clear
-            darkColor = .clear
-        }
-
-        return colorScheme == .dark ? darkColor : lightColor
+    private var foregroundColor: Color {
+        DSPillColorHelper.foregroundColor(style: style, isSelected: isSelected, isDisabled: isDisabled)
     }
 
     private var borderWidth: CGFloat {
-        style == .outlined ? TokensSemanticLight.Border1 : 0
+        style == .outlined ? 1 : 0
     }
 
-    private var textColor: Color {
-        let lightColor: Color
-        let darkColor: Color
+    private var cornerRadius: CGFloat {
+        size.height / 2
+    }
 
-        switch state {
-        case .default, .pressed:
-            lightColor = TokensSemanticLight.TextSelectorColorDefault
-            darkColor = TokensSemanticDark.TextSelectorColorDefault
-        case .selected:
-            lightColor = TokensSemanticLight.TextSelectorColorSelected
-            darkColor = TokensSemanticDark.TextSelectorColorSelected
-        case .disabled:
-            lightColor = TokensSemanticLight.TextSelectorColorInactive
-            darkColor = TokensSemanticDark.TextSelectorColorInactive
+    // MARK: - Initializers
+
+    /// Creates a pill with a text label.
+    /// - Parameters:
+    ///   - label: The text to display.
+    ///   - leadingIcon: Optional icon displayed before the label.
+    ///   - trailingIcon: Optional icon displayed after the label.
+    ///   - style: The visual style (outlined, filled).
+    ///   - size: The size of the pill.
+    ///   - isSelected: Whether the pill is selected.
+    ///   - isDisabled: Whether the pill is disabled.
+    ///   - hasBackground: Whether to show background (for outlined style).
+    ///   - action: Action to perform when tapped.
+    public init(
+        _ label: String,
+        leadingIcon: Image? = nil,
+        trailingIcon: Image? = nil,
+        style: DSPillStyle = .outlined,
+        size: DSPillSize = .lg,
+        isSelected: Bool = false,
+        isDisabled: Bool = false,
+        hasBackground: Bool = true,
+        action: @escaping () -> Void
+    ) {
+        self.label = label
+        self.leadingIcon = leadingIcon
+        self.trailingIcon = trailingIcon
+        self.leadingColor = nil
+        self.leadingImage = nil
+        self.style = style
+        self.size = size
+        self.isSelected = isSelected
+        self.isDisabled = isDisabled
+        self.hasBackground = hasBackground
+        self.action = action
+    }
+
+    /// Creates a pill with a color swatch.
+    /// - Parameters:
+    ///   - label: Optional text label.
+    ///   - swatchColor: The color to display as a swatch.
+    ///   - trailingIcon: Optional icon displayed after the label.
+    ///   - style: The visual style (outlined, filled).
+    ///   - size: The size of the pill.
+    ///   - isSelected: Whether the pill is selected.
+    ///   - isDisabled: Whether the pill is disabled.
+    ///   - hasBackground: Whether to show background.
+    ///   - action: Action to perform when tapped.
+    public init(
+        _ label: String? = nil,
+        swatchColor: Color,
+        trailingIcon: Image? = nil,
+        style: DSPillStyle = .outlined,
+        size: DSPillSize = .lg,
+        isSelected: Bool = false,
+        isDisabled: Bool = false,
+        hasBackground: Bool = true,
+        action: @escaping () -> Void
+    ) {
+        self.label = label
+        self.leadingIcon = nil
+        self.trailingIcon = trailingIcon
+        self.leadingColor = swatchColor
+        self.leadingImage = nil
+        self.style = style
+        self.size = size
+        self.isSelected = isSelected
+        self.isDisabled = isDisabled
+        self.hasBackground = hasBackground
+        self.action = action
+    }
+
+    /// Creates a pill with a leading image.
+    /// - Parameters:
+    ///   - label: Optional text label.
+    ///   - leadingImage: The image to display.
+    ///   - trailingIcon: Optional icon displayed after the label.
+    ///   - style: The visual style (outlined, filled).
+    ///   - size: The size of the pill.
+    ///   - isSelected: Whether the pill is selected.
+    ///   - isDisabled: Whether the pill is disabled.
+    ///   - hasBackground: Whether to show background.
+    ///   - action: Action to perform when tapped.
+    public init(
+        _ label: String? = nil,
+        leadingImage: Image,
+        trailingIcon: Image? = nil,
+        style: DSPillStyle = .outlined,
+        size: DSPillSize = .lg,
+        isSelected: Bool = false,
+        isDisabled: Bool = false,
+        hasBackground: Bool = true,
+        action: @escaping () -> Void
+    ) {
+        self.label = label
+        self.leadingIcon = nil
+        self.trailingIcon = trailingIcon
+        self.leadingColor = nil
+        self.leadingImage = leadingImage
+        self.style = style
+        self.size = size
+        self.isSelected = isSelected
+        self.isDisabled = isDisabled
+        self.hasBackground = hasBackground
+        self.action = action
+    }
+
+    // MARK: - Body
+
+    public var body: some View {
+        Button(action: action) {
+            contentView
         }
-
-        return colorScheme == .dark ? darkColor : lightColor
+        .buttonStyle(PillButtonStyle(
+            backgroundColor: backgroundColor,
+            borderColor: borderColor,
+            borderWidth: borderWidth,
+            cornerRadius: cornerRadius,
+            style: style,
+            isDisabled: isDisabled
+        ))
+        .disabled(isDisabled)
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(accessibilityLabelText)
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
+        .accessibilityAddTraits(.isButton)
     }
 
-    private var iconColor: Color {
-        textColor
+    @ViewBuilder
+    private var contentView: some View {
+        HStack(spacing: size.spacing) {
+            // Leading content (icon, swatch, or image)
+            if let leadingIcon {
+                leadingIcon
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: size.iconSize, height: size.iconSize)
+                    .foregroundColor(foregroundColor)
+            } else if let leadingColor {
+                colorSwatchView(color: leadingColor)
+            } else if let leadingImage {
+                imageView(image: leadingImage)
+            }
+
+            // Label
+            if let label {
+                Text(label)
+                    .font(.system(size: size.fontSize, weight: isSelected ? .semibold : .regular))
+                    .foregroundColor(foregroundColor)
+            }
+
+            // Trailing icon
+            if let trailingIcon {
+                trailingIcon
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: size.iconSize * 0.75, height: size.iconSize * 0.75)
+                    .foregroundColor(foregroundColor)
+            }
+        }
+        .padding(.horizontal, size.horizontalPadding)
+        .padding(.vertical, size.verticalPadding)
+        .frame(minHeight: size.height)
+    }
+
+    @ViewBuilder
+    private func colorSwatchView(color: Color) -> some View {
+        Circle()
+            .fill(color)
+            .frame(width: size.iconSize, height: size.iconSize)
+            .overlay(
+                Circle()
+                    .stroke(Color.black.opacity(0.1), lineWidth: 1)
+            )
+    }
+
+    @ViewBuilder
+    private func imageView(image: Image) -> some View {
+        image
+            .resizable()
+            .aspectRatio(contentMode: .fill)
+            .frame(width: size.iconSize, height: size.iconSize)
+            .clipShape(Circle())
+    }
+
+    // MARK: - Accessibility
+
+    private var accessibilityLabelText: Text {
+        var components: [String] = []
+        if let label {
+            components.append(label)
+        }
+        if isSelected {
+            components.append("Selected")
+        }
+        if isDisabled {
+            components.append("Disabled")
+        }
+        return Text(components.joined(separator: ", "))
     }
 }
 
-// MARK: - Button Style
+// MARK: - PillButtonStyle
 
-/// Custom button style for pills that prevents default highlighting
+/// Custom button style for pills with press animation.
 private struct PillButtonStyle: ButtonStyle {
+    let backgroundColor: Color
+    let borderColor: Color
+    let borderWidth: CGFloat
+    let cornerRadius: CGFloat
+    let style: DSPillStyle
+    let isDisabled: Bool
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
-            .animation(.easeInOut(duration: 0.1), value: configuration.isPressed)
-    }
-}
-
-// MARK: - Factory Methods
-
-public extension DSPill {
-    /// Creates an outlined pill with default settings
-    static func outlined(
-        _ label: String,
-        size: Size = .medium,
-        leadingMedia: PillMedia? = nil,
-        leadingIcon: Image? = nil,
-        trailingIcon: Image? = nil,
-        action: (() -> Void)? = nil
-    ) -> DSPill {
-        DSPill(
-            label,
-            style: .outlined,
-            size: size,
-            leadingMedia: leadingMedia,
-            leadingIcon: leadingIcon,
-            trailingIcon: trailingIcon,
-            action: action
-        )
+            .background(backgroundView(isPressed: configuration.isPressed))
+            .scaleEffect(configuration.isPressed ? 0.97 : 1.0)
+            .animation(DSAnimation.press, value: configuration.isPressed)
     }
 
-    /// Creates a filled pill with default settings
-    static func filled(
-        _ label: String,
-        size: Size = .medium,
-        leadingMedia: PillMedia? = nil,
-        leadingIcon: Image? = nil,
-        trailingIcon: Image? = nil,
-        showBackground: Bool = true,
-        action: (() -> Void)? = nil
-    ) -> DSPill {
-        DSPill(
-            label,
-            style: .filled,
-            size: size,
-            leadingMedia: leadingMedia,
-            leadingIcon: leadingIcon,
-            trailingIcon: trailingIcon,
-            showBackground: showBackground,
-            action: action
-        )
+    @ViewBuilder
+    private func backgroundView(isPressed: Bool) -> some View {
+        let shape = Capsule()
+        let pressedOpacity = isPressed ? 0.9 : 1.0
+
+        switch style {
+        case .outlined:
+            shape
+                .fill(backgroundColor.opacity(pressedOpacity))
+                .overlay(
+                    shape.stroke(borderColor, lineWidth: borderWidth)
+                )
+        case .filled:
+            shape
+                .fill(backgroundColor.opacity(pressedOpacity))
+        }
     }
 }

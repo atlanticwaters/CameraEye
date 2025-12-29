@@ -1,265 +1,228 @@
 import SwiftUI
 
-/// A promotional or informational banner with optional icon, title, subtitle, and action button
+// MARK: - DSCalloutVariant
+
+/// Style variants for DSCallout matching Figma specs.
+public enum DSCalloutVariant: CaseIterable, Sendable {
+    /// Neutral callout with transparent background
+    case neutral
+    /// Brand callout with orange accent
+    case brand
+    /// Inverse callout for dark backgrounds
+    case inverse
+}
+
+// MARK: - DSCallout
+
+/// A callout component for displaying contextual information with optional action.
+///
+/// DSCallout displays a title, optional subtitle, body text, and an optional action button.
+/// It supports three variants (neutral, brand, inverse) and can be displayed as floating
+/// (with shadow) or inline. It automatically adapts to light/dark mode using design tokens.
+///
+/// Example usage:
+/// ```swift
+/// // Simple callout with title and body
+/// DSCallout(
+///     title: "Important Notice",
+///     body: "This is supplementary information."
+/// )
+///
+/// // Full-featured callout
+/// DSCallout(
+///     title: "Special Offer",
+///     subtitle: "Limited time only",
+///     body: "Get 20% off your next purchase.",
+///     variant: .brand,
+///     isFloating: true,
+///     buttonTitle: "Shop Now"
+/// ) {
+///     print("Button tapped")
+/// }
+/// ```
 public struct DSCallout: View {
-    // MARK: - Types
-    
-    /// Visual variant of the callout
-    public enum Variant {
-        case neutral
-        case brand
-        case inverse
-    }
-    
     // MARK: - Properties
-    
-    private let variant: Variant
-    private let leadingIcon: AnyView?
+
     private let title: String?
     private let subtitle: String?
-    private let message: String
-    private let buttonText: String?
+    private let body: String
+    private let leadingIcon: Image?
+    private let variant: DSCalloutVariant
     private let isFloating: Bool
-    private let onButtonTap: (() -> Void)?
-    
-    @Environment(\.colorScheme) private var colorScheme
-    
-    private var isDark: Bool {
-        colorScheme == .dark
+    private let buttonTitle: String?
+    private let buttonAction: (() -> Void)?
+
+    // MARK: - Token-based styling
+
+    private var backgroundColor: Color {
+        DSCalloutColorHelper.backgroundColor(variant: variant)
     }
-    
-    // MARK: - Initialization
-    
-    /// Creates a callout with a message and optional title, subtitle, and action
+
+    private var titleColor: Color {
+        DSCalloutColorHelper.titleColor(variant: variant)
+    }
+
+    private var bodyColor: Color {
+        DSCalloutColorHelper.bodyColor(variant: variant)
+    }
+
+    private var iconColor: Color {
+        DSCalloutColorHelper.iconColor(variant: variant)
+    }
+
+    private var cornerRadius: CGFloat {
+        CGFloat(TokensSemanticLight.BorderRadiusXl)
+    }
+
+    /// Shadow token from design system (only used for floating variant)
+    private var shadowToken: DSShadow {
+        TokensCoreLight.ElevationBelow3
+    }
+
+    // MARK: - Spacing per Figma spec
+
+    private let horizontalPadding: CGFloat = 16
+    private let topPadding: CGFloat = 6
+    private let bottomPadding: CGFloat = 12
+    private let contentTopPadding: CGFloat = 16
+    private let contentSpacing: CGFloat = 16
+    private let titleSubtitleSpacing: CGFloat = 8
+
+    // MARK: - Initializers
+
+    /// Creates a callout with the specified configuration.
     /// - Parameters:
-    ///   - variant: Visual style variant (default: .neutral)
-    ///   - leadingIcon: Optional leading icon view
-    ///   - title: Optional title text
-    ///   - subtitle: Optional subtitle text
-    ///   - message: Primary message text
-    ///   - buttonText: Optional button text (if nil, button is hidden)
-    ///   - isFloating: Whether to show with floating elevation (default: false)
-    ///   - onButtonTap: Optional button tap action
+    ///   - title: Optional headline text displayed at the top.
+    ///   - subtitle: Optional subtitle text below the title.
+    ///   - body: The main body text.
+    ///   - leadingIcon: Optional icon displayed at the leading edge.
+    ///   - variant: The visual style variant (neutral, brand, inverse).
+    ///   - isFloating: Whether to display with shadow elevation.
+    ///   - buttonTitle: Optional title for the action button.
+    ///   - buttonAction: Action to perform when the button is tapped.
     public init(
-        variant: Variant = .neutral,
-        leadingIcon: (any View)? = nil,
         title: String? = nil,
         subtitle: String? = nil,
-        message: String,
-        buttonText: String? = nil,
+        body: String,
+        leadingIcon: Image? = nil,
+        variant: DSCalloutVariant = .neutral,
         isFloating: Bool = false,
-        onButtonTap: (() -> Void)? = nil
+        buttonTitle: String? = nil,
+        buttonAction: (() -> Void)? = nil
     ) {
-        self.variant = variant
-        self.leadingIcon = leadingIcon.map { AnyView($0) }
         self.title = title
         self.subtitle = subtitle
-        self.message = message
-        self.buttonText = buttonText
+        self.body = body
+        self.leadingIcon = leadingIcon
+        self.variant = variant
         self.isFloating = isFloating
-        self.onButtonTap = onButtonTap
+        self.buttonTitle = buttonTitle
+        self.buttonAction = buttonAction
     }
-    
+
     // MARK: - Body
-    
+
     public var body: some View {
-        HStack(alignment: .top, spacing: TokensSpacing.Spacing2) {
-            // Leading icon (only for neutral and brand variants)
-            if (variant == .neutral || variant == .brand), let icon = leadingIcon {
-                icon
+        HStack(alignment: .center, spacing: 0) {
+            // Leading icon (optional)
+            if let leadingIcon {
+                leadingIcon
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
                     .frame(width: 16, height: 16)
+                    .foregroundColor(iconColor)
             }
-            
-            // Content
-            VStack(alignment: .leading, spacing: TokensSpacing.Spacing4) {
+
+            // Content column
+            VStack(alignment: .leading, spacing: contentSpacing) {
                 // Title section
                 if title != nil || subtitle != nil {
-                    VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
-                        if let title = title {
-                            Text(title)
-                                .font(.custom("THD SmVar Beta", size: 18))
-                                .fontWeight(.heavy)
-                                .foregroundColor(titleTextColor)
-                                .lineLimit(nil)
-                        }
-                        
-                        if let subtitle = subtitle {
-                            Text(subtitle)
-                                .font(.custom("THD Sm Beta", size: 16))
-                                .foregroundColor(subtitleTextColor)
-                                .lineLimit(nil)
-                        }
-                    }
+                    titleSection
                 }
-                
-                // Message
-                Text(message)
-                    .font(.custom("THD Sm Beta", size: 14))
-                    .foregroundColor(messageTextColor)
-                    .lineLimit(nil)
-                    .fixedSize(horizontal: false, vertical: true)
+
+                // Body text
+                Text(body)
+                    .font(DSTypography.bodyXs)
+                    .foregroundColor(bodyColor)
             }
+            .padding(.top, contentTopPadding)
+            .padding(.leading, leadingIcon != nil ? 0 : 0)
             .frame(maxWidth: .infinity, alignment: .leading)
-            
-            // Leading icon for inverse variant
-            if variant == .inverse, let icon = leadingIcon {
-                icon
-                    .frame(width: 16, height: 16)
-            }
-            
-            // Action button
-            if let buttonText = buttonText {
-                VStack {
-                    Button(action: {
-                        onButtonTap?()
-                    }) {
-                        Text(buttonText)
-                            .font(.custom("THD SmVar Beta", size: 14))
-                            .fontWeight(.bold)
-                            .foregroundColor(buttonTextColor)
-                            .lineLimit(1)
-                            .padding(.horizontal, TokensSpacing.Spacing4)
-                            .padding(.vertical, TokensSpacing.Spacing2)
-                            .frame(height: 28)
-                            .background(buttonBackgroundColor)
-                            .cornerRadius(9999)
-                    }
-                    .buttonStyle(PlainButtonStyle())
-                }
-                .frame(maxHeight: 44)
+
+            // Button (optional)
+            if let buttonTitle, let buttonAction {
+                buttonSection(title: buttonTitle, action: buttonAction)
             }
         }
-        .padding(TokensSpacing.Spacing4)
+        .padding(.horizontal, horizontalPadding)
+        .padding(.top, topPadding)
+        .padding(.bottom, bottomPadding)
         .background(backgroundColor)
-        .cornerRadius(TokensSemanticLight.BorderRadius2xl)
-        .shadow(color: isFloating ? shadowColor : .clear, radius: isFloating ? 6 : 0, x: 0, y: isFloating ? 3 : 0)
+        .clipShape(RoundedRectangle(cornerRadius: cornerRadius))
+        .modifier(FloatingShadowModifier(isFloating: isFloating, shadow: shadowToken))
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(accessibilityLabelText)
     }
-    
-    // MARK: - Colors
-    
-    private var backgroundColor: Color {
-        switch variant {
-        case .neutral:
-            return isDark ? TokensSemanticDark.BackgroundContainerColorWhite : TokensSemanticLight.BackgroundContainerColorWhite
-        case .brand:
-            return isDark ? TokensSemanticDark.BackgroundContainerColorBrand : TokensSemanticLight.BackgroundContainerColorBrand
-        case .inverse:
-            return isDark ? TokensSemanticDark.BackgroundContainerColorInverse : TokensSemanticLight.BackgroundContainerColorInverse
+
+    // MARK: - Private Views
+
+    @ViewBuilder
+    private var titleSection: some View {
+        VStack(alignment: .leading, spacing: titleSubtitleSpacing) {
+            if let title {
+                Text(title)
+                    .font(DSTypography.headlineSm)
+                    .foregroundColor(titleColor)
+            }
+            if let subtitle {
+                Text(subtitle)
+                    .font(DSTypography.bodyMd)
+                    .foregroundColor(bodyColor)
+            }
         }
     }
-    
-    private var titleTextColor: Color {
-        switch variant {
-        case .neutral:
-            return isDark ? TokensSemanticDark.TextOnContainerColorPrimary : TokensSemanticLight.TextOnContainerColorPrimary
-        case .brand:
-            return isDark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary
-        case .inverse:
-            return isDark ? TokensSemanticDark.TextOnContainerColorInverse : TokensSemanticLight.TextOnContainerColorInverse
+
+    @ViewBuilder
+    private func buttonSection(title: String, action: @escaping () -> Void) -> some View {
+        DSButton(
+            title,
+            style: .orangeFilled,
+            size: .small,
+            action: action
+        )
+        .padding(.vertical, 8)
+    }
+
+    // MARK: - Accessibility
+
+    private var accessibilityLabelText: Text {
+        var components: [String] = []
+        if let title {
+            components.append(title)
         }
-    }
-    
-    private var subtitleTextColor: Color {
-        switch variant {
-        case .neutral:
-            return isDark ? TokensSemanticDark.TextOnContainerColorSecondary : TokensSemanticLight.TextOnContainerColorSecondary
-        case .brand:
-            return isDark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary
-        case .inverse:
-            return isDark ? TokensSemanticDark.TextOnContainerColorInverse : TokensSemanticLight.TextOnContainerColorInverse
+        if let subtitle {
+            components.append(subtitle)
         }
-    }
-    
-    private var messageTextColor: Color {
-        switch variant {
-        case .neutral:
-            return isDark ? TokensSemanticDark.TextOnContainerColorPrimary : TokensSemanticLight.TextOnContainerColorPrimary
-        case .brand:
-            return isDark ? TokensSemanticDark.TextOnSurfaceColorPrimary : TokensSemanticLight.TextOnSurfaceColorPrimary
-        case .inverse:
-            return isDark ? TokensSemanticDark.TextOnContainerColorInverse : TokensSemanticLight.TextOnContainerColorInverse
+        components.append(body)
+        if let buttonTitle {
+            components.append("Action: \(buttonTitle)")
         }
-    }
-    
-    private var buttonBackgroundColor: Color {
-        isDark ? TokensSemanticDark.BackgroundButtonColorBrandFilledDefault : TokensSemanticLight.BackgroundButtonColorBrandFilledDefault
-    }
-    
-    private var buttonTextColor: Color {
-        isDark ? TokensSemanticDark.TextButtonColorOrangeFilledDefault : TokensSemanticLight.TextButtonColorOrangeFilledDefault
-    }
-    
-    private var shadowColor: Color {
-        Color.black.opacity(0.1)
+        return Text(components.joined(separator: ". "))
     }
 }
 
-// MARK: - Convenience Factory Methods
+// MARK: - FloatingShadowModifier
 
-extension DSCallout {
-    /// Creates a neutral callout
-    public static func neutral(
-        leadingIcon: (any View)? = nil,
-        title: String? = nil,
-        subtitle: String? = nil,
-        message: String,
-        buttonText: String? = nil,
-        isFloating: Bool = false,
-        onButtonTap: (() -> Void)? = nil
-    ) -> DSCallout {
-        DSCallout(
-            variant: .neutral,
-            leadingIcon: leadingIcon,
-            title: title,
-            subtitle: subtitle,
-            message: message,
-            buttonText: buttonText,
-            isFloating: isFloating,
-            onButtonTap: onButtonTap
-        )
-    }
-    
-    /// Creates a brand callout
-    public static func brand(
-        leadingIcon: (any View)? = nil,
-        title: String? = nil,
-        subtitle: String? = nil,
-        message: String,
-        buttonText: String? = nil,
-        isFloating: Bool = false,
-        onButtonTap: (() -> Void)? = nil
-    ) -> DSCallout {
-        DSCallout(
-            variant: .brand,
-            leadingIcon: leadingIcon,
-            title: title,
-            subtitle: subtitle,
-            message: message,
-            buttonText: buttonText,
-            isFloating: isFloating,
-            onButtonTap: onButtonTap
-        )
-    }
-    
-    /// Creates an inverse callout
-    public static func inverse(
-        leadingIcon: (any View)? = nil,
-        title: String? = nil,
-        subtitle: String? = nil,
-        message: String,
-        buttonText: String? = nil,
-        isFloating: Bool = false,
-        onButtonTap: (() -> Void)? = nil
-    ) -> DSCallout {
-        DSCallout(
-            variant: .inverse,
-            leadingIcon: leadingIcon,
-            title: title,
-            subtitle: subtitle,
-            message: message,
-            buttonText: buttonText,
-            isFloating: isFloating,
-            onButtonTap: onButtonTap
-        )
+/// Modifier that conditionally applies shadow for floating callouts.
+private struct FloatingShadowModifier: ViewModifier {
+    let isFloating: Bool
+    let shadow: DSShadow
+
+    func body(content: Content) -> some View {
+        if isFloating {
+            content.shadow(shadow)
+        } else {
+            content
+        }
     }
 }
