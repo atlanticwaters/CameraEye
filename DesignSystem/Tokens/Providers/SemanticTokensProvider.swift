@@ -24,8 +24,11 @@ import SwiftUI
 /// ```
 public protocol SemanticTokensProvider {
     var BackgroundAccentColorBlue: Color { get }
+    var BackgroundAccentColorBrand: Color { get }
     var BackgroundAccentColorBrown: Color { get }
+    var BackgroundAccentColorDarkGreige: Color { get }
     var BackgroundAccentColorGreen: Color { get }
+    var BackgroundAccentColorGreige: Color { get }
     var BackgroundAccentColorRed: Color { get }
     var BackgroundAccentColorYellow: Color { get }
     var BackgroundActionColorPrimary: Color { get }
@@ -55,6 +58,8 @@ public protocol SemanticTokensProvider {
     var BackgroundContainerColorTransparent10: Color { get }
     var BackgroundContainerColorTransparent20: Color { get }
     var BackgroundContainerColorWhite: Color { get }
+    var BackgroundContainerPrimary: Color { get }
+    var BackgroundContainerSecondary: Color { get }
     var BackgroundFeedbackColorErrorAccent1: Color { get }
     var BackgroundFeedbackColorErrorAccent2: Color { get }
     var BackgroundFeedbackColorInformationalAccent1: Color { get }
@@ -106,6 +111,8 @@ public protocol SemanticTokensProvider {
     var BorderButtonColorOrangeOutlineDefault: Color { get }
     var BorderButtonColorOrangeOutlineInactive: Color { get }
     var BorderButtonColorPressed: Color { get }
+    var BorderColorFocus: Color { get }
+    var BorderColorPrimary: Color { get }
     var BorderInputColorAccent: Color { get }
     var BorderInputColorAccent2: Color { get }
     var BorderInputColorActive: Color { get }
@@ -232,6 +239,8 @@ public protocol SemanticTokensProvider {
     var TextInputColorTransparent10Default: Color { get }
     var TextInputColorTransparent10Inactive: Color { get }
     var TextInputColorWhiteOutlinedDefault: Color { get }
+    var TextOn: Color { get }
+    var TextOnBrandColorPrimary: Color { get }
     var TextOnContainerColorAccent: Color { get }
     var TextOnContainerColorAccent2: Color { get }
     var TextOnContainerColorError: Color { get }
@@ -244,12 +253,20 @@ public protocol SemanticTokensProvider {
     var TextOnContainerColorSuccess: Color { get }
     var TextOnContainerColorTertiary: Color { get }
     var TextOnContainerColorWarning: Color { get }
+    var TextOnErrorColorPrimary: Color { get }
+    var TextOnPrimaryColorPrimary: Color { get }
+    var TextOnPrimaryColorSecondary: Color { get }
+    var TextOnSuccessColorPrimary: Color { get }
     var TextOnSurfaceColorAccent: Color { get }
     var TextOnSurfaceColorAccent2: Color { get }
+    var TextOnSurfaceColorDestructive: Color { get }
+    var TextOnSurfaceColorDisabled: Color { get }
     var TextOnSurfaceColorError: Color { get }
     var TextOnSurfaceColorInactive: Color { get }
     var TextOnSurfaceColorInformational: Color { get }
     var TextOnSurfaceColorInverse: Color { get }
+    var TextOnSurfaceColorLink: Color { get }
+    var TextOnSurfaceColorPlaceholder: Color { get }
     var TextOnSurfaceColorPrimary: Color { get }
     var TextOnSurfaceColorQuatrenary: Color { get }
     var TextOnSurfaceColorSecondary: Color { get }
@@ -301,8 +318,11 @@ public protocol SemanticTokensProvider {
 
 extension TokensSemanticLight: SemanticTokensProvider {
     public var BackgroundAccentColorBlue: Color { Self.BackgroundAccentColorBlue }
+    public var BackgroundAccentColorBrand: Color { Self.BackgroundAccentColorBrand }
     public var BackgroundAccentColorBrown: Color { Self.BackgroundAccentColorBrown }
+    public var BackgroundAccentColorDarkGreige: Color { Self.BackgroundAccentColorDarkGreige }
     public var BackgroundAccentColorGreen: Color { Self.BackgroundAccentColorGreen }
+    public var BackgroundAccentColorGreige: Color { Self.BackgroundAccentColorGreige }
     public var BackgroundAccentColorRed: Color { Self.BackgroundAccentColorRed }
     public var BackgroundAccentColorYellow: Color { Self.BackgroundAccentColorYellow }
     public var BackgroundActionColorPrimary: Color { Self.BackgroundActionColorPrimary }
@@ -332,6 +352,8 @@ extension TokensSemanticLight: SemanticTokensProvider {
     public var BackgroundContainerColorTransparent10: Color { Self.BackgroundContainerColorTransparent10 }
     public var BackgroundContainerColorTransparent20: Color { Self.BackgroundContainerColorTransparent20 }
     public var BackgroundContainerColorWhite: Color { Self.BackgroundContainerColorWhite }
+    public var BackgroundContainerPrimary: Color { Self.BackgroundContainerPrimary }
+    public var BackgroundContainerSecondary: Color { Self.BackgroundContainerSecondary }
     public var BackgroundFeedbackColorErrorAccent1: Color { Self.BackgroundFeedbackColorErrorAccent1 }
     public var BackgroundFeedbackColorErrorAccent2: Color { Self.BackgroundFeedbackColorErrorAccent2 }
     public var BackgroundFeedbackColorInformationalAccent1: Color { Self.BackgroundFeedbackColorInformationalAccent1 }
@@ -383,6 +405,8 @@ extension TokensSemanticLight: SemanticTokensProvider {
     public var BorderButtonColorOrangeOutlineDefault: Color { Self.BorderButtonColorOrangeOutlineDefault }
     public var BorderButtonColorOrangeOutlineInactive: Color { Self.BorderButtonColorOrangeOutlineInactive }
     public var BorderButtonColorPressed: Color { Self.BorderButtonColorPressed }
+    public var BorderColorFocus: Color { Self.BorderColorFocus }
+    public var BorderColorPrimary: Color { Self.BorderColorPrimary }
     public var BorderInputColorAccent: Color { Self.BorderInputColorAccent }
     public var BorderInputColorAccent2: Color { Self.BorderInputColorAccent2 }
     public var BorderInputColorActive: Color { Self.BorderInputColorActive }
@@ -509,6 +533,8 @@ extension TokensSemanticLight: SemanticTokensProvider {
     public var TextInputColorTransparent10Default: Color { Self.TextInputColorTransparent10Default }
     public var TextInputColorTransparent10Inactive: Color { Self.TextInputColorTransparent10Inactive }
     public var TextInputColorWhiteOutlinedDefault: Color { Self.TextInputColorWhiteOutlinedDefault }
+    public var TextOn: Color { Self.TextOn }
+    public var TextOnBrandColorPrimary: Color { Self.TextOnBrandColorPrimary }
     public var TextOnContainerColorAccent: Color { Self.TextOnContainerColorAccent }
     public var TextOnContainerColorAccent2: Color { Self.TextOnContainerColorAccent2 }
     public var TextOnContainerColorError: Color { Self.TextOnContainerColorError }
@@ -521,12 +547,20 @@ extension TokensSemanticLight: SemanticTokensProvider {
     public var TextOnContainerColorSuccess: Color { Self.TextOnContainerColorSuccess }
     public var TextOnContainerColorTertiary: Color { Self.TextOnContainerColorTertiary }
     public var TextOnContainerColorWarning: Color { Self.TextOnContainerColorWarning }
+    public var TextOnErrorColorPrimary: Color { Self.TextOnErrorColorPrimary }
+    public var TextOnPrimaryColorPrimary: Color { Self.TextOnPrimaryColorPrimary }
+    public var TextOnPrimaryColorSecondary: Color { Self.TextOnPrimaryColorSecondary }
+    public var TextOnSuccessColorPrimary: Color { Self.TextOnSuccessColorPrimary }
     public var TextOnSurfaceColorAccent: Color { Self.TextOnSurfaceColorAccent }
     public var TextOnSurfaceColorAccent2: Color { Self.TextOnSurfaceColorAccent2 }
+    public var TextOnSurfaceColorDestructive: Color { Self.TextOnSurfaceColorDestructive }
+    public var TextOnSurfaceColorDisabled: Color { Self.TextOnSurfaceColorDisabled }
     public var TextOnSurfaceColorError: Color { Self.TextOnSurfaceColorError }
     public var TextOnSurfaceColorInactive: Color { Self.TextOnSurfaceColorInactive }
     public var TextOnSurfaceColorInformational: Color { Self.TextOnSurfaceColorInformational }
     public var TextOnSurfaceColorInverse: Color { Self.TextOnSurfaceColorInverse }
+    public var TextOnSurfaceColorLink: Color { Self.TextOnSurfaceColorLink }
+    public var TextOnSurfaceColorPlaceholder: Color { Self.TextOnSurfaceColorPlaceholder }
     public var TextOnSurfaceColorPrimary: Color { Self.TextOnSurfaceColorPrimary }
     public var TextOnSurfaceColorQuatrenary: Color { Self.TextOnSurfaceColorQuatrenary }
     public var TextOnSurfaceColorSecondary: Color { Self.TextOnSurfaceColorSecondary }
@@ -578,8 +612,11 @@ extension TokensSemanticLight: SemanticTokensProvider {
 
 extension TokensSemanticDark: SemanticTokensProvider {
     public var BackgroundAccentColorBlue: Color { Self.BackgroundAccentColorBlue }
+    public var BackgroundAccentColorBrand: Color { Self.BackgroundAccentColorBrand }
     public var BackgroundAccentColorBrown: Color { Self.BackgroundAccentColorBrown }
+    public var BackgroundAccentColorDarkGreige: Color { Self.BackgroundAccentColorDarkGreige }
     public var BackgroundAccentColorGreen: Color { Self.BackgroundAccentColorGreen }
+    public var BackgroundAccentColorGreige: Color { Self.BackgroundAccentColorGreige }
     public var BackgroundAccentColorRed: Color { Self.BackgroundAccentColorRed }
     public var BackgroundAccentColorYellow: Color { Self.BackgroundAccentColorYellow }
     public var BackgroundActionColorPrimary: Color { Self.BackgroundActionColorPrimary }
@@ -609,6 +646,8 @@ extension TokensSemanticDark: SemanticTokensProvider {
     public var BackgroundContainerColorTransparent10: Color { Self.BackgroundContainerColorTransparent10 }
     public var BackgroundContainerColorTransparent20: Color { Self.BackgroundContainerColorTransparent20 }
     public var BackgroundContainerColorWhite: Color { Self.BackgroundContainerColorWhite }
+    public var BackgroundContainerPrimary: Color { Self.BackgroundContainerPrimary }
+    public var BackgroundContainerSecondary: Color { Self.BackgroundContainerSecondary }
     public var BackgroundFeedbackColorErrorAccent1: Color { Self.BackgroundFeedbackColorErrorAccent1 }
     public var BackgroundFeedbackColorErrorAccent2: Color { Self.BackgroundFeedbackColorErrorAccent2 }
     public var BackgroundFeedbackColorInformationalAccent1: Color { Self.BackgroundFeedbackColorInformationalAccent1 }
@@ -660,6 +699,8 @@ extension TokensSemanticDark: SemanticTokensProvider {
     public var BorderButtonColorOrangeOutlineDefault: Color { Self.BorderButtonColorOrangeOutlineDefault }
     public var BorderButtonColorOrangeOutlineInactive: Color { Self.BorderButtonColorOrangeOutlineInactive }
     public var BorderButtonColorPressed: Color { Self.BorderButtonColorPressed }
+    public var BorderColorFocus: Color { Self.BorderColorFocus }
+    public var BorderColorPrimary: Color { Self.BorderColorPrimary }
     public var BorderInputColorAccent: Color { Self.BorderInputColorAccent }
     public var BorderInputColorAccent2: Color { Self.BorderInputColorAccent2 }
     public var BorderInputColorActive: Color { Self.BorderInputColorActive }
@@ -786,6 +827,8 @@ extension TokensSemanticDark: SemanticTokensProvider {
     public var TextInputColorTransparent10Default: Color { Self.TextInputColorTransparent10Default }
     public var TextInputColorTransparent10Inactive: Color { Self.TextInputColorTransparent10Inactive }
     public var TextInputColorWhiteOutlinedDefault: Color { Self.TextInputColorWhiteOutlinedDefault }
+    public var TextOn: Color { Self.TextOn }
+    public var TextOnBrandColorPrimary: Color { Self.TextOnBrandColorPrimary }
     public var TextOnContainerColorAccent: Color { Self.TextOnContainerColorAccent }
     public var TextOnContainerColorAccent2: Color { Self.TextOnContainerColorAccent2 }
     public var TextOnContainerColorError: Color { Self.TextOnContainerColorError }
@@ -798,12 +841,20 @@ extension TokensSemanticDark: SemanticTokensProvider {
     public var TextOnContainerColorSuccess: Color { Self.TextOnContainerColorSuccess }
     public var TextOnContainerColorTertiary: Color { Self.TextOnContainerColorTertiary }
     public var TextOnContainerColorWarning: Color { Self.TextOnContainerColorWarning }
+    public var TextOnErrorColorPrimary: Color { Self.TextOnErrorColorPrimary }
+    public var TextOnPrimaryColorPrimary: Color { Self.TextOnPrimaryColorPrimary }
+    public var TextOnPrimaryColorSecondary: Color { Self.TextOnPrimaryColorSecondary }
+    public var TextOnSuccessColorPrimary: Color { Self.TextOnSuccessColorPrimary }
     public var TextOnSurfaceColorAccent: Color { Self.TextOnSurfaceColorAccent }
     public var TextOnSurfaceColorAccent2: Color { Self.TextOnSurfaceColorAccent2 }
+    public var TextOnSurfaceColorDestructive: Color { Self.TextOnSurfaceColorDestructive }
+    public var TextOnSurfaceColorDisabled: Color { Self.TextOnSurfaceColorDisabled }
     public var TextOnSurfaceColorError: Color { Self.TextOnSurfaceColorError }
     public var TextOnSurfaceColorInactive: Color { Self.TextOnSurfaceColorInactive }
     public var TextOnSurfaceColorInformational: Color { Self.TextOnSurfaceColorInformational }
     public var TextOnSurfaceColorInverse: Color { Self.TextOnSurfaceColorInverse }
+    public var TextOnSurfaceColorLink: Color { Self.TextOnSurfaceColorLink }
+    public var TextOnSurfaceColorPlaceholder: Color { Self.TextOnSurfaceColorPlaceholder }
     public var TextOnSurfaceColorPrimary: Color { Self.TextOnSurfaceColorPrimary }
     public var TextOnSurfaceColorQuatrenary: Color { Self.TextOnSurfaceColorQuatrenary }
     public var TextOnSurfaceColorSecondary: Color { Self.TextOnSurfaceColorSecondary }
