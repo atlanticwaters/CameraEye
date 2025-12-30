@@ -53,21 +53,35 @@ public struct DSPLPPodResolvedStyle: Equatable, Sendable {
         data: DSPLPPodData
     ) -> DSPLPPodResolvedStyle {
         let buttonSetVariant: DSPLPPodButtonSetVariant = variant == .b2c ? .b2c : .b2b
+        
+        // Extract badge color from first badge, default to neutral if none
+        let badgeColor: DSPLPPodBadge.BadgeColor = data.badges.first?.color ?? .neutral
+        
+        // Determine if swatches are present based on swatchDisplay
+        let hasSwatches: Bool = {
+            switch data.swatchDisplay {
+            case .swatchesWithQuantity, .swatchesOnly, .swatchError:
+                return true
+            case .moreOptionsAvailable, .customOptions, .none:
+                return false
+            }
+        }()
 
         return DSPLPPodResolvedStyle(
             backgroundColorTokenName: DSPLPPodColorHelper.backgroundColorTokenName(),
             borderColorTokenName: DSPLPPodColorHelper.borderColorTokenName(),
             shadowColorTokenName: DSPLPPodColorHelper.shadowColorTokenName(),
             imageContainerStyle: DSPLPPodImageContainerResolvedStyle.create(
-                badges: data.badges,
+                badgeColor: badgeColor,
+                badgeCount: data.badges.count,
                 isSponsored: data.isSponsored,
-                swatchDisplay: data.swatchDisplay
+                hasSwatches: hasSwatches
             ),
             detailsStyle: DSPLPPodDetailsResolvedStyle.create(
-                pricingType: data.pricingType,
-                showSpecialBuy: data.showSpecialBuy,
+                hasModelNumber: data.modelNumber != nil,
                 hasRating: data.ratingInfo != nil,
-                hasFulfillment: data.fulfillmentInfo != nil
+                hasFulfillment: data.fulfillmentInfo != nil,
+                showSpecialBuy: data.showSpecialBuy
             ),
             buttonSetStyle: DSPLPPodButtonSetResolvedStyle.create(
                 variant: buttonSetVariant,

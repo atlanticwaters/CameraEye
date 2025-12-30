@@ -365,7 +365,7 @@ struct HomeScreenDemoView: View {
                 .padding(.bottom, 16)
                 
                 // Interstitial Content
-                AppFeatureInterstitialContent()
+                AppGuideContent()
             }
         }
     }
@@ -514,5 +514,70 @@ struct HomeScreenScrollableContent: View {
         .scrollEdgeEffectStyle(.soft, for: .top)
         .scrollEdgeEffectStyle(.soft, for: .bottom)
         .background(Color.surfaceBackground)
+    }
+}
+
+// MARK: - App Guide Content
+
+struct AppGuideContent: View {
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 24) {
+                Text("Welcome to CameraEye")
+                    .font(.title)
+                    .bold()
+                
+                VStack(alignment: .leading, spacing: 16) {
+                    FeatureRow(
+                        icon: "house.fill",
+                        title: "Home",
+                        description: "Browse products and deals on the home screen"
+                    )
+                    
+                    FeatureRow(
+                        icon: "line.3.horizontal",
+                        title: "Shop",
+                        description: "Explore categories with the slide-in navigation"
+                    )
+                    
+                    FeatureRow(
+                        icon: "square.grid.2x2",
+                        title: "Catalog",
+                        description: "View the complete component library"
+                    )
+                    
+                    FeatureRow(
+                        icon: "magnifyingglass",
+                        title: "Search",
+                        description: "Tap the search icon to find products quickly"
+                    )
+                }
+                .padding(.top, 16)
+            }
+            .padding()
+        }
+    }
+}
+
+struct FeatureRow: View {
+    let icon: String
+    let title: String
+    let description: String
+    
+    var body: some View {
+        HStack(alignment: .top, spacing: 16) {
+            Image(systemName: icon)
+                .font(.system(size: 24))
+                .foregroundColor(Color.brandPrimary)
+                .frame(width: 40)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(title)
+                    .font(.headline)
+                Text(description)
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+            }
+        }
     }
 }

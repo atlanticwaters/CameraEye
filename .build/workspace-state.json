@@ -1,0 +1,33 @@
+{
+  "object" : {
+    "artifacts" : [
+      {
+        "kind" : {
+          "xcframework" : {
+
+          }
+        },
+        "packageRef" : {
+          "identity" : "cameraeye",
+          "kind" : "root",
+          "location" : "/Users/awaters/Documents/GitHub/CameraEye",
+          "name" : "CameraEye"
+        },
+        "path" : "/Users/awaters/Documents/GitHub/CameraEye/.build/artifacts/cameraeye/RiveRuntime/RiveRuntime.xcframework",
+        "source" : {
+          "checksum" : "db56248cab437b46862ca86ebbe0661f96194bd5f95bd23febd3ce9f931a2cf8",
+          "type" : "remote",
+          "url" : "https://github.com/rive-app/rive-ios/releases/download/6.12.3/RiveRuntime.xcframework.zip"
+        },
+        "targetName" : "RiveRuntime"
+      }
+    ],
+    "dependencies" : [
+
+    ],
+    "prebuilts" : [
+
+    ]
+  },
+  "version" : 7
+}

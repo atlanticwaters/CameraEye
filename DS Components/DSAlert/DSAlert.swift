@@ -45,7 +45,7 @@ public struct DSAlert: View {
     // MARK: - Properties
 
     private let title: String?
-    private let body: String
+    private let bodyText: String
     private let variant: DSAlertVariant
     private let isFloating: Bool
     private let onDismiss: (() -> Void)?
@@ -104,7 +104,7 @@ public struct DSAlert: View {
         onDismiss: (() -> Void)? = nil
     ) {
         self.title = title
-        self.body = body
+        self.bodyText = body
         self.variant = variant
         self.isFloating = isFloating
         self.onDismiss = onDismiss
@@ -126,12 +126,12 @@ public struct DSAlert: View {
                 VStack(alignment: .leading, spacing: contentSpacing) {
                     if let title {
                         Text(title)
-                            .font(DSTypography.bodyMdMedium)
+                            .font(DSTypography.font(size: 16, weight: .medium))
                             .foregroundColor(textColor)
                     }
 
-                    Text(body)
-                        .font(DSTypography.bodyMdMedium)
+                    Text(bodyText)
+                        .font(DSTypography.font(size: 16, weight: .medium))
                         .foregroundColor(textColor)
                 }
                 .padding(.top, contentTopPadding)
@@ -213,7 +213,7 @@ public struct DSAlert: View {
         if let title {
             components.append(title)
         }
-        components.append(body)
+        components.append(bodyText)
         return Text(components.joined(separator: ". "))
     }
 }

@@ -29,6 +29,8 @@ public struct DSColor: Sendable {
 
     private typealias Light = TokensSemanticLight
     private typealias Dark = TokensSemanticDark
+    private typealias ComponentLight = TokensComponentsLight
+    private typealias ComponentDark = TokensComponentsDark
 
     /// Creates a theme-aware color with light and dark variants.
     public init(light: Color, dark: Color) {
@@ -304,6 +306,16 @@ extension DSColor {
     /// Theme-aware container background color
     public static var containerBackgroundWhite: DSColor {
         DSColor(light: Light.BackgroundContainerColorWhite, dark: Dark.BackgroundContainerColorWhite)
+    }
+
+    /// Theme-aware container background color - primary
+    public static var containerBackgroundPrimary: DSColor {
+        DSColor(light: Light.BackgroundContainerPrimary, dark: Dark.BackgroundContainerPrimary)
+    }
+
+    /// Theme-aware container background color - secondary
+    public static var containerBackgroundSecondary: DSColor {
+        DSColor(light: Light.BackgroundContainerSecondary, dark: Dark.BackgroundContainerSecondary)
     }
 }
 
@@ -650,6 +662,21 @@ extension DSColor {
         DSColor(light: Light.TextOnSurfaceColorWarning, dark: Dark.TextOnSurfaceColorWarning)
     }
 
+    /// Theme-aware text color - link
+    public static var textOnSurfaceColorLink: DSColor {
+        DSColor(light: Light.TextOnSurfaceColorLink, dark: Dark.TextOnSurfaceColorLink)
+    }
+
+    /// Theme-aware text color - danger (alias for error)
+    public static var textOnSurfaceColorDanger: DSColor {
+        DSColor(light: Light.TextOnSurfaceColorError, dark: Dark.TextOnSurfaceColorError)
+    }
+
+    /// Theme-aware text color - text on brand primary
+    public static var textOnBrandColorPrimary: DSColor {
+        DSColor(light: Light.TextOnBrandColorPrimary, dark: Dark.TextOnBrandColorPrimary)
+    }
+
     /// Theme-aware text color
     public static var textSelectorColorActive: DSColor {
         DSColor(light: Light.TextSelectorColorActive, dark: Dark.TextSelectorColorActive)
@@ -713,6 +740,49 @@ extension DSColor {
     /// Theme-aware text color
     public static var textureNotebookAlt: DSColor {
         DSColor(light: Light.TextureNotebookAlt, dark: Dark.TextureNotebookAlt)
+    }
+}
+
+// MARK: - Icon Colors
+
+extension DSColor {
+    /// Theme-aware icon color - primary
+    public static var iconColorPrimary: DSColor {
+        DSColor(light: ComponentLight.IconColorPrimary, dark: ComponentDark.IconColorPrimary)
+    }
+
+    /// Theme-aware icon color - secondary
+    public static var iconColorSecondary: DSColor {
+        DSColor(light: ComponentLight.IconColorSecondary, dark: ComponentDark.IconColorSecondary)
+    }
+
+    /// Theme-aware icon color - tertiary
+    public static var iconColorTertiary: DSColor {
+        DSColor(light: ComponentLight.IconColorTertiary, dark: ComponentDark.IconColorTertiary)
+    }
+
+    /// Theme-aware icon color - brand (from selector)
+    public static var iconColorBrand: DSColor {
+        DSColor(light: ComponentLight.IconSelectorColorFilledIconcolorbrand, dark: ComponentDark.IconSelectorColorFilledIconcolorbrand)
+    }
+
+    /// Theme-aware icon color - warning (from selector)
+    public static var iconColorWarning: DSColor {
+        DSColor(light: ComponentLight.IconSelectorColorFilledIconcolorwarning, dark: ComponentDark.IconSelectorColorFilledIconcolorwarning)
+    }
+
+    /// Theme-aware icon color - on brand primary (from selector)
+    public static var iconOnBrandColorPrimary: DSColor {
+        DSColor(light: ComponentLight.IconSelectorColorFilledIcononbrandcolorprimary, dark: ComponentDark.IconSelectorColorFilledIcononbrandcolorprimary)
+    }
+}
+
+// MARK: - Shadow Colors
+
+extension DSColor {
+    /// Theme-aware shadow color - primary (using transparent black)
+    public static var shadowColorPrimary: DSColor {
+        DSColor(light: Light.TransparentBlackTransparentBlack200, dark: Dark.TransparentBlackTransparentBlack200)
     }
 }
 
@@ -874,6 +944,26 @@ extension DSColor {
     /// Theme-aware other color
     public static var borderOnContainerPressed: DSColor {
         DSColor(light: Light.BorderOnContainerPressed, dark: Dark.BorderOnContainerPressed)
+    }
+
+    /// Theme-aware border color - primary
+    public static var borderColorPrimary: DSColor {
+        DSColor(light: Light.BorderColorPrimary, dark: Dark.BorderColorPrimary)
+    }
+
+    /// Theme-aware border color - focus state
+    public static var borderColorFocus: DSColor {
+        DSColor(light: Light.BorderColorFocus, dark: Dark.BorderColorFocus)
+    }
+
+    /// Theme-aware border color - secondary (alias for border on container default)
+    public static var borderColorSecondary: DSColor {
+        DSColor(light: Light.BorderOnContainerDefault, dark: Dark.BorderOnContainerDefault)
+    }
+
+    /// Theme-aware border color - transparent 10% (alias for transparent black 100)
+    public static var borderColorTransparent10: DSColor {
+        DSColor(light: Light.TransparentBlackTransparentBlack100, dark: Dark.TransparentBlackTransparentBlack100)
     }
 
     /// Theme-aware other color

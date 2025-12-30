@@ -32,6 +32,46 @@ public struct DSFilterPillItem: Identifiable {
     }
 }
 
+// MARK: - DSPLPFilterPanelData
+
+/// Data model for the PLP Filter Panel.
+public struct DSPLPFilterPanelData: Equatable, Sendable {
+    public let categoryTitle: String
+    public let categoryPills: [DSStylePillItem]
+    public let resultsCount: Int
+    public let primaryFilters: [DSFilterPillItem]
+    public let secondaryFilters: [DSFilterPillItem]
+    
+    public init(
+        categoryTitle: String,
+        categoryPills: [DSStylePillItem] = [],
+        resultsCount: Int = 0,
+        primaryFilters: [DSFilterPillItem] = [],
+        secondaryFilters: [DSFilterPillItem] = []
+    ) {
+        self.categoryTitle = categoryTitle
+        self.categoryPills = categoryPills
+        self.resultsCount = resultsCount
+        self.primaryFilters = primaryFilters
+        self.secondaryFilters = secondaryFilters
+    }
+}
+
+extension DSStylePillItem: Equatable, Sendable {
+    public static func == (lhs: DSStylePillItem, rhs: DSStylePillItem) -> Bool {
+        lhs.id == rhs.id &&
+        lhs.text == rhs.text &&
+        lhs.imageURL == rhs.imageURL
+    }
+}
+
+extension DSFilterPillItem: Equatable, Sendable {
+    public static func == (lhs: DSFilterPillItem, rhs: DSFilterPillItem) -> Bool {
+        lhs.id == rhs.id &&
+        lhs.text == rhs.text
+    }
+}
+
 // MARK: - DSPlpFilterPanel
 
 /// A Product Listing Page (PLP) filter panel displaying title, style pills, results count, and filter options.
@@ -337,7 +377,7 @@ public struct DSPlpFilterPanel: View {
                 .padding(.horizontal, DesignSystemGlobal.Spacing4)
                 .padding(.vertical, DesignSystemGlobal.Spacing2 - 2)
                 .frame(minHeight: 36)
-                .background(.blued)
+                .background(.white)
                 .clipShape(Capsule())
         }
         .buttonStyle(PlainButtonStyle())

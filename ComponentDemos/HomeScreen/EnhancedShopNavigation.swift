@@ -12,7 +12,7 @@ enum ShopNavigationDestination: Hashable {
     case departments
     case subcategories(ShopDepartment)
     case categoryDetail(ShopSubcategory)
-    case productDetail(String) // Product ID
+    case productDetail(String)  // Product ID
 }
 
 // MARK: - =============================================
@@ -23,14 +23,14 @@ enum ShopNavigationDestination: Hashable {
 struct EnhancedShopNavigationView: View {
     @Binding var isPresented: Bool
     @State private var navigationPath = NavigationPath()
-    
+
     // MARK: - Design System Values
-    private let horizontalPadding = DS.Spacing4    // 16pt
+    private let horizontalPadding = DS.Spacing4  // 16pt
     private let primaryColor = DS.TextOnSurfaceColorPrimary
     private let secondaryColor = DS.TextOnSurfaceColorSecondary
     private let accentColor = DS.Brand300
     private let dividerColor = DS.BorderOnContainerInactive
-    
+
     var body: some View {
         NavigationStack(path: $navigationPath) {
             departmentsListView
@@ -48,7 +48,7 @@ struct EnhancedShopNavigationView: View {
                 }
         }
     }
-    
+
     // MARK: - Close Button
     private var closeButton: some View {
         Button {
@@ -63,7 +63,7 @@ struct EnhancedShopNavigationView: View {
                 .contentShape(Circle())
         }
     }
-    
+
     // MARK: - Departments List View
     private var departmentsListView: some View {
         ScrollView {
@@ -74,17 +74,17 @@ struct EnhancedShopNavigationView: View {
                         .font(.thdH2)
                         .fontWeight(.bold)
                         .foregroundStyle(primaryColor)
-                    
+
                     Spacer()
                 }
                 .padding(.horizontal, horizontalPadding)
                 .padding(.top, DS.Spacing6)
                 .padding(.bottom, DS.Spacing4)
-                
+
                 // Department List
                 ForEach(ShopDepartment.allCases) { department in
                     departmentRow(department)
-                    
+
                     if department != ShopDepartment.allCases.last {
                         Divider()
                             .background(dividerColor)
@@ -98,7 +98,7 @@ struct EnhancedShopNavigationView: View {
         .scrollEdgeEffectStyle(.soft, for: .bottom)
         .background(DS.BackgroundSurfaceColorGreige)
     }
-    
+
     // MARK: - Department Row
     private func departmentRow(_ department: ShopDepartment) -> some View {
         Button {
@@ -110,15 +110,15 @@ struct EnhancedShopNavigationView: View {
                     .font(.system(size: DS.FontSizeBodyXl, weight: .medium))
                     .foregroundStyle(accentColor)
                     .frame(width: DS.Spacing8, height: DS.Spacing8)
-                
+
                 // Title - H3 Semibold
                 Text(department.rawValue)
                     .font(.thdH3)
                     .fontWeight(.semibold)
                     .foregroundStyle(primaryColor)
-                
+
                 Spacer()
-                
+
                 // Badge with count
                 if !department.subcategories.isEmpty {
                     Text("\(department.subcategories.count)")
@@ -131,7 +131,7 @@ struct EnhancedShopNavigationView: View {
                                 .fill(DS.BackgroundContainerColorGreige)
                         )
                 }
-                
+
                 // Chevron
                 if !department.subcategories.isEmpty {
                     Image(systemName: "chevron.right")
@@ -145,7 +145,7 @@ struct EnhancedShopNavigationView: View {
         }
         .buttonStyle(.plain)
     }
-    
+
     // MARK: - Subcategories View
     private func subcategoriesView(for department: ShopDepartment) -> some View {
         ScrollView {
@@ -156,38 +156,38 @@ struct EnhancedShopNavigationView: View {
                         Image(systemName: department.icon)
                             .font(.system(size: 28, weight: .medium))
                             .foregroundStyle(accentColor)
-                        
+
                         VStack(alignment: .leading, spacing: 2) {
                             Text(department.rawValue)
                                 .font(.thdH2)
                                 .fontWeight(.bold)
                                 .foregroundStyle(primaryColor)
-                            
+
                             Text("\(department.subcategories.count) Categories")
                                 .font(.thdBodyMd)
                                 .foregroundStyle(secondaryColor)
                         }
-                        
+
                         Spacer()
                     }
                     .padding(.horizontal, horizontalPadding)
                     .padding(.top, DS.Spacing6)
                     .padding(.bottom, DS.Spacing2)
                 }
-                
+
                 // "Shop All" option
                 shopAllButton(for: department)
-                
+
                 Divider()
                     .background(dividerColor)
                     .padding(.horizontal, horizontalPadding)
                     .padding(.vertical, DS.Spacing3)
-                
+
                 // Subcategories Grid
                 LazyVGrid(
                     columns: [
                         GridItem(.flexible(), spacing: DS.Spacing3),
-                        GridItem(.flexible(), spacing: DS.Spacing3)
+                        GridItem(.flexible(), spacing: DS.Spacing3),
                     ],
                     spacing: DS.Spacing3
                 ) {
@@ -203,7 +203,7 @@ struct EnhancedShopNavigationView: View {
         .scrollEdgeEffectStyle(.soft, for: .bottom)
         .background(DS.BackgroundSurfaceColorGreige)
     }
-    
+
     // MARK: - Shop All Button
     private func shopAllButton(for department: ShopDepartment) -> some View {
         Button {
@@ -219,14 +219,14 @@ struct EnhancedShopNavigationView: View {
                         Circle()
                             .fill(accentColor)
                     )
-                
+
                 Text("Shop All \(department.rawValue)")
                     .font(.thdH4)
                     .fontWeight(.semibold)
                     .foregroundStyle(primaryColor)
-                
+
                 Spacer()
-                
+
                 Image(systemName: "arrow.right")
                     .font(.system(size: DS.FontSizeBodyMd, weight: .semibold))
                     .foregroundStyle(accentColor)
@@ -242,7 +242,7 @@ struct EnhancedShopNavigationView: View {
         }
         .buttonStyle(.plain)
     }
-    
+
     // MARK: - Subcategory Card
     private func subcategoryCard(_ subcategory: ShopSubcategory) -> some View {
         Button {
@@ -254,13 +254,13 @@ struct EnhancedShopNavigationView: View {
                     Circle()
                         .fill(accentColor.opacity(0.1))
                         .frame(width: 60, height: 60)
-                    
+
                     Image(systemName: subcategory.icon)
                         .font(.system(size: 28, weight: .medium))
                         .foregroundStyle(accentColor)
                 }
                 .padding(.top, DS.Spacing4)
-                
+
                 // Title
                 Text(subcategory.name)
                     .font(.thdBodySm)
@@ -271,7 +271,7 @@ struct EnhancedShopNavigationView: View {
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, DS.Spacing2)
                     .padding(.bottom, DS.Spacing3)
-                
+
                 // Badge if has PLP
                 if subcategory.plpCategory != nil {
                     HStack(spacing: 4) {
@@ -302,7 +302,7 @@ struct EnhancedShopNavigationView: View {
         }
         .buttonStyle(.plain)
     }
-    
+
     // MARK: - Category Detail View (PLP)
     private func categoryDetailView(for subcategory: ShopSubcategory) -> some View {
         Group {
@@ -318,7 +318,7 @@ struct EnhancedShopNavigationView: View {
             }
         }
     }
-    
+
     // MARK: - Placeholder View
     private func placeholderView(for subcategory: ShopSubcategory) -> some View {
         ScrollView {
@@ -327,24 +327,24 @@ struct EnhancedShopNavigationView: View {
                     .font(.system(size: 80, weight: .light))
                     .foregroundStyle(accentColor.opacity(0.3))
                     .padding(.top, 60)
-                
+
                 VStack(spacing: DS.Spacing2) {
                     Text(subcategory.name)
                         .font(.thdH2)
                         .fontWeight(.bold)
                         .foregroundStyle(primaryColor)
-                    
+
                     Text("Coming Soon")
                         .font(.thdBodyLg)
                         .foregroundStyle(secondaryColor)
                 }
-                
+
                 Text("This category is currently being populated with products. Check back soon!")
                     .font(.thdBodyMd)
                     .foregroundStyle(secondaryColor)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, DS.Spacing8)
-                
+
                 Spacer()
             }
         }
@@ -368,20 +368,20 @@ struct EnhancedPLPView: View {
     @State private var selectedSubFilters: Set<String> = []
     @State private var viewMode: PLPViewMode = .list
     @State private var categoryData: CategoryPageData?
-    
+
     // MARK: - Configuration
     let category: PLPCategory
     let subcategoryName: String
-    
+
     // Computed properties
     private var categoryTitle: String {
         categoryData?.pageInfo.categoryName.uppercased() ?? category.title
     }
-    
+
     private var stylePills: [DSStylePillItem] {
         category.stylePills
     }
-    
+
     private var filterPills: [DSFilterPillItem] {
         // Use JSON filters if available
         if let jsonFilters = categoryData?.filters {
@@ -391,7 +391,7 @@ struct EnhancedPLPView: View {
         }
         return category.filterPills
     }
-    
+
     private var subFilterPills: [DSFilterPillItem] {
         // Use JSON quick filters if available
         if let quickFilters = categoryData?.quickFilters {
@@ -401,18 +401,18 @@ struct EnhancedPLPView: View {
         }
         return category.subFilterPills
     }
-    
+
     private var resultsCountText: String {
         if let totalResults = categoryData?.pageInfo.totalResults {
             return "\(totalResults) Results"
         }
         return "\(products.count) Results"
     }
-    
+
     private var breadcrumbs: [CategoryPageData.PageInfo.Breadcrumb] {
         categoryData?.pageInfo.breadcrumbs ?? []
     }
-    
+
     // MARK: - Body
     var body: some View {
         ScrollView {
@@ -423,20 +423,20 @@ struct EnhancedPLPView: View {
                         .padding(.horizontal, DS.Spacing4)
                         .padding(.vertical, DS.Spacing3)
                 }
-                
+
                 // Hero Banner (if available)
                 if let heroImage = categoryData?.pageInfo.heroImage {
                     heroBanner(heroImage)
                         .padding(.horizontal, DS.Spacing4)
                         .padding(.bottom, DS.Spacing4)
                 }
-                
+
                 // Featured Brands (if available)
                 if let brands = categoryData?.featuredBrands, !brands.isEmpty {
                     featuredBrandsView(brands)
                         .padding(.bottom, DS.Spacing4)
                 }
-                
+
                 // Filter Panel Section
                 DSPlpFilterPanel(
                     title: categoryTitle,
@@ -455,7 +455,7 @@ struct EnhancedPLPView: View {
                     }
                 )
                 .padding(.horizontal, DS.Spacing4)
-                
+
                 // Product List/Grid
                 productInventory
                     .padding(.horizontal, DS.Spacing4)
@@ -472,7 +472,7 @@ struct EnhancedPLPView: View {
             loadProducts()
         }
     }
-    
+
     // MARK: - Breadcrumb View
     private var breadcrumbView: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -490,7 +490,7 @@ struct EnhancedPLPView: View {
                                         : DS.Brand300
                                 )
                         }
-                        
+
                         if index < breadcrumbs.count - 1 {
                             Image(systemName: "chevron.right")
                                 .font(.system(size: 10, weight: .medium))
@@ -501,7 +501,7 @@ struct EnhancedPLPView: View {
             }
         }
     }
-    
+
     // MARK: - Hero Banner
     private func heroBanner(_ heroImage: CategoryPageData.PageInfo.HeroImage) -> some View {
         VStack(alignment: .leading, spacing: DS.Spacing2) {
@@ -525,7 +525,7 @@ struct EnhancedPLPView: View {
                 )
         )
     }
-    
+
     // MARK: - Featured Brands View
     private func featuredBrandsView(_ brands: [CategoryPageData.FeaturedBrand]) -> some View {
         VStack(alignment: .leading, spacing: DS.Spacing3) {
@@ -534,7 +534,7 @@ struct EnhancedPLPView: View {
                 .fontWeight(.semibold)
                 .foregroundStyle(DS.TextOnSurfaceColorPrimary)
                 .padding(.horizontal, DS.Spacing4)
-            
+
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: DS.Spacing3) {
                     ForEach(brands, id: \.brandId) { brand in
@@ -562,7 +562,7 @@ struct EnhancedPLPView: View {
             }
         }
     }
-    
+
     // MARK: - Product Inventory
     private var productInventory: some View {
         Group {
@@ -575,7 +575,7 @@ struct EnhancedPLPView: View {
             }
         }
     }
-    
+
     // MARK: - Empty State
     private var emptyStateView: some View {
         VStack(spacing: DS.Spacing4) {
@@ -583,12 +583,12 @@ struct EnhancedPLPView: View {
                 .font(.system(size: 60, weight: .light))
                 .foregroundStyle(DS.IconOnContainerColorInactive)
                 .padding(.top, 60)
-            
+
             Text("No Products Found")
                 .font(.thdH3)
                 .fontWeight(.semibold)
                 .foregroundStyle(DS.TextOnSurfaceColorPrimary)
-            
+
             Text("Try adjusting your filters")
                 .font(.thdBodyMd)
                 .foregroundStyle(DS.TextOnSurfaceColorSecondary)
@@ -596,7 +596,7 @@ struct EnhancedPLPView: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, 60)
     }
-    
+
     // MARK: - List View
     private var productListView: some View {
         LazyVStack(spacing: DS.Spacing4) {
@@ -606,13 +606,13 @@ struct EnhancedPLPView: View {
         }
         .padding(.top, DS.Spacing4)
     }
-    
+
     // MARK: - Grid View
     private var productGridView: some View {
         LazyVGrid(
             columns: [
                 GridItem(.flexible(), spacing: DS.Spacing3),
-                GridItem(.flexible(), spacing: DS.Spacing3)
+                GridItem(.flexible(), spacing: DS.Spacing3),
             ],
             spacing: DS.Spacing3
         ) {
@@ -622,7 +622,7 @@ struct EnhancedPLPView: View {
         }
         .padding(.top, DS.Spacing4)
     }
-    
+
     // MARK: - Product Card Helper
     private func productCard(for product: Product) -> some View {
         DSProductCard(
@@ -631,61 +631,67 @@ struct EnhancedPLPView: View {
             showDeliveryBadge: product.deliveryInfo?.primaryValue == "Free",
             showSponsoredTag: product.isSponsored,
             swatches: product.availableColors?.compactMap { Color(hex: $0.colorHex) } ?? [],
-            selectedSwatchIndex: 0,
             additionalSwatchCount: product.additionalColorCount,
             brand: product.brand,
             title: product.name,
             modelNumber: product.modelNumber,
-            priceLabel: product.savingsPercentage != nil ? "Sale" : nil,
             priceText: formatPrice(product.currentPrice, originalPrice: product.originalPrice),
             rating: product.rating,
             ratingCount: product.reviewCount,
             pickupInfo: product.pickupInfo.map { "\($0.primaryValue) \($0.secondaryValue ?? "")" },
-            deliveryInfo: product.deliveryInfo.map { "\($0.primaryValue) \($0.secondaryValue ?? "")" },
+            deliveryInfo: product.deliveryInfo.map {
+                "\($0.primaryValue) \($0.secondaryValue ?? "")"
+            },
+            buttonVariant: .b2c,
             onAddToCart: {
                 print("Add to cart: \(product.id)")
+            },
+            onAddToList: {
+                print("Add to list: \(product.id)")
             }
         )
     }
-    
+
     // MARK: - Price Formatting Helper
     private func formatPrice(_ currentPrice: Decimal, originalPrice: Decimal?) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
         formatter.currencyCode = "USD"
-        
+
         if let originalPrice = originalPrice, originalPrice > currentPrice {
-            let currentFormatted = formatter.string(from: currentPrice as NSDecimalNumber) ?? "$\(currentPrice)"
-            let originalFormatted = formatter.string(from: originalPrice as NSDecimalNumber) ?? "$\(originalPrice)"
+            let currentFormatted =
+                formatter.string(from: currentPrice as NSDecimalNumber) ?? "$\(currentPrice)"
+            let originalFormatted =
+                formatter.string(from: originalPrice as NSDecimalNumber) ?? "$\(originalPrice)"
             return "\(currentFormatted) was \(originalFormatted)"
         } else {
             return formatter.string(from: currentPrice as NSDecimalNumber) ?? "$\(currentPrice)"
         }
     }
-    
+
     // MARK: - Filtered Products
     private var filteredProducts: [Product] {
         var filtered = products
-        
+
         // Filter by selected style pill
         if let selectedStyle = selectedStylePill {
             // Apply style filter logic
             // TODO: Implement style-based filtering when style data is available
-            _ = selectedStyle // Acknowledge the variable is used
+            _ = selectedStyle  // Acknowledge the variable is used
         }
-        
+
         // Apply other filters
         // TODO: Add filter logic based on selectedFilterPills and selectedSubFilters
-        
+
         return filtered
     }
-    
+
     // MARK: - Data Loading
     private func loadCategoryData() {
         // Load category-specific JSON if available
         if let filename = category.categoryJSONFilename {
             categoryData = CategoryDataLoader.shared.loadCategoryData(filename: filename)
-            
+
             if let data = categoryData {
                 print("✅ Loaded category data from \(filename).json")
                 print("   📊 Total products: \(data.pageInfo.totalResults)")
@@ -694,7 +700,7 @@ struct EnhancedPLPView: View {
             }
         }
     }
-    
+
     private func loadProducts() {
         // Load products from JSON if available
         if let data = categoryData {
@@ -714,9 +720,12 @@ struct EnhancedPLPView: View {
                     rating: jsonProduct.rating.average,
                     reviewCount: jsonProduct.rating.count,
                     isExclusive: jsonProduct.badges.contains(where: { $0.type == "exclusive" }),
-                    promotionalBadge: jsonProduct.badges.first(where: { $0.type == "delivery" })?.label,
-                    pickupInfo: jsonProduct.availability.inStorePickup ? FulfillmentInfo(primaryValue: "Available") : nil,
-                    deliveryInfo: jsonProduct.availability.delivery ? FulfillmentInfo(primaryValue: "Available") : nil,
+                    promotionalBadge: jsonProduct.badges.first(where: { $0.type == "delivery" })?
+                        .label,
+                    pickupInfo: jsonProduct.availability.inStorePickup
+                        ? FulfillmentInfo(primaryValue: "Available") : nil,
+                    deliveryInfo: jsonProduct.availability.delivery
+                        ? FulfillmentInfo(primaryValue: "Available") : nil,
                     fasterDeliveryInfo: nil,
                     internetNumber: nil,
                     storeSKU: jsonProduct.storeSkuNumber,
@@ -727,19 +736,21 @@ struct EnhancedPLPView: View {
                     additionalColorCount: max(0, (jsonProduct.images.colorSwatches?.count ?? 0) - 3)
                 )
             }
-            
-            print("📦 Loaded \(products.count) products from \(category.categoryJSONFilename ?? "unknown").json")
+
+            print(
+                "📦 Loaded \(products.count) products from \(category.categoryJSONFilename ?? "unknown").json"
+            )
         } else {
             // Fallback: Load from pip-datasets.json
             pipDatasets = PLPDataLoader.shared.loadPIPDatasets()
-            
+
             // Filter by breadcrumb
             let filtered = pipDatasets.filter { dataset in
                 dataset.breadcrumbs.contains { breadcrumb in
                     breadcrumb.label.localizedCaseInsensitiveContains(category.breadcrumbFilter)
                 }
             }
-            
+
             // Convert to Product model
             products = filtered.map { dataset in
                 Product(
@@ -757,24 +768,27 @@ struct EnhancedPLPView: View {
                     reviewCount: dataset.rating.count,
                     isExclusive: dataset.badges.contains(where: { $0.type == "exclusive" }),
                     promotionalBadge: dataset.badges.first(where: { $0.type == "delivery" })?.label,
-                    pickupInfo: dataset.availability.inStorePickup.available ? FulfillmentInfo(primaryValue: "Available") : nil,
-                    deliveryInfo: dataset.availability.delivery.available ? FulfillmentInfo(primaryValue: "Available") : nil,
+                    pickupInfo: dataset.availability.inStorePickup.available
+                        ? FulfillmentInfo(primaryValue: "Available") : nil,
+                    deliveryInfo: dataset.availability.delivery.available
+                        ? FulfillmentInfo(primaryValue: "Available") : nil,
                     fasterDeliveryInfo: nil,
                     internetNumber: nil,
                     storeSKU: dataset.identifiers.storeSkuNumber,
                     isSponsored: false,
                     availableColors: dataset.variants.compactMap { variant in
                         guard let swatchUrl = variant.swatchUrl else { return nil }
-                        return Product.ProductColor(colorHex: variant.variantValue, borderColorHex: nil)
+                        return Product.ProductColor(
+                            colorHex: variant.variantValue, borderColorHex: nil)
                     },
                     additionalColorCount: max(0, dataset.variants.count - 3)
                 )
             }
-            
+
             print("📦 Loaded \(products.count) products from pip-datasets.json")
         }
     }
-    
+
     // MARK: - Filter Handlers
     private func handleStylePillTap(_ item: DSStylePillItem) {
         if selectedStylePill == item.text {
@@ -783,7 +797,7 @@ struct EnhancedPLPView: View {
             selectedStylePill = item.text
         }
     }
-    
+
     private func handleFilterPillTap(_ item: DSFilterPillItem) {
         if selectedFilterPills.contains(item.text) {
             selectedFilterPills.remove(item.text)
@@ -791,7 +805,7 @@ struct EnhancedPLPView: View {
             selectedFilterPills.insert(item.text)
         }
     }
-    
+
     private func handleSubFilterTap(_ item: DSFilterPillItem) {
         if selectedSubFilters.contains(item.text) {
             selectedSubFilters.remove(item.text)
@@ -810,7 +824,7 @@ extension ShopSubcategory: Hashable {
         hasher.combine(id)
         hasher.combine(name)
     }
-    
+
     static func == (lhs: ShopSubcategory, rhs: ShopSubcategory) -> Bool {
         lhs.id == rhs.id && lhs.name == rhs.name
     }
@@ -823,12 +837,12 @@ extension ShopSubcategory: Hashable {
 #Preview("Enhanced Shop Navigation") {
     struct PreviewWrapper: View {
         @State private var isPresented = true
-        
+
         var body: some View {
             EnhancedShopNavigationView(isPresented: $isPresented)
         }
     }
-    
+
     return PreviewWrapper()
 }
 

@@ -105,8 +105,8 @@ import SwiftUI
 #Preview("Menu Item without Media") {
     DSMenuItem(
         title: "Privacy Policy",
-        showMedia: false,
-        trailingIcon: Image(systemName: "chevron.right")
+        trailingIcon: Image(systemName: "chevron.right"),
+        showMedia: false
     )
     .padding()
 }

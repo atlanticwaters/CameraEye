@@ -56,31 +56,31 @@ struct ComponentCatalogView: View {
     private func componentDetailView(for destination: String) -> some View {
         switch destination {
         case "Button":
-            DSButtonView()
+            DSButtonDemoView()
                 .catalogDetailStyle()
         case "Card":
-            DSCardView()
+            DSCardDemoView()
                 .catalogDetailStyle()
         case "ProductCard":
-            DSProductCardView()
+            DSProductCardDemoView()
                 .catalogDetailStyle()
         case "Badge":
-            DSBadgeView()
+            DSBadgeDemoView()
                 .catalogDetailStyle()
         case "Alert":
-            DSAlertView()
+            DSAlertDemoView()
                 .catalogDetailStyle()
         case "Callout":
-            DSCalloutView()
+            DSCalloutDemoView()
                 .catalogDetailStyle()
         case "Pill":
-            DSPillView()
+            DSPillDemoView()
                 .catalogDetailStyle()
         case "Tile":
-            DSTileView()
+            DSTileDemoView()
                 .catalogDetailStyle()
         case "QuantityPicker":
-            DSQuantityPickerView()
+            DSQuantityPickerDemoView()
                 .catalogDetailStyle()
         case "Typography":
             TypographyDemoView()
@@ -110,13 +110,15 @@ struct ComponentCatalogScrollableContent: View {
                         .thdFont(.hero5)
                         .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
 
-                    Text("A comprehensive component library using DesignSystemGlobal tokens for consistent styling.")
-                        .thdFont(.bodyMd)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    Text(
+                        "A comprehensive component library using DesignSystemGlobal tokens for consistent styling."
+                    )
+                    .thdFont(.bodyMd)
+                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
-                        DSBadge(label: "9 Components", size: .small, variant: .filledSubtle, color: .brand)
-                        DSBadge(label: "SwiftUI", size: .small, variant: .outline, color: .info)
+                        DSBadge("9 Components", size: .small, variant: .filledSubtle, color: .brand)
+                        DSBadge("SwiftUI", size: .small, variant: .outline, color: .info)
                     }
                     .padding(.top, DesignSystemGlobal.Spacing1)
                 }
@@ -133,7 +135,9 @@ struct ComponentCatalogScrollableContent: View {
                 }
 
                 // MARK: - Action Components
-                ComponentSection(title: "Actions", description: "Interactive components for user actions") {
+                ComponentSection(
+                    title: "Actions", description: "Interactive components for user actions"
+                ) {
                     NavigationLink(value: "Button") {
                         ComponentRow(
                             icon: "hand.tap",
@@ -147,14 +151,19 @@ struct ComponentCatalogScrollableContent: View {
                 }
 
                 // MARK: - Display Components
-                ComponentSection(title: "Display", description: "Components for presenting information and feedback") {
+                ComponentSection(
+                    title: "Display",
+                    description: "Components for presenting information and feedback"
+                ) {
                     NavigationLink(value: "Card") {
                         ComponentRow(
                             icon: "rectangle",
                             iconColor: DesignSystemGlobal.Moonlight400,
                             title: "Card",
                             description: "Flexible card containers for content and products",
-                            variants: ["Content Card", "Mini Product Card", "Horizontal", "Vertical"]
+                            variants: [
+                                "Content Card", "Mini Product Card", "Horizontal", "Vertical",
+                            ]
                         )
                     }
                     .buttonStyle(.plain)
@@ -164,7 +173,8 @@ struct ComponentCatalogScrollableContent: View {
                             icon: "square.grid.2x2",
                             iconColor: DesignSystemGlobal.Brand400,
                             title: "Product Card",
-                            description: "Complete product listings with image, details, and actions",
+                            description:
+                                "Complete product listings with image, details, and actions",
                             variants: ["B2C", "B2B", "Badges", "Swatches", "Ratings"]
                         )
                     }
@@ -205,7 +215,9 @@ struct ComponentCatalogScrollableContent: View {
                 }
 
                 // MARK: - Selection Components
-                ComponentSection(title: "Selection", description: "Components for user choices and options") {
+                ComponentSection(
+                    title: "Selection", description: "Components for user choices and options"
+                ) {
                     NavigationLink(value: "Pill") {
                         ComponentRow(
                             icon: "capsule",
@@ -244,7 +256,9 @@ struct ComponentCatalogScrollableContent: View {
                 }
 
                 // MARK: - Design System
-                ComponentSection(title: "Design System", description: "Foundation tokens and typography system") {
+                ComponentSection(
+                    title: "Design System", description: "Foundation tokens and typography system"
+                ) {
                     NavigationLink(value: "Typography") {
                         ComponentRow(
                             icon: "textformat",
@@ -269,8 +283,8 @@ struct ComponentCatalogScrollableContent: View {
                 }
             }
             .padding(DesignSystemGlobal.Spacing4)
-            .padding(.top, 48) // Top padding to clear menu icons
-            .padding(.bottom, 16) // Extra padding for bottom tab bar
+            .padding(.top, 48)  // Top padding to clear menu icons
+            .padding(.bottom, 16)  // Extra padding for bottom tab bar
         }
         .scrollEdgeEffectStyle(.soft, for: .top)
         .scrollEdgeEffectStyle(.soft, for: .bottom)
@@ -285,7 +299,7 @@ struct ComponentSection<Content: View>: View {
     let title: String
     let description: String
     @ViewBuilder let content: () -> Content
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
             // Section Header
@@ -301,7 +315,7 @@ struct ComponentSection<Content: View>: View {
                     .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
                     .padding(.leading, DesignSystemGlobal.Spacing3)
             }
-            
+
             // Section Content
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                 content()
@@ -362,9 +376,9 @@ struct ComponentRow: View {
                 }
                 .padding(.top, 2)
             }
-            
+
             Spacer()
-            
+
             // Chevron indicator
             Image(systemName: "chevron.right")
                 .font(.system(size: 14, weight: .semibold))
@@ -427,16 +441,155 @@ extension View {
     ///   - edge: The edge where the bar should be placed (currently supports .top)
     ///   - spacing: Additional spacing to add between the safe area and the content (default: 12pt / Spacing2)
     ///   - content: The view builder for the bar content
-    func safeAreaBar<Content: View>(edge: VerticalEdge, spacing: CGFloat = DesignSystemGlobal.Spacing2, @ViewBuilder content: @escaping () -> Content) -> some View {
+    func safeAreaBar<Content: View>(
+        edge: VerticalEdge, spacing: CGFloat = DesignSystemGlobal.Spacing2,
+        @ViewBuilder content: @escaping () -> Content
+    ) -> some View {
         self.overlay(alignment: edge == .top ? .top : .bottom) {
             GeometryReader { geometry in
                 content()
                     .padding(.horizontal, DesignSystemGlobal.Spacing4)
-                    .padding(edge == .top ? .top : .bottom, edge == .top ? geometry.safeAreaInsets.top + spacing : geometry.safeAreaInsets.bottom)
+                    .padding(
+                        edge == .top ? .top : .bottom,
+                        edge == .top
+                            ? geometry.safeAreaInsets.top + spacing : geometry.safeAreaInsets.bottom
+                    )
                     .padding(edge == .top ? .bottom : .top, spacing)
                     .frame(maxWidth: .infinity)
             }
             .ignoresSafeArea(edges: edge == .top ? .top : .bottom)
+        }
+    }
+}
+
+// MARK: - Component Demo Views
+
+struct DSButtonDemoView: View {
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                Text("Button Component").font(.title).padding()
+                DSButton("Orange Filled", style: .orangeFilled, size: .large, action: {})
+                DSButton("Outlined", style: .outlined, size: .large, action: {})
+                DSButton("Ghost", style: .ghost, size: .large, action: {})
+            }
+            .padding()
+        }
+    }
+}
+
+struct DSCardDemoView: View {
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                Text("Card Component").font(.title).padding()
+                Text("Card component examples would go here")
+                    .foregroundColor(.secondary)
+            }
+            .padding()
+        }
+    }
+}
+
+struct DSProductCardDemoView: View {
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                Text("Product Card Component").font(.title).padding()
+                Text("Product card examples would go here")
+                    .foregroundColor(.secondary)
+            }
+            .padding()
+        }
+    }
+}
+
+struct DSBadgeDemoView: View {
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                Text("Badge Component").font(.title).padding()
+                DSBadge("Badge", size: .small, variant: .filledStrong, color: .brand)
+                DSBadge("Outline", size: .base, variant: .outline, color: .info)
+                DSBadge("Subtle", size: .base, variant: .filledSubtle, color: .success)
+            }
+            .padding()
+        }
+    }
+}
+
+struct DSAlertDemoView: View {
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                Text("Alert Component").font(.title).padding()
+                Text("Alert component examples would go here")
+                    .foregroundColor(.secondary)
+            }
+            .padding()
+        }
+    }
+}
+
+struct DSCalloutDemoView: View {
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                Text("Callout Component").font(.title).padding()
+                DSCallout(
+                    title: "Example Callout",
+                    subtitle: "Subtitle",
+                    body: "This is a callout message.",
+                    variant: .neutral
+                )
+                DSCallout(
+                    title: "Brand Callout",
+                    body: "This is a brand callout.",
+                    variant: .brand
+                )
+            }
+            .padding()
+        }
+    }
+}
+
+struct DSPillDemoView: View {
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                Text("Pill Component").font(.title).padding()
+                DSPill("Pill", size: .sm) {}
+                DSPill("Large Pill", size: .lg) {}
+            }
+            .padding()
+        }
+    }
+}
+
+struct DSTileDemoView: View {
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                Text("Tile Component").font(.title).padding()
+                Text("Tile component examples would go here")
+                    .foregroundColor(.secondary)
+            }
+            .padding()
+        }
+    }
+}
+
+struct DSQuantityPickerDemoView: View {
+    @State private var quantity = 1
+
+    var body: some View {
+        ScrollView {
+            VStack(spacing: 16) {
+                Text("Quantity Picker Component").font(.title).padding()
+                Text("Quantity picker examples would go here")
+                    .foregroundColor(.secondary)
+            }
+            .padding()
         }
     }
 }

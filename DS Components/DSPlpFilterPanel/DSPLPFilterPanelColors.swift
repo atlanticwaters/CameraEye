@@ -8,7 +8,7 @@ public enum DSPLPFilterPanelColorHelper {
 
     /// Returns the category title text color.
     public static func categoryTitleColor() -> Color {
-        DSColor.textOnSurfaceColorPrimary
+        DSColor.textOnSurfaceColorPrimary.resolve
     }
 
     public static func categoryTitleColorTokenName() -> String {
@@ -19,7 +19,7 @@ public enum DSPLPFilterPanelColorHelper {
 
     /// Returns the results count text color.
     public static func resultsTextColor() -> Color {
-        DSColor.textOnSurfaceColorSecondary
+        DSColor.textOnSurfaceColorSecondary.resolve
     }
 
     public static func resultsTextColorTokenName() -> String {
@@ -30,7 +30,7 @@ public enum DSPLPFilterPanelColorHelper {
 
     /// Returns the panel background color.
     public static func backgroundColor() -> Color {
-        DSColor.containerBackgroundPrimary
+        DSColor.containerBackgroundPrimary.resolve
     }
 
     public static func backgroundColorTokenName() -> String {

@@ -8,7 +8,7 @@ enum DSRatingMeterColorHelper {
 
     /// Returns the filled star color.
     static func filledColor() -> Color {
-        DSColor.iconColorWarning
+        DSColor.iconColorWarning.resolve
     }
 
     /// Returns the filled star color token name for testing.
@@ -20,7 +20,7 @@ enum DSRatingMeterColorHelper {
 
     /// Returns the empty star color.
     static func emptyColor() -> Color {
-        DSColor.iconColorTertiary
+        DSColor.iconColorTertiary.resolve
     }
 
     /// Returns the empty star color token name for testing.
@@ -32,7 +32,7 @@ enum DSRatingMeterColorHelper {
 
     /// Returns the label text color.
     static func labelColor() -> Color {
-        DSColor.textOnSurfaceColorSecondary
+        DSColor.textOnSurfaceColorSecondary.resolve
     }
 
     /// Returns the label color token name for testing.
@@ -44,7 +44,7 @@ enum DSRatingMeterColorHelper {
 
     /// Returns the focus border color.
     static func focusBorderColor() -> Color {
-        DSColor.borderColorFocus
+        DSColor.borderColorFocus.resolve
     }
 
     /// Returns the focus border color token name for testing.

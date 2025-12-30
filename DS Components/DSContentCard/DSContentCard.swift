@@ -78,7 +78,7 @@ public struct DSContentCard<Body: View, HeaderAction: View, BottomAction: View>:
     private let showBottomAction: Bool
     private let headerAction: HeaderAction?
     private let bottomAction: BottomAction?
-    private let body: Body
+    private let bodyContent: Body
 
     // MARK: - Styling
 
@@ -115,7 +115,7 @@ public struct DSContentCard<Body: View, HeaderAction: View, BottomAction: View>:
     ///   - showBottomAction: Whether to show bottom action.
     ///   - headerAction: Optional action view in the header.
     ///   - bottomAction: Optional action view at the bottom.
-    ///   - body: The body content view.
+    ///   - bodyContent: The body content view.
     public init(
         title: String? = nil,
         subtitle: String? = nil,
@@ -126,7 +126,7 @@ public struct DSContentCard<Body: View, HeaderAction: View, BottomAction: View>:
         showBottomAction: Bool = false,
         @ViewBuilder headerAction: () -> HeaderAction,
         @ViewBuilder bottomAction: () -> BottomAction,
-        @ViewBuilder body: () -> Body
+        @ViewBuilder bodyContent: () -> Body
     ) {
         self.title = title
         self.subtitle = subtitle
@@ -137,7 +137,7 @@ public struct DSContentCard<Body: View, HeaderAction: View, BottomAction: View>:
         self.showBottomAction = showBottomAction
         self.headerAction = headerAction()
         self.bottomAction = bottomAction()
-        self.body = body()
+        self.bodyContent = bodyContent()
     }
 
     // MARK: - Body
@@ -206,9 +206,9 @@ public struct DSContentCard<Body: View, HeaderAction: View, BottomAction: View>:
     private var bodySection: some View {
         if showBody {
             if bodyPlacement.isFullBleed {
-                self.body
+                self.bodyContent
             } else {
-                self.body
+                self.bodyContent
                     .padding(.horizontal, contentPadding)
                     .padding(.vertical, spacing)
             }
@@ -237,7 +237,7 @@ extension DSContentCard where HeaderAction == EmptyView {
         showBody: Bool = true,
         showBottomAction: Bool = false,
         @ViewBuilder bottomAction: () -> BottomAction,
-        @ViewBuilder body: () -> Body
+        @ViewBuilder bodyContent: () -> Body
     ) {
         self.title = title
         self.subtitle = subtitle
@@ -248,7 +248,7 @@ extension DSContentCard where HeaderAction == EmptyView {
         self.showBottomAction = showBottomAction
         self.headerAction = nil
         self.bottomAction = bottomAction()
-        self.body = body()
+        self.bodyContent = bodyContent()
     }
 }
 
@@ -262,7 +262,7 @@ extension DSContentCard where BottomAction == EmptyView {
         showTitle: Bool = true,
         showBody: Bool = true,
         @ViewBuilder headerAction: () -> HeaderAction,
-        @ViewBuilder body: () -> Body
+        @ViewBuilder bodyContent: () -> Body
     ) {
         self.title = title
         self.subtitle = subtitle
@@ -273,7 +273,7 @@ extension DSContentCard where BottomAction == EmptyView {
         self.showBottomAction = false
         self.headerAction = headerAction()
         self.bottomAction = nil
-        self.body = body()
+        self.bodyContent = bodyContent()
     }
 }
 
@@ -286,7 +286,7 @@ extension DSContentCard where HeaderAction == EmptyView, BottomAction == EmptyVi
         bodyPlacement: DSContentCardBodyPlacement = .secondWithPadding,
         showTitle: Bool = true,
         showBody: Bool = true,
-        @ViewBuilder body: () -> Body
+        @ViewBuilder bodyContent: () -> Body
     ) {
         self.title = title
         self.subtitle = subtitle
@@ -297,6 +297,6 @@ extension DSContentCard where HeaderAction == EmptyView, BottomAction == EmptyVi
         self.showBottomAction = false
         self.headerAction = nil
         self.bottomAction = nil
-        self.body = body()
+        self.bodyContent = bodyContent()
     }
 }

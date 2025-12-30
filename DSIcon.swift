@@ -198,7 +198,7 @@ public enum DSIcon: String, CaseIterable, Sendable {
     /// Get the SwiftUI Image for this icon
     /// Uses "Icons/" namespace prefix for xcassets organization
     public var image: Image {
-        Image("Icons/\(rawValue)", bundle: .module)
+        Image("Icons/\(rawValue)", bundle: .main)
     }
 
     /// Icon name for accessibility
@@ -211,33 +211,64 @@ public enum DSIcon: String, CaseIterable, Sendable {
 
 // MARK: - Image Extension
 
-public extension Image {
+extension Image {
     /// Create an image from a DSIcon
-    init(dsIcon: DSIcon) {
-        self.init("Icons/\(dsIcon.rawValue)", bundle: .module)
+    public init(dsIcon: DSIcon) {
+        self.init("Icons/\(dsIcon.rawValue)", bundle: .main)
     }
 }
 
 // MARK: - Icon Categories
 
-public extension DSIcon {
+extension DSIcon {
     /// Action icons (51)
-    static var actionIcons: [DSIcon] {
-        [.threeSixtySpin, .add, .arrowBack, .arrowDown, .arrowForward, .arrowUp, .bookmarkFilled, .bookmarkOutline, .cancel, .cart, .checkmark, .close, .compare, .download, .duplicate, .edit, .email, .filters, .flag, .gridview, .heartFilled, .heartOutline, .hide, .listView, .menu, .more, .move, .note, .pause, .pdf, .play, .playFilled, .playmedia, .printer, .profile, .refresh, .search, .settings, .shareAndroid, .shareIos, .shareWeb, .show, .sortAscending, .sortDescending, .starFilled, .starOutline, .subtract, .thumbsDown, .thumbsUp, .trashCan, .upload]
+    public static var actionIcons: [DSIcon] {
+        [
+            .threeSixtySpin, .add, .arrowBack, .arrowDown, .arrowForward, .arrowUp, .bookmarkFilled,
+            .bookmarkOutline, .cancel, .cart, .checkmark, .close, .compare, .download, .duplicate,
+            .edit, .email, .filters, .flag, .gridview, .heartFilled, .heartOutline, .hide,
+            .listView, .menu, .more, .move, .note, .pause, .pdf, .play, .playFilled, .playmedia,
+            .printer, .profile, .refresh, .search, .settings, .shareAndroid, .shareIos, .shareWeb,
+            .show, .sortAscending, .sortDescending, .starFilled, .starOutline, .subtract,
+            .thumbsDown, .thumbsUp, .trashCan, .upload,
+        ]
     }
 
     /// Object icons (117)
-    static var objectIcons: [DSIcon] {
-        [.apron, .ar, .assemble, .authorizeCard, .badge, .barcode, .bathtubs, .bell, .betaAddToList, .betaOrderSample, .blinds, .box, .boxTruck, .bucket, .buyAgain, .buyingGuide, .cabinet, .calculator, .calendar, .camera, .car, .cardCvv, .cardNumber, .carpetInstall, .catalog, .ceilingFan, .certificate, .chat, .clock, .cookingWares, .counterTop, .creditCard, .curbside, .curtain, .customOptions, .delivery, .deliveryexpress, .deliveryunavailable, .dishwasher, .document, .door, .downArrowleft, .downArrowright, .drill, .electrical, .faucets, .fence, .financialServices, .floor, .garage, .gas, .generator, .giftCard, .graduationCap, .grill, .hammer, .home, .howTo, .image, .independentLiving, .instantCheckout, .instorePickup, .key, .largeEquipment, .lawnGarden, .lightBulb, .lighting, .location, .locked, .locker, .mailbox, .measure, .medal, .mic, .mobile, .online, .orderTracking, .orders, .paint, .paintSwatches, .patio, .pergola, .plumbing, .propane, .proprofile, .purchaseHistory, .pushMower, .qrCode, .quickAdd, .recycle, .refrigerator, .returns, .ridingMower, .rugs, .ruler, .savings, .saw, .secure, .servicePro, .shed, .shipToHome, .specialSavings, .storage, .store, .stove, .subscription, .sync, .textToConfirm, .thermostat, .tile, .unlock, .users, .van, .wallet, .washer, .waterHeater, .window]
+    public static var objectIcons: [DSIcon] {
+        [
+            .apron, .ar, .assemble, .authorizeCard, .badge, .barcode, .bathtubs, .bell,
+            .betaAddToList, .betaOrderSample, .blinds, .box, .boxTruck, .bucket, .buyAgain,
+            .buyingGuide, .cabinet, .calculator, .calendar, .camera, .car, .cardCvv, .cardNumber,
+            .carpetInstall, .catalog, .ceilingFan, .certificate, .chat, .clock, .cookingWares,
+            .counterTop, .creditCard, .curbside, .curtain, .customOptions, .delivery,
+            .deliveryexpress, .deliveryunavailable, .dishwasher, .document, .door, .downArrowleft,
+            .downArrowright, .drill, .electrical, .faucets, .fence, .financialServices, .floor,
+            .garage, .gas, .generator, .giftCard, .graduationCap, .grill, .hammer, .home, .howTo,
+            .image, .independentLiving, .instantCheckout, .instorePickup, .key, .largeEquipment,
+            .lawnGarden, .lightBulb, .lighting, .location, .locked, .locker, .mailbox, .measure,
+            .medal, .mic, .mobile, .online, .orderTracking, .orders, .paint, .paintSwatches, .patio,
+            .pergola, .plumbing, .propane, .proprofile, .purchaseHistory, .pushMower, .qrCode,
+            .quickAdd, .recycle, .refrigerator, .returns, .ridingMower, .rugs, .ruler, .savings,
+            .saw, .secure, .servicePro, .shed, .shipToHome, .specialSavings, .storage, .store,
+            .stove, .subscription, .sync, .textToConfirm, .thermostat, .tile, .unlock, .users, .van,
+            .wallet, .washer, .waterHeater, .window,
+        ]
     }
 
     /// Beta icons (7)
-    static var betaIcons: [DSIcon] {
-        [.betaAddCart, .betaLocationIcon, .betaMagicApron, .betaNumberCart, .betaPlaceholder, .betaQuickView, .betaSparkle]
+    public static var betaIcons: [DSIcon] {
+        [
+            .betaAddCart, .betaLocationIcon, .betaMagicApron, .betaNumberCart, .betaPlaceholder,
+            .betaQuickView, .betaSparkle,
+        ]
     }
 
     /// Feedback icons (8)
-    static var feedbackIcons: [DSIcon] {
-        [.danger, .dangerOutline, .info, .infoOutline, .success, .successOutline, .warning, .warningOutline]
+    public static var feedbackIcons: [DSIcon] {
+        [
+            .danger, .dangerOutline, .info, .infoOutline, .success, .successOutline, .warning,
+            .warningOutline,
+        ]
     }
 }

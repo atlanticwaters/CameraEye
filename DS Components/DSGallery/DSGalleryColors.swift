@@ -8,7 +8,7 @@ enum DSGalleryColorHelper {
 
     /// Returns the main background color.
     static func backgroundColor() -> Color {
-        DSColor.containerBackgroundPrimary
+        DSColor.containerBackgroundPrimary.resolve
     }
 
     static func backgroundColorTokenName() -> String {
@@ -19,7 +19,7 @@ enum DSGalleryColorHelper {
 
     /// Returns the primary text color.
     static func textColor() -> Color {
-        DSColor.textOnSurfaceColorPrimary
+        DSColor.textOnSurfaceColorPrimary.resolve
     }
 
     static func textColorTokenName() -> String {
@@ -28,7 +28,7 @@ enum DSGalleryColorHelper {
 
     /// Returns the secondary text color.
     static func secondaryTextColor() -> Color {
-        DSColor.textOnSurfaceColorSecondary
+        DSColor.textOnSurfaceColorSecondary.resolve
     }
 
     static func secondaryTextColorTokenName() -> String {
@@ -39,7 +39,7 @@ enum DSGalleryColorHelper {
 
     /// Returns the icon color.
     static func iconColor() -> Color {
-        DSColor.iconColorSecondary
+        DSColor.iconColorSecondary.resolve
     }
 
     static func iconColorTokenName() -> String {
@@ -50,7 +50,7 @@ enum DSGalleryColorHelper {
 
     /// Returns the selected tab color.
     static func selectedTabColor() -> Color {
-        DSColor.textOnSurfaceColorPrimary
+        DSColor.textOnSurfaceColorPrimary.resolve
     }
 
     static func selectedTabColorTokenName() -> String {
@@ -59,7 +59,7 @@ enum DSGalleryColorHelper {
 
     /// Returns the unselected tab color.
     static func unselectedTabColor() -> Color {
-        DSColor.textOnSurfaceColorTertiary
+        DSColor.textOnSurfaceColorTertiary.resolve
     }
 
     static func unselectedTabColorTokenName() -> String {
@@ -68,7 +68,7 @@ enum DSGalleryColorHelper {
 
     /// Returns the tab bar background color.
     static func tabBarBackground() -> Color {
-        DSColor.containerBackgroundSecondary
+        DSColor.containerBackgroundSecondary.resolve
     }
 
     static func tabBarBackgroundTokenName() -> String {
@@ -79,7 +79,7 @@ enum DSGalleryColorHelper {
 
     /// Returns the thumbnail strip background color.
     static func thumbnailStripBackground() -> Color {
-        DSColor.containerBackgroundSecondary
+        DSColor.containerBackgroundSecondary.resolve
     }
 
     static func thumbnailStripBackgroundTokenName() -> String {
@@ -88,7 +88,7 @@ enum DSGalleryColorHelper {
 
     /// Returns the selected thumbnail border color.
     static func selectedBorderColor() -> Color {
-        DSColor.borderColorPrimary
+        DSColor.borderColorPrimary.resolve
     }
 
     static func selectedBorderColorTokenName() -> String {
@@ -99,7 +99,7 @@ enum DSGalleryColorHelper {
 
     /// Returns the placeholder background color.
     static func placeholderColor() -> Color {
-        DSColor.containerBackgroundTransparent05
+        DSColor.containerBackgroundTransparent05.resolve
     }
 
     static func placeholderColorTokenName() -> String {
@@ -110,7 +110,7 @@ enum DSGalleryColorHelper {
 
     /// Returns the button background color.
     static func buttonColor() -> Color {
-        DSColor.containerBackgroundBrand
+        DSColor.containerBackgroundBrand.resolve
     }
 
     static func buttonColorTokenName() -> String {

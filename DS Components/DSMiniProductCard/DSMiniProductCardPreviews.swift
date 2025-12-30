@@ -75,8 +75,8 @@ import SwiftUI
         data: DSMiniProductCardData(
             productName: "Makita 18V LXT Lithium-Ion Cordless Combo Kit",
             price: .standard(dollars: 299, cents: 00),
-            isSponsored: true,
-            rating: DSMiniProductCardRating(rating: 4.7, reviewCount: 445)
+            rating: DSMiniProductCardRating(rating: 4.7, reviewCount: 445),
+            isSponsored: true
         )
     )
     .padding()

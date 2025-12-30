@@ -7,7 +7,7 @@ import SwiftUI
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 16) {
             ForEach(DSImageContainerSize.allCases, id: \.self) { size in
                 VStack(spacing: 8) {
-                    DSImageContainer(size: size, placeholder: nil as (() -> EmptyView)?)
+                    DSImageContainer(size: size)
 
                     Text(sizeName(size))
                         .font(.caption2)
@@ -20,53 +20,53 @@ import SwiftUI
 }
 
 #Preview("Pico - 22pt") {
-    DSImageContainer(size: .pico, placeholder: nil as (() -> EmptyView)?)
+    DSImageContainer(size: .pico)
         .padding()
 }
 
 #Preview("Nano - 32pt") {
-    DSImageContainer(size: .nano, placeholder: nil as (() -> EmptyView)?)
+    DSImageContainer(size: .nano)
         .padding()
 }
 
 #Preview("Micro - 60pt") {
-    DSImageContainer(size: .micro, placeholder: nil as (() -> EmptyView)?)
+    DSImageContainer(size: .micro)
         .padding()
 }
 
 #Preview("XXSmall - 76pt") {
-    DSImageContainer(size: .xxSmall, placeholder: nil as (() -> EmptyView)?)
+    DSImageContainer(size: .xxSmall)
         .padding()
 }
 
 #Preview("XSmall - 106pt") {
-    DSImageContainer(size: .xSmall, placeholder: nil as (() -> EmptyView)?)
+    DSImageContainer(size: .xSmall)
         .padding()
 }
 
 #Preview("Small - 148pt") {
-    DSImageContainer(size: .small, placeholder: nil as (() -> EmptyView)?)
+    DSImageContainer(size: .small)
         .padding()
 }
 
 #Preview("Medium - 186pt") {
-    DSImageContainer(size: .medium, placeholder: nil as (() -> EmptyView)?)
+    DSImageContainer(size: .medium)
         .padding()
 }
 
 #Preview("Large - 260pt") {
-    DSImageContainer(size: .large, placeholder: nil as (() -> EmptyView)?)
+    DSImageContainer(size: .large)
         .padding()
 }
 
 #Preview("XLarge - 320pt") {
-    DSImageContainer(size: .xLarge, placeholder: nil as (() -> EmptyView)?)
+    DSImageContainer(size: .xLarge)
         .padding()
 }
 
 #Preview("XXLarge - 398pt") {
     ScrollView {
-        DSImageContainer(size: .xxLarge, placeholder: nil as (() -> EmptyView)?)
+        DSImageContainer(size: .xxLarge)
             .padding()
     }
 }
@@ -105,8 +105,8 @@ import SwiftUI
 
 #Preview("Dark Mode") {
     VStack(spacing: 16) {
-        DSImageContainer(size: .medium, placeholder: nil as (() -> EmptyView)?)
-        DSImageContainer(size: .large, placeholder: nil as (() -> EmptyView)?)
+        DSImageContainer(size: .medium)
+        DSImageContainer(size: .large)
     }
     .padding()
     .preferredColorScheme(.dark)

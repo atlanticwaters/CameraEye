@@ -8,7 +8,7 @@ enum DSImageContainerColorHelper {
 
     /// Returns the background color for the image container.
     static func backgroundColor() -> Color {
-        DSColor.containerBackgroundTransparent05
+        DSColor.containerBackgroundTransparent05.resolve
     }
 
     /// Returns the background color token name for testing.
@@ -20,7 +20,7 @@ enum DSImageContainerColorHelper {
 
     /// Returns the border color for the image container.
     static func borderColor() -> Color {
-        DSColor.borderColorTransparent10
+        return DSColor.borderColorTransparent10.resolve
     }
 
     /// Returns the border color token name for testing.
@@ -32,7 +32,7 @@ enum DSImageContainerColorHelper {
 
     /// Returns the placeholder icon color.
     static func placeholderIconColor() -> Color {
-        DSColor.textOnSurfaceColorTertiary
+        DSColor.textOnSurfaceColorTertiary.resolve
     }
 
     /// Returns the placeholder icon color token name for testing.

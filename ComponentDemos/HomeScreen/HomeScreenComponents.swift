@@ -183,7 +183,7 @@ struct HomeRecentlyViewedCard: View {
 
                 if let badge = product.badge {
                     DSBadge(
-                        label: badge,
+                        badge,
                         size: .small,
                         variant: .filledStrong,
                         color: badge.contains("$") ? .success : .brand
@@ -228,7 +228,10 @@ struct SmartHomePromoBanner: View {
         ZStack {
             // Background gradient/image area
             LinearGradient(
-                colors: [Color(red: 0.95, green: 0.92, blue: 0.88), Color(red: 0.98, green: 0.96, blue: 0.94)],
+                colors: [
+                    Color(red: 0.95, green: 0.92, blue: 0.88),
+                    Color(red: 0.98, green: 0.96, blue: 0.94),
+                ],
                 startPoint: .leading,
                 endPoint: .trailing
             )
@@ -380,8 +383,8 @@ struct FilterPill: View {
         DSPill(
             title,
             style: isSelected ? .filled : .outlined,
-            size: .medium,
-            state: isSelected ? .selected : .default,
+            size: .md,
+            isSelected: isSelected,
             action: action
         )
     }
@@ -436,7 +439,7 @@ struct HomeProductCard: View {
 
                 if let badge = product.badge {
                     DSBadge(
-                        label: badge,
+                        badge,
                         size: .small,
                         variant: .filledStrong,
                         color: .brand
@@ -560,7 +563,9 @@ struct PairedPromoCard: View {
                         Text(percentOff.replacingOccurrences(of: "UP TO\n", with: ""))
                             .font(.system(size: 24, weight: .bold))
                     }
-                    .foregroundStyle(card.backgroundColor == Color(red: 0.2, green: 0.35, blue: 0.3) ? .white : Color.textPrimary)
+                    .foregroundStyle(
+                        card.backgroundColor == Color(red: 0.2, green: 0.35, blue: 0.3)
+                            ? .white : Color.textPrimary)
                 }
 
                 Spacer()
@@ -568,7 +573,10 @@ struct PairedPromoCard: View {
                 // Title
                 Text(card.title)
                     .font(.system(size: 12, weight: .semibold))
-                    .foregroundStyle(card.backgroundColor == Color(red: 0.2, green: 0.35, blue: 0.3) ? .white : Color.textPrimary)
+                    .foregroundStyle(
+                        card.backgroundColor == Color(red: 0.2, green: 0.35, blue: 0.3)
+                            ? .white : Color.textPrimary
+                    )
                     .lineLimit(3)
             }
             .padding(12)
@@ -584,7 +592,7 @@ struct ShopByCategoryList: View {
     let categories: [ShopCategory]
     let isSlideInMode: Bool
     let onClose: (() -> Void)?
-    
+
     init(categories: [ShopCategory], isSlideInMode: Bool = false, onClose: (() -> Void)? = nil) {
         self.categories = categories
         self.isSlideInMode = isSlideInMode
@@ -599,9 +607,9 @@ struct ShopByCategoryList: View {
                     Text("Shop by Category")
                         .font(.system(size: 24, weight: .semibold))
                         .foregroundStyle(Color.textPrimary)
-                    
+
                     Spacer()
-                    
+
                     Button {
                         onClose?()
                     } label: {
@@ -662,11 +670,11 @@ struct CategoryListRow: View {
                     .opacity(0.6)
             }
         }
-        
+
         Divider()
             .padding(.leading, isSlideInMode ? 16 + 32 + 12 : 72)
     }
-    
+
     private var categoryContent: some View {
         HStack(spacing: 12) {
             // Category Icon
@@ -684,7 +692,7 @@ struct CategoryListRow: View {
                 Text(category.name)
                     .font(.system(size: isSlideInMode ? 17 : 16, weight: .regular))
                     .foregroundStyle(Color.textPrimary)
-                
+
                 if category.plpCategory == nil {
                     Text("Coming Soon")
                         .font(.system(size: 13, weight: .regular))
@@ -746,7 +754,10 @@ struct CategoryDetailView: View {
 
                     // Sample subcategories based on category
                     ForEach(getSubcategories(for: category), id: \.self) { subcategory in
-                        NavigationLink(destination: SubcategoryView(categoryName: category.name, subcategoryName: subcategory)) {
+                        NavigationLink(
+                            destination: SubcategoryView(
+                                categoryName: category.name, subcategoryName: subcategory)
+                        ) {
                             HStack {
                                 Text(subcategory)
                                     .font(.system(size: 16))
@@ -800,23 +811,46 @@ struct CategoryDetailView: View {
     private func getSubcategories(for category: ShopCategory) -> [String] {
         switch category.name {
         case "Appliances":
-            return ["Refrigerators", "Washers & Dryers", "Dishwashers", "Ranges", "Microwaves", "Freezers"]
+            return [
+                "Refrigerators", "Washers & Dryers", "Dishwashers", "Ranges", "Microwaves",
+                "Freezers",
+            ]
         case "Tools":
-            return ["Power Tools", "Hand Tools", "Tool Storage", "Air Tools", "Workbenches", "Tool Sets"]
+            return [
+                "Power Tools", "Hand Tools", "Tool Storage", "Air Tools", "Workbenches",
+                "Tool Sets",
+            ]
         case "Bath & Faucets":
-            return ["Vanities", "Toilets", "Showers", "Bathtubs", "Faucets", "Bathroom Accessories"]
+            return [
+                "Vanities", "Toilets", "Showers", "Bathtubs", "Faucets", "Bathroom Accessories",
+            ]
         case "Flooring":
-            return ["Vinyl Flooring", "Hardwood", "Laminate", "Tile", "Carpet", "Floor Installation"]
+            return [
+                "Vinyl Flooring", "Hardwood", "Laminate", "Tile", "Carpet", "Floor Installation",
+            ]
         case "Lawn & Garden":
-            return ["Mowers", "Outdoor Power", "Plants", "Patio Furniture", "Grills", "Landscaping"]
+            return [
+                "Mowers", "Outdoor Power", "Plants", "Patio Furniture", "Grills", "Landscaping",
+            ]
         case "Lighting & Ceiling Fans":
-            return ["Ceiling Fans", "Chandeliers", "Pendant Lights", "Outdoor Lighting", "LED Bulbs", "Lamps"]
+            return [
+                "Ceiling Fans", "Chandeliers", "Pendant Lights", "Outdoor Lighting", "LED Bulbs",
+                "Lamps",
+            ]
         case "Paint":
-            return ["Interior Paint", "Exterior Paint", "Paint Samples", "Stains", "Painting Supplies", "Primers"]
+            return [
+                "Interior Paint", "Exterior Paint", "Paint Samples", "Stains", "Painting Supplies",
+                "Primers",
+            ]
         case "Kitchen":
-            return ["Cabinets", "Countertops", "Sinks", "Kitchen Faucets", "Garbage Disposals", "Range Hoods"]
+            return [
+                "Cabinets", "Countertops", "Sinks", "Kitchen Faucets", "Garbage Disposals",
+                "Range Hoods",
+            ]
         default:
-            return ["Shop All \(category.name)", "Best Sellers", "New Arrivals", "On Sale", "Top Rated"]
+            return [
+                "Shop All \(category.name)", "Best Sellers", "New Arrivals", "On Sale", "Top Rated",
+            ]
         }
     }
 }
@@ -886,10 +920,10 @@ struct FilterChip: View {
     var body: some View {
         DSPill(
             title,
+            trailingIcon: Image(systemName: icon ?? "chevron.down"),
             style: .outlined,
-            size: .medium,
-            trailingIcon: Image(systemName: icon ?? "chevron.down")
-        )
+            size: .md
+        ) {}
     }
 }
 

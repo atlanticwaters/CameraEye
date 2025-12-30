@@ -15,23 +15,10 @@
 		10358AAD2EF89EBE00501170 /* PLP_VIEW_JSON_INTEGRATION_COMPLETE.md in Resources */ = {isa = PBXBuildFile; fileRef = 10358AAC2EF89EBE00501170 /* PLP_VIEW_JSON_INTEGRATION_COMPLETE.md */; };
 		10358AAF2EF89EF400501170 /* JSON_QUICK_START_GUIDE.md in Resources */ = {isa = PBXBuildFile; fileRef = 10358AAE2EF89EF400501170 /* JSON_QUICK_START_GUIDE.md */; };
 		10358AB12EF8A76D00501170 /* FILTER_PILLS_UPDATE.md in Resources */ = {isa = PBXBuildFile; fileRef = 10358AB02EF8A76D00501170 /* FILTER_PILLS_UPDATE.md */; };
-		103A1A892EF71FA500D47E5D /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 103A1A882EF71FA500D47E5D /* RiveRuntime */; };
 		103A1A8B2EF7212B00D47E5D /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103A1A8A2EF7212B00D47E5D /* SplashScreenView.swift */; };
 		1065C9A22EFB4BD50046590A /* FIXES_SUMMARY.md in Resources */ = {isa = PBXBuildFile; fileRef = 1065C9A12EFB4BD50046590A /* FIXES_SUMMARY.md */; };
 		1065C9A42EFB89870046590A /* BUG_FIXES_NAVIGATION_HAPTICS.md in Resources */ = {isa = PBXBuildFile; fileRef = 1065C9A32EFB89870046590A /* BUG_FIXES_NAVIGATION_HAPTICS.md */; };
 		1065C9A62EFB89BB0046590A /* NAVIGATION_ARCHITECTURE_DIAGRAM.md in Resources */ = {isa = PBXBuildFile; fileRef = 1065C9A52EFB89BB0046590A /* NAVIGATION_ARCHITECTURE_DIAGRAM.md */; };
-		10840B812EF9F0B5004553F0 /* ComponentsTokensProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B792EF9F0B5004553F0 /* ComponentsTokensProvider.swift */; };
-		10840B822EF9F0B5004553F0 /* TokensCoreLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B762EF9F0B5004553F0 /* TokensCoreLight.swift */; };
-		10840B832EF9F0B5004553F0 /* TokensCoreDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B752EF9F0B5004553F0 /* TokensCoreDark.swift */; };
-		10840B842EF9F0B5004553F0 /* TokensSemanticTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B7F2EF9F0B5004553F0 /* TokensSemanticTheme.swift */; };
-		10840B852EF9F0B5004553F0 /* TokensSemanticDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B7D2EF9F0B5004553F0 /* TokensSemanticDark.swift */; };
-		10840B862EF9F0B5004553F0 /* TokensComponentsDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B712EF9F0B5004553F0 /* TokensComponentsDark.swift */; };
-		10840B872EF9F0B5004553F0 /* SemanticTokensProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B7B2EF9F0B5004553F0 /* SemanticTokensProvider.swift */; };
-		10840B882EF9F0B5004553F0 /* TokensComponentsTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B732EF9F0B5004553F0 /* TokensComponentsTheme.swift */; };
-		10840B892EF9F0B5004553F0 /* TokensComponentsLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B722EF9F0B5004553F0 /* TokensComponentsLight.swift */; };
-		10840B8A2EF9F0B5004553F0 /* TokensCoreTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B772EF9F0B5004553F0 /* TokensCoreTheme.swift */; };
-		10840B8B2EF9F0B5004553F0 /* TokensSemanticLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B7E2EF9F0B5004553F0 /* TokensSemanticLight.swift */; };
-		10840B8C2EF9F0B5004553F0 /* CoreTokensProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10840B7A2EF9F0B5004553F0 /* CoreTokensProvider.swift */; };
 		10A5A5892F00247B00DE4535 /* DesignSystemVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5A5862F00247B00DE4535 /* DesignSystemVersion.swift */; };
 		10A5A6952F0026F400DE4535 /* DSColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5A6942F0026F400DE4535 /* DSColor.swift */; };
 		10A5A6972F00942500DE4535 /* DSIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A5A6962F00942500DE4535 /* DSIcon.swift */; };
@@ -66,6 +53,20 @@
 		10FB01272EEB11A200A65E91 /* SearchDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FB011D2EEB11A200A65E91 /* SearchDemoView.swift */; };
 		AD1E8C9B2EF492B300C3EAA6 /* ComponentCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1E8C9A2EF492B300C3EAA6 /* ComponentCatalogView.swift */; };
 		AD29C4AD2EED0C8400AA5B40 /* PLPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD29C4AC2EED0C8400AA5B40 /* PLPView.swift */; };
+		AD7257282F030F41006F8088 /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = AD7257272F030F41006F8088 /* RiveRuntime */; };
+		AD72572B2F030F70006F8088 /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = AD72572A2F030F70006F8088 /* RiveRuntime */; };
+		AD72573C2F03242D006F8088 /* TokensComponentsDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD72572C2F03242D006F8088 /* TokensComponentsDark.swift */; };
+		AD72573D2F03242D006F8088 /* CoreTokensProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7257352F03242D006F8088 /* CoreTokensProvider.swift */; };
+		AD72573E2F03242D006F8088 /* TokensCoreLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7257312F03242D006F8088 /* TokensCoreLight.swift */; };
+		AD72573F2F03242D006F8088 /* TokensComponentsTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD72572E2F03242D006F8088 /* TokensComponentsTheme.swift */; };
+		AD7257402F03242D006F8088 /* TokensComponentsLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD72572D2F03242D006F8088 /* TokensComponentsLight.swift */; };
+		AD7257412F03242D006F8088 /* ComponentsTokensProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7257342F03242D006F8088 /* ComponentsTokensProvider.swift */; };
+		AD7257422F03242D006F8088 /* TokensCoreDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7257302F03242D006F8088 /* TokensCoreDark.swift */; };
+		AD7257432F03242D006F8088 /* SemanticTokensProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7257362F03242D006F8088 /* SemanticTokensProvider.swift */; };
+		AD7257442F03242D006F8088 /* TokensCoreTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7257322F03242D006F8088 /* TokensCoreTheme.swift */; };
+		AD7257452F03242D006F8088 /* TokensSemanticDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7257382F03242D006F8088 /* TokensSemanticDark.swift */; };
+		AD7257462F03242D006F8088 /* TokensSemanticTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD72573A2F03242D006F8088 /* TokensSemanticTheme.swift */; };
+		AD7257472F03242D006F8088 /* TokensSemanticLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7257392F03242D006F8088 /* TokensSemanticLight.swift */; };
 		ADFC05D82EF349320048CE2C /* Morph_Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFC05D72EF349320048CE2C /* Morph_Menu.swift */; };
 		ADFC05DA2EF35ABC0048CE2C /* ShopNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADFC05D92EF35ABC0048CE2C /* ShopNavigation.swift */; };
 /* End PBXBuildFile section */
@@ -84,18 +85,6 @@
 		1065C9A12EFB4BD50046590A /* FIXES_SUMMARY.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = FIXES_SUMMARY.md; sourceTree = "<group>"; };
 		1065C9A32EFB89870046590A /* BUG_FIXES_NAVIGATION_HAPTICS.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = BUG_FIXES_NAVIGATION_HAPTICS.md; sourceTree = "<group>"; };
 		1065C9A52EFB89BB0046590A /* NAVIGATION_ARCHITECTURE_DIAGRAM.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NAVIGATION_ARCHITECTURE_DIAGRAM.md; sourceTree = "<group>"; };
-		10840B712EF9F0B5004553F0 /* TokensComponentsDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensComponentsDark.swift; sourceTree = "<group>"; };
-		10840B722EF9F0B5004553F0 /* TokensComponentsLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensComponentsLight.swift; sourceTree = "<group>"; };
-		10840B732EF9F0B5004553F0 /* TokensComponentsTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensComponentsTheme.swift; sourceTree = "<group>"; };
-		10840B752EF9F0B5004553F0 /* TokensCoreDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensCoreDark.swift; sourceTree = "<group>"; };
-		10840B762EF9F0B5004553F0 /* TokensCoreLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensCoreLight.swift; sourceTree = "<group>"; };
-		10840B772EF9F0B5004553F0 /* TokensCoreTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensCoreTheme.swift; sourceTree = "<group>"; };
-		10840B792EF9F0B5004553F0 /* ComponentsTokensProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsTokensProvider.swift; sourceTree = "<group>"; };
-		10840B7A2EF9F0B5004553F0 /* CoreTokensProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreTokensProvider.swift; sourceTree = "<group>"; };
-		10840B7B2EF9F0B5004553F0 /* SemanticTokensProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticTokensProvider.swift; sourceTree = "<group>"; };
-		10840B7D2EF9F0B5004553F0 /* TokensSemanticDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensSemanticDark.swift; sourceTree = "<group>"; };
-		10840B7E2EF9F0B5004553F0 /* TokensSemanticLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensSemanticLight.swift; sourceTree = "<group>"; };
-		10840B7F2EF9F0B5004553F0 /* TokensSemanticTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensSemanticTheme.swift; sourceTree = "<group>"; };
 		10A5A5862F00247B00DE4535 /* DesignSystemVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystemVersion.swift; sourceTree = "<group>"; };
 		10A5A6942F0026F400DE4535 /* DSColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSColor.swift; sourceTree = "<group>"; };
 		10A5A6962F00942500DE4535 /* DSIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSIcon.swift; sourceTree = "<group>"; };
@@ -131,6 +120,18 @@
 		AD1E8C9A2EF492B300C3EAA6 /* ComponentCatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentCatalogView.swift; sourceTree = "<group>"; };
 		AD29C4AC2EED0C8400AA5B40 /* PLPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLPView.swift; sourceTree = "<group>"; };
 		AD3B142B2EE66AD3008CBC4D /* SoftScrollEdgeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftScrollEdgeModifier.swift; sourceTree = "<group>"; };
+		AD72572C2F03242D006F8088 /* TokensComponentsDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensComponentsDark.swift; sourceTree = "<group>"; };
+		AD72572D2F03242D006F8088 /* TokensComponentsLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensComponentsLight.swift; sourceTree = "<group>"; };
+		AD72572E2F03242D006F8088 /* TokensComponentsTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensComponentsTheme.swift; sourceTree = "<group>"; };
+		AD7257302F03242D006F8088 /* TokensCoreDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensCoreDark.swift; sourceTree = "<group>"; };
+		AD7257312F03242D006F8088 /* TokensCoreLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensCoreLight.swift; sourceTree = "<group>"; };
+		AD7257322F03242D006F8088 /* TokensCoreTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensCoreTheme.swift; sourceTree = "<group>"; };
+		AD7257342F03242D006F8088 /* ComponentsTokensProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsTokensProvider.swift; sourceTree = "<group>"; };
+		AD7257352F03242D006F8088 /* CoreTokensProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreTokensProvider.swift; sourceTree = "<group>"; };
+		AD7257362F03242D006F8088 /* SemanticTokensProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticTokensProvider.swift; sourceTree = "<group>"; };
+		AD7257382F03242D006F8088 /* TokensSemanticDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensSemanticDark.swift; sourceTree = "<group>"; };
+		AD7257392F03242D006F8088 /* TokensSemanticLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensSemanticLight.swift; sourceTree = "<group>"; };
+		AD72573A2F03242D006F8088 /* TokensSemanticTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensSemanticTheme.swift; sourceTree = "<group>"; };
 		ADA2EC092EE63DCF00F8D447 /* FontVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontVerificationView.swift; sourceTree = "<group>"; };
 		ADA8ACAE2EE9D0D900EC2C40 /* ComponentTest-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ComponentTest-Info.plist"; sourceTree = "<group>"; };
 		ADFC05D72EF349320048CE2C /* Morph_Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Morph_Menu.swift; sourceTree = "<group>"; };
@@ -198,53 +199,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				103A1A892EF71FA500D47E5D /* RiveRuntime in Frameworks */,
+				AD7257282F030F41006F8088 /* RiveRuntime in Frameworks */,
+				AD72572B2F030F70006F8088 /* RiveRuntime in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		10840B742EF9F0B5004553F0 /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				10840B712EF9F0B5004553F0 /* TokensComponentsDark.swift */,
-				10840B722EF9F0B5004553F0 /* TokensComponentsLight.swift */,
-				10840B732EF9F0B5004553F0 /* TokensComponentsTheme.swift */,
-			);
-			path = Components;
-			sourceTree = "<group>";
-		};
-		10840B782EF9F0B5004553F0 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				10840B752EF9F0B5004553F0 /* TokensCoreDark.swift */,
-				10840B762EF9F0B5004553F0 /* TokensCoreLight.swift */,
-				10840B772EF9F0B5004553F0 /* TokensCoreTheme.swift */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		10840B7C2EF9F0B5004553F0 /* Providers */ = {
-			isa = PBXGroup;
-			children = (
-				10840B792EF9F0B5004553F0 /* ComponentsTokensProvider.swift */,
-				10840B7A2EF9F0B5004553F0 /* CoreTokensProvider.swift */,
-				10840B7B2EF9F0B5004553F0 /* SemanticTokensProvider.swift */,
-			);
-			path = Providers;
-			sourceTree = "<group>";
-		};
-		10840B802EF9F0B5004553F0 /* Semantic */ = {
-			isa = PBXGroup;
-			children = (
-				10840B7D2EF9F0B5004553F0 /* TokensSemanticDark.swift */,
-				10840B7E2EF9F0B5004553F0 /* TokensSemanticLight.swift */,
-				10840B7F2EF9F0B5004553F0 /* TokensSemanticTheme.swift */,
-			);
-			path = Semantic;
-			sourceTree = "<group>";
-		};
 		A1000050230F0000 = {
 			isa = PBXGroup;
 			children = (
@@ -360,13 +322,53 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		AD72572F2F03242D006F8088 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AD72572C2F03242D006F8088 /* TokensComponentsDark.swift */,
+				AD72572D2F03242D006F8088 /* TokensComponentsLight.swift */,
+				AD72572E2F03242D006F8088 /* TokensComponentsTheme.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AD7257332F03242D006F8088 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				AD7257302F03242D006F8088 /* TokensCoreDark.swift */,
+				AD7257312F03242D006F8088 /* TokensCoreLight.swift */,
+				AD7257322F03242D006F8088 /* TokensCoreTheme.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		AD7257372F03242D006F8088 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				AD7257342F03242D006F8088 /* ComponentsTokensProvider.swift */,
+				AD7257352F03242D006F8088 /* CoreTokensProvider.swift */,
+				AD7257362F03242D006F8088 /* SemanticTokensProvider.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		AD72573B2F03242D006F8088 /* Semantic */ = {
+			isa = PBXGroup;
+			children = (
+				AD7257382F03242D006F8088 /* TokensSemanticDark.swift */,
+				AD7257392F03242D006F8088 /* TokensSemanticLight.swift */,
+				AD72573A2F03242D006F8088 /* TokensSemanticTheme.swift */,
+			);
+			path = Semantic;
+			sourceTree = "<group>";
+		};
 		ADEF28532EE8C46B00930A9B /* Tokens */ = {
 			isa = PBXGroup;
 			children = (
-				10840B742EF9F0B5004553F0 /* Components */,
-				10840B782EF9F0B5004553F0 /* Core */,
-				10840B7C2EF9F0B5004553F0 /* Providers */,
-				10840B802EF9F0B5004553F0 /* Semantic */,
+				AD72572F2F03242D006F8088 /* Components */,
+				AD7257332F03242D006F8088 /* Core */,
+				AD7257372F03242D006F8088 /* Providers */,
+				AD72573B2F03242D006F8088 /* Semantic */,
 			);
 			path = Tokens;
 			sourceTree = "<group>";
@@ -397,7 +399,8 @@
 			);
 			name = CameraEye;
 			packageProductDependencies = (
-				103A1A882EF71FA500D47E5D /* RiveRuntime */,
+				AD7257272F030F41006F8088 /* RiveRuntime */,
+				AD72572A2F030F70006F8088 /* RiveRuntime */,
 			);
 			productName = CameraEye;
 			productReference = 10FB00C62EEA62D700A65E91 /* CameraEye.app */;
@@ -428,7 +431,7 @@
 			);
 			mainGroup = A1000050230F0000;
 			packageReferences = (
-				103A1A872EF71FA500D47E5D /* XCLocalSwiftPackageReference "../../rive-ios" */,
+				AD7257292F030F70006F8088 /* XCLocalSwiftPackageReference "../rive-ios" */,
 			);
 			productRefGroup = A1000056230F0000 /* Products */;
 			projectDirPath = "";
@@ -480,20 +483,20 @@
 				10FB00E12EEA690C00A65E91 /* ProductListingPage.swift in Sources */,
 				10FB00E32EEA690C00A65E91 /* CustomFonts.swift in Sources */,
 				ADFC05D82EF349320048CE2C /* Morph_Menu.swift in Sources */,
-				10840B812EF9F0B5004553F0 /* ComponentsTokensProvider.swift in Sources */,
-				10840B822EF9F0B5004553F0 /* TokensCoreLight.swift in Sources */,
-				10840B832EF9F0B5004553F0 /* TokensCoreDark.swift in Sources */,
-				10840B842EF9F0B5004553F0 /* TokensSemanticTheme.swift in Sources */,
 				10A5A69D2F00F75F00DE4535 /* DSShadow.swift in Sources */,
-				10840B852EF9F0B5004553F0 /* TokensSemanticDark.swift in Sources */,
-				10840B862EF9F0B5004553F0 /* TokensComponentsDark.swift in Sources */,
-				10840B872EF9F0B5004553F0 /* SemanticTokensProvider.swift in Sources */,
-				10840B882EF9F0B5004553F0 /* TokensComponentsTheme.swift in Sources */,
 				10A5A5892F00247B00DE4535 /* DesignSystemVersion.swift in Sources */,
-				10840B892EF9F0B5004553F0 /* TokensComponentsLight.swift in Sources */,
-				10840B8A2EF9F0B5004553F0 /* TokensCoreTheme.swift in Sources */,
-				10840B8B2EF9F0B5004553F0 /* TokensSemanticLight.swift in Sources */,
-				10840B8C2EF9F0B5004553F0 /* CoreTokensProvider.swift in Sources */,
+				AD72573C2F03242D006F8088 /* TokensComponentsDark.swift in Sources */,
+				AD72573D2F03242D006F8088 /* CoreTokensProvider.swift in Sources */,
+				AD72573E2F03242D006F8088 /* TokensCoreLight.swift in Sources */,
+				AD72573F2F03242D006F8088 /* TokensComponentsTheme.swift in Sources */,
+				AD7257402F03242D006F8088 /* TokensComponentsLight.swift in Sources */,
+				AD7257412F03242D006F8088 /* ComponentsTokensProvider.swift in Sources */,
+				AD7257422F03242D006F8088 /* TokensCoreDark.swift in Sources */,
+				AD7257432F03242D006F8088 /* SemanticTokensProvider.swift in Sources */,
+				AD7257442F03242D006F8088 /* TokensCoreTheme.swift in Sources */,
+				AD7257452F03242D006F8088 /* TokensSemanticDark.swift in Sources */,
+				AD7257462F03242D006F8088 /* TokensSemanticTheme.swift in Sources */,
+				AD7257472F03242D006F8088 /* TokensSemanticLight.swift in Sources */,
 				ADFC05DA2EF35ABC0048CE2C /* ShopNavigation.swift in Sources */,
 				103A1A8B2EF7212B00D47E5D /* SplashScreenView.swift in Sources */,
 				AD1E8C9B2EF492B300C3EAA6 /* ComponentCatalogView.swift in Sources */,
@@ -751,14 +754,18 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		103A1A872EF71FA500D47E5D /* XCLocalSwiftPackageReference "../../rive-ios" */ = {
+		AD7257292F030F70006F8088 /* XCLocalSwiftPackageReference "../rive-ios" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../rive-ios";
+			relativePath = "../rive-ios";
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		103A1A882EF71FA500D47E5D /* RiveRuntime */ = {
+		AD7257272F030F41006F8088 /* RiveRuntime */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RiveRuntime;
+		};
+		AD72572A2F030F70006F8088 /* RiveRuntime */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RiveRuntime;
 		};

@@ -114,33 +114,61 @@ public struct DSImageContainer: View {
     ///   - url: The URL to load the image from.
     ///   - size: The size of the container.
     ///   - contentMode: How the image should be scaled. Defaults to `.fill`.
-    ///   - placeholder: Optional placeholder view while loading.
     public init(
         url: URL?,
         size: DSImageContainerSize,
-        contentMode: ContentMode = .fill,
-        placeholder: (() -> some View)? = nil
+        contentMode: ContentMode = .fill
     ) {
         self.url = url
         self.size = size
         self.contentMode = contentMode
         self.image = nil
-        self.placeholder = placeholder.map { AnyView($0()) }
+        self.placeholder = nil
+    }
+
+    /// Creates an image container with a URL for async loading and a custom placeholder.
+    /// - Parameters:
+    ///   - url: The URL to load the image from.
+    ///   - size: The size of the container.
+    ///   - contentMode: How the image should be scaled. Defaults to `.fill`.
+    ///   - placeholder: Placeholder view while loading.
+    public init<Placeholder: View>(
+        url: URL?,
+        size: DSImageContainerSize,
+        contentMode: ContentMode = .fill,
+        @ViewBuilder placeholder: () -> Placeholder
+    ) {
+        self.url = url
+        self.size = size
+        self.contentMode = contentMode
+        self.image = nil
+        self.placeholder = AnyView(placeholder())
     }
 
     /// Creates an empty image container (placeholder only).
     /// - Parameters:
     ///   - size: The size of the container.
-    ///   - placeholder: Optional placeholder view.
-    public init(
+    public init(size: DSImageContainerSize) {
+        self.size = size
+        self.image = nil
+        self.url = nil
+        self.contentMode = .fill
+        self.placeholder = nil
+    }
+
+    /// Creates an empty image container with a custom placeholder.
+    /// - Parameters:
+    ///   - size: The size of the container.
+    ///   - placeholder: Custom placeholder view.
+    public init<Placeholder: View>(
         size: DSImageContainerSize,
-        placeholder: (() -> some View)? = nil
+        @ViewBuilder placeholder: () -> Placeholder
     ) {
         self.size = size
         self.image = nil
         self.url = nil
         self.contentMode = .fill
-        self.placeholder = placeholder.map { AnyView($0()) }
+        self.placeholder = AnyView(placeholder())
     }
 
     // MARK: - Body

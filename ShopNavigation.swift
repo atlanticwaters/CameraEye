@@ -64,14 +64,15 @@ enum ShopDepartment: String, CaseIterable, Identifiable {
         switch self {
         case .appliances:
             return [
-                ShopSubcategory(name: "Refrigerators", icon: "refrigerator", plpCategory: .refrigerators),
+                ShopSubcategory(
+                    name: "Refrigerators", icon: "refrigerator", plpCategory: .refrigerators),
                 ShopSubcategory(name: "Dishwashers", icon: "dishwasher", plpCategory: .dishwashers),
                 ShopSubcategory(name: "Washers", icon: "washer", plpCategory: .washingMachines),
                 ShopSubcategory(name: "Dryers", icon: "dryer", plpCategory: .dryers),
                 ShopSubcategory(name: "Ranges", icon: "stove", plpCategory: .ranges),
                 ShopSubcategory(name: "Microwaves", icon: "microwave", plpCategory: nil),
                 ShopSubcategory(name: "Freezers", icon: "snowflake", plpCategory: nil),
-                ShopSubcategory(name: "Range Hoods", icon: "wind", plpCategory: nil)
+                ShopSubcategory(name: "Range Hoods", icon: "wind", plpCategory: nil),
             ]
         case .bath:
             return [
@@ -80,18 +81,19 @@ enum ShopDepartment: String, CaseIterable, Identifiable {
                 ShopSubcategory(name: "Showers", icon: "shower", plpCategory: nil),
                 ShopSubcategory(name: "Bathtubs", icon: "bathtub", plpCategory: nil),
                 ShopSubcategory(name: "Bathroom Faucets", icon: "drop", plpCategory: nil),
-                ShopSubcategory(name: "Bathroom Storage", icon: "cabinet.fill", plpCategory: nil)
+                ShopSubcategory(name: "Bathroom Storage", icon: "cabinet.fill", plpCategory: nil),
             ]
         case .tools:
             return [
-                ShopSubcategory(name: "Power Drills", icon: "screwdriver", plpCategory: .powerDrills),
+                ShopSubcategory(
+                    name: "Power Drills", icon: "screwdriver", plpCategory: .powerDrills),
                 ShopSubcategory(name: "Power Saws", icon: "triangle", plpCategory: .powerSaws),
                 ShopSubcategory(name: "Sanders", icon: "circle.dotted", plpCategory: .sanders),
                 ShopSubcategory(name: "Impact Drivers", icon: "bolt.circle", plpCategory: nil),
                 ShopSubcategory(name: "Combo Kits", icon: "cube.box", plpCategory: nil),
                 ShopSubcategory(name: "Hand Tools", icon: "hammer", plpCategory: nil),
                 ShopSubcategory(name: "Tool Storage", icon: "archivebox", plpCategory: nil),
-                ShopSubcategory(name: "Air Tools", icon: "wind", plpCategory: nil)
+                ShopSubcategory(name: "Air Tools", icon: "wind", plpCategory: nil),
             ]
         case .kitchen:
             return [
@@ -99,31 +101,36 @@ enum ShopDepartment: String, CaseIterable, Identifiable {
                 ShopSubcategory(name: "Kitchen Countertops", icon: "rectangle", plpCategory: nil),
                 ShopSubcategory(name: "Kitchen Faucets", icon: "drop", plpCategory: nil),
                 ShopSubcategory(name: "Kitchen Sinks", icon: "sink", plpCategory: nil),
-                ShopSubcategory(name: "Kitchen Islands", icon: "square.grid.2x2", plpCategory: nil)
+                ShopSubcategory(name: "Kitchen Islands", icon: "square.grid.2x2", plpCategory: nil),
             ]
         case .flooring:
             return [
                 ShopSubcategory(name: "Vinyl Flooring", icon: "square.grid.3x3", plpCategory: nil),
-                ShopSubcategory(name: "Hardwood Flooring", icon: "rectangle.split.3x3", plpCategory: nil),
-                ShopSubcategory(name: "Laminate Flooring", icon: "square.split.diagonal", plpCategory: nil),
-                ShopSubcategory(name: "Tile Flooring", icon: "square.grid.3x3.topleft.filled", plpCategory: nil),
-                ShopSubcategory(name: "Carpet", icon: "square.dashed", plpCategory: nil)
+                ShopSubcategory(
+                    name: "Hardwood Flooring", icon: "rectangle.split.3x3", plpCategory: nil),
+                ShopSubcategory(
+                    name: "Laminate Flooring", icon: "square.split.diagonal", plpCategory: nil),
+                ShopSubcategory(
+                    name: "Tile Flooring", icon: "square.grid.3x3.topleft.filled", plpCategory: nil),
+                ShopSubcategory(name: "Carpet", icon: "square.dashed", plpCategory: nil),
             ]
         case .lighting:
             return [
                 ShopSubcategory(name: "Ceiling Fans", icon: "fan.ceiling", plpCategory: nil),
                 ShopSubcategory(name: "Chandeliers", icon: "lightbulb.led", plpCategory: nil),
-                ShopSubcategory(name: "Pendant Lights", icon: "light.overhead.left", plpCategory: nil),
+                ShopSubcategory(
+                    name: "Pendant Lights", icon: "light.overhead.left", plpCategory: nil),
                 ShopSubcategory(name: "Outdoor Lighting", icon: "sun.max", plpCategory: nil),
-                ShopSubcategory(name: "LED Bulbs", icon: "lightbulb", plpCategory: nil)
+                ShopSubcategory(name: "LED Bulbs", icon: "lightbulb", plpCategory: nil),
             ]
         case .outdoors:
             return [
                 ShopSubcategory(name: "Patio Furniture", icon: "chair.lounge", plpCategory: nil),
                 ShopSubcategory(name: "Grills", icon: "flame", plpCategory: nil),
                 ShopSubcategory(name: "Lawn Mowers", icon: "leaf", plpCategory: nil),
-                ShopSubcategory(name: "Outdoor Power Equipment", icon: "bolt.batteryblock", plpCategory: nil),
-                ShopSubcategory(name: "Outdoor Storage", icon: "shippingbox", plpCategory: nil)
+                ShopSubcategory(
+                    name: "Outdoor Power Equipment", icon: "bolt.batteryblock", plpCategory: nil),
+                ShopSubcategory(name: "Outdoor Storage", icon: "shippingbox", plpCategory: nil),
             ]
         case .paint:
             return [
@@ -131,22 +138,23 @@ enum ShopDepartment: String, CaseIterable, Identifiable {
                 ShopSubcategory(name: "Exterior Paint", icon: "paintbrush.fill", plpCategory: nil),
                 ShopSubcategory(name: "Paint Sprayers", icon: "humidity", plpCategory: nil),
                 ShopSubcategory(name: "Stains & Finishes", icon: "drop.halffull", plpCategory: nil),
-                ShopSubcategory(name: "Paint Supplies", icon: "paintpalette", plpCategory: nil)
+                ShopSubcategory(name: "Paint Supplies", icon: "paintpalette", plpCategory: nil),
             ]
         case .electrical:
             return [
-                ShopSubcategory(name: "Outlets & Switches", icon: "poweroutlet.type.b", plpCategory: nil),
+                ShopSubcategory(
+                    name: "Outlets & Switches", icon: "poweroutlet.type.b", plpCategory: nil),
                 ShopSubcategory(name: "Wire & Cable", icon: "cable.connector", plpCategory: nil),
                 ShopSubcategory(name: "Circuit Breakers", icon: "switch.2", plpCategory: nil),
                 ShopSubcategory(name: "Electrical Boxes", icon: "square.dashed", plpCategory: nil),
-                ShopSubcategory(name: "Generators", icon: "bolt.square", plpCategory: nil)
+                ShopSubcategory(name: "Generators", icon: "bolt.square", plpCategory: nil),
             ]
         case .plumbing:
             return [
                 ShopSubcategory(name: "Pipes & Fittings", icon: "pipe.and.drop", plpCategory: nil),
                 ShopSubcategory(name: "Water Heaters", icon: "flame", plpCategory: nil),
                 ShopSubcategory(name: "Water Filtration", icon: "drop.triangle", plpCategory: nil),
-                ShopSubcategory(name: "Sump Pumps", icon: "drop.degreesign", plpCategory: nil)
+                ShopSubcategory(name: "Sump Pumps", icon: "drop.degreesign", plpCategory: nil),
             ]
         case .smartHome:
             return [
@@ -154,7 +162,7 @@ enum ShopDepartment: String, CaseIterable, Identifiable {
                 ShopSubcategory(name: "Smart Lighting", icon: "lightbulb", plpCategory: nil),
                 ShopSubcategory(name: "Smart Locks", icon: "lock", plpCategory: nil),
                 ShopSubcategory(name: "Security Cameras", icon: "video", plpCategory: nil),
-                ShopSubcategory(name: "Smart Speakers", icon: "homepodmini", plpCategory: nil)
+                ShopSubcategory(name: "Smart Speakers", icon: "homepodmini", plpCategory: nil),
             ]
         default:
             return []
@@ -176,17 +184,17 @@ struct ShopSubcategory: Identifiable {
 
 /// State machine for shop menu transitions
 enum ShopMenuState: Equatable {
-    case collapsed           // Menu button only
-    case departments         // Full department list visible
+    case collapsed  // Menu button only
+    case departments  // Full department list visible
     case subcategories(ShopDepartment)  // Subcategories for selected department
-    case plp(PLPCategory)    // Full PLP view
+    case plp(PLPCategory)  // Full PLP view
 
     static func == (lhs: ShopMenuState, rhs: ShopMenuState) -> Bool {
         switch (lhs, rhs) {
         case (.collapsed, .collapsed): return true
         case (.departments, .departments): return true
-        case let (.subcategories(l), .subcategories(r)): return l == r
-        case let (.plp(l), .plp(r)): return l.title == r.title
+        case (.subcategories(let l), .subcategories(let r)): return l == r
+        case (.plp(let l), .plp(let r)): return l.title == r.title
         default: return false
         }
     }
@@ -205,12 +213,12 @@ struct MorphingShopMenu: View {
     @Namespace private var morphNamespace
 
     // MARK: - Sizing from Design System
-    private let buttonSize = DS.Spacing11          // 44pt
-    private let iconSize = DS.FontSizeBodyXl       // 20pt
-    private let menuItemHeight = DS.Spacing11      // 44pt
-    private let containerSpacing = DS.Spacing2     // 8pt
-    private let horizontalPadding = DS.Spacing4    // 16pt
-    private let verticalPadding = DS.Spacing3      // 12pt
+    private let buttonSize = DS.Spacing11  // 44pt
+    private let iconSize = DS.FontSizeBodyXl  // 20pt
+    private let menuItemHeight = DS.Spacing11  // 44pt
+    private let containerSpacing = DS.Spacing2  // 8pt
+    private let horizontalPadding = DS.Spacing4  // 16pt
+    private let verticalPadding = DS.Spacing3  // 12pt
 
     // MARK: - Colors
     private let primaryColor = DS.TextOnSurfaceColorPrimary
@@ -450,20 +458,22 @@ struct MorphingShopMenu: View {
 
         case .departments:
             departmentsList
-                .transition(.asymmetric(
-                    insertion: .move(edge: .top).combined(with: .opacity),
-                    removal: .opacity
-                ))
+                .transition(
+                    .asymmetric(
+                        insertion: .move(edge: .top).combined(with: .opacity),
+                        removal: .opacity
+                    ))
 
         case .subcategories(let department):
             subcategoriesList(for: department)
-                .transition(.asymmetric(
-                    insertion: .move(edge: .trailing).combined(with: .opacity),
-                    removal: .move(edge: .leading).combined(with: .opacity)
-                ))
+                .transition(
+                    .asymmetric(
+                        insertion: .move(edge: .trailing).combined(with: .opacity),
+                        removal: .move(edge: .leading).combined(with: .opacity)
+                    ))
 
         case .plp:
-            EmptyView() // PLP content is handled externally
+            EmptyView()  // PLP content is handled externally
         }
     }
 
@@ -494,20 +504,18 @@ struct MorphingShopMenu: View {
 
     private func departmentRow(_ department: ShopDepartment) -> some View {
         DSMenuItem(
-            style: .ghost,
-            media: .icon(
-                Image(systemName: department.icon)
-                    .font(.system(size: iconSize, weight: .medium))
-                    .foregroundStyle(accentColor)
-            ),
             title: department.rawValue,
-            showChevron: !department.subcategories.isEmpty
-        ) {
-            selectedDepartment = department
-            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                menuState = .subcategories(department)
+            leadingIcon: Image(systemName: department.icon),
+            trailingIcon: department.subcategories.isEmpty
+                ? nil : Image(systemName: "chevron.right"),
+            style: .ghost,
+            onTap: {
+                selectedDepartment = department
+                withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                    menuState = .subcategories(department)
+                }
             }
-        }
+        )
     }
 
     // MARK: - Subcategories List
@@ -569,21 +577,18 @@ struct MorphingShopMenu: View {
         Group {
             if subcategory.plpCategory != nil {
                 DSMenuItem(
-                    style: .ghost,
-                    media: .icon(
-                        Image(systemName: subcategory.icon)
-                            .font(.system(size: iconSize, weight: .medium))
-                            .foregroundStyle(accentColor)
-                    ),
                     title: subcategory.name,
-                    showChevron: true
-                ) {
-                    if let plpCategory = subcategory.plpCategory {
-                        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                            menuState = .plp(plpCategory)
+                    leadingIcon: Image(systemName: subcategory.icon),
+                    trailingIcon: Image(systemName: "chevron.right"),
+                    style: .ghost,
+                    onTap: {
+                        if let plpCategory = subcategory.plpCategory {
+                            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                                menuState = .plp(plpCategory)
+                            }
                         }
                     }
-                }
+                )
             } else {
                 // Inactive subcategory - using custom view since DSMenuItem doesn't have inactive state
                 HStack(spacing: DS.Spacing3) {
@@ -646,10 +651,11 @@ struct ShopView: View {
         case .plp(let category):
             // Show full PLP
             PLPView(category: category)
-                .transition(.asymmetric(
-                    insertion: .move(edge: .bottom).combined(with: .opacity),
-                    removal: .opacity
-                ))
+                .transition(
+                    .asymmetric(
+                        insertion: .move(edge: .bottom).combined(with: .opacity),
+                        removal: .opacity
+                    ))
         }
     }
 
@@ -665,7 +671,10 @@ struct ShopView: View {
                         AnyView(
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack(spacing: DS.Spacing3) {
-                                    ForEach([ShopDepartment.appliances, .tools, .outdoors, .lighting], id: \.self) { dept in
+                                    ForEach(
+                                        [ShopDepartment.appliances, .tools, .outdoors, .lighting],
+                                        id: \.self
+                                    ) { dept in
                                         featuredCategoryTile(dept)
                                     }
                                 }
@@ -721,10 +730,9 @@ struct ShopView: View {
     // MARK: - Featured Category Tile using DSTile
     private func featuredCategoryTile(_ department: ShopDepartment) -> some View {
         DSTile(
-            department.rawValue,
-            variant: .filled,
-            size: .regular,
-            image: Image(systemName: department.icon)
+            image: Image(systemName: department.icon),
+            label: department.rawValue,
+            variant: .filled
         ) {
             withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
                 menuState = .subcategories(department)
@@ -733,22 +741,21 @@ struct ShopView: View {
     }
 
     // MARK: - PLP Quick Access using DSMenuItem
-    private func plpQuickAccessMenuItem(title: String, subtitle: String, icon: String, category: PLPCategory) -> some View {
+    private func plpQuickAccessMenuItem(
+        title: String, subtitle: String, icon: String, category: PLPCategory
+    ) -> some View {
         DSMenuItem(
-            style: .outline,
-            media: .icon(
-                Image(systemName: icon)
-                    .font(.system(size: 20, weight: .medium))
-                    .foregroundStyle(DS.Brand300)
-            ),
             title: title,
             subtitle: subtitle,
-            showChevron: true
-        ) {
-            withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                menuState = .plp(category)
+            leadingIcon: Image(systemName: icon),
+            trailingIcon: Image(systemName: "chevron.right"),
+            style: .outline,
+            onTap: {
+                withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                    menuState = .plp(category)
+                }
             }
-        }
+        )
     }
 }
 
@@ -770,10 +777,10 @@ struct ShopNavigationView: View {
     @Namespace private var navigationNamespace
 
     // MARK: - Sizing from Design System
-    private let horizontalPadding = DS.Spacing4    // 16pt
-    private let verticalPadding = DS.Spacing3      // 12pt
-    private let itemSpacing = DS.Spacing2          // 8pt
-    private let sectionSpacing = DS.Spacing6       // 24pt
+    private let horizontalPadding = DS.Spacing4  // 16pt
+    private let verticalPadding = DS.Spacing3  // 12pt
+    private let itemSpacing = DS.Spacing2  // 8pt
+    private let sectionSpacing = DS.Spacing6  // 24pt
 
     // MARK: - Colors
     private let primaryColor = DS.TextOnSurfaceColorPrimary
@@ -1003,10 +1010,11 @@ struct ShopNavigationView: View {
         }
         .scrollEdgeEffectStyle(.soft, for: .top)
         .scrollEdgeEffectStyle(.soft, for: .bottom)
-        .transition(.asymmetric(
-            insertion: .move(edge: .trailing),
-            removal: .move(edge: .trailing)
-        ))
+        .transition(
+            .asymmetric(
+                insertion: .move(edge: .trailing),
+                removal: .move(edge: .trailing)
+            ))
     }
 
     // MARK: - Subcategory Row

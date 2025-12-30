@@ -1521,3 +1521,83 @@ enum PLPViewMode {
 #Preview("PLP - Tool Chests") {
     PLPView(category: .toolChests)
 }
+
+// MARK: - DSProductCard Stub (Temporary)
+
+/// Temporary stub for DSProductCard until the full component is implemented
+struct DSProductCard: View {
+    let imageURL: URL?
+    let showExclusiveBadge: Bool
+    let showDeliveryBadge: Bool
+    let showSponsoredTag: Bool
+    let swatches: [Color]
+    let additionalSwatchCount: Int?
+    let brand: String?
+    let title: String
+    let modelNumber: String?
+    let priceText: String
+    let rating: Double?
+    let ratingCount: Int?
+    let pickupInfo: String?
+    let deliveryInfo: String?
+    let buttonVariant: DSPodButtonSetVariant
+    let onAddToCart: () -> Void
+    let onAddToList: () -> Void
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            // Image placeholder
+            Rectangle()
+                .fill(Color.gray.opacity(0.2))
+                .aspectRatio(1, contentMode: .fit)
+                .overlay(
+                    Text("Product Image")
+                        .foregroundColor(.secondary)
+                )
+            
+            // Product info
+            VStack(alignment: .leading, spacing: 4) {
+                if let brand = brand {
+                    Text(brand)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                
+                Text(title)
+                    .font(.subheadline)
+                    .lineLimit(2)
+                
+                Text(priceText)
+                    .font(.headline)
+                    .foregroundColor(Color.brandPrimary)
+            }
+            
+            // Buttons
+            HStack {
+                Button(action: onAddToCart) {
+                    Text("Add to Cart")
+                        .font(.caption)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(Color.brandPrimary)
+                        .foregroundColor(.white)
+                        .cornerRadius(4)
+                }
+                
+                Button(action: onAddToList) {
+                    Image(systemName: "heart")
+                        .foregroundColor(Color.brandPrimary)
+                }
+            }
+        }
+        .padding(8)
+        .background(Color.white)
+        .cornerRadius(8)
+        .shadow(radius: 2)
+    }
+}
+
+enum DSPodButtonSetVariant {
+    case b2c
+    case b2b
+}

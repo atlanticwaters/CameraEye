@@ -122,7 +122,7 @@ public struct DSAccordion<Content: View>: View {
             headerView
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    withAnimation(DSAnimation.expand) {
+                    withAnimation(DSAnimation.spring) {
                         isExpanded.toggle()
                     }
                 }
@@ -186,7 +186,7 @@ public struct DSAccordion<Content: View>: View {
                 .frame(width: 16, height: 9)
                 .foregroundColor(iconColor)
                 .rotationEffect(.degrees(isExpanded ? 180 : 0))
-                .animation(DSAnimation.expand, value: isExpanded)
+                .animation(DSAnimation.spring, value: isExpanded)
         }
         .padding(headerPadding)
         .frame(minHeight: 44)

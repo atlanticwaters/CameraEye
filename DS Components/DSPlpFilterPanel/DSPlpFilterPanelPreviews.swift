@@ -3,90 +3,86 @@ import SwiftUI
 // MARK: - Previews
 
 #Preview("Full Filter Panel") {
-    DSPLPFilterPanel(
-        data: DSPLPFilterPanelData(
-            categoryTitle: "REFRIGERATOR",
-            categoryPills: [
-                DSPLPCategoryPill(label: "French Door Refrigerators"),
-                DSPLPCategoryPill(label: "Side by Side Refrigerators"),
-                DSPLPCategoryPill(label: "Top Freezer Refrigerators"),
-                DSPLPCategoryPill(label: "Bottom Freezer Refrigerators"),
-                DSPLPCategoryPill(label: "Freezerless Refrigerators"),
-                DSPLPCategoryPill(label: "Mini Fridges")
-            ],
-            resultsCount: 102,
-            primaryFilters: [
-                DSPLPFilterPill(label: "Brand", hasDropdown: true),
-                DSPLPFilterPill(label: "Price", hasDropdown: true),
-                DSPLPFilterPill(label: "Size", hasDropdown: true),
-                DSPLPFilterPill(label: "Color", hasDropdown: true),
-                DSPLPFilterPill(label: "Features", hasDropdown: true),
-                DSPLPFilterPill(label: "Rating", hasDropdown: true),
-                DSPLPFilterPill(label: "Availability", hasDropdown: true)
-            ],
-            secondaryFilters: [
-                DSPLPFilterPill(label: "In Stock", isSelected: true),
-                DSPLPFilterPill(label: "Free Delivery"),
-                DSPLPFilterPill(label: "On Sale"),
-                DSPLPFilterPill(label: "Top Rated"),
-                DSPLPFilterPill(label: "Energy Star"),
-                DSPLPFilterPill(label: "Smart Home")
-            ]
-        ),
-        selectedCategoryId: nil,
-        onCategoryPillTap: { pill in print("Category: \(pill.label)") },
-        onPrimaryFilterTap: { filter in print("Primary: \(filter.label)") },
-        onSecondaryFilterTap: { filter in print("Secondary: \(filter.label)") }
+    DSPlpFilterPanel(
+        title: "REFRIGERATOR",
+        stylePills: [
+            DSStylePillItem(text: "French Door\nRefrigerators"),
+            DSStylePillItem(text: "Side by Side\nRefrigerators"),
+            DSStylePillItem(text: "Top Freezer\nRefrigerators"),
+            DSStylePillItem(text: "Bottom Freezer\nRefrigerators"),
+            DSStylePillItem(text: "Freezerless\nRefrigerators"),
+            DSStylePillItem(text: "Mini Fridges")
+        ],
+        resultsCount: "102 RESULTS",
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Price"),
+            DSFilterPillItem(text: "Size"),
+            DSFilterPillItem(text: "Color"),
+            DSFilterPillItem(text: "Features"),
+            DSFilterPillItem(text: "Rating"),
+            DSFilterPillItem(text: "Availability")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock"),
+            DSFilterPillItem(text: "Free Delivery"),
+            DSFilterPillItem(text: "On Sale"),
+            DSFilterPillItem(text: "Top Rated"),
+            DSFilterPillItem(text: "Energy Star"),
+            DSFilterPillItem(text: "Smart Home")
+        ],
+        onStylePillTap: { item in print("Style: \(item.text)") },
+        onFilterPillTap: { item in print("Filter: \(item.text)") },
+        onSubFilterPillTap: { item in print("Sub-filter: \(item.text)") }
     )
     .padding()
 }
 
 #Preview("Power Tools") {
-    DSPLPFilterPanel(
-        data: DSPLPFilterPanelData(
-            categoryTitle: "POWER TOOLS",
-            categoryPills: [
-                DSPLPCategoryPill(label: "Drills"),
-                DSPLPCategoryPill(label: "Saws"),
-                DSPLPCategoryPill(label: "Sanders"),
-                DSPLPCategoryPill(label: "Grinders"),
-                DSPLPCategoryPill(label: "Routers")
-            ],
-            resultsCount: 458,
-            primaryFilters: [
-                DSPLPFilterPill(label: "Brand", hasDropdown: true),
-                DSPLPFilterPill(label: "Voltage", hasDropdown: true),
-                DSPLPFilterPill(label: "Price", hasDropdown: true),
-                DSPLPFilterPill(label: "Type", hasDropdown: true)
-            ],
-            secondaryFilters: [
-                DSPLPFilterPill(label: "Cordless"),
-                DSPLPFilterPill(label: "DEWALT", isSelected: true),
-                DSPLPFilterPill(label: "Milwaukee"),
-                DSPLPFilterPill(label: "Ryobi")
-            ]
-        ),
-        onCategoryPillTap: { _ in },
-        onPrimaryFilterTap: { _ in },
-        onSecondaryFilterTap: { _ in }
+    DSPlpFilterPanel(
+        title: "POWER TOOLS",
+        stylePills: [
+            DSStylePillItem(text: "Drills"),
+            DSStylePillItem(text: "Saws"),
+            DSStylePillItem(text: "Sanders"),
+            DSStylePillItem(text: "Grinders"),
+            DSStylePillItem(text: "Routers")
+        ],
+        resultsCount: "458 RESULTS",
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Voltage"),
+            DSFilterPillItem(text: "Price"),
+            DSFilterPillItem(text: "Type")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "Cordless"),
+            DSFilterPillItem(text: "DEWALT"),
+            DSFilterPillItem(text: "Milwaukee"),
+            DSFilterPillItem(text: "Ryobi")
+        ],
+        onStylePillTap: { _ in },
+        onFilterPillTap: { _ in },
+        onSubFilterPillTap: { _ in }
     )
     .padding()
 }
 
 #Preview("Minimal - No Categories") {
-    DSPLPFilterPanel(
-        data: DSPLPFilterPanelData(
-            categoryTitle: "PAINT",
-            categoryPills: [],
-            resultsCount: 234,
-            primaryFilters: [
-                DSPLPFilterPill(label: "Color Family", hasDropdown: true),
-                DSPLPFilterPill(label: "Brand", hasDropdown: true),
-                DSPLPFilterPill(label: "Finish", hasDropdown: true)
-            ],
-            secondaryFilters: []
-        ),
-        onPrimaryFilterTap: { _ in }
+    DSPlpFilterPanel(
+        title: "PAINT",
+        stylePills: [],
+        resultsCount: "234 RESULTS",
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Color Family"),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Finish")
+        ],
+        subFilterPills: [],
+        onFilterPillTap: { _ in }
     )
     .padding()
 }
@@ -94,87 +90,83 @@ import SwiftUI
 #Preview("Selected Category") {
     let firstCategoryId = "category-1"
 
-    return DSPLPFilterPanel(
-        data: DSPLPFilterPanelData(
-            categoryTitle: "FLOORING",
-            categoryPills: [
-                DSPLPCategoryPill(id: firstCategoryId, label: "Hardwood"),
-                DSPLPCategoryPill(label: "Laminate"),
-                DSPLPCategoryPill(label: "Vinyl"),
-                DSPLPCategoryPill(label: "Tile"),
-                DSPLPCategoryPill(label: "Carpet")
-            ],
-            resultsCount: 567,
-            primaryFilters: [
-                DSPLPFilterPill(label: "Species", hasDropdown: true),
-                DSPLPFilterPill(label: "Width", hasDropdown: true),
-                DSPLPFilterPill(label: "Color", hasDropdown: true)
-            ],
-            secondaryFilters: [
-                DSPLPFilterPill(label: "Water Resistant", isSelected: true),
-                DSPLPFilterPill(label: "Scratch Resistant")
-            ]
-        ),
-        selectedCategoryId: firstCategoryId,
-        onCategoryPillTap: { _ in },
-        onPrimaryFilterTap: { _ in },
-        onSecondaryFilterTap: { _ in }
+    return DSPlpFilterPanel(
+        title: "FLOORING",
+        stylePills: [
+            DSStylePillItem(id: firstCategoryId, text: "Hardwood"),
+            DSStylePillItem(text: "Laminate"),
+            DSStylePillItem(text: "Vinyl"),
+            DSStylePillItem(text: "Tile"),
+            DSStylePillItem(text: "Carpet")
+        ],
+        resultsCount: "567 RESULTS",
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Species"),
+            DSFilterPillItem(text: "Width"),
+            DSFilterPillItem(text: "Color")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "Water Resistant"),
+            DSFilterPillItem(text: "Scratch Resistant")
+        ],
+        onStylePillTap: { _ in },
+        onFilterPillTap: { _ in },
+        onSubFilterPillTap: { _ in }
     )
     .padding()
 }
 
 #Preview("Filters Only") {
-    DSPLPFilterPanel(
-        data: DSPLPFilterPanelData(
-            categoryTitle: "SEARCH RESULTS",
-            categoryPills: [],
-            resultsCount: 1234,
-            primaryFilters: [
-                DSPLPFilterPill(label: "Department", hasDropdown: true),
-                DSPLPFilterPill(label: "Brand", hasDropdown: true),
-                DSPLPFilterPill(label: "Price", hasDropdown: true),
-                DSPLPFilterPill(label: "Rating", hasDropdown: true)
-            ],
-            secondaryFilters: [
-                DSPLPFilterPill(label: "In Stock"),
-                DSPLPFilterPill(label: "Free Shipping"),
-                DSPLPFilterPill(label: "On Sale"),
-                DSPLPFilterPill(label: "New Arrivals")
-            ]
-        ),
-        onPrimaryFilterTap: { _ in },
-        onSecondaryFilterTap: { _ in }
+    DSPlpFilterPanel(
+        title: "SEARCH RESULTS",
+        stylePills: [],
+        resultsCount: "1,234 RESULTS",
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Department"),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Price"),
+            DSFilterPillItem(text: "Rating")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock"),
+            DSFilterPillItem(text: "Free Shipping"),
+            DSFilterPillItem(text: "On Sale"),
+            DSFilterPillItem(text: "New Arrivals")
+        ],
+        onFilterPillTap: { _ in },
+        onSubFilterPillTap: { _ in }
     )
     .padding()
 }
 
 #Preview("With Active Filters") {
-    DSPLPFilterPanel(
-        data: DSPLPFilterPanelData(
-            categoryTitle: "APPLIANCES",
-            categoryPills: [
-                DSPLPCategoryPill(label: "Refrigerators"),
-                DSPLPCategoryPill(label: "Ranges"),
-                DSPLPCategoryPill(label: "Dishwashers"),
-                DSPLPCategoryPill(label: "Washers & Dryers")
-            ],
-            resultsCount: 45,
-            primaryFilters: [
-                DSPLPFilterPill(label: "LG", isSelected: true),
-                DSPLPFilterPill(label: "$1000-$2000", isSelected: true),
-                DSPLPFilterPill(label: "Brand", hasDropdown: true),
-                DSPLPFilterPill(label: "Price", hasDropdown: true)
-            ],
-            secondaryFilters: [
-                DSPLPFilterPill(label: "Energy Star", isSelected: true),
-                DSPLPFilterPill(label: "In Stock", isSelected: true),
-                DSPLPFilterPill(label: "Smart Home"),
-                DSPLPFilterPill(label: "Counter Depth")
-            ]
-        ),
-        onCategoryPillTap: { _ in },
-        onPrimaryFilterTap: { _ in },
-        onSecondaryFilterTap: { _ in }
+    DSPlpFilterPanel(
+        title: "APPLIANCES",
+        stylePills: [
+            DSStylePillItem(text: "Refrigerators"),
+            DSStylePillItem(text: "Ranges"),
+            DSStylePillItem(text: "Dishwashers"),
+            DSStylePillItem(text: "Washers &\nDryers")
+        ],
+        resultsCount: "45 RESULTS",
+        filterPills: [
+            DSFilterPillItem(text: "LG"),
+            DSFilterPillItem(text: "$1000-$2000"),
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Price")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "Energy Star"),
+            DSFilterPillItem(text: "In Stock"),
+            DSFilterPillItem(text: "Smart Home"),
+            DSFilterPillItem(text: "Counter Depth")
+        ],
+        onStylePillTap: { _ in },
+        onFilterPillTap: { _ in },
+        onSubFilterPillTap: { _ in }
     )
     .padding()
 }

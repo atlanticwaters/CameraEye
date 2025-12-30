@@ -116,7 +116,7 @@ public struct DSPIPStoreInfo: Equatable, Sendable {
     public let aisleLocation: String?
     public let storeName: String?
 
-    public enum StockStatus: Sendable {
+    public enum StockStatus: Equatable, Sendable {
         case inStock(quantity: Int?)
         case limitedStock
         case outOfStock
@@ -361,27 +361,31 @@ public struct DSPIPZoneA: View {
 
     @ViewBuilder
     private var imageSection: some View {
-        VStack(spacing: 8) {
-            if images.isEmpty {
-                DSImageContainer(size: .xxLarge)
-                    .frame(maxWidth: .infinity)
-            } else {
-                TabView(selection: $selectedImageIndex) {
-                    ForEach(Array(images.enumerated()), id: \.element.id) { index, image in
-                        if let img = image.image {
-                            img
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .tag(index)
-                        } else {
-                            DSImageContainer(size: .xxLarge)
-                                .tag(index)
-                        }
-                    }
-                }
-                .tabViewStyle(.page(indexDisplayMode: .automatic))
+        if images.isEmpty {
+            DSImageContainer(size: .xxLarge)
+                .frame(maxWidth: .infinity)
                 .frame(height: 300)
+        } else {
+            TabView(selection: $selectedImageIndex) {
+                ForEach(0..<images.count, id: \.self) { index in
+                    imageView(for: images[index])
+                        .tag(index)
+                }
             }
+            .tabViewStyle(.page(indexDisplayMode: .automatic))
+            .frame(height: 300)
+        }
+    }
+
+    @ViewBuilder
+    private func imageView(for image: DSGalleryImage) -> some View {
+        if let img = image.image {
+            img
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        } else {
+            DSImageContainer(size: .xxLarge)
+                .frame(maxWidth: .infinity)
         }
     }
 
@@ -729,7 +733,9 @@ public struct DSPIPZoneA: View {
                         .cornerRadius(8)
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
-                                .stroke(DSPIPZoneAColorHelper.secondaryButtonBorderColor(), lineWidth: 1)
+                                .stroke(
+                                    DSPIPZoneAColorHelper.secondaryButtonBorderColor(), lineWidth: 1
+                                )
                         )
                 }
                 .buttonStyle(.plain)
@@ -744,7 +750,9 @@ public struct DSPIPZoneA: View {
                         .cornerRadius(8)
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
-                                .stroke(DSPIPZoneAColorHelper.secondaryButtonBorderColor(), lineWidth: 1)
+                                .stroke(
+                                    DSPIPZoneAColorHelper.secondaryButtonBorderColor(), lineWidth: 1
+                                )
                         )
                 }
                 .buttonStyle(.plain)
@@ -759,11 +767,44 @@ public struct DSPIPZoneA: View {
                         .cornerRadius(8)
                         .overlay(
                             RoundedRectangle(cornerRadius: 8)
-                                .stroke(DSPIPZoneAColorHelper.secondaryButtonBorderColor(), lineWidth: 1)
+                                .stroke(
+                                    DSPIPZoneAColorHelper.secondaryButtonBorderColor(), lineWidth: 1
+                                )
                         )
                 }
                 .buttonStyle(.plain)
             }
         }
     }
+}
+
+// MARK: - Preview
+
+#Preview {
+    DSPIPZoneA(
+        breadcrumbs: ["Tools", "Power Tools", "Drills"],
+        productInfo: DSPIPProductInfo(
+            brand: "DEWALT",
+            productName: "20V MAX Cordless Drill/Driver Kit with Battery",
+            modelNumber: "DCD771C2",
+            badge: .bestSeller()
+        ),
+        ratingInfo: DSPIPRatingInfo(rating: 4.5, reviewCount: 1234, questionCount: 56),
+        pricingInfo: DSPIPPricingInfo(
+            currentPrice: 149.00,
+            originalPrice: 179.00,
+            savingsText: "Save $30",
+            pricingBadge: "Pro Xtra Member Price"
+        ),
+        storeInfo: DSPIPStoreInfo(
+            stockStatus: .inStock(quantity: 12),
+            aisleLocation: "Aisle 10, Bay 003"
+        ),
+        fulfillmentInfo: DSPIPFulfillmentInfo(
+            pickupDate: "Today",
+            pickupLocation: "Midtown Atlanta",
+            deliveryDate: "Tomorrow",
+            deliveryLocation: "30308"
+        )
+    )
 }

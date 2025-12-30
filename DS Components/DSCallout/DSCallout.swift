@@ -45,7 +45,7 @@ public struct DSCallout: View {
 
     private let title: String?
     private let subtitle: String?
-    private let body: String
+    private let bodyText: String
     private let leadingIcon: Image?
     private let variant: DSCalloutVariant
     private let isFloating: Bool
@@ -112,7 +112,7 @@ public struct DSCallout: View {
     ) {
         self.title = title
         self.subtitle = subtitle
-        self.body = body
+        self.bodyText = body
         self.leadingIcon = leadingIcon
         self.variant = variant
         self.isFloating = isFloating
@@ -141,7 +141,7 @@ public struct DSCallout: View {
                 }
 
                 // Body text
-                Text(body)
+                Text(bodyText)
                     .font(DSTypography.bodyXs)
                     .foregroundColor(bodyColor)
             }
@@ -171,7 +171,7 @@ public struct DSCallout: View {
         VStack(alignment: .leading, spacing: titleSubtitleSpacing) {
             if let title {
                 Text(title)
-                    .font(DSTypography.headlineSm)
+                    .font(DSTypography.headingSm)
                     .foregroundColor(titleColor)
             }
             if let subtitle {
@@ -203,7 +203,7 @@ public struct DSCallout: View {
         if let subtitle {
             components.append(subtitle)
         }
-        components.append(body)
+        components.append(bodyText)
         if let buttonTitle {
             components.append("Action: \(buttonTitle)")
         }

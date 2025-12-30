@@ -6,18 +6,18 @@
 //
 
 import SwiftUI
-import RiveRuntime
 
 // MARK: - Design System Type Alias
 private typealias DS = DesignSystemGlobal
 
 // MARK: - Splash Screen View
-/// Splash screen with Rive animation that displays on app launch
+/// Splash screen with native SwiftUI animation that displays on app launch
 struct SplashScreenView: View {
     @Binding var isPresented: Bool
     
-    // Rive animation state
-    @State private var riveViewModel: RiveViewModel?
+    // Animation state
+    @State private var logoScale: CGFloat = 0.5
+    @State private var logoOpacity: Double = 0.0
     @State private var animationOpacity: Double = 1.0
     
     // Timing configuration
@@ -30,50 +30,50 @@ struct SplashScreenView: View {
             DS.BackgroundSurfaceColorGreige
                 .ignoresSafeArea()
             
-            // Rive animation
-            if let viewModel = riveViewModel {
-                RiveViewRepresentable(viewModel: viewModel)
-                    .ignoresSafeArea()
-                    .opacity(animationOpacity)
-            } else {
-                // Fallback while loading
-                ProgressView()
-                    .tint(DS.Brand300)
+            // App logo/branding with native animation
+            VStack(spacing: 20) {
+                Image(systemName: "camera.fill")
+                    .font(.system(size: 80))
+                    .foregroundStyle(DS.Brand300)
+                    .scaleEffect(logoScale)
+                    .opacity(logoOpacity)
+                
+                Text("CameraEye")
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                    .foregroundStyle(DS.Brand300)
+                    .opacity(logoOpacity)
             }
+            .opacity(animationOpacity)
         }
         .onAppear {
-            setupRiveAnimation()
             startSplashSequence()
         }
     }
     
     // MARK: - Setup Methods
     
-    private func setupRiveAnimation() {
-        // Load the Rive file and create view model
-        // Create view model directly from the file name with cover fit
-        let viewModel = RiveViewModel(
-            fileName: "thd_camera_eye_",
-            fit: .cover,
-            alignment: .center
-        )
-        
-        // Play the animation automatically
-        viewModel.play()
-        
-        self.riveViewModel = viewModel
-    }
-    
     private func startSplashSequence() {
+        // Animate logo entrance
+        withAnimation(.spring(response: 0.6, dampingFraction: 0.7)) {
+            logoScale = 1.0
+            logoOpacity = 1.0
+        }
+        
         // Wait for minimum display duration
-        DispatchQueue.main.asyncAfter(deadline: .now() + minimumDisplayDuration) {
+        Task {
+            try? await Task.sleep(for: .seconds(minimumDisplayDuration))
+            
             // Fade out animation
-            withAnimation(.easeOut(duration: fadeOutDuration)) {
-                animationOpacity = 0
+            await MainActor.run {
+                withAnimation(.easeOut(duration: fadeOutDuration)) {
+                    animationOpacity = 0
+                }
             }
             
             // Dismiss splash after fade completes
-            DispatchQueue.main.asyncAfter(deadline: .now() + fadeOutDuration) {
+            try? await Task.sleep(for: .seconds(fadeOutDuration))
+            await MainActor.run {
                 dismissSplash()
             }
         }
@@ -83,22 +83,6 @@ struct SplashScreenView: View {
         withAnimation {
             isPresented = false
         }
-    }
-}
-
-// MARK: - Rive View Representable
-/// UIViewRepresentable wrapper for RiveViewModel
-private struct RiveViewRepresentable: UIViewRepresentable {
-    let viewModel: RiveViewModel
-    
-    func makeUIView(context: Context) -> RiveView {
-        let view = viewModel.createRiveView()
-        // The fit and alignment are already configured on the viewModel
-        return view
-    }
-    
-    func updateUIView(_ uiView: RiveView, context: Context) {
-        // Updates are handled by the viewModel
     }
 }
 

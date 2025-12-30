@@ -141,18 +141,14 @@ public struct DSPLPPodImageContainer: View {
 
     public var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // Content container
             VStack(alignment: .leading, spacing: 0) {
-                // Badges section
                 if !badges.isEmpty {
                     badgesSection
                         .padding(.bottom, Layout.badgeSpacing)
                 }
 
-                // Hero Image section
                 heroImageSection
 
-                // Swatches section
                 swatchesSection
             }
             .padding(Layout.badgePadding)
@@ -187,31 +183,21 @@ public struct DSPLPPodImageContainer: View {
 
     private func badgeTextColor(for color: DSPLPPodBadge.BadgeColor) -> Color {
         switch color {
-        case .info:
-            return DSPLPPodImageContainerColorHelper.badgeInfoTextColor()
-        case .success:
-            return DSPLPPodImageContainerColorHelper.badgeSuccessTextColor()
-        case .warning:
-            return DSPLPPodImageContainerColorHelper.badgeWarningTextColor()
-        case .error:
-            return DSPLPPodImageContainerColorHelper.badgeErrorTextColor()
-        case .neutral:
-            return DSPLPPodImageContainerColorHelper.badgeNeutralTextColor()
+        case .info: return DSPLPPodImageContainerColorHelper.badgeInfoTextColor()
+        case .success: return DSPLPPodImageContainerColorHelper.badgeSuccessTextColor()
+        case .warning: return DSPLPPodImageContainerColorHelper.badgeWarningTextColor()
+        case .error: return DSPLPPodImageContainerColorHelper.badgeErrorTextColor()
+        case .neutral: return DSPLPPodImageContainerColorHelper.badgeNeutralTextColor()
         }
     }
 
     private func badgeBackgroundColor(for color: DSPLPPodBadge.BadgeColor) -> Color {
         switch color {
-        case .info:
-            return DSPLPPodImageContainerColorHelper.badgeInfoBackgroundColor()
-        case .success:
-            return DSPLPPodImageContainerColorHelper.badgeSuccessBackgroundColor()
-        case .warning:
-            return DSPLPPodImageContainerColorHelper.badgeWarningBackgroundColor()
-        case .error:
-            return DSPLPPodImageContainerColorHelper.badgeErrorBackgroundColor()
-        case .neutral:
-            return DSPLPPodImageContainerColorHelper.badgeNeutralBackgroundColor()
+        case .info: return DSPLPPodImageContainerColorHelper.badgeInfoBackgroundColor()
+        case .success: return DSPLPPodImageContainerColorHelper.badgeSuccessBackgroundColor()
+        case .warning: return DSPLPPodImageContainerColorHelper.badgeWarningBackgroundColor()
+        case .error: return DSPLPPodImageContainerColorHelper.badgeErrorBackgroundColor()
+        case .neutral: return DSPLPPodImageContainerColorHelper.badgeNeutralBackgroundColor()
         }
     }
 
@@ -220,7 +206,6 @@ public struct DSPLPPodImageContainer: View {
     @ViewBuilder
     private var heroImageSection: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // Product image
             Button(action: { onImageTap?() }) {
                 if let image = image {
                     image
@@ -228,13 +213,13 @@ public struct DSPLPPodImageContainer: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: Layout.heroImageSize, height: Layout.heroImageSize)
                 } else {
-                    DSImageContainer(size: .medium)
+                    RoundedRectangle(cornerRadius: 4)
+                        .fill(Color.gray.opacity(0.2))
                         .frame(width: Layout.heroImageSize, height: Layout.heroImageSize)
                 }
             }
             .buttonStyle(.plain)
 
-            // Sponsored tag
             if isSponsored {
                 Text("Sponsored")
                     .font(.system(size: 11))
@@ -305,7 +290,6 @@ public struct DSPLPPodImageContainer: View {
     private func swatchView(swatch: DSPLPPodSwatch, isSelected: Bool) -> some View {
         Button(action: { onSwatchTap?(swatch) }) {
             ZStack {
-                // Outer container (selection indicator)
                 RoundedRectangle(cornerRadius: 4)
                     .stroke(
                         isSelected
@@ -315,21 +299,22 @@ public struct DSPLPPodImageContainer: View {
                     )
                     .frame(width: Layout.swatchSize, height: Layout.swatchSize)
 
-                // Inner swatch content
-                if let image = swatch.image {
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: Layout.swatchInnerSize, height: Layout.swatchInnerSize)
-                        .clipShape(RoundedRectangle(cornerRadius: 2))
-                } else if let color = swatch.color {
-                    RoundedRectangle(cornerRadius: 2)
-                        .fill(color)
-                        .frame(width: Layout.swatchInnerSize, height: Layout.swatchInnerSize)
-                } else {
-                    RoundedRectangle(cornerRadius: 2)
-                        .fill(DSPLPPodImageContainerColorHelper.swatchPlaceholderColor())
-                        .frame(width: Layout.swatchInnerSize, height: Layout.swatchInnerSize)
+                Group {
+                    if let image = swatch.image {
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: Layout.swatchInnerSize, height: Layout.swatchInnerSize)
+                            .clipShape(RoundedRectangle(cornerRadius: 2))
+                    } else if let color = swatch.color {
+                        RoundedRectangle(cornerRadius: 2)
+                            .fill(color)
+                            .frame(width: Layout.swatchInnerSize, height: Layout.swatchInnerSize)
+                    } else {
+                        RoundedRectangle(cornerRadius: 2)
+                            .fill(DSPLPPodImageContainerColorHelper.swatchPlaceholderColor())
+                            .frame(width: Layout.swatchInnerSize, height: Layout.swatchInnerSize)
+                    }
                 }
             }
         }
@@ -415,4 +400,29 @@ private struct FlowLayout: Layout {
             placements: placements
         )
     }
+}
+
+// MARK: - Preview
+
+#Preview {
+    VStack(spacing: 20) {
+        DSPLPPodImageContainer(
+            badges: [.exclusive(), .christmasDelivery()],
+            isSponsored: true,
+            swatchDisplay: .swatchesWithQuantity(
+                swatches: [
+                    DSPLPPodSwatch(color: .red),
+                    DSPLPPodSwatch(color: .blue),
+                    DSPLPPodSwatch(color: .green)
+                ],
+                additionalCount: 5
+            )
+        )
+        
+        DSPLPPodImageContainer(
+            badges: [.topRated()],
+            swatchDisplay: .moreOptionsAvailable
+        )
+    }
+    .padding()
 }

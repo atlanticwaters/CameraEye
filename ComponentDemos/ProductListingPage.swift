@@ -102,8 +102,8 @@ struct ProductListingPage: View {
                     DSPill(
                         filter,
                         style: selectedFilters.contains(filter) ? .filled : .outlined,
-                        size: .medium,
-                        state: selectedFilters.contains(filter) ? .selected : .default,
+                        size: .md,
+                        isSelected: selectedFilters.contains(filter),
                         action: {
                             if selectedFilters.contains(filter) {
                                 selectedFilters.remove(filter)
@@ -351,22 +351,22 @@ struct ProductListingPage: View {
         DSPill(
             "Pickup",
             style: .filled,
-            size: .medium,
-            state: .selected,
+            size: .md,
+            isSelected: true,
             action: {}
         )
         DSPill(
             "Delivery",
             style: .outlined,
-            size: .medium,
-            state: .default,
+            size: .md,
+            isSelected: false,
             action: {}
         )
         DSPill(
             "Ship to Home",
             style: .outlined,
-            size: .medium,
-            state: .default,
+            size: .md,
+            isSelected: false,
             action: {}
         )
     }

@@ -12,7 +12,7 @@ public enum DSPLPPodColorHelper {
 
     /// Returns the background color for the pod container.
     public static func backgroundColor() -> Color {
-        DSColor.containerBackgroundPrimary
+        DSColor.containerBackgroundPrimary.resolve
     }
 
     public static func backgroundColorTokenName() -> String {
@@ -21,7 +21,7 @@ public enum DSPLPPodColorHelper {
 
     /// Returns the border color for the pod container.
     public static func borderColor() -> Color {
-        DSColor.borderColorSecondary
+        DSColor.borderColorSecondary.resolve
     }
 
     public static func borderColorTokenName() -> String {
@@ -30,7 +30,7 @@ public enum DSPLPPodColorHelper {
 
     /// Returns the shadow color for the pod container.
     public static func shadowColor() -> Color {
-        DSColor.shadowColorPrimary
+        DSColor.shadowColorPrimary.resolve
     }
 
     public static func shadowColorTokenName() -> String {
