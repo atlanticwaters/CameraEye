@@ -231,24 +231,22 @@ public struct DSGallery: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 60, height: 60)
-                .foregroundColor(DSGalleryColorHelper.iconColor())
+                .foregroundStyle(DSGalleryColorHelper.iconColor())
 
             Text("360° View")
                 .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(DSGalleryColorHelper.textColor())
+                .foregroundStyle(DSGalleryColorHelper.textColor())
 
             Text("Drag to rotate")
                 .font(.system(size: 14))
-                .foregroundColor(DSGalleryColorHelper.secondaryTextColor())
+                .foregroundStyle(DSGalleryColorHelper.secondaryTextColor())
 
-            Button(action: { on360ViewTap?() }) {
-                Text("Launch 360° View")
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 12)
-                    .background(DSGalleryColorHelper.buttonColor())
-                    .cornerRadius(8)
+            DSButton(
+                "Launch 360° View",
+                style: .orangeFilled,
+                size: .medium
+            ) {
+                on360ViewTap?()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -261,24 +259,22 @@ public struct DSGallery: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 60, height: 60)
-                .foregroundColor(DSGalleryColorHelper.iconColor())
+                .foregroundStyle(DSGalleryColorHelper.iconColor())
 
             Text("View in Your Space")
                 .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(DSGalleryColorHelper.textColor())
+                .foregroundStyle(DSGalleryColorHelper.textColor())
 
             Text("See how this product looks in your room")
                 .font(.system(size: 14))
-                .foregroundColor(DSGalleryColorHelper.secondaryTextColor())
+                .foregroundStyle(DSGalleryColorHelper.secondaryTextColor())
 
-            Button(action: { onARTap?() }) {
-                Text("Launch AR")
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(.white)
-                    .padding(.horizontal, 24)
-                    .padding(.vertical, 12)
-                    .background(DSGalleryColorHelper.buttonColor())
-                    .cornerRadius(8)
+            DSButton(
+                "Launch AR",
+                style: .orangeFilled,
+                size: .medium
+            ) {
+                onARTap?()
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -353,7 +349,7 @@ public struct DSGallery: View {
                 .frame(width: 50, height: 50)
                 .overlay(
                     Image(systemName: "play.fill")
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .font(.system(size: 20))
                 )
 
@@ -365,7 +361,7 @@ public struct DSGallery: View {
                         Spacer()
                         Text(duration)
                             .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(.white)
+                            .foregroundStyle(.white)
                             .padding(.horizontal, 8)
                             .padding(.vertical, 4)
                             .background(Color.black.opacity(0.7))
@@ -438,7 +434,7 @@ public struct DSGallery: View {
             .fill(DSGalleryColorHelper.placeholderColor())
             .overlay(
                 Image(systemName: "photo")
-                    .foregroundColor(DSGalleryColorHelper.iconColor())
+                    .foregroundStyle(DSGalleryColorHelper.iconColor())
                     .font(.system(size: 40))
             )
     }
@@ -448,11 +444,11 @@ public struct DSGallery: View {
         VStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.system(size: 40))
-                .foregroundColor(DSGalleryColorHelper.iconColor())
+                .foregroundStyle(DSGalleryColorHelper.iconColor())
 
             Text(message)
                 .font(.system(size: 14))
-                .foregroundColor(DSGalleryColorHelper.secondaryTextColor())
+                .foregroundStyle(DSGalleryColorHelper.secondaryTextColor())
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
@@ -485,11 +481,11 @@ public struct DSGallery: View {
             VStack(spacing: 4) {
                 Image(systemName: tab.icon)
                     .font(.system(size: 20))
-                    .foregroundColor(isSelected ? DSGalleryColorHelper.selectedTabColor() : DSGalleryColorHelper.unselectedTabColor())
+                    .foregroundStyle(isSelected ? DSGalleryColorHelper.selectedTabColor() : DSGalleryColorHelper.unselectedTabColor())
 
                 Text(tab.rawValue)
                     .font(.system(size: 12, weight: isSelected ? .semibold : .regular))
-                    .foregroundColor(isSelected ? DSGalleryColorHelper.selectedTabColor() : DSGalleryColorHelper.unselectedTabColor())
+                    .foregroundStyle(isSelected ? DSGalleryColorHelper.selectedTabColor() : DSGalleryColorHelper.unselectedTabColor())
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 8)

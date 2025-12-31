@@ -125,7 +125,7 @@ public struct DSListItem: View {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: Layout.iconSize, height: Layout.iconSize)
-            .foregroundColor(DSListItemColorHelper.iconColor())
+            .foregroundStyle(DSListItemColorHelper.iconColor())
     }
 
     private var iconImage: Image {
@@ -148,13 +148,13 @@ public struct DSListItem: View {
         if type == .seeAll {
             Text(text)
                 .font(.system(size: Layout.fontSize, weight: .regular))
-                .foregroundColor(DSListItemColorHelper.textColor())
+                .foregroundStyle(DSListItemColorHelper.textColor())
                 .underline()
                 .lineLimit(1)
         } else {
             Text(text)
                 .font(.system(size: Layout.fontSize, weight: .regular))
-                .foregroundColor(DSListItemColorHelper.textColor())
+                .foregroundStyle(DSListItemColorHelper.textColor())
                 .lineLimit(1)
         }
     }
@@ -249,13 +249,13 @@ public struct DSMenuItem: View {
                 VStack(alignment: .leading, spacing: 2) {
                     Text(title)
                         .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(DSListItemColorHelper.menuTitleColor())
+                        .foregroundStyle(DSListItemColorHelper.menuTitleColor())
                         .lineLimit(1)
 
                     if let subtitle {
                         Text(subtitle)
                             .font(.system(size: 14, weight: .regular))
-                            .foregroundColor(DSListItemColorHelper.menuSubtitleColor())
+                            .foregroundStyle(DSListItemColorHelper.menuSubtitleColor())
                             .lineLimit(1)
                     }
                 }
@@ -268,7 +268,7 @@ public struct DSMenuItem: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: Layout.iconSize, height: Layout.iconSize)
-                        .foregroundColor(DSListItemColorHelper.menuIconColor())
+                        .foregroundStyle(DSListItemColorHelper.menuIconColor())
                 }
             }
             .padding(.horizontal, Layout.horizontalPadding)
@@ -292,7 +292,7 @@ public struct DSMenuItem: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: Layout.iconSize, height: Layout.iconSize)
-                .foregroundColor(DSListItemColorHelper.menuIconColor())
+                .foregroundStyle(DSListItemColorHelper.menuIconColor())
         }
     }
 

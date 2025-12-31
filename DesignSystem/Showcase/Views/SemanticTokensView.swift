@@ -27,7 +27,7 @@ struct SemanticTokensView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Semantic Tokens")
                     .font(.system(size: 22, weight: .bold))
-                    .foregroundColor(
+                    .foregroundStyle(
                         colorScheme == .dark 
                             ? TokensSemanticDark.TextOnSurfaceColorPrimary
                             : TokensSemanticLight.TextOnSurfaceColorPrimary
@@ -35,7 +35,7 @@ struct SemanticTokensView: View {
                 
                 Text("Context-specific tokens derived from core primitives")
                     .font(.system(size: TokensCoreLight.FontSizeBodyMd))
-                    .foregroundColor(
+                    .foregroundStyle(
                         colorScheme == .dark
                             ? TokensSemanticDark.TextOnSurfaceColorSecondary
                             : TokensSemanticLight.TextOnSurfaceColorSecondary
@@ -66,7 +66,7 @@ struct SemanticTokensView: View {
                                         ? TokensSemanticDark.BackgroundContainerColorGreige
                                         : TokensSemanticLight.BackgroundContainerColorGreige)
                             )
-                            .foregroundColor(
+                            .foregroundStyle(
                                 selectedCategory == category
                                     ? .white
                                     : (colorScheme == .dark
@@ -411,7 +411,7 @@ private struct BorderWidthsSection: View {
                     HStack {
                         Text(item.0)
                             .font(.system(size: TokensCoreLight.FontSizeBodySm, weight: .medium))
-                            .foregroundColor(
+                            .foregroundStyle(
                                 colorScheme == .dark
                                     ? TokensSemanticDark.TextOnSurfaceColorPrimary
                                     : TokensSemanticLight.TextOnSurfaceColorPrimary
@@ -420,7 +420,7 @@ private struct BorderWidthsSection: View {
                         
                         Text("\(Int(item.1))pt")
                             .font(.system(size: TokensCoreLight.FontSizeBodyXs, weight: .semibold))
-                            .foregroundColor(
+                            .foregroundStyle(
                                 colorScheme == .dark
                                     ? TokensSemanticDark.TextOnSurfaceColorSecondary
                                     : TokensSemanticLight.TextOnSurfaceColorSecondary

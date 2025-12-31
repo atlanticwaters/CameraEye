@@ -91,10 +91,10 @@ struct TokenViewerView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(isDarkMode ? "Dark Mode" : "Light Mode")
                     .font(.headline)
-                    .foregroundColor(isDarkMode ? .white : .black)
+                    .foregroundStyle(isDarkMode ? .white : .black)
                 Text("Toggle to compare token values")
                     .font(.caption)
-                    .foregroundColor(isDarkMode ? Color(red: 0.592, green: 0.58, blue: 0.573) : Color(red: 0.416, green: 0.408, blue: 0.404))
+                    .foregroundStyle(isDarkMode ? Color(red: 0.592, green: 0.58, blue: 0.573) : Color(red: 0.416, green: 0.408, blue: 0.404))
             }
             
             Spacer()
@@ -117,7 +117,7 @@ struct TokenViewerView: View {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(isDarkMode ? Color(red: 0.976, green: 0.388, blue: 0.008) : Color(red: 0.145, green: 0.145, blue: 0.141))
                 )
-                .foregroundColor(.white)
+                .foregroundStyle(.white)
             }
         }
         .padding(.horizontal, 16)
@@ -151,15 +151,15 @@ struct TokenViewerView: View {
     private var searchBar: some View {
         HStack(spacing: 12) {
             Image(systemName: "magnifyingglass")
-                .foregroundColor(isDarkMode ? Color(red: 0.592, green: 0.58, blue: 0.573) : Color(red: 0.416, green: 0.408, blue: 0.404))
+                .foregroundStyle(isDarkMode ? Color(red: 0.592, green: 0.58, blue: 0.573) : Color(red: 0.416, green: 0.408, blue: 0.404))
             
             TextField("Search tokens...", text: $searchText)
-                .foregroundColor(isDarkMode ? .white : .black)
+                .foregroundStyle(isDarkMode ? .white : .black)
             
             if !searchText.isEmpty {
                 Button(action: { searchText = "" }) {
                     Image(systemName: "xmark.circle.fill")
-                        .foregroundColor(isDarkMode ? Color(red: 0.592, green: 0.58, blue: 0.573) : Color(red: 0.416, green: 0.408, blue: 0.404))
+                        .foregroundStyle(isDarkMode ? Color(red: 0.592, green: 0.58, blue: 0.573) : Color(red: 0.416, green: 0.408, blue: 0.404))
                 }
             }
         }
@@ -241,7 +241,7 @@ struct CategoryPill: View {
                           ? (isDarkMode ? Color(red: 0.976, green: 0.388, blue: 0.008) : Color(red: 0.145, green: 0.145, blue: 0.141))
                           : (isDarkMode ? Color(red: 0.2, green: 0.2, blue: 0.2) : Color.white))
             )
-            .foregroundColor(isSelected 
+            .foregroundStyle(isSelected 
                              ? .white 
                              : (isDarkMode ? Color(red: 0.729, green: 0.718, blue: 0.706) : Color(red: 0.416, green: 0.408, blue: 0.404)))
         }
@@ -258,12 +258,12 @@ struct TokenRowView: View {
             // Token Name
             Text(token.name)
                 .font(.system(size: 14, weight: .semibold, design: .monospaced))
-                .foregroundColor(isDarkMode ? .white : Color(red: 0.145, green: 0.145, blue: 0.141))
+                .foregroundStyle(isDarkMode ? .white : Color(red: 0.145, green: 0.145, blue: 0.141))
             
             // Semantic Use Description
             Text(token.semanticUse)
                 .font(.system(size: 12))
-                .foregroundColor(isDarkMode ? Color(red: 0.592, green: 0.58, blue: 0.573) : Color(red: 0.416, green: 0.408, blue: 0.404))
+                .foregroundStyle(isDarkMode ? Color(red: 0.592, green: 0.58, blue: 0.573) : Color(red: 0.416, green: 0.408, blue: 0.404))
             
             // Value Display
             HStack(spacing: 16) {
@@ -308,7 +308,7 @@ struct TokenValueView: View {
             HStack(spacing: 4) {
                 Text(label)
                     .font(.system(size: 10, weight: .medium))
-                    .foregroundColor(isDarkMode ? Color(red: 0.592, green: 0.58, blue: 0.573) : Color(red: 0.545, green: 0.533, blue: 0.529))
+                    .foregroundStyle(isDarkMode ? Color(red: 0.592, green: 0.58, blue: 0.573) : Color(red: 0.545, green: 0.533, blue: 0.529))
                 
                 if isActive {
                     Circle()
@@ -328,7 +328,7 @@ struct TokenValueView: View {
             } else {
                 Text("—")
                     .font(.system(size: 12))
-                    .foregroundColor(isDarkMode ? Color(red: 0.592, green: 0.58, blue: 0.573) : Color(red: 0.416, green: 0.408, blue: 0.404))
+                    .foregroundStyle(isDarkMode ? Color(red: 0.592, green: 0.58, blue: 0.573) : Color(red: 0.416, green: 0.408, blue: 0.404))
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
@@ -358,7 +358,7 @@ struct TokenValueView: View {
             
             Text(colorToHex(color))
                 .font(.system(size: 11, weight: .medium, design: .monospaced))
-                .foregroundColor(isDarkMode ? Color(red: 0.729, green: 0.718, blue: 0.706) : Color(red: 0.345, green: 0.341, blue: 0.337))
+                .foregroundStyle(isDarkMode ? Color(red: 0.729, green: 0.718, blue: 0.706) : Color(red: 0.345, green: 0.341, blue: 0.337))
         }
     }
     
@@ -366,14 +366,14 @@ struct TokenValueView: View {
     private func numericValue(value: CGFloat) -> some View {
         Text("\(Int(value))pt")
             .font(.system(size: 14, weight: .medium, design: .monospaced))
-            .foregroundColor(isDarkMode ? .white : Color(red: 0.145, green: 0.145, blue: 0.141))
+            .foregroundStyle(isDarkMode ? .white : Color(red: 0.145, green: 0.145, blue: 0.141))
     }
     
     @ViewBuilder
     private func stringValueView(value: String) -> some View {
         Text(value)
             .font(.system(size: 12, weight: .medium))
-            .foregroundColor(isDarkMode ? .white : Color(red: 0.145, green: 0.145, blue: 0.141))
+            .foregroundStyle(isDarkMode ? .white : Color(red: 0.145, green: 0.145, blue: 0.141))
     }
     
     private func colorToHex(_ color: Color) -> String {

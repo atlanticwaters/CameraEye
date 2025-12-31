@@ -14,7 +14,7 @@ import SwiftUI
             .frame(height: 150)
             .overlay(
                 Text("Body Content")
-                    .foregroundColor(.gray)
+                    .foregroundStyle(.gray)
             )
     }
     .padding()
@@ -32,7 +32,7 @@ import SwiftUI
             .overlay(
                 Image(systemName: "map")
                     .font(.largeTitle)
-                    .foregroundColor(.orange)
+                    .foregroundStyle(.orange)
             )
     }
     .padding()
@@ -46,7 +46,7 @@ import SwiftUI
         headerAction: {
             Button("See All") {}
                 .font(.system(size: 14, weight: .medium))
-                .foregroundColor(.orange)
+                .foregroundStyle(.orange)
         }
     ) {
         HStack(spacing: 12) {
@@ -66,20 +66,16 @@ import SwiftUI
         subtitle: "Earn points on every purchase",
         showBottomAction: true,
         bottomAction: {
-            Button(action: {}) {
-                Text("Join Now")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
-                    .background(Color.orange)
-                    .cornerRadius(8)
-            }
+            DSButton(
+                "Join Now",
+                style: .orangeFilled,
+                size: .medium
+            ) {}
         }
     ) {
         Text("Get exclusive discounts and early access to sales when you join Pro Xtra.")
             .font(.system(size: 14))
-            .foregroundColor(.secondary)
+            .foregroundStyle(.secondary)
     }
     .padding()
 }
@@ -100,7 +96,7 @@ import SwiftUI
             .overlay(
                 Text("SALE")
                     .font(.largeTitle.bold())
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
             )
     }
     .padding()
@@ -122,7 +118,7 @@ import SwiftUI
                     Text("Fresh Arrivals")
                         .font(.headline)
                 }
-                .foregroundColor(.blue)
+                .foregroundStyle(.blue)
             )
     }
     .padding()
@@ -141,7 +137,7 @@ import SwiftUI
             .overlay(
                 Image(systemName: "hammer.fill")
                     .font(.system(size: 60))
-                    .foregroundColor(.orange)
+                    .foregroundStyle(.orange)
             )
     }
     .padding()
@@ -155,32 +151,26 @@ import SwiftUI
         bodyPlacement: .secondWithPadding,
         showBottomAction: true,
         headerAction: {
-            Button(action: {}) {
-                Image(systemName: "chevron.right")
-                    .foregroundColor(.gray)
-            }
+            DSIconButton(
+                systemName: "chevron.right",
+                style: .ghost,
+                size: .small,
+                accessibilityLabel: "See more"
+            ) {}
         },
         bottomAction: {
             HStack(spacing: 12) {
-                Button(action: {}) {
-                    Text("View Ad")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .background(Color.orange)
-                        .cornerRadius(8)
-                }
+                DSButton(
+                    "View Ad",
+                    style: .orangeFilled,
+                    size: .medium
+                ) {}
 
-                Button(action: {}) {
-                    Text("Set Store")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(.orange)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .background(Color.orange.opacity(0.1))
-                        .cornerRadius(8)
-                }
+                DSButton(
+                    "Set Store",
+                    style: .outlined,
+                    size: .medium
+                ) {}
             }
         }
     ) {
@@ -189,7 +179,7 @@ import SwiftUI
                 .font(.system(size: 14))
             Text("Plus free delivery on orders over $45")
                 .font(.system(size: 12))
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
         }
     }
     .padding()
@@ -223,18 +213,12 @@ import SwiftUI
         bodyPlacement: .firstFullBleed,
         showBottomAction: true,
         bottomAction: {
-            Button(action: {}) {
-                HStack {
-                    Text("Shop Now")
-                    Image(systemName: "arrow.right")
-                }
-                .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 12)
-                .background(Color.black)
-                .cornerRadius(8)
-            }
+            DSButton(
+                "Shop Now",
+                style: .gradientFilled,
+                size: .medium,
+                trailingIcon: Image(systemName: "arrow.right")
+            ) {}
         }
     ) {
         ZStack {
@@ -254,7 +238,7 @@ import SwiftUI
                 Text("SELECT ITEMS")
                     .font(.caption)
             }
-            .foregroundColor(.white)
+            .foregroundStyle(.white)
         }
     }
     .padding()

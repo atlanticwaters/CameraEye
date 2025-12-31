@@ -24,7 +24,7 @@ struct AccordionPreviewContainer: View {
         ) {
             Text("This is the accordion content. It can contain any view including text, images, or other components.")
                 .font(.system(size: 14))
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
         }
     }
 }
@@ -190,7 +190,7 @@ struct AccordionPreviewContainer: View {
                         Text("• Ergonomic grip design")
                     }
                     .font(.system(size: 14))
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
                 }
 
                 Divider()
@@ -217,7 +217,7 @@ struct AccordionPreviewContainer: View {
                         }
                     }
                     .font(.system(size: 14))
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
                 }
 
                 Divider()
@@ -230,13 +230,13 @@ struct AccordionPreviewContainer: View {
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
                             Text("★★★★★")
-                                .foregroundColor(.orange)
+                                .foregroundStyle(.orange)
                             Text("Great drill!")
                                 .font(.system(size: 14, weight: .medium))
                         }
                         Text("This drill exceeded my expectations. Powerful and lightweight.")
                             .font(.system(size: 14))
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                     }
                 }
             }

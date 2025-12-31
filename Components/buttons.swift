@@ -162,7 +162,7 @@ struct THDButton: View {
                     Image(systemName: iconName)
                         .resizable()
                         .frame(width: size.iconSize, height: size.iconSize)
-                        .foregroundColor(iconColor)
+                        .foregroundStyle(iconColor)
                 }
 
                 // Loading spinner or success checkmark
@@ -174,14 +174,14 @@ struct THDButton: View {
                     Image(systemName: "checkmark")
                         .resizable()
                         .frame(width: size.iconSize, height: size.iconSize)
-                        .foregroundColor(iconColor)
+                        .foregroundStyle(iconColor)
                 }
 
                 // Button text - shown unless loading/success with no icons
                 if !(state == .loading || state == .success) || leadingIcon != nil || trailingIcon != nil {
                     Text(title)
                         .font(textFont)
-                        .foregroundColor(textColor)
+                        .foregroundStyle(textColor)
                         .lineLimit(1)
                 }
 
@@ -190,7 +190,7 @@ struct THDButton: View {
                     Image(systemName: iconName)
                         .resizable()
                         .frame(width: size.iconSize, height: size.iconSize)
-                        .foregroundColor(iconColor)
+                        .foregroundStyle(iconColor)
                 }
             }
             .padding(.horizontal, DesignSystemGlobal.Spacing4)
@@ -388,7 +388,7 @@ struct THDIconButton: View {
                     Image(systemName: icon)
                         .resizable()
                         .frame(width: size.iconSize, height: size.iconSize)
-                        .foregroundColor(iconColor)
+                        .foregroundStyle(iconColor)
                 }
             }
             .frame(width: size.height, height: size.height)
@@ -495,11 +495,11 @@ struct THDIconButton: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
                 .thdFont(.h5)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text(description)
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
 
@@ -508,7 +508,7 @@ struct THDIconButton: View {
             // Title
             Text("Button")
                 .thdFont(.hero3)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
 
             // MARK: - Orange Filled Buttons

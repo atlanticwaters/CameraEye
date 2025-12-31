@@ -147,7 +147,7 @@ public struct DSRatingMeter: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: size.starSize, height: size.starSize)
-                .foregroundColor(emptyColor)
+                .foregroundStyle(emptyColor)
 
             // Filled star (masked based on fill amount)
             if fillAmount > 0 {
@@ -155,7 +155,7 @@ public struct DSRatingMeter: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: size.starSize, height: size.starSize)
-                    .foregroundColor(filledColor)
+                    .foregroundStyle(filledColor)
                     .mask(
                         Rectangle()
                             .frame(width: size.starSize * fillAmount)
@@ -182,7 +182,7 @@ public struct DSRatingMeter: View {
     private func labelView(count: Int) -> some View {
         Text("(\(formattedCount(count)))")
             .font(.system(size: size.fontSize, weight: .regular))
-            .foregroundColor(labelColor)
+            .foregroundStyle(labelColor)
     }
 
     private func formattedCount(_ count: Int) -> String {

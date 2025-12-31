@@ -18,11 +18,11 @@ struct ComponentTokensView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Component Tokens")
                         .font(.system(size: 22, weight: .bold))
-                        .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                        .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                     
                     Text("Component-specific design tokens for icons and UI elements")
                         .font(.system(size: TokensCoreLight.FontSizeBodyMd))
-                        .foregroundColor(TokensSemanticLight.TextOnSurfaceColorSecondary)
+                        .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorSecondary)
                 }
                 .padding(.bottom, 8)
                 
@@ -31,7 +31,7 @@ struct ComponentTokensView: View {
                     VStack(alignment: .leading, spacing: 16) {
                         Text("Ghost Buttons")
                             .font(.system(size: TokensCoreLight.FontSizeBodyMd, weight: .semibold))
-                            .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                            .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                         
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                             IconColorDemo(
@@ -50,7 +50,7 @@ struct ComponentTokensView: View {
                         
                         Text("Orange Buttons")
                             .font(.system(size: TokensCoreLight.FontSizeBodyMd, weight: .semibold))
-                            .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                            .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                             .padding(.top, 8)
                         
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
@@ -70,7 +70,7 @@ struct ComponentTokensView: View {
                         
                         Text("White & Transparent Buttons")
                             .font(.system(size: TokensCoreLight.FontSizeBodyMd, weight: .semibold))
-                            .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                            .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                             .padding(.top, 8)
                         
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
@@ -283,7 +283,7 @@ struct ComponentTokensView: View {
                     VStack(spacing: 16) {
                         Text("Filled Selectors")
                             .font(.system(size: TokensCoreLight.FontSizeBodyMd, weight: .semibold))
-                            .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                            .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
@@ -315,7 +315,7 @@ struct ComponentTokensView: View {
                         
                         Text("Outline Selectors")
                             .font(.system(size: TokensCoreLight.FontSizeBodyMd, weight: .semibold))
-                            .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                            .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.top, 16)
                         
@@ -355,13 +355,13 @@ struct ComponentTokensView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Note: Badges use semantic color tokens, not component-specific tokens.")
                             .font(.system(size: TokensCoreLight.FontSizeBodySm))
-                            .foregroundColor(TokensSemanticLight.TextOnSurfaceColorSecondary)
+                            .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorSecondary)
                         
                         // Visual example
                         HStack(spacing: 8) {
                             Text("NEW")
                                 .font(.system(size: TokensCoreLight.FontSizeBodyXs, weight: .bold))
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 4)
                                 .background(TokensSemanticLight.BackgroundAccentColorRed)
@@ -369,7 +369,7 @@ struct ComponentTokensView: View {
                             
                             Text("SALE")
                                 .font(.system(size: TokensCoreLight.FontSizeBodyXs, weight: .bold))
-                                .foregroundColor(.white)
+                                .foregroundStyle(.white)
                                 .padding(.horizontal, 8)
                                 .padding(.vertical, 4)
                                 .background(TokensSemanticLight.BackgroundButtonColorBrandFilledDefault)

@@ -28,7 +28,7 @@ struct ColorSwatch: View {
             // Color name
             Text(name)
                 .font(.system(size: TokensCoreLight.FontSizeBodySm, weight: .medium))
-                .foregroundColor(
+                .foregroundStyle(
                     colorScheme == .dark
                         ? TokensSemanticDark.TextOnSurfaceColorPrimary
                         : TokensSemanticLight.TextOnSurfaceColorPrimary
@@ -38,7 +38,7 @@ struct ColorSwatch: View {
             if let rgbString = colorToRGBString(color) {
                 Text(rgbString)
                     .font(.system(size: TokensCoreLight.FontSizeBodyXs))
-                    .foregroundColor(
+                    .foregroundStyle(
                         colorScheme == .dark
                             ? TokensSemanticDark.TextOnSurfaceColorSecondary
                             : TokensSemanticLight.TextOnSurfaceColorSecondary

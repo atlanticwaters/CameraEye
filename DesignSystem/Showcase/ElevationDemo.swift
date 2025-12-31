@@ -11,11 +11,11 @@ struct ElevationDemo: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(name)
                     .font(.system(size: TokensCoreLight.FontSizeBodySm, weight: .medium))
-                    .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                    .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                 
                 Text("x:\(Int(elevation.x)) y:\(Int(elevation.y)) blur:\(Int(elevation.blur))")
                     .font(.system(size: TokensCoreLight.FontSizeBodyXs))
-                    .foregroundColor(TokensSemanticLight.TextOnSurfaceColorSecondary)
+                    .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorSecondary)
                     .monospaced()
             }
             

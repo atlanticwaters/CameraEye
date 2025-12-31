@@ -23,13 +23,13 @@ struct SpacingDemo: View {
             HStack {
                 Text(name)
                     .font(.system(size: TokensCoreLight.FontSizeBodySm, weight: .medium))
-                    .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                    .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                 
                 Spacer()
                 
                 Text("\(Int(value))pt")
                     .font(.system(size: TokensCoreLight.FontSizeBodyXs, weight: .semibold))
-                    .foregroundColor(TokensSemanticLight.TextOnSurfaceColorSecondary)
+                    .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorSecondary)
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
                     .background(TokensSemanticLight.BackgroundContainerColorGreige)

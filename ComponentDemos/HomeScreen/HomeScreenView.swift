@@ -357,7 +357,7 @@ struct HomeScreenDemoView: View {
                 HStack {
                     Text("App Guide")
                         .font(.system(size: 28, weight: .bold))
-                        .foregroundColor(Color.brandPrimary)
+                        .foregroundStyle(Color.brandPrimary)
                     Spacer()
                 }
                 .padding(.horizontal, 16)
@@ -568,7 +568,7 @@ struct FeatureRow: View {
         HStack(alignment: .top, spacing: 16) {
             Image(systemName: icon)
                 .font(.system(size: 24))
-                .foregroundColor(Color.brandPrimary)
+                .foregroundStyle(Color.brandPrimary)
                 .frame(width: 40)
             
             VStack(alignment: .leading, spacing: 4) {
@@ -576,7 +576,7 @@ struct FeatureRow: View {
                     .font(.headline)
                 Text(description)
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
         }
     }

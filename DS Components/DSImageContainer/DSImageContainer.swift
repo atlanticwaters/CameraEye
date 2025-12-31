@@ -243,6 +243,6 @@ struct DSImageContainerPlaceholder: View {
             .resizable()
             .aspectRatio(contentMode: .fit)
             .frame(width: iconSize, height: iconSize)
-            .foregroundColor(DSImageContainerColorHelper.placeholderIconColor())
+            .foregroundStyle(DSImageContainerColorHelper.placeholderIconColor())
     }
 }

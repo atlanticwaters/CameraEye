@@ -210,7 +210,7 @@ struct Tile: View {
             } else {
                 Text(text)
                     .font(textFont)
-                    .foregroundColor(textColor)
+                    .foregroundStyle(textColor)
                     .lineLimit(1)
             }
 
@@ -235,7 +235,7 @@ struct Tile: View {
                 } else {
                     Text(text)
                         .font(textFont)
-                        .foregroundColor(textColor)
+                        .foregroundStyle(textColor)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
 
@@ -261,7 +261,7 @@ struct Tile: View {
                     Image(systemName: "slider.horizontal.3")
                         .resizable()
                         .frame(width: 16, height: 16)
-                        .foregroundColor(DesignSystemGlobal.IconOnContainerColorTertiary)
+                        .foregroundStyle(DesignSystemGlobal.IconOnContainerColorTertiary)
                 }
             }
 
@@ -541,11 +541,11 @@ struct GhostTile: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
                 .thdFont(.h5)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text(description)
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
 
@@ -554,7 +554,7 @@ struct GhostTile: View {
             // Title
             Text("Tile")
                 .thdFont(.hero3)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
 
             // MARK: - Outlined Tiles
@@ -595,18 +595,18 @@ struct GhostTile: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Horizontal")
                     .font(.subheadline)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                 Tile(text: "Wacky", imageName: "photo", variant: .outlined, layout: .horizontal, showDot: true)
 
                 Text("Vertical")
                     .font(.subheadline)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                 Tile(text: "Wacky", imageName: "photo", variant: .outlined, layout: .vertical, showDot: true)
                     .frame(width: 150)
 
                 Text("Composed")
                     .font(.subheadline)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                 Tile(text: "", variant: .outlined, layout: .composed, showDot: true)
             }
 

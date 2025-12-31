@@ -211,7 +211,7 @@ struct Badge: View {
     var body: some View {
         Text(text)
             .font(size.fontSize)
-            .foregroundColor(foregroundColor)
+            .foregroundStyle(foregroundColor)
             .padding(.horizontal, size.horizontalPadding)
             .padding(.vertical, 0)
             .frame(minWidth: size.height, minHeight: size.height, maxHeight: size.height)
@@ -281,19 +281,19 @@ struct BadgeAlt: View {
                 // Primary label - Body Lg with custom font
                 Text(label)
                     .font(.thdBodyLg)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                 // Rating value - Body Lg with custom font
                 Text(rating)
                     .font(.thdBodyLg)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
             }
 
             // Star Filled icon
             Image(systemName: "star.fill")
                 .resizable()
                 .frame(width: 16, height: 16)
-                .foregroundColor(DesignSystemGlobal.BrandBrand300)
+                .foregroundStyle(DesignSystemGlobal.BrandBrand300)
         }
         .padding(.horizontal, DesignSystemGlobal.Spacing1)
         .padding(.vertical, 6)
@@ -378,11 +378,11 @@ struct BadgeIndicator: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
                 .thdFont(.h5)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text(description)
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
 
@@ -391,7 +391,7 @@ struct BadgeIndicator: View {
             // Title
             Text("Badge")
                 .thdFont(.hero3)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
 
             // MARK: - Badge Indicators

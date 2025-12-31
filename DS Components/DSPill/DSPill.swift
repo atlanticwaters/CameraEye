@@ -287,7 +287,7 @@ public struct DSPill: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: size.iconSize, height: size.iconSize)
-                    .foregroundColor(foregroundColor)
+                    .foregroundStyle(foregroundColor)
             } else if let leadingColor {
                 colorSwatchView(color: leadingColor)
             } else if let leadingImage {
@@ -298,7 +298,7 @@ public struct DSPill: View {
             if let label {
                 Text(label)
                     .font(.system(size: size.fontSize, weight: isSelected ? .semibold : .regular))
-                    .foregroundColor(foregroundColor)
+                    .foregroundStyle(foregroundColor)
             }
 
             // Trailing icon
@@ -307,7 +307,7 @@ public struct DSPill: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: size.iconSize * 0.75, height: size.iconSize * 0.75)
-                    .foregroundColor(foregroundColor)
+                    .foregroundStyle(foregroundColor)
             }
         }
         .padding(.horizontal, size.horizontalPadding)

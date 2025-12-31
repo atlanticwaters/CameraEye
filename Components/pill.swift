@@ -125,13 +125,13 @@ struct Pill: View {
                 Image(systemName: iconName)
                     .resizable()
                     .frame(width: size.iconSize, height: size.iconSize)
-                    .foregroundColor(iconColor)
+                    .foregroundStyle(iconColor)
             }
 
             // Text label
             Text(text)
                 .font(.thdBodySm)
-                .foregroundColor(textColor)
+                .foregroundStyle(textColor)
                 .lineLimit(1)
 
             // Trailing chevron (optional)
@@ -139,7 +139,7 @@ struct Pill: View {
                 Image(systemName: "chevron.down")
                     .resizable()
                     .frame(width: size.chevronSize, height: size.chevronSize)
-                    .foregroundColor(iconColor)
+                    .foregroundStyle(iconColor)
             }
         }
         .padding(.horizontal, DesignSystemGlobal.Spacing4)
@@ -243,11 +243,11 @@ struct Pill: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
                 .thdFont(.h5)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text(description)
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
 
@@ -256,7 +256,7 @@ struct Pill: View {
             // Title
             Text("Pill")
                 .thdFont(.hero3)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
 
             // MARK: - Outlined Pills - Default

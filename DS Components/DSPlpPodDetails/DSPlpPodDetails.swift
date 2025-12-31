@@ -196,7 +196,7 @@ public struct DSPLPPodDetails: View {
             Button(action: { onProductTap?() }) {
                 Text(productName)
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(DSPLPPodDetailsColorHelper.productNameColor())
+                    .foregroundStyle(DSPLPPodDetailsColorHelper.productNameColor())
                     .lineLimit(3)
                     .multilineTextAlignment(.leading)
             }
@@ -206,7 +206,7 @@ public struct DSPLPPodDetails: View {
             if let model = modelNumber {
                 Text("Model# \(model)")
                     .font(.system(size: 12))
-                    .foregroundColor(DSPLPPodDetailsColorHelper.modelNumberColor())
+                    .foregroundStyle(DSPLPPodDetailsColorHelper.modelNumberColor())
             }
         }
     }
@@ -258,7 +258,7 @@ public struct DSPLPPodDetails: View {
             if let unit = perUnit {
                 Text(unit)
                     .font(.system(size: 12))
-                    .foregroundColor(DSPLPPodDetailsColorHelper.perUnitColor())
+                    .foregroundStyle(DSPLPPodDetailsColorHelper.perUnitColor())
                     .padding(.leading, 2)
             }
         }
@@ -266,7 +266,7 @@ public struct DSPLPPodDetails: View {
         if let detail = perItemPriceDetail {
             Text(detail)
                 .font(.system(size: 12))
-                .foregroundColor(DSPLPPodDetailsColorHelper.perItemDetailColor())
+                .foregroundStyle(DSPLPPodDetailsColorHelper.perItemDetailColor())
         }
     }
 
@@ -275,7 +275,7 @@ public struct DSPLPPodDetails: View {
         VStack(alignment: .leading, spacing: 2) {
             Text("Starting at")
                 .font(.system(size: 12))
-                .foregroundColor(DSPLPPodDetailsColorHelper.startingAtLabelColor())
+                .foregroundStyle(DSPLPPodDetailsColorHelper.startingAtLabelColor())
 
             priceDisplay(dollars: dollars, cents: cents)
         }
@@ -295,7 +295,7 @@ public struct DSPLPPodDetails: View {
                 if let unit = perUnit {
                     Text(unit)
                         .font(.system(size: 12))
-                        .foregroundColor(DSPLPPodDetailsColorHelper.perUnitColor())
+                        .foregroundStyle(DSPLPPodDetailsColorHelper.perUnitColor())
                         .padding(.leading, 2)
                 }
             }
@@ -303,7 +303,7 @@ public struct DSPLPPodDetails: View {
             if let detail = perItemPriceDetail {
                 Text(detail)
                     .font(.system(size: 12))
-                    .foregroundColor(DSPLPPodDetailsColorHelper.perItemDetailColor())
+                    .foregroundStyle(DSPLPPodDetailsColorHelper.perItemDetailColor())
             }
 
             // Original price and savings
@@ -311,11 +311,11 @@ public struct DSPLPPodDetails: View {
                 Text("Was $\(String(format: "%.2f", originalPrice))")
                     .font(.system(size: 12))
                     .strikethrough()
-                    .foregroundColor(DSPLPPodDetailsColorHelper.originalPriceColor())
+                    .foregroundStyle(DSPLPPodDetailsColorHelper.originalPriceColor())
 
                 Text(savings)
                     .font(.system(size: 12, weight: .semibold))
-                    .foregroundColor(DSPLPPodDetailsColorHelper.savingsColor())
+                    .foregroundStyle(DSPLPPodDetailsColorHelper.savingsColor())
             }
         }
     }
@@ -327,7 +327,7 @@ public struct DSPLPPodDetails: View {
 
             Text(rebateText)
                 .font(.system(size: 12))
-                .foregroundColor(DSPLPPodDetailsColorHelper.rebateTextColor())
+                .foregroundStyle(DSPLPPodDetailsColorHelper.rebateTextColor())
         }
     }
 
@@ -335,14 +335,14 @@ public struct DSPLPPodDetails: View {
     private var lowerPriceInCartView: some View {
         Text("See Lower Price in Cart")
             .font(.system(size: 14, weight: .semibold))
-            .foregroundColor(DSPLPPodDetailsColorHelper.lowerPriceTextColor())
+            .foregroundStyle(DSPLPPodDetailsColorHelper.lowerPriceTextColor())
     }
 
     @ViewBuilder
     private var contactStoreView: some View {
         Text("Contact your local store for price")
             .font(.system(size: 14))
-            .foregroundColor(DSPLPPodDetailsColorHelper.contactStoreTextColor())
+            .foregroundStyle(DSPLPPodDetailsColorHelper.contactStoreTextColor())
             .lineLimit(2)
     }
 
@@ -351,21 +351,21 @@ public struct DSPLPPodDetails: View {
         HStack(alignment: .top, spacing: 8) {
             Image(systemName: "exclamationmark.triangle.fill")
                 .font(.system(size: 16))
-                .foregroundColor(DSPLPPodDetailsColorHelper.warningIconColor())
+                .foregroundStyle(DSPLPPodDetailsColorHelper.warningIconColor())
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(headerText)
                     .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(DSPLPPodDetailsColorHelper.specialOrderHeaderColor())
+                    .foregroundStyle(DSPLPPodDetailsColorHelper.specialOrderHeaderColor())
 
                 Text(bodyText)
                     .font(.system(size: 12))
-                    .foregroundColor(DSPLPPodDetailsColorHelper.specialOrderBodyColor())
+                    .foregroundStyle(DSPLPPodDetailsColorHelper.specialOrderBodyColor())
                     .lineLimit(3)
 
                 Text(phoneNumber)
                     .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(DSPLPPodDetailsColorHelper.phoneNumberColor())
+                    .foregroundStyle(DSPLPPodDetailsColorHelper.phoneNumberColor())
             }
         }
     }
@@ -375,12 +375,12 @@ public struct DSPLPPodDetails: View {
         VStack(alignment: .leading, spacing: 4) {
             Text(text)
                 .font(.system(size: 14))
-                .foregroundColor(DSPLPPodDetailsColorHelper.consultationTextColor())
+                .foregroundStyle(DSPLPPodDetailsColorHelper.consultationTextColor())
                 .lineLimit(2)
 
             Text(subtitle)
                 .font(.system(size: 12))
-                .foregroundColor(DSPLPPodDetailsColorHelper.consultationSubtitleColor())
+                .foregroundStyle(DSPLPPodDetailsColorHelper.consultationSubtitleColor())
         }
     }
 
@@ -392,13 +392,13 @@ public struct DSPLPPodDetails: View {
             if let lowerPrice = seeLowerPriceText {
                 Text(lowerPrice)
                     .font(.system(size: 11))
-                    .foregroundColor(DSPLPPodDetailsColorHelper.seeLowerPriceColor())
+                    .foregroundStyle(DSPLPPodDetailsColorHelper.seeLowerPriceColor())
             }
 
             if let rebate = rebateText {
                 Text(rebate)
                     .font(.system(size: 12))
-                    .foregroundColor(DSPLPPodDetailsColorHelper.rebateTextColor())
+                    .foregroundStyle(DSPLPPodDetailsColorHelper.rebateTextColor())
             }
         }
     }
@@ -410,15 +410,15 @@ public struct DSPLPPodDetails: View {
         HStack(alignment: .top, spacing: 0) {
             Text("$")
                 .font(.system(size: 12, weight: .bold))
-                .foregroundColor(DSPLPPodDetailsColorHelper.priceColor())
+                .foregroundStyle(DSPLPPodDetailsColorHelper.priceColor())
 
             Text("\(dollars)")
                 .font(.system(size: 20, weight: .bold))
-                .foregroundColor(DSPLPPodDetailsColorHelper.priceColor())
+                .foregroundStyle(DSPLPPodDetailsColorHelper.priceColor())
 
             Text(String(format: "%02d", cents))
                 .font(.system(size: 12, weight: .bold))
-                .foregroundColor(DSPLPPodDetailsColorHelper.priceColor())
+                .foregroundStyle(DSPLPPodDetailsColorHelper.priceColor())
         }
     }
 
@@ -428,7 +428,7 @@ public struct DSPLPPodDetails: View {
     private var specialBuyBadge: some View {
         Image(systemName: "tag.fill")
             .font(.system(size: 20))
-            .foregroundColor(DSPLPPodDetailsColorHelper.specialBuyColor())
+            .foregroundStyle(DSPLPPodDetailsColorHelper.specialBuyColor())
     }
 
     // MARK: - Rating Section
@@ -486,12 +486,12 @@ public struct DSPLPPodDetails: View {
                 if isUnavailable {
                     Image(systemName: "xmark.circle.fill")
                         .font(.system(size: 14))
-                        .foregroundColor(DSPLPPodDetailsColorHelper.unavailableIconColor())
+                        .foregroundStyle(DSPLPPodDetailsColorHelper.unavailableIconColor())
                 }
 
                 Text(primaryText)
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(
+                    .foregroundStyle(
                         isUnavailable
                             ? DSPLPPodDetailsColorHelper.unavailableTextColor()
                             : DSPLPPodDetailsColorHelper.fulfillmentPrimaryColor()
@@ -501,7 +501,7 @@ public struct DSPLPPodDetails: View {
             if let secondary = secondaryText {
                 Text(secondary)
                     .font(.system(size: 11))
-                    .foregroundColor(DSPLPPodDetailsColorHelper.fulfillmentSecondaryColor())
+                    .foregroundStyle(DSPLPPodDetailsColorHelper.fulfillmentSecondaryColor())
             }
         }
     }

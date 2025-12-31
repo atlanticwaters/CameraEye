@@ -120,7 +120,7 @@ struct Callout: View {
                 Image(systemName: iconName)
                     .resizable()
                     .frame(width: 16, height: 16)
-                    .foregroundColor(iconColor)
+                    .foregroundStyle(iconColor)
                     .padding(.top, SpacingTokens.spacing4)
             }
             
@@ -131,20 +131,20 @@ struct Callout: View {
                         if let title = title {
                             Text(title)
                                 .font(TypographyTokens.headingH5ExtraBoldTight)
-                                .foregroundColor(primaryTextColor)
+                                .foregroundStyle(primaryTextColor)
                         }
                         
                         if let subtitle = subtitle {
                             Text(subtitle)
                                 .font(TypographyTokens.bodyMdRegularTight)
-                                .foregroundColor(secondaryTextColor)
+                                .foregroundStyle(secondaryTextColor)
                         }
                     }
                 }
                 
                 Text(description)
                     .font(TypographyTokens.bodySmRegularTight)
-                    .foregroundColor(primaryTextColor)
+                    .foregroundStyle(primaryTextColor)
             }
             .padding(.top, SpacingTokens.spacing4)
             .padding(.bottom, 6)
@@ -157,7 +157,7 @@ struct Callout: View {
                 }) {
                     Text(buttonText)
                         .font(TypographyTokens.bodySmBoldNone)
-                        .foregroundColor(CalloutColorTokens.textButtonOrangeFilledDefault)
+                        .foregroundStyle(CalloutColorTokens.textButtonOrangeFilledDefault)
                         .padding(.horizontal, SpacingTokens.spacing4)
                         .padding(.vertical, SpacingTokens.spacing2)
                         .frame(height: 28)
@@ -253,7 +253,7 @@ struct Alert: View {
             Image(systemName: iconName)
                 .resizable()
                 .frame(width: 16, height: 16)
-                .foregroundColor(iconColor)
+                .foregroundStyle(iconColor)
                 .padding(.top, SpacingTokens.spacing4)
             
             // Content
@@ -261,12 +261,12 @@ struct Alert: View {
                 if let title = title {
                     Text(title)
                         .font(TypographyTokens.headingH6SemiboldNone)
-                        .foregroundColor(CalloutColorTokens.textOnContainerPrimary)
+                        .foregroundStyle(CalloutColorTokens.textOnContainerPrimary)
                 }
                 
                 Text(message)
                     .font(TypographyTokens.bodySmRegularTight)
-                    .foregroundColor(CalloutColorTokens.textOnContainerPrimary)
+                    .foregroundStyle(CalloutColorTokens.textOnContainerPrimary)
             }
             .padding(.top, SpacingTokens.spacing4)
             .padding(.bottom, 6)
@@ -278,7 +278,7 @@ struct Alert: View {
                     Image(systemName: "xmark")
                         .resizable()
                         .frame(width: 16, height: 16)
-                        .foregroundColor(CalloutColorTokens.iconOnSurfacePrimary)
+                        .foregroundStyle(CalloutColorTokens.iconOnSurfacePrimary)
                         .frame(width: 36, height: 36)
                         .background(Color.clear)
                         .cornerRadius(BorderTokens.radius999)
@@ -502,11 +502,11 @@ extension Color {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
                 .thdFont(.h5)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text(description)
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
 

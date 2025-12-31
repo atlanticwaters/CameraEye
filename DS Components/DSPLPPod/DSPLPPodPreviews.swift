@@ -156,7 +156,7 @@ import SwiftUI
         VStack {
             Text("B2C")
                 .font(.caption)
-                .foregroundColor(.gray)
+                .foregroundStyle(.gray)
 
             DSPLPPod(
                 variant: .b2c,
@@ -170,7 +170,7 @@ import SwiftUI
         VStack {
             Text("B2B")
                 .font(.caption)
-                .foregroundColor(.gray)
+                .foregroundStyle(.gray)
 
             DSPLPPod(
                 variant: .b2b,

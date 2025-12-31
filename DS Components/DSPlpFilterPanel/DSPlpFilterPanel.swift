@@ -139,7 +139,7 @@ public struct DSPlpFilterPanel: View {
                 .fontWeight(.bold)
                 .tracking(0.32)
                 .lineLimit(1)
-                .foregroundColor(titleColor)
+                .foregroundStyle(titleColor)
                 .frame(maxWidth: .infinity, alignment: .leading)
             
             // Style Pills Container
@@ -161,7 +161,7 @@ public struct DSPlpFilterPanel: View {
                     .fontWeight(.semibold)
                     .tracking(0.24)
                     .lineLimit(1)
-                    .foregroundColor(resultsColor)
+                    .foregroundStyle(resultsColor)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             
@@ -249,13 +249,13 @@ public struct DSPlpFilterPanel: View {
                                             .resizable()
                                             .scaledToFit()
                                             .frame(width: 24, height: 24)
-                                            .foregroundColor(.gray)
+                                            .foregroundStyle(.gray)
                                     } else {
                                         Image(systemName: "exclamationmark.triangle")
                                             .resizable()
                                             .scaledToFit()
                                             .frame(width: 24, height: 24)
-                                            .foregroundColor(.red)
+                                            .foregroundStyle(.red)
                                     }
                                 }
                                 .onAppear {
@@ -289,13 +289,13 @@ public struct DSPlpFilterPanel: View {
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 24, height: 24)
-                                        .foregroundColor(.blue)
+                                        .foregroundStyle(.blue)
                                 } else {
                                     Image(systemName: "photo")
                                         .resizable()
                                         .scaledToFit()
                                         .frame(width: 24, height: 24)
-                                        .foregroundColor(.orange)
+                                        .foregroundStyle(.orange)
                                 }
                             }
                             .onAppear {
@@ -309,7 +309,7 @@ public struct DSPlpFilterPanel: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 48, height: 48)
-                        .foregroundColor(stylePillTextColor)
+                        .foregroundStyle(stylePillTextColor)
                 }
                 
                 // Text - Using Informational font family for UI elements
@@ -317,7 +317,7 @@ public struct DSPlpFilterPanel: View {
                     .font(.custom(DesignSystemGlobal.FontFamilyInformational, size: DesignSystemGlobal.FontSizeBodySm))
                     .fontWeight(.regular)
                     .lineLimit(2)
-                    .foregroundColor(stylePillTextColor)
+                    .foregroundStyle(stylePillTextColor)
                     .multilineTextAlignment(.leading)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -343,14 +343,14 @@ public struct DSPlpFilterPanel: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 16, height: 14)
-                        .foregroundColor(filterPillFilledTextColor)
+                        .foregroundStyle(filterPillFilledTextColor)
                 }
                 
                 Text(item.text)
                     .font(.custom(DesignSystemGlobal.FontFamilyInformational, size: DesignSystemGlobal.FontSizeBodySm))
                     .fontWeight(.regular)
                     .lineLimit(1)
-                    .foregroundColor(filterPillFilledTextColor)
+                    .foregroundStyle(filterPillFilledTextColor)
             }
             .padding(.horizontal, item.icon != nil ? 0 : DesignSystemGlobal.Spacing3)
             .padding(.leading, item.icon != nil ? 0 : 0)
@@ -373,7 +373,7 @@ public struct DSPlpFilterPanel: View {
                 .font(.custom(DesignSystemGlobal.FontFamilyInformational, size: DesignSystemGlobal.FontSizeBodySm))
                 .fontWeight(.regular)
                 .lineLimit(1)
-                .foregroundColor(subFilterPillFilledTextColor)
+                .foregroundStyle(subFilterPillFilledTextColor)
                 .padding(.horizontal, DesignSystemGlobal.Spacing4)
                 .padding(.vertical, DesignSystemGlobal.Spacing2 - 2)
                 .frame(minHeight: 36)

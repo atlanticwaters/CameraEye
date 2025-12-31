@@ -324,13 +324,13 @@ public struct DSShareSheet: View {
             if let title = data.title {
                 Text(title)
                     .font(.system(size: 17, weight: .semibold))
-                    .foregroundColor(DSShareSheetColorHelper.titleColor())
+                    .foregroundStyle(DSShareSheetColorHelper.titleColor())
             }
 
             if let subtitle = data.subtitle {
                 Text(subtitle)
                     .font(.system(size: 13, weight: .regular))
-                    .foregroundColor(DSShareSheetColorHelper.subtitleColor())
+                    .foregroundStyle(DSShareSheetColorHelper.subtitleColor())
                     .lineLimit(2)
             }
         }
@@ -375,7 +375,7 @@ public struct DSShareSheet: View {
                             width: DSShareSheetLayout.shareActionIconSize,
                             height: DSShareSheetLayout.shareActionIconSize
                         )
-                        .foregroundColor(
+                        .foregroundStyle(
                             action.iconBackgroundColor != nil
                                 ? .white
                                 : DSShareSheetColorHelper.shareActionIconColor()
@@ -384,7 +384,7 @@ public struct DSShareSheet: View {
 
                 Text(action.label)
                     .font(.system(size: 11, weight: .regular))
-                    .foregroundColor(DSShareSheetColorHelper.shareActionLabelColor())
+                    .foregroundStyle(DSShareSheetColorHelper.shareActionLabelColor())
                     .lineLimit(1)
             }
             .frame(width: DSShareSheetLayout.shareActionSize)
@@ -421,7 +421,7 @@ public struct DSShareSheet: View {
                         width: DSShareSheetLayout.actionRowIconSize,
                         height: DSShareSheetLayout.actionRowIconSize
                     )
-                    .foregroundColor(
+                    .foregroundStyle(
                         action.isDestructive
                             ? DSShareSheetColorHelper.destructiveColor()
                             : DSShareSheetColorHelper.actionRowIconColor()
@@ -429,7 +429,7 @@ public struct DSShareSheet: View {
 
                 Text(action.label)
                     .font(.system(size: 16, weight: .regular))
-                    .foregroundColor(
+                    .foregroundStyle(
                         action.isDestructive
                             ? DSShareSheetColorHelper.destructiveColor()
                             : DSShareSheetColorHelper.actionRowLabelColor()

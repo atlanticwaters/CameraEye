@@ -66,7 +66,7 @@ struct MainView: View {
                         } label: {
                             Image(systemName: themeIcon)
                                 .font(.system(size: 16))
-                                .foregroundColor(
+                                .foregroundStyle(
                                     effectiveColorScheme == .dark 
                                         ? TokensSemanticDark.TextOnSurfaceColorPrimary 
                                         : TokensSemanticLight.TextOnSurfaceColorPrimary

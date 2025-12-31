@@ -304,13 +304,13 @@ public struct DSFeatureCard: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: iconSize, height: iconSize)
-                    .foregroundColor(iconColor)
+                    .foregroundStyle(iconColor)
             } else {
                 Image(systemName: "checkmark.circle")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: iconSize, height: iconSize)
-                    .foregroundColor(iconColor)
+                    .foregroundStyle(iconColor)
             }
 
             titleText(feature.title)
@@ -321,14 +321,14 @@ public struct DSFeatureCard: View {
     private func titleText(_ text: String) -> some View {
         Text(text)
             .font(.system(size: 14, weight: .semibold))
-            .foregroundColor(titleColor)
+            .foregroundStyle(titleColor)
     }
 
     @ViewBuilder
     private func descriptionText(_ text: String) -> some View {
         Text(text)
             .font(.system(size: 12, weight: .regular))
-            .foregroundColor(descriptionColor)
+            .foregroundStyle(descriptionColor)
     }
 }
 

@@ -114,7 +114,7 @@ struct THDCallout: View {
                 Image(systemName: iconName)
                     .resizable()
                     .frame(width: 16, height: 16)
-                    .foregroundColor(iconColor)
+                    .foregroundStyle(iconColor)
                     .padding(.top, DesignSystemGlobal.Spacing4)
             }
 
@@ -127,7 +127,7 @@ struct THDCallout: View {
                             Text(title)
                                 .font(.thdH5)
                                 .lineSpacing(DesignSystemGlobal.FontLineHeightTight)
-                                .foregroundColor(primaryTextColor)
+                                .foregroundStyle(primaryTextColor)
                         }
 
                         if let subtitle = subtitle {
@@ -135,7 +135,7 @@ struct THDCallout: View {
                             Text(subtitle)
                                 .font(.thdBodyMd)
                                 .lineSpacing(DesignSystemGlobal.FontLineHeightTight)
-                                .foregroundColor(secondaryTextColor)
+                                .foregroundStyle(secondaryTextColor)
                         }
                     }
                 }
@@ -144,7 +144,7 @@ struct THDCallout: View {
                 Text(description)
                     .font(.thdBodySm)
                     .lineSpacing(DesignSystemGlobal.FontLineHeightTight)
-                    .foregroundColor(primaryTextColor)
+                    .foregroundStyle(primaryTextColor)
             }
             .padding(.top, DesignSystemGlobal.Spacing4)
             .padding(.bottom, 6)
@@ -157,7 +157,7 @@ struct THDCallout: View {
                 }) {
                     Text(buttonText)
                         .font(.thdBodySm)
-                        .foregroundColor(DesignSystemGlobal.TextButtonColorOrangeFilledDefault)
+                        .foregroundStyle(DesignSystemGlobal.TextButtonColorOrangeFilledDefault)
                         .padding(.horizontal, DesignSystemGlobal.Spacing4)
                         .padding(.vertical, DesignSystemGlobal.Spacing2)
                         .frame(height: DesignSystemGlobal.Spacing7)
@@ -279,7 +279,7 @@ struct THDAlert: View {
             Image(systemName: iconName)
                 .resizable()
                 .frame(width: 16, height: 16)
-                .foregroundColor(iconColor)
+                .foregroundStyle(iconColor)
                 .padding(.top, DesignSystemGlobal.Spacing4)
 
             // Content
@@ -288,14 +288,14 @@ struct THDAlert: View {
                     // Heading h6 with custom font
                     Text(title)
                         .font(.thdH6)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 }
 
                 // Body Sm with custom font
                 Text(message)
                     .font(.thdBodySm)
                     .lineSpacing(DesignSystemGlobal.FontLineHeightTight)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
             }
             .padding(.top, DesignSystemGlobal.Spacing4)
             .padding(.bottom, 6)
@@ -307,7 +307,7 @@ struct THDAlert: View {
                     Image(systemName: "xmark")
                         .resizable()
                         .frame(width: 16, height: 16)
-                        .foregroundColor(DesignSystemGlobal.IconOnSurfaceColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.IconOnSurfaceColorPrimary)
                         .frame(width: DesignSystemGlobal.Spacing9, height: DesignSystemGlobal.Spacing9)
                         .background(Color.clear)
                         .cornerRadius(DesignSystemGlobal.BorderRadiusFull)
@@ -388,11 +388,11 @@ struct THDAlert: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
                 .thdFont(.h5)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text(description)
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
 
@@ -401,7 +401,7 @@ struct THDAlert: View {
             // Alerts Section
             Text("Alert")
                 .thdFont(.hero3)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
 
             // MARK: - Informational Alerts
@@ -459,7 +459,7 @@ struct THDAlert: View {
             // Callouts Section
             Text("Callout")
                 .thdFont(.hero3)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
 
             // MARK: - Neutral Callouts

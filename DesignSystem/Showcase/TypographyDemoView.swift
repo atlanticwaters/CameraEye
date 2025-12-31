@@ -26,13 +26,13 @@ struct TypographyDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Typography")
                         .thdFont(.hero5)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text(
                         "The THD App Design System uses two custom font families for a distinct, modern typographic voice."
                     )
                     .thdFont(.bodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                 }
                 .padding(DesignSystemGlobal.Spacing4)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -102,7 +102,7 @@ struct TypographyDemoView: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
             Text("Font Families")
                 .thdFont(.h3)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                 // Display Font
@@ -110,13 +110,13 @@ struct TypographyDemoView: View {
                     HStack {
                         Text("Display")
                             .thdFont(.h5)
-                            .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                            .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                         Spacer()
 
                         Text("THD LgVar Beta")
                             .thdFont(.bodySm)
-                            .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                            .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
                             .padding(.horizontal, DesignSystemGlobal.Spacing2)
                             .padding(.vertical, DesignSystemGlobal.Spacing1)
                             .background(
@@ -129,19 +129,19 @@ struct TypographyDemoView: View {
                         "Used for large, attention-grabbing text like heroes, headlines, and section headers. This font family brings personality and prominence to key messaging."
                     )
                     .thdFont(.bodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                     Spacer()
                     Text("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
                         .thdFont(.h4)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text("abcdefghijklmnopqrstuvwxyz")
                         .thdFont(.h4)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text("0123456789")
                         .thdFont(.h4)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 }
                 .padding(DesignSystemGlobal.Spacing3)
                 .background(
@@ -154,13 +154,13 @@ struct TypographyDemoView: View {
                     HStack {
                         Text("Informational")
                             .thdFont(.h5)
-                            .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                            .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                         Spacer()
 
                         Text("THD SmVar Beta")
                             .thdFont(.bodySm)
-                            .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                            .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
                             .padding(.horizontal, DesignSystemGlobal.Spacing2)
                             .padding(.vertical, DesignSystemGlobal.Spacing1)
                             .background(
@@ -173,19 +173,19 @@ struct TypographyDemoView: View {
                         "Used for body text, captions, and informational content. This font family prioritizes readability and clarity for extended reading."
                     )
                     .thdFont(.bodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                     Spacer()
                     Text("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
                         .thdFont(.bodyLg)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text("abcdefghijklmnopqrstuvwxyz")
                         .thdFont(.bodyLg)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text("0123456789")
                         .thdFont(.bodyLg)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 }
                 .padding(DesignSystemGlobal.Spacing3)
                 .background(
@@ -203,18 +203,18 @@ struct TypographyDemoView: View {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
                 Text("Display Font Scale")
                     .thdFont(.h3)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                 Text("THD LgVar Beta - Heroes & Headings")
                     .thdFont(.bodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
             }
 
             // Hero Sizes
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                 Text("Hero Sizes")
                     .thdFont(.h6)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 typeSpecRow(
                     name: "Hero 1",
@@ -261,7 +261,7 @@ struct TypographyDemoView: View {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                 Text("Heading Sizes")
                     .thdFont(.h6)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 typeSpecRow(
                     name: "H1",
@@ -320,11 +320,11 @@ struct TypographyDemoView: View {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
                 Text("Informational Font Scale")
                     .thdFont(.h3)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                 Text("THD SmVar Beta - Body Text & Captions")
                     .thdFont(.bodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
             }
 
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
@@ -385,11 +385,11 @@ struct TypographyDemoView: View {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
                 Text("Line Heights")
                     .thdFont(.h3)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                 Text("Consistent vertical rhythm for readable text blocks")
                     .thdFont(.bodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
             }
 
             HStack(spacing: DesignSystemGlobal.Spacing3) {
@@ -421,11 +421,11 @@ struct TypographyDemoView: View {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
                 Text("Typography Hierarchy")
                     .thdFont(.h3)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                 Text("Using scale and weight to establish visual hierarchy")
                     .thdFont(.bodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
             }
 
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
@@ -433,17 +433,17 @@ struct TypographyDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Genesis E-315 3-Burner Gas Grill")
                         .thdFont(.h2)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text("Liquid Propane | Black Finish")
                         .thdFont(.bodyLg)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Text(
                         "Experience professional grilling results with 39,000 BTUs of cooking power across three stainless steel burners. The porcelain-enameled lid retains heat efficiently while the Flavorizer bars add that signature smoky taste."
                     )
                     .thdFont(.bodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                     .lineSpacing(
                         DesignSystemGlobal.FontSizeBodyMd
                             * (DesignSystemGlobal.FontLineHeightBase - 1))
@@ -451,15 +451,15 @@ struct TypographyDemoView: View {
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
                         Text("SKU: 314615926")
                             .thdFont(.bodyXs)
-                            .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                            .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
 
                         Text("•")
                             .thdFont(.bodyXs)
-                            .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                            .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
 
                         Text("In Stock")
                             .thdFont(.bodyXs)
-                            .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorSuccess)
+                            .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorSuccess)
                     }
                 }
                 .padding(DesignSystemGlobal.Spacing3)
@@ -478,18 +478,18 @@ struct TypographyDemoView: View {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
                 Text("Practical Examples")
                     .thdFont(.h3)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                 Text("Typography in context with real UI patterns")
                     .thdFont(.bodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
             }
 
             // Product Card Example
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                 Text("Product Card")
                     .thdFont(.h6)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 productCardExample
             }
@@ -498,7 +498,7 @@ struct TypographyDemoView: View {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                 Text("Alert Message")
                     .thdFont(.h6)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 alertExample
             }
@@ -507,7 +507,7 @@ struct TypographyDemoView: View {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                 Text("Form Field")
                     .thdFont(.h6)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 formExample
             }
@@ -523,24 +523,24 @@ struct TypographyDemoView: View {
             HStack(alignment: .top, spacing: DesignSystemGlobal.Spacing2) {
                 Text("Aa")
                     .thdFont(fontStyle)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                 Spacer()
 
                 VStack(alignment: .trailing, spacing: 2) {
                     Text(name)
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text("\(Int(size))pt")
                         .thdFont(.bodyXs)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
                 }
             }
 
             Text(usage)
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
         }
         .padding(DesignSystemGlobal.Spacing2)
         .background(
@@ -555,18 +555,18 @@ struct TypographyDemoView: View {
             Text("Aa\nBb\nCc")
                 .thdFont(.bodyLg)
                 .lineSpacing(DesignSystemGlobal.FontSizeBodyLg * (multiplier - 1))
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
 
             VStack(spacing: 4) {
                 Text(name)
                     .thdFont(.bodySm)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                 Text(description)
                     .thdFont(.caption)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
                     .multilineTextAlignment(.center)
             }
         }
@@ -589,34 +589,34 @@ struct TypographyDemoView: View {
 
             Text("Premium Outdoor Grill Cover")
                 .thdFont(.h6)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             HStack(spacing: DesignSystemGlobal.Spacing1) {
                 Image(systemName: "star.fill")
                     .font(.system(size: 12))
-                    .foregroundColor(DesignSystemGlobal.Lemon500)
+                    .foregroundStyle(DesignSystemGlobal.Lemon500)
                 Text("4.8")
                     .thdFont(.bodySm)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                 Text("(247)")
                     .thdFont(.bodyXs)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
             }
 
             HStack(alignment: .firstTextBaseline, spacing: DesignSystemGlobal.Spacing1) {
                 Text("$89.99")
                     .thdFont(.h5)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorAccent)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorAccent)
 
                 Text("$129.99")
                     .thdFont(.bodySm)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
                     .strikethrough()
             }
 
             Text("Ships within 2-3 business days")
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorSuccess)
+                .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorSuccess)
         }
         .padding(DesignSystemGlobal.Spacing3)
         .background(
@@ -629,18 +629,18 @@ struct TypographyDemoView: View {
         HStack(alignment: .top, spacing: DesignSystemGlobal.Spacing2) {
             Image(systemName: "checkmark.circle.fill")
                 .font(.system(size: 20))
-                .foregroundColor(DesignSystemGlobal.IconOnContainerColorSuccess)
+                .foregroundStyle(DesignSystemGlobal.IconOnContainerColorSuccess)
 
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
                 Text("Order Confirmed")
                     .thdFont(.h6)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                 Text(
                     "Your order #12345 has been placed successfully. You'll receive a confirmation email shortly."
                 )
                 .thdFont(.bodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                 .lineSpacing(
                     DesignSystemGlobal.FontSizeBodySm * (DesignSystemGlobal.FontLineHeightBase - 1))
             }
@@ -658,7 +658,7 @@ struct TypographyDemoView: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text("Email Address")
                 .thdFont(.bodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             RoundedRectangle(cornerRadius: DesignSystemGlobal.BorderRadiusLg)
                 .stroke(DesignSystemGlobal.BorderInputColorDefault, lineWidth: 1)
@@ -667,7 +667,7 @@ struct TypographyDemoView: View {
                     HStack {
                         Text("john.doe@example.com")
                             .thdFont(.bodyMd)
-                            .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                            .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                         Spacer()
                     }
                     .padding(.horizontal, DesignSystemGlobal.Spacing3)
@@ -675,7 +675,7 @@ struct TypographyDemoView: View {
 
             Text("We'll never share your email with anyone else.")
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
         .padding(DesignSystemGlobal.Spacing3)
         .background(
@@ -696,7 +696,7 @@ struct TypographyDemoView: View {
     private var fontVerificationHeader: some View {
         Text("Font Loading Status (Debug)")
             .thdFont(.h5)
-            .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+            .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
     }
 
     private var fontVerificationContent: some View {
@@ -722,20 +722,20 @@ struct TypographyDemoView: View {
 
         return HStack {
             Image(systemName: isLoaded ? "checkmark.circle.fill" : "xmark.circle.fill")
-                .foregroundColor(
+                .foregroundStyle(
                     isLoaded
                         ? DesignSystemGlobal.IconOnContainerColorSuccess
                         : DesignSystemGlobal.IconOnContainerColorError)
 
             Text(fontName)
                 .thdFont(.bodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Spacer()
 
             Text(isLoaded ? "Loaded" : "Missing")
                 .thdFont(.caption)
-                .foregroundColor(
+                .foregroundStyle(
                     isLoaded
                         ? DesignSystemGlobal.TextOnSurfaceColorSuccess
                         : DesignSystemGlobal.TextOnSurfaceColorError)
@@ -746,7 +746,7 @@ struct TypographyDemoView: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
             Text("Font Display Test:")
                 .thdFont(.bodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
             displayFontTest
             informationalFontTest
@@ -756,13 +756,13 @@ struct TypographyDemoView: View {
     private var displayFontTest: some View {
         Text("Display Font: The Quick Brown Fox")
             .font(.custom(DesignSystemGlobal.FontFamilyDisplay, size: 20))
-            .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+            .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
     }
 
     private var informationalFontTest: some View {
         Text("Informational Font: The Quick Brown Fox Jumps Over")
             .font(.custom(DesignSystemGlobal.FontFamilyInformational, size: 16))
-            .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+            .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
     }
 
     // MARK: - Font Verification Function

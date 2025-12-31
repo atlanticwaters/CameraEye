@@ -16,7 +16,7 @@ struct ThemeSwitcher: View {
                 }) {
                     Image(systemName: "sun.max.fill")
                         .font(.system(size: 18))
-                        .foregroundColor(colorScheme == .light ? .primary : .secondary)
+                        .foregroundStyle(colorScheme == .light ? .primary : .secondary)
                         .frame(width: 32, height: 32)
                 }
                 .buttonStyle(.glass)
@@ -29,7 +29,7 @@ struct ThemeSwitcher: View {
                 }) {
                     Image(systemName: "circle.lefthalf.filled")
                         .font(.system(size: 18))
-                        .foregroundColor(colorScheme == nil ? .primary : .secondary)
+                        .foregroundStyle(colorScheme == nil ? .primary : .secondary)
                         .frame(width: 32, height: 32)
                 }
                 .buttonStyle(.glass)
@@ -42,7 +42,7 @@ struct ThemeSwitcher: View {
                 }) {
                     Image(systemName: "moon.fill")
                         .font(.system(size: 18))
-                        .foregroundColor(colorScheme == .dark ? .primary : .secondary)
+                        .foregroundStyle(colorScheme == .dark ? .primary : .secondary)
                         .frame(width: 32, height: 32)
                 }
                 .buttonStyle(.glass)

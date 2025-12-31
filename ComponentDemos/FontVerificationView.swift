@@ -16,7 +16,7 @@ struct FontVerificationView: View {
                     ForEach(Array(customFontsFound.keys.sorted()), id: \.self) { fontName in
                         HStack {
                             Image(systemName: customFontsFound[fontName] == true ? "checkmark.circle.fill" : "xmark.circle.fill")
-                                .foregroundColor(customFontsFound[fontName] == true ? .green : .red)
+                                .foregroundStyle(customFontsFound[fontName] == true ? .green : .red)
                             
                             Text(fontName)
                                 .font(.system(size: 16, design: .monospaced))
@@ -29,28 +29,28 @@ struct FontVerificationView: View {
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Display Font Test")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                         
                         Text("The Quick Brown Fox")
                             .font(.custom("THD LgVar Beta", size: 24))
                         
                         Text("Fallback: The Quick Brown Fox")
                             .font(.system(size: 24, weight: .bold, design: .default))
-                            .foregroundColor(.orange)
+                            .foregroundStyle(.orange)
                     }
                     
                     // Test Informational Font (THD SmVar Beta)
                     VStack(alignment: .leading, spacing: 8) {
                         Text("Informational Font Test")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                         
                         Text("The Quick Brown Fox Jumps Over The Lazy Dog")
                             .font(.custom("THD SmVar Beta", size: 16))
                         
                         Text("Fallback: The Quick Brown Fox Jumps Over The Lazy Dog")
                             .font(.system(size: 16, weight: .regular, design: .default))
-                            .foregroundColor(.orange)
+                            .foregroundStyle(.orange)
                     }
                 }
                 
@@ -58,7 +58,7 @@ struct FontVerificationView: View {
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Using .thdFont() modifiers:")
                             .font(.caption)
-                            .foregroundColor(.secondary)
+                            .foregroundStyle(.secondary)
                         
                         Text("Hero 1 Text")
                             .thdFont(.hero1)

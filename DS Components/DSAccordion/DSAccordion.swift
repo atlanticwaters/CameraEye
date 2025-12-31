@@ -158,21 +158,21 @@ public struct DSAccordion<Content: View>: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 20, height: 20)
-                    .foregroundColor(iconColor)
+                    .foregroundStyle(iconColor)
             }
 
             // Title and subtitle
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(titleColor)
+                    .foregroundStyle(titleColor)
                     .lineLimit(nil)
                     .multilineTextAlignment(.leading)
 
                 if let subtitle {
                     Text(subtitle)
                         .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(subtitleColor)
+                        .foregroundStyle(subtitleColor)
                         .lineLimit(2)
                 }
             }
@@ -184,7 +184,7 @@ public struct DSAccordion<Content: View>: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 16, height: 9)
-                .foregroundColor(iconColor)
+                .foregroundStyle(iconColor)
                 .rotationEffect(.degrees(isExpanded ? 180 : 0))
                 .animation(DSAnimation.spring, value: isExpanded)
         }

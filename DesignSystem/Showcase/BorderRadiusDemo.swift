@@ -13,7 +13,7 @@ struct BorderRadiusDemo: View {
             HStack {
                 Text(name)
                     .font(.system(size: TokensCoreLight.FontSizeBodySm, weight: .medium))
-                    .foregroundColor(
+                    .foregroundStyle(
                         colorScheme == .dark
                             ? TokensSemanticDark.TextOnSurfaceColorPrimary
                             : TokensSemanticLight.TextOnSurfaceColorPrimary
@@ -23,7 +23,7 @@ struct BorderRadiusDemo: View {
                 
                 Text(radius == 9999 ? "Full" : "\(Int(radius))pt")
                     .font(.system(size: TokensCoreLight.FontSizeBodyXs, weight: .semibold))
-                    .foregroundColor(
+                    .foregroundStyle(
                         colorScheme == .dark
                             ? TokensSemanticDark.TextOnSurfaceColorSecondary
                             : TokensSemanticLight.TextOnSurfaceColorSecondary
@@ -49,7 +49,7 @@ struct BorderRadiusDemo: View {
                 .overlay(
                     Text(radius == 9999 ? "Pill Shape" : "")
                         .font(.system(size: TokensCoreLight.FontSizeBodySm, weight: .medium))
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                 )
         }
     }

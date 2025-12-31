@@ -130,7 +130,7 @@ public struct DSCallout: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 16, height: 16)
-                    .foregroundColor(iconColor)
+                    .foregroundStyle(iconColor)
             }
 
             // Content column
@@ -143,7 +143,7 @@ public struct DSCallout: View {
                 // Body text
                 Text(bodyText)
                     .font(DSTypography.bodyXs)
-                    .foregroundColor(bodyColor)
+                    .foregroundStyle(bodyColor)
             }
             .padding(.top, contentTopPadding)
             .padding(.leading, leadingIcon != nil ? 0 : 0)
@@ -172,12 +172,12 @@ public struct DSCallout: View {
             if let title {
                 Text(title)
                     .font(DSTypography.headingSm)
-                    .foregroundColor(titleColor)
+                    .foregroundStyle(titleColor)
             }
             if let subtitle {
                 Text(subtitle)
                     .font(DSTypography.bodyMd)
-                    .foregroundColor(bodyColor)
+                    .foregroundStyle(bodyColor)
             }
         }
     }

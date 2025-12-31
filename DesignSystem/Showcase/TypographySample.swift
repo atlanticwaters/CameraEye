@@ -20,17 +20,17 @@ struct TypographySample: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(name)
                     .font(.system(size: TokensCoreLight.FontSizeBodySm, weight: .semibold))
-                    .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                    .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                 
                 HStack(spacing: 12) {
                     Text("\(Int(fontSize))pt")
                         .font(.system(size: TokensCoreLight.FontSizeBodyXs))
-                        .foregroundColor(TokensSemanticLight.TextOnSurfaceColorSecondary)
+                        .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorSecondary)
                     
                     if let fontFamily = fontFamily {
                         Text(fontFamily)
                             .font(.system(size: TokensCoreLight.FontSizeBodyXs))
-                            .foregroundColor(TokensSemanticLight.TextOnSurfaceColorTertiary)
+                            .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorTertiary)
                     }
                 }
             }
@@ -38,7 +38,7 @@ struct TypographySample: View {
             // Sample text
             Text(sampleText)
                 .font(.custom(fontFamily ?? "", size: fontSize))
-                .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
             
             Divider()
         }

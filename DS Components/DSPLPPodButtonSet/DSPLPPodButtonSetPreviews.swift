@@ -138,7 +138,7 @@ private struct StatefulB2BPreview: View {
         VStack {
             Text("B2C")
                 .font(.caption)
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
 
             DSPLPPodButtonSet(
                 variant: .b2c,
@@ -150,7 +150,7 @@ private struct StatefulB2BPreview: View {
         VStack {
             Text("B2B")
                 .font(.caption)
-                .foregroundColor(.secondary)
+                .foregroundStyle(.secondary)
 
             DSPLPPodButtonSet(
                 variant: .b2b,

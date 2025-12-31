@@ -165,7 +165,6 @@ public struct DSMiniProductCard: View {
         static let contentPadding: CGFloat = 8
         static let spacing: CGFloat = 4
         static let badgeOffset: CGFloat = 8
-        static let starSize: CGFloat = 12
     }
 
     // MARK: - Initializers
@@ -235,7 +234,7 @@ public struct DSMiniProductCard: View {
                         Spacer()
                         Text("Sponsored")
                             .font(.system(size: 10, weight: .regular))
-                            .foregroundColor(DSMiniProductCardColorHelper.sponsoredTextColor())
+                            .foregroundStyle(DSMiniProductCardColorHelper.sponsoredTextColor())
                             .padding(.horizontal, 4)
                             .padding(.vertical, 2)
                             .background(
@@ -258,7 +257,7 @@ public struct DSMiniProductCard: View {
             // Product Name
             Text(data.productName)
                 .font(.system(size: 12, weight: .regular))
-                .foregroundColor(DSMiniProductCardColorHelper.productNameColor())
+                .foregroundStyle(DSMiniProductCardColorHelper.productNameColor())
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
 
@@ -282,20 +281,20 @@ public struct DSMiniProductCard: View {
             if let prefix = data.price.prefix {
                 Text(prefix)
                     .font(.system(size: 10, weight: .regular))
-                    .foregroundColor(DSMiniProductCardColorHelper.priceSecondaryColor())
+                    .foregroundStyle(DSMiniProductCardColorHelper.priceSecondaryColor())
             }
 
             HStack(alignment: .firstTextBaseline, spacing: 4) {
                 // Current price
                 Text(data.price.formattedPrice)
                     .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(priceColor)
+                    .foregroundStyle(priceColor)
 
                 // Original price (strikethrough for sale)
                 if let originalPrice = data.price.originalPrice {
                     Text(originalPrice)
                         .font(.system(size: 11, weight: .regular))
-                        .foregroundColor(DSMiniProductCardColorHelper.priceSecondaryColor())
+                        .foregroundStyle(DSMiniProductCardColorHelper.priceSecondaryColor())
                         .strikethrough()
                 }
             }
@@ -315,41 +314,11 @@ public struct DSMiniProductCard: View {
 
     @ViewBuilder
     private func ratingSection(rating: DSMiniProductCardRating) -> some View {
-        HStack(spacing: 2) {
-            // Stars
-            ForEach(0..<5, id: \.self) { index in
-                starImage(for: index, rating: rating.rating)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: Layout.starSize, height: Layout.starSize)
-                    .foregroundColor(DSMiniProductCardColorHelper.starColor())
-            }
-
-            // Review count
-            if let count = rating.reviewCount {
-                Text("(\(formatReviewCount(count)))")
-                    .font(.system(size: 10, weight: .regular))
-                    .foregroundColor(DSMiniProductCardColorHelper.reviewCountColor())
-            }
-        }
-    }
-
-    private func starImage(for index: Int, rating: Double) -> Image {
-        let threshold = Double(index) + 0.5
-        if rating >= Double(index + 1) {
-            return Image(systemName: "star.fill")
-        } else if rating >= threshold {
-            return Image(systemName: "star.leadinghalf.filled")
-        } else {
-            return Image(systemName: "star")
-        }
-    }
-
-    private func formatReviewCount(_ count: Int) -> String {
-        if count >= 1000 {
-            let thousands = Double(count) / 1000.0
-            return String(format: "%.1fK", thousands)
-        }
-        return "\(count)"
+        DSRatingMeter(
+            rating: rating.rating,
+            reviewCount: rating.reviewCount,
+            size: .small,
+            showLabel: rating.reviewCount != nil
+        )
     }
 }

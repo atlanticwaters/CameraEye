@@ -20,7 +20,7 @@ struct TokenSection<Content: View>: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .font(.system(size: TokensCoreLight.FontSizeBodyLg, weight: .bold))
-                    .foregroundColor(
+                    .foregroundStyle(
                         colorScheme == .dark
                             ? TokensSemanticDark.TextOnSurfaceColorPrimary
                             : TokensSemanticLight.TextOnSurfaceColorPrimary
@@ -29,7 +29,7 @@ struct TokenSection<Content: View>: View {
                 if let description = description {
                     Text(description)
                         .font(.system(size: TokensCoreLight.FontSizeBodySm))
-                        .foregroundColor(
+                        .foregroundStyle(
                             colorScheme == .dark
                                 ? TokensSemanticDark.TextOnSurfaceColorSecondary
                                 : TokensSemanticLight.TextOnSurfaceColorSecondary

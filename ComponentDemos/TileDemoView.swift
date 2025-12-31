@@ -13,11 +13,11 @@ struct TileDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Tile")
                         .thdFont(.hero5)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text("Selectable tiles for options, attributes, and selections.")
                         .thdFont(.bodyMd)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                 }
                 .padding(DesignSystemGlobal.Spacing4)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -35,7 +35,7 @@ struct TileDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Selection States")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                         OutlinedTile(text: "Selected", imageName: "photo", isSelected: true)
@@ -44,7 +44,7 @@ struct TileDemoView: View {
 
                     Text("Availability States")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                         OutlinedTile(text: "Available - Selected", imageName: "photo", isSelected: true, isAvailable: true)
@@ -55,7 +55,7 @@ struct TileDemoView: View {
 
                     Text("With Dot Indicator")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                         OutlinedTile(text: "Option with dot", imageName: "photo", isSelected: false, showDot: true)
@@ -71,7 +71,7 @@ struct TileDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Selection States")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                         FilledTile(text: "Selected", imageName: "photo", isSelected: true)
@@ -80,7 +80,7 @@ struct TileDemoView: View {
 
                     Text("Availability States")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                         FilledTile(text: "Unavailable - Selected", imageName: "photo", isSelected: true, isAvailable: false)
@@ -96,7 +96,7 @@ struct TileDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Selection States")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                         GhostTile(text: "Selected", imageName: "photo", isSelected: true)
@@ -105,7 +105,7 @@ struct TileDemoView: View {
 
                     Text("Availability States")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                         GhostTile(text: "Unavailable - Selected", imageName: "photo", isSelected: true, isAvailable: false)
@@ -121,22 +121,22 @@ struct TileDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Horizontal Layout")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Text("Image on left, text on right")
                         .thdFont(.caption)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
 
                     Tile(text: "Horizontal", imageName: "photo", variant: .outlined, layout: .horizontal)
                     Tile(text: "With dot", imageName: "photo", variant: .outlined, layout: .horizontal, showDot: true)
 
                     Text("Vertical Layout")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Text("Image on top, text below")
                         .thdFont(.caption)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing3) {
                         Tile(text: "Vertical", imageName: "photo", variant: .outlined, layout: .vertical)
@@ -148,11 +148,11 @@ struct TileDemoView: View {
 
                     Text("Composed Layout")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Text("Custom content slot")
                         .thdFont(.caption)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
 
                     Tile(text: "", variant: .outlined, layout: .composed, showDot: true)
                 }
@@ -177,7 +177,7 @@ struct TileDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Unselected")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
                         Tile(text: "Outlined", variant: .outlined, isSelected: false)
@@ -187,7 +187,7 @@ struct TileDemoView: View {
 
                     Text("Selected")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
                         Tile(text: "Outlined", variant: .outlined, isSelected: true)
@@ -204,7 +204,7 @@ struct TileDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Size Selection")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
                         Tile(text: "S", variant: .outlined, isSelected: false)
@@ -219,7 +219,7 @@ struct TileDemoView: View {
 
                     Text("Color Selection")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
                         Tile(text: "Red", imageName: "photo", variant: .outlined, isSelected: false, showDot: true)
@@ -232,7 +232,7 @@ struct TileDemoView: View {
 
                     Text("Store Selection")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                         Tile(text: "Cumberland Store", variant: .outlined, layout: .horizontal, isSelected: true, showDot: true)
@@ -242,7 +242,7 @@ struct TileDemoView: View {
 
                     Text("Delivery Options")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                         Tile(text: "Ship to Home", variant: .filled, isSelected: true)
@@ -252,7 +252,7 @@ struct TileDemoView: View {
 
                     Text("Product Variants (Vertical)")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: DesignSystemGlobal.Spacing3) {
@@ -283,11 +283,11 @@ struct TileDemoView: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
                 .thdFont(.h6)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text(description)
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
 }

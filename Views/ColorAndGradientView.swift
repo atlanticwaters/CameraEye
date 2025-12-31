@@ -26,7 +26,7 @@ struct ColorAndGradientView: View {
 
                         Text("Colors that automatically adapt to light and dark modes")
                             .font(.caption)
-                            .foregroundColor(.gray)
+                            .foregroundStyle(.gray)
                             .frame(maxWidth: .infinity, alignment: .leading)
 
                         // Grid of semantic color swatches

@@ -186,7 +186,7 @@ struct QuantityPicker: View {
         HStack(spacing: DesignSystemGlobal.Spacing2) {
             Text("\(quantity)")
                 .font(textFont)
-                .foregroundColor(textColor)
+                .foregroundStyle(textColor)
                 .frame(minWidth: 14)
         }
         .padding(.horizontal, DesignSystemGlobal.Spacing3)
@@ -280,7 +280,7 @@ struct QuantityButton: View {
             Image(systemName: icon)
                 .resizable()
                 .frame(width: size.iconSize, height: size.iconSize)
-                .foregroundColor(iconColor)
+                .foregroundStyle(iconColor)
                 .frame(width: buttonSize, height: buttonSize)
                 .background(buttonBackground)
                 .cornerRadius(DesignSystemGlobal.BorderRadiusFull)
@@ -367,7 +367,7 @@ struct StandaloneQuantityButton: View {
             Image(systemName: iconName)
                 .resizable()
                 .frame(width: 16, height: 16)
-                .foregroundColor(iconColor)
+                .foregroundStyle(iconColor)
                 .frame(width: buttonSize, height: buttonSize)
                 .background(buttonBackground)
                 .cornerRadius(DesignSystemGlobal.BorderRadiusFull)
@@ -423,11 +423,11 @@ struct StandaloneQuantityButton: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
                 .thdFont(.h5)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text(description)
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
 
@@ -436,7 +436,7 @@ struct StandaloneQuantityButton: View {
             // Title
             Text("Quantity Picker")
                 .thdFont(.hero3)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.bottom, 20)
 
             // MARK: - Orange - Expands from Right

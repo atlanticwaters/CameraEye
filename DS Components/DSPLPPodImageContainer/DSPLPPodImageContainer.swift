@@ -172,32 +172,21 @@ public struct DSPLPPodImageContainer: View {
 
     @ViewBuilder
     private func badgeView(_ badge: DSPLPPodBadge) -> some View {
-        Text(badge.text)
-            .font(.system(size: 12, weight: .bold))
-            .foregroundColor(badgeTextColor(for: badge.color))
-            .padding(.horizontal, Layout.badgePadding)
-            .padding(.vertical, 2)
-            .background(badgeBackgroundColor(for: badge.color))
-            .cornerRadius(6)
+        DSBadge(
+            badge.text,
+            size: .small,
+            variant: .filledStrong,
+            color: mapBadgeColor(badge.color)
+        )
     }
 
-    private func badgeTextColor(for color: DSPLPPodBadge.BadgeColor) -> Color {
+    private func mapBadgeColor(_ color: DSPLPPodBadge.BadgeColor) -> DSBadgeColor {
         switch color {
-        case .info: return DSPLPPodImageContainerColorHelper.badgeInfoTextColor()
-        case .success: return DSPLPPodImageContainerColorHelper.badgeSuccessTextColor()
-        case .warning: return DSPLPPodImageContainerColorHelper.badgeWarningTextColor()
-        case .error: return DSPLPPodImageContainerColorHelper.badgeErrorTextColor()
-        case .neutral: return DSPLPPodImageContainerColorHelper.badgeNeutralTextColor()
-        }
-    }
-
-    private func badgeBackgroundColor(for color: DSPLPPodBadge.BadgeColor) -> Color {
-        switch color {
-        case .info: return DSPLPPodImageContainerColorHelper.badgeInfoBackgroundColor()
-        case .success: return DSPLPPodImageContainerColorHelper.badgeSuccessBackgroundColor()
-        case .warning: return DSPLPPodImageContainerColorHelper.badgeWarningBackgroundColor()
-        case .error: return DSPLPPodImageContainerColorHelper.badgeErrorBackgroundColor()
-        case .neutral: return DSPLPPodImageContainerColorHelper.badgeNeutralBackgroundColor()
+        case .info: .info
+        case .success: .success
+        case .warning: .warning
+        case .error: .danger
+        case .neutral: .medium
         }
     }
 
@@ -223,7 +212,7 @@ public struct DSPLPPodImageContainer: View {
             if isSponsored {
                 Text("Sponsored")
                     .font(.system(size: 11))
-                    .foregroundColor(DSPLPPodImageContainerColorHelper.sponsoredTextColor())
+                    .foregroundStyle(DSPLPPodImageContainerColorHelper.sponsoredTextColor())
                     .padding(.top, 4)
             }
         }
@@ -267,7 +256,7 @@ public struct DSPLPPodImageContainer: View {
             if additionalCount > 0 {
                 Text("+\(additionalCount)")
                     .font(.system(size: 12))
-                    .foregroundColor(DSPLPPodImageContainerColorHelper.swatchCountTextColor())
+                    .foregroundStyle(DSPLPPodImageContainerColorHelper.swatchCountTextColor())
             }
         }
     }
@@ -325,14 +314,14 @@ public struct DSPLPPodImageContainer: View {
     private var moreOptionsView: some View {
         Text("More Options Available")
             .font(.system(size: 12))
-            .foregroundColor(DSPLPPodImageContainerColorHelper.moreOptionsTextColor())
+            .foregroundStyle(DSPLPPodImageContainerColorHelper.moreOptionsTextColor())
     }
 
     @ViewBuilder
     private func customOptionsView(text: String) -> some View {
         Text(text)
             .font(.system(size: 12))
-            .foregroundColor(DSPLPPodImageContainerColorHelper.customOptionsTextColor())
+            .foregroundStyle(DSPLPPodImageContainerColorHelper.customOptionsTextColor())
             .lineLimit(2)
     }
 
@@ -343,7 +332,7 @@ public struct DSPLPPodImageContainer: View {
 
             Text(errorMessage)
                 .font(.system(size: 12))
-                .foregroundColor(DSPLPPodImageContainerColorHelper.swatchErrorTextColor())
+                .foregroundStyle(DSPLPPodImageContainerColorHelper.swatchErrorTextColor())
                 .lineLimit(2)
         }
     }

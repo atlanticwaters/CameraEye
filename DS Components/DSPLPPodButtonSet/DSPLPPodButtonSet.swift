@@ -118,57 +118,41 @@ public struct DSPLPPodButtonSet: View {
     private var quantityPicker: some View {
         HStack(spacing: 0) {
             // Decrease Button
-            Button(action: decreaseQuantity) {
-                ZStack {
-                    Circle()
-                        .fill(DSPLPPodButtonSetColorHelper.quantityButtonBackgroundColor())
-                        .frame(width: 44, height: 44)
-
-                    Image(systemName: "minus")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(
-                            quantity > minQuantity
-                                ? DSPLPPodButtonSetColorHelper.quantityButtonIconColor()
-                                : DSPLPPodButtonSetColorHelper.quantityButtonDisabledColor()
-                        )
-                }
+            DSIconButton(
+                systemName: "minus",
+                style: .black5,
+                size: .medium,
+                accessibilityLabel: "Decrease quantity",
+                isDisabled: quantity <= minQuantity
+            ) {
+                decreaseQuantity()
             }
-            .buttonStyle(.plain)
-            .disabled(quantity <= minQuantity)
 
             Spacer()
 
             // Quantity Display
             Text("\(quantity)")
                 .font(.system(size: 16, weight: .medium))
-                .foregroundColor(DSPLPPodButtonSetColorHelper.quantityTextColor())
+                .foregroundStyle(DSPLPPodButtonSetColorHelper.quantityTextColor())
                 .frame(minWidth: 30)
 
             Spacer()
 
             // Increase Button
-            Button(action: increaseQuantity) {
-                ZStack {
-                    Circle()
-                        .fill(DSPLPPodButtonSetColorHelper.quantityButtonBackgroundColor())
-                        .frame(width: 44, height: 44)
-
-                    Image(systemName: "plus")
-                        .font(.system(size: 16, weight: .medium))
-                        .foregroundColor(
-                            quantity < maxQuantity
-                                ? DSPLPPodButtonSetColorHelper.quantityButtonIconColor()
-                                : DSPLPPodButtonSetColorHelper.quantityButtonDisabledColor()
-                        )
-                }
+            DSIconButton(
+                systemName: "plus",
+                style: .black5,
+                size: .medium,
+                accessibilityLabel: "Increase quantity",
+                isDisabled: quantity >= maxQuantity
+            ) {
+                increaseQuantity()
             }
-            .buttonStyle(.plain)
-            .disabled(quantity >= maxQuantity)
         }
         .padding(.horizontal, 8)
-        .frame(height: 44)
+        .frame(height: 56)
         .background(DSPLPPodButtonSetColorHelper.quantityPickerBackgroundColor())
-        .cornerRadius(8)
+        .clipShape(.rect(cornerRadius: 8))
     }
 
     private func decreaseQuantity() {
@@ -187,64 +171,29 @@ public struct DSPLPPodButtonSet: View {
 
     @ViewBuilder
     private var addToCartButton: some View {
-        Button(action: { onAddToCart?() }) {
-            HStack(spacing: 8) {
-                Image(systemName: "cart.badge.plus")
-                    .font(.system(size: 14, weight: .medium))
-
-                Text(addToCartText)
-                    .font(.system(size: 14, weight: .semibold))
-            }
-            .foregroundColor(
-                isAddToCartEnabled
-                    ? DSPLPPodButtonSetColorHelper.addToCartTextColor()
-                    : DSPLPPodButtonSetColorHelper.buttonDisabledTextColor()
-            )
-            .frame(maxWidth: .infinity)
-            .frame(height: 44)
-            .background(
-                isAddToCartEnabled
-                    ? DSPLPPodButtonSetColorHelper.addToCartBackgroundColor()
-                    : DSPLPPodButtonSetColorHelper.buttonDisabledBackgroundColor()
-            )
-            .cornerRadius(8)
+        DSButton(
+            addToCartText,
+            style: .orangeFilled,
+            size: .large,
+            leadingIcon: Image(systemName: "cart.badge.plus"),
+            isDisabled: !isAddToCartEnabled
+        ) {
+            onAddToCart?()
         }
-        .buttonStyle(.plain)
-        .disabled(!isAddToCartEnabled)
     }
 
     // MARK: - Add to List Button
 
     @ViewBuilder
     private var addToListButton: some View {
-        Button(action: { onAddToList?() }) {
-            HStack(spacing: 8) {
-                Image(systemName: "list.bullet")
-                    .font(.system(size: 14, weight: .medium))
-
-                Text(addToListText)
-                    .font(.system(size: 14, weight: .semibold))
-            }
-            .foregroundColor(
-                isAddToListEnabled
-                    ? DSPLPPodButtonSetColorHelper.addToListTextColor()
-                    : DSPLPPodButtonSetColorHelper.buttonDisabledTextColor()
-            )
-            .frame(maxWidth: .infinity)
-            .frame(height: 44)
-            .background(DSPLPPodButtonSetColorHelper.addToListBackgroundColor())
-            .cornerRadius(8)
-            .overlay(
-                RoundedRectangle(cornerRadius: 8)
-                    .stroke(
-                        isAddToListEnabled
-                            ? DSPLPPodButtonSetColorHelper.addToListBorderColor()
-                            : DSPLPPodButtonSetColorHelper.buttonDisabledBorderColor(),
-                        lineWidth: 1
-                    )
-            )
+        DSButton(
+            addToListText,
+            style: .outlined,
+            size: .large,
+            leadingIcon: Image(systemName: "list.bullet"),
+            isDisabled: !isAddToListEnabled
+        ) {
+            onAddToList?()
         }
-        .buttonStyle(.plain)
-        .disabled(!isAddToListEnabled)
     }
 }

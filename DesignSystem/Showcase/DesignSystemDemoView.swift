@@ -13,11 +13,11 @@ struct DesignSystemDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Design System")
                         .thdFont(.hero5)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text("Complete showcase of all design tokens including colors, typography, spacing, and borders.")
                         .thdFont(.bodyMd)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                 }
                 .padding(DesignSystemGlobal.Spacing4)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -384,10 +384,10 @@ struct ColorPaletteSection: View {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
                 Text(title)
                     .thdFont(.h6)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 Text(subtitle)
                     .thdFont(.bodySm)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
             }
 
             ScrollView(.horizontal, showsIndicators: false) {
@@ -412,7 +412,7 @@ struct ColorPaletteSection: View {
 
                             Text(name)
                                 .thdFont(.caption)
-                                .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                                 .lineLimit(1)
                                 .frame(width: 56)
                         }
@@ -439,7 +439,7 @@ struct SemanticColorsSection: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
             Text(title)
                 .thdFont(.h6)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             LazyVGrid(columns: [
                 GridItem(.flexible()),
@@ -458,7 +458,7 @@ struct SemanticColorsSection: View {
 
                         Text(name)
                             .thdFont(.bodyXs)
-                            .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                            .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                             .lineLimit(2)
                             .minimumScaleFactor(0.8)
 
@@ -481,11 +481,11 @@ struct ElevationSection: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
             Text("Elevation / Shadows")
                 .thdFont(.h5)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("Shadow colors with blur radius and position offsets")
                 .thdFont(.bodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: DesignSystemGlobal.Spacing5) {
@@ -555,11 +555,11 @@ struct ElevationCard: View {
 
             Text(title)
                 .thdFont(.bodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("Blur: \(Int(blur))")
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
 }
@@ -570,13 +570,13 @@ struct TypographySection: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
             Text("Typography")
                 .thdFont(.h5)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             // Hero Sizes
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                 Text("Hero Sizes")
                     .thdFont(.bodySm)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 TypographyRow(name: "Hero 1", size: DesignSystemGlobal.FontSizeHero1)
                 TypographyRow(name: "Hero 2", size: DesignSystemGlobal.FontSizeHero2)
@@ -594,7 +594,7 @@ struct TypographySection: View {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                 Text("Heading Sizes")
                     .thdFont(.bodySm)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 TypographyRow(name: "H1", size: DesignSystemGlobal.FontSizeH1)
                 TypographyRow(name: "H2", size: DesignSystemGlobal.FontSizeH2)
@@ -613,7 +613,7 @@ struct TypographySection: View {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                 Text("Body Sizes")
                     .thdFont(.bodySm)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 TypographyRow(name: "Body XL", size: DesignSystemGlobal.FontSizeBodyXl)
                 TypographyRow(name: "Body LG", size: DesignSystemGlobal.FontSizeBodyLg)
@@ -632,7 +632,7 @@ struct TypographySection: View {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                 Text("Line Heights")
                     .thdFont(.bodySm)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 HStack(spacing: DesignSystemGlobal.Spacing4) {
                     LineHeightDemo(name: "None", multiplier: DesignSystemGlobal.FontLineHeightNone)
@@ -657,13 +657,13 @@ struct TypographyRow: View {
         HStack {
             Text(name)
                 .thdFont(.bodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Spacer()
 
             Text("\(Int(size))pt")
                 .thdFont(.bodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
                 .padding(.horizontal, DesignSystemGlobal.Spacing2)
                 .padding(.vertical, DesignSystemGlobal.Spacing1)
                 .background(
@@ -683,16 +683,16 @@ struct LineHeightDemo: View {
             Text("Aa\nBb")
                 .thdFont(.bodyMd)
                 .lineSpacing(16 * (multiplier - 1))
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .multilineTextAlignment(.center)
 
             Text(name)
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
 
             Text("\(String(format: "%.2f", multiplier))x")
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
         }
         .frame(maxWidth: .infinity)
         .padding(DesignSystemGlobal.Spacing2)
@@ -709,11 +709,11 @@ struct SpacingSection: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
             Text("Spacing")
                 .thdFont(.h5)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("Consistent spacing scale for margins, padding, and gaps")
                 .thdFont(.bodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                 SpacingRow(name: "Spacing 0", value: DesignSystemGlobal.Spacing0)
@@ -750,7 +750,7 @@ struct SpacingRow: View {
         HStack(spacing: DesignSystemGlobal.Spacing3) {
             Text(name)
                 .thdFont(.bodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .frame(width: 100, alignment: .leading)
 
             Rectangle()
@@ -762,7 +762,7 @@ struct SpacingRow: View {
 
             Text("\(Int(value))pt")
                 .thdFont(.bodyXs)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
                 .frame(width: 40, alignment: .trailing)
         }
     }
@@ -774,11 +774,11 @@ struct BorderRadiusSection: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
             Text("Border Radius")
                 .thdFont(.h5)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("Corner radius values for rounded elements")
                 .thdFont(.bodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: DesignSystemGlobal.Spacing4) {
@@ -814,11 +814,11 @@ struct BorderRadiusCard: View {
 
             Text(name)
                 .thdFont(.bodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("\(Int(value))pt")
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
 }
@@ -829,11 +829,11 @@ struct BorderWidthSection: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing4) {
             Text("Border Width")
                 .thdFont(.h5)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("Stroke widths for borders and outlines")
                 .thdFont(.bodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: DesignSystemGlobal.Spacing4) {
@@ -871,11 +871,11 @@ struct BorderWidthCard: View {
 
             Text(name)
                 .thdFont(.bodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("\(Int(value))pt")
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
 }

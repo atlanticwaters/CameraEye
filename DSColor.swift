@@ -19,7 +19,7 @@ import SwiftUI
 /// struct MyView: View {
 ///     var body: some View {
 ///         Text("Hello")
-///             .foregroundColor(DSColor.buttonBackgroundBrandFilledDefault.resolve)
+///             .foregroundStyle(DSColor.buttonBackgroundBrandFilledDefault.resolve)
 ///     }
 /// }
 /// ```
@@ -39,7 +39,7 @@ public struct DSColor: Sendable {
     }
 
     /// Resolves the color based on current color scheme.
-    /// Use this in view modifiers: `.foregroundColor(dsColor.resolve)`
+    /// Use this in view modifiers: `.foregroundStyle(dsColor.resolve)`
     public var resolve: Color {
         #if canImport(UIKit)
         Color(UIColor { traits in

@@ -216,7 +216,7 @@ public struct DSTile: View {
                 } else {
                     Text(label)
                         .font(.system(size: 14, weight: isSelected ? .semibold : .regular))
-                        .foregroundColor(textColor)
+                        .foregroundStyle(textColor)
                 }
             }
         }

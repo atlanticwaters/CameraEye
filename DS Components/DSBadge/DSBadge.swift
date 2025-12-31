@@ -153,12 +153,12 @@ public struct DSBadge: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: size.iconSize, height: size.iconSize)
-                    .foregroundColor(foregroundColor)
+                    .foregroundStyle(foregroundColor)
             }
 
             Text(label)
                 .font(.system(size: size.fontSize, weight: .bold))
-                .foregroundColor(foregroundColor)
+                .foregroundStyle(foregroundColor)
         }
         .padding(.horizontal, size.padding)
         .padding(.vertical, size.padding)

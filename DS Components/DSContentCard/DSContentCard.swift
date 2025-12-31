@@ -173,13 +173,13 @@ public struct DSContentCard<Body: View, HeaderAction: View, BottomAction: View>:
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .frame(width: 20, height: 20)
-                                .foregroundColor(iconColor)
+                                .foregroundStyle(iconColor)
                         }
 
                         if let title {
                             Text(title)
                                 .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(titleColor)
+                                .foregroundStyle(titleColor)
                         }
                     }
 
@@ -195,7 +195,7 @@ public struct DSContentCard<Body: View, HeaderAction: View, BottomAction: View>:
                 if let subtitle {
                     Text(subtitle)
                         .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(subtitleColor)
+                        .foregroundStyle(subtitleColor)
                 }
             }
             .padding(contentPadding)

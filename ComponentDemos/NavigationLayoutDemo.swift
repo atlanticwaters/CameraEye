@@ -101,17 +101,17 @@ struct HeaderCard: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
             Text("Navigation Layout Demo")
                 .thdFont(.hero5)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text("This view demonstrates how top and bottom navigation work together. The top nav is an overlay, and content scrolls underneath.")
                 .thdFont(.bodyMd)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
             
             // Navigation Control Annotations
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                 Text("How Navigation is Controlled:")
                     .thdFont(.h3)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                     .padding(.top, DesignSystemGlobal.Spacing2)
                 
                 AnnotationRow(
@@ -169,17 +169,17 @@ struct AnnotationRow: View {
         HStack(alignment: .top, spacing: DesignSystemGlobal.Spacing2) {
             Image(systemName: icon)
                 .font(.system(size: 20))
-                .foregroundColor(color)
+                .foregroundStyle(color)
                 .frame(width: 24, height: 24)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(title)
                     .thdFont(.bodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 
                 Text(description)
                     .thdFont(.bodySm)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
             }
         }
     }
@@ -195,7 +195,7 @@ struct DemoSection: View {
             Text("Tap to Navigate")
                 .thdFont(.h2)
                 .textCase(.uppercase)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 .padding(.leading, DesignSystemGlobal.Spacing3)
             
             VStack(spacing: DesignSystemGlobal.Spacing2) {
@@ -255,7 +255,7 @@ struct DemoItemRow: View {
         HStack(spacing: DesignSystemGlobal.Spacing3) {
             Image(systemName: item.icon)
                 .font(.system(size: 24))
-                .foregroundColor(item.color)
+                .foregroundStyle(item.color)
                 .frame(width: 40, height: 40)
                 .background(item.color.opacity(0.15))
                 .cornerRadius(DesignSystemGlobal.BorderRadiusMd)
@@ -263,18 +263,18 @@ struct DemoItemRow: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(item.title)
                     .thdFont(.bodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                 
                 Text(item.description)
                     .thdFont(.bodySm)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
             }
             
             Spacer()
             
             Image(systemName: "chevron.right")
                 .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
         .padding(DesignSystemGlobal.Spacing2)
         .background(DesignSystemGlobal.BackgroundContainerColorWhite)
@@ -294,15 +294,15 @@ struct DetailView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text(title)
                         .thdFont(.hero5)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                     
                     Text("This is a detail view. Notice the back button appeared in the top navigation when you navigated here.")
                         .thdFont(.bodyMd)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                     
                     Text("The back button state is controlled by monitoring navigationPath.count in the .onChange() modifier.")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
                         .padding(.top, DesignSystemGlobal.Spacing2)
                 }
                 .padding(DesignSystemGlobal.Spacing4)
@@ -316,7 +316,7 @@ struct DetailView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Back Button Implementation")
                         .thdFont(.h3)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                     
                     CodeBlock(code: """
                     MorphingNavHeader(
@@ -355,7 +355,7 @@ struct CodeBlock: View {
     var body: some View {
         Text(code)
             .thdFont(.caption)
-            .foregroundColor(DesignSystemGlobal.Brand300)
+            .foregroundStyle(DesignSystemGlobal.Brand300)
             .padding(DesignSystemGlobal.Spacing3)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(

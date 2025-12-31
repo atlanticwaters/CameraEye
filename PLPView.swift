@@ -1552,7 +1552,7 @@ struct DSProductCard: View {
                 .aspectRatio(1, contentMode: .fit)
                 .overlay(
                     Text("Product Image")
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                 )
             
             // Product info
@@ -1560,7 +1560,7 @@ struct DSProductCard: View {
                 if let brand = brand {
                     Text(brand)
                         .font(.caption)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                 }
                 
                 Text(title)
@@ -1569,7 +1569,7 @@ struct DSProductCard: View {
                 
                 Text(priceText)
                     .font(.headline)
-                    .foregroundColor(Color.brandPrimary)
+                    .foregroundStyle(Color.brandPrimary)
             }
             
             // Buttons
@@ -1580,13 +1580,13 @@ struct DSProductCard: View {
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                         .background(Color.brandPrimary)
-                        .foregroundColor(.white)
+                        .foregroundStyle(.white)
                         .cornerRadius(4)
                 }
                 
                 Button(action: onAddToList) {
                     Image(systemName: "heart")
-                        .foregroundColor(Color.brandPrimary)
+                        .foregroundStyle(Color.brandPrimary)
                 }
             }
         }

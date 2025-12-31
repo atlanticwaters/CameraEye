@@ -11,11 +11,11 @@ struct CoreTokensView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     Text("Core Tokens")
                         .font(.system(size: 22, weight: .bold))
-                        .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                        .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                     
                     Text("Foundational design primitives that inform semantic tokens")
                         .font(.system(size: TokensCoreLight.FontSizeBodyMd))
-                        .foregroundColor(TokensSemanticLight.TextOnSurfaceColorSecondary)
+                        .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorSecondary)
                 }
                 .padding(.bottom, 8)
                 
@@ -29,27 +29,27 @@ struct CoreTokensView: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Font Families")
                                 .font(.system(size: TokensCoreLight.FontSizeBodyMd, weight: .semibold))
-                                .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                                .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                             
                             VStack(alignment: .leading, spacing: 8) {
                                 HStack {
                                     Text("Display:")
                                         .font(.system(size: TokensCoreLight.FontSizeBodySm))
-                                        .foregroundColor(TokensSemanticLight.TextOnSurfaceColorSecondary)
+                                        .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorSecondary)
                                     
                                     Text(TokensCoreLight.FontFamilyDisplay)
                                         .font(.custom(TokensCoreLight.FontFamilyDisplay, size: TokensCoreLight.FontSizeBodyMd))
-                                        .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                                        .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                                 }
                                 
                                 HStack {
                                     Text("Informational:")
                                         .font(.system(size: TokensCoreLight.FontSizeBodySm))
-                                        .foregroundColor(TokensSemanticLight.TextOnSurfaceColorSecondary)
+                                        .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorSecondary)
                                     
                                     Text(TokensCoreLight.FontFamilyInformational)
                                         .font(.custom(TokensCoreLight.FontFamilyInformational, size: TokensCoreLight.FontSizeBodyMd))
-                                        .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                                        .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                                 }
                             }
                             .padding()
@@ -61,7 +61,7 @@ struct CoreTokensView: View {
                         VStack(alignment: .leading, spacing: 12) {
                             Text("Body Font Sizes")
                                 .font(.system(size: TokensCoreLight.FontSizeBodyMd, weight: .semibold))
-                                .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                                .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                             
                             TypographySample(
                                 name: "Body XL",
@@ -106,7 +106,7 @@ struct CoreTokensView: View {
                     VStack(spacing: 24) {
                         Text("Below Elevations")
                             .font(.system(size: TokensCoreLight.FontSizeBodyMd, weight: .semibold))
-                            .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                            .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
                         ElevationDemo(name: "Below 1", elevation: TokensCoreLight.ElevationBelow1)
@@ -117,7 +117,7 @@ struct CoreTokensView: View {
                         
                         Text("Above Elevations")
                             .font(.system(size: TokensCoreLight.FontSizeBodyMd, weight: .semibold))
-                            .foregroundColor(TokensSemanticLight.TextOnSurfaceColorPrimary)
+                            .foregroundStyle(TokensSemanticLight.TextOnSurfaceColorPrimary)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.top, 16)
                         

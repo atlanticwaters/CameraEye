@@ -340,13 +340,13 @@ public struct DSPIPZoneA: View {
                 if index > 0 {
                     Image(systemName: "chevron.right")
                         .font(.system(size: 10))
-                        .foregroundColor(DSPIPZoneAColorHelper.breadcrumbSeparatorColor())
+                        .foregroundStyle(DSPIPZoneAColorHelper.breadcrumbSeparatorColor())
                 }
 
                 Button(action: { onBreadcrumbTap?(index) }) {
                     Text(crumb)
                         .font(.system(size: 12))
-                        .foregroundColor(
+                        .foregroundStyle(
                             index == breadcrumbs.count - 1
                                 ? DSPIPZoneAColorHelper.breadcrumbActiveColor()
                                 : DSPIPZoneAColorHelper.breadcrumbColor()
@@ -402,60 +402,51 @@ public struct DSPIPZoneA: View {
             // Brand
             Text(productInfo.brand)
                 .font(.system(size: 14, weight: .medium))
-                .foregroundColor(DSPIPZoneAColorHelper.brandColor())
+                .foregroundStyle(DSPIPZoneAColorHelper.brandColor())
 
             // Product Name
             Text(productInfo.productName)
                 .font(.system(size: 18, weight: .bold))
-                .foregroundColor(DSPIPZoneAColorHelper.productNameColor())
+                .foregroundStyle(DSPIPZoneAColorHelper.productNameColor())
                 .lineLimit(3)
 
             // Model/SKU
             if let modelNumber = productInfo.modelNumber {
                 Text("Model# \(modelNumber)")
                     .font(.system(size: 12))
-                    .foregroundColor(DSPIPZoneAColorHelper.modelNumberColor())
+                    .foregroundStyle(DSPIPZoneAColorHelper.modelNumberColor())
             }
         }
     }
 
     @ViewBuilder
     private func badgeView(_ badge: DSPIPBadge) -> some View {
-        HStack(spacing: 4) {
-            Image(systemName: badgeIcon(for: badge.type))
-                .font(.system(size: 12))
-
-            Text(badge.text)
-                .font(.system(size: 12, weight: .semibold))
-        }
-        .foregroundColor(badgeTextColor(for: badge.type))
-        .padding(.horizontal, 8)
-        .padding(.vertical, 4)
-        .background(badgeBackgroundColor(for: badge.type))
-        .cornerRadius(4)
+        DSBadge(
+            badge.text,
+            size: .small,
+            variant: .filledStrong,
+            color: mapBadgeTypeToColor(badge.type),
+            leadingIcon: Image(systemName: badgeIcon(for: badge.type))
+        )
     }
 
     private func badgeIcon(for type: DSPIPBadge.BadgeType) -> String {
         switch type {
-        case .specialSavings: return "tag.fill"
-        case .newArrival: return "sparkles"
-        case .bestSeller: return "flame.fill"
-        case .topRated: return "star.fill"
-        case .custom: return "tag.fill"
+        case .specialSavings: "tag.fill"
+        case .newArrival: "sparkles"
+        case .bestSeller: "flame.fill"
+        case .topRated: "star.fill"
+        case .custom: "tag.fill"
         }
     }
 
-    private func badgeTextColor(for type: DSPIPBadge.BadgeType) -> Color {
-        DSPIPZoneAColorHelper.badgeTextColor()
-    }
-
-    private func badgeBackgroundColor(for type: DSPIPBadge.BadgeType) -> Color {
+    private func mapBadgeTypeToColor(_ type: DSPIPBadge.BadgeType) -> DSBadgeColor {
         switch type {
-        case .specialSavings: return DSPIPZoneAColorHelper.badgeSpecialSavingsColor()
-        case .newArrival: return DSPIPZoneAColorHelper.badgeNewArrivalColor()
-        case .bestSeller: return DSPIPZoneAColorHelper.badgeBestSellerColor()
-        case .topRated: return DSPIPZoneAColorHelper.badgeTopRatedColor()
-        case .custom: return DSPIPZoneAColorHelper.badgeDefaultColor()
+        case .specialSavings: .warning
+        case .newArrival: .info
+        case .bestSeller: .brand
+        case .topRated: .success
+        case .custom: .medium
         }
     }
 
@@ -480,7 +471,7 @@ public struct DSPIPZoneA: View {
                     Button(action: { onQuestionsTap?() }) {
                         Text("\(rating.questionCount) Questions")
                             .font(.system(size: 14))
-                            .foregroundColor(DSPIPZoneAColorHelper.linkColor())
+                            .foregroundStyle(DSPIPZoneAColorHelper.linkColor())
                     }
                     .buttonStyle(.plain)
                 }
@@ -497,27 +488,27 @@ public struct DSPIPZoneA: View {
             if pricingInfo.isStartingAt {
                 Text("Starting at")
                     .font(.system(size: 12))
-                    .foregroundColor(DSPIPZoneAColorHelper.pricingLabelColor())
+                    .foregroundStyle(DSPIPZoneAColorHelper.pricingLabelColor())
             }
 
             // Main Price
             HStack(alignment: .firstTextBaseline, spacing: 2) {
                 Text("$")
                     .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(DSPIPZoneAColorHelper.priceColor())
+                    .foregroundStyle(DSPIPZoneAColorHelper.priceColor())
 
                 Text(priceWholePart)
                     .font(.system(size: 32, weight: .bold))
-                    .foregroundColor(DSPIPZoneAColorHelper.priceColor())
+                    .foregroundStyle(DSPIPZoneAColorHelper.priceColor())
 
                 Text(priceDecimalPart)
                     .font(.system(size: 16, weight: .bold))
-                    .foregroundColor(DSPIPZoneAColorHelper.priceColor())
+                    .foregroundStyle(DSPIPZoneAColorHelper.priceColor())
 
                 if let perUnit = pricingInfo.perUnit {
                     Text("/\(perUnit)")
                         .font(.system(size: 14))
-                        .foregroundColor(DSPIPZoneAColorHelper.pricingLabelColor())
+                        .foregroundStyle(DSPIPZoneAColorHelper.pricingLabelColor())
                 }
             }
 
@@ -527,12 +518,12 @@ public struct DSPIPZoneA: View {
                     Text("Was $\(String(format: "%.2f", originalPrice))")
                         .font(.system(size: 14))
                         .strikethrough()
-                        .foregroundColor(DSPIPZoneAColorHelper.originalPriceColor())
+                        .foregroundStyle(DSPIPZoneAColorHelper.originalPriceColor())
 
                     if let savings = pricingInfo.savingsText {
                         Text(savings)
                             .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(DSPIPZoneAColorHelper.savingsColor())
+                            .foregroundStyle(DSPIPZoneAColorHelper.savingsColor())
                     }
                 }
             }
@@ -541,7 +532,7 @@ public struct DSPIPZoneA: View {
             if let unitPrice = pricingInfo.unitPrice {
                 Text(unitPrice)
                     .font(.system(size: 12))
-                    .foregroundColor(DSPIPZoneAColorHelper.unitPriceColor())
+                    .foregroundStyle(DSPIPZoneAColorHelper.unitPriceColor())
             }
 
             // Pricing Badge
@@ -553,7 +544,7 @@ public struct DSPIPZoneA: View {
                     Text(pricingBadge)
                         .font(.system(size: 12, weight: .medium))
                 }
-                .foregroundColor(DSPIPZoneAColorHelper.pricingBadgeColor())
+                .foregroundStyle(DSPIPZoneAColorHelper.pricingBadgeColor())
             }
         }
     }
@@ -583,7 +574,7 @@ public struct DSPIPZoneA: View {
 
                         Text(store.stockStatus.displayText)
                             .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(store.stockStatus.color)
+                            .foregroundStyle(store.stockStatus.color)
                     }
 
                     Spacer()
@@ -598,7 +589,7 @@ public struct DSPIPZoneA: View {
                                 Text("Store Map")
                                     .font(.system(size: 14))
                             }
-                            .foregroundColor(DSPIPZoneAColorHelper.linkColor())
+                            .foregroundStyle(DSPIPZoneAColorHelper.linkColor())
                         }
                         .buttonStyle(.plain)
                     }
@@ -608,7 +599,7 @@ public struct DSPIPZoneA: View {
                 if let aisle = store.aisleLocation {
                     Text(aisle)
                         .font(.system(size: 14))
-                        .foregroundColor(DSPIPZoneAColorHelper.aisleColor())
+                        .foregroundStyle(DSPIPZoneAColorHelper.aisleColor())
                 }
             }
             .padding(12)
@@ -662,7 +653,7 @@ public struct DSPIPZoneA: View {
                 HStack(spacing: 8) {
                     Image(systemName: icon)
                         .font(.system(size: 20))
-                        .foregroundColor(
+                        .foregroundStyle(
                             isAvailable
                                 ? DSPIPZoneAColorHelper.fulfillmentIconColor()
                                 : DSPIPZoneAColorHelper.fulfillmentDisabledColor()
@@ -670,12 +661,12 @@ public struct DSPIPZoneA: View {
 
                     Text(title)
                         .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(DSPIPZoneAColorHelper.fulfillmentTitleColor())
+                        .foregroundStyle(DSPIPZoneAColorHelper.fulfillmentTitleColor())
                 }
 
                 Text(subtitle)
                     .font(.system(size: 12))
-                    .foregroundColor(
+                    .foregroundStyle(
                         isAvailable
                             ? DSPIPZoneAColorHelper.fulfillmentSubtitleColor()
                             : DSPIPZoneAColorHelper.fulfillmentDisabledColor()
@@ -684,7 +675,7 @@ public struct DSPIPZoneA: View {
                 if let loc = location {
                     Text(loc)
                         .font(.system(size: 11))
-                        .foregroundColor(DSPIPZoneAColorHelper.fulfillmentLocationColor())
+                        .foregroundStyle(DSPIPZoneAColorHelper.fulfillmentLocationColor())
                         .lineLimit(1)
                 }
             }
@@ -706,73 +697,46 @@ public struct DSPIPZoneA: View {
     private var actionButtonsSection: some View {
         VStack(spacing: 12) {
             // Primary Button - Add to Cart
-            Button(action: { onAddToCart?() }) {
-                HStack {
-                    Image(systemName: "cart.badge.plus")
-                    Text("Add to Cart")
-                }
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, 14)
-                .background(DSPIPZoneAColorHelper.addToCartButtonColor())
-                .cornerRadius(8)
+            DSButton(
+                "Add to Cart",
+                style: .orangeFilled,
+                size: .large,
+                leadingIcon: Image(systemName: "cart.badge.plus")
+            ) {
+                onAddToCart?()
             }
-            .buttonStyle(.plain)
 
             // Secondary Actions
             HStack(spacing: 12) {
                 // Buy Now
-                Button(action: { onBuyNow?() }) {
-                    Text("Buy Now")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(DSPIPZoneAColorHelper.secondaryButtonTextColor())
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 12)
-                        .background(DSPIPZoneAColorHelper.secondaryButtonBackgroundColor())
-                        .cornerRadius(8)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(
-                                    DSPIPZoneAColorHelper.secondaryButtonBorderColor(), lineWidth: 1
-                                )
-                        )
+                DSButton(
+                    "Buy Now",
+                    style: .outlined,
+                    size: .medium
+                ) {
+                    onBuyNow?()
                 }
-                .buttonStyle(.plain)
+                .frame(maxWidth: .infinity)
 
                 // Favorite
-                Button(action: { onFavorite?() }) {
-                    Image(systemName: "heart")
-                        .font(.system(size: 20))
-                        .foregroundColor(DSPIPZoneAColorHelper.iconButtonColor())
-                        .frame(width: 44, height: 44)
-                        .background(DSPIPZoneAColorHelper.secondaryButtonBackgroundColor())
-                        .cornerRadius(8)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(
-                                    DSPIPZoneAColorHelper.secondaryButtonBorderColor(), lineWidth: 1
-                                )
-                        )
+                DSIconButton(
+                    systemName: "heart",
+                    style: .outlined,
+                    size: .medium,
+                    accessibilityLabel: "Add to favorites"
+                ) {
+                    onFavorite?()
                 }
-                .buttonStyle(.plain)
 
                 // Share
-                Button(action: { onShare?() }) {
-                    Image(systemName: "square.and.arrow.up")
-                        .font(.system(size: 20))
-                        .foregroundColor(DSPIPZoneAColorHelper.iconButtonColor())
-                        .frame(width: 44, height: 44)
-                        .background(DSPIPZoneAColorHelper.secondaryButtonBackgroundColor())
-                        .cornerRadius(8)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 8)
-                                .stroke(
-                                    DSPIPZoneAColorHelper.secondaryButtonBorderColor(), lineWidth: 1
-                                )
-                        )
+                DSIconButton(
+                    systemName: "square.and.arrow.up",
+                    style: .outlined,
+                    size: .medium,
+                    accessibilityLabel: "Share product"
+                ) {
+                    onShare?()
                 }
-                .buttonStyle(.plain)
             }
         }
     }

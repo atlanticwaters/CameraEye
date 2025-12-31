@@ -205,7 +205,7 @@ private struct DSIconButtonInternalStyle: ButtonStyle {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: size.iconSize, height: size.iconSize)
-                    .foregroundColor(foregroundColor)
+                    .foregroundStyle(foregroundColor)
             }
         }
         .frame(width: size.buttonSize, height: size.buttonSize)

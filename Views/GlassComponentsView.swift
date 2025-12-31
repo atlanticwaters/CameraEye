@@ -47,7 +47,7 @@ struct GlassComponentsView: View {
                             VStack {
                                 Text("Maximum Transparency")
                                     .thdFont(.bodyMd)
-                                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                             }
                             .frame(maxWidth: .infinity)
                             .frame(height: 120)
@@ -84,7 +84,7 @@ struct GlassComponentsView: View {
                             VStack {
                                 Text("Balanced Blur & Clarity")
                                     .thdFont(.bodyMd)
-                                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                             }
                             .frame(maxWidth: .infinity)
                             .frame(height: 120)
@@ -120,7 +120,7 @@ struct GlassComponentsView: View {
                             VStack {
                                 Text("Strong Blur Effect")
                                     .thdFont(.bodyMd)
-                                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                             }
                             .frame(maxWidth: .infinity)
                             .frame(height: 120)
@@ -157,7 +157,7 @@ struct GlassComponentsView: View {
                             VStack {
                                 Text("Maximum Opacity")
                                     .thdFont(.bodyMd)
-                                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                             }
                             .padding(.horizontal, DesignSystemGlobal.Spacing6)
                             .frame(height: 120)

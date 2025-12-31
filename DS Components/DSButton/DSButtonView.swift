@@ -18,19 +18,19 @@ struct DSButtonView: View {
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: TokensSpacing.Spacing6) {
+            VStack(alignment: .leading, spacing: TokensCoreLight.Spacing6) {
                 
                 // MARK: - Header Card
-                VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
+                VStack(alignment: .leading, spacing: TokensCoreLight.Spacing2) {
                     Text("Button")
                         .thdFont(.hero5)
-                        .foregroundColor(textPrimary)
+                        .foregroundStyle(textPrimary)
 
                     Text("A versatile button component with 7 styles, 3 sizes, and support for icons, loading states, and disabled states.")
                         .thdFont(.bodyMd)
-                        .foregroundColor(textSecondary)
+                        .foregroundStyle(textSecondary)
                 }
-                .padding(TokensSpacing.Spacing4)
+                .padding(TokensCoreLight.Spacing4)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .background(
                     RoundedRectangle(cornerRadius: borderRadiusXl)
@@ -38,50 +38,50 @@ struct DSButtonView: View {
                 )
                 
                 // MARK: - Content Card
-                VStack(alignment: .leading, spacing: TokensSpacing.Spacing6) {
+                VStack(alignment: .leading, spacing: TokensCoreLight.Spacing6) {
                     
                     // Button Styles
                     buttonStylesSection
                     
-                    Divider().padding(.vertical, TokensSpacing.Spacing2)
+                    Divider().padding(.vertical, TokensCoreLight.Spacing2)
                     
                     // Button Sizes
                     buttonSizesSection
                     
-                    Divider().padding(.vertical, TokensSpacing.Spacing2)
+                    Divider().padding(.vertical, TokensCoreLight.Spacing2)
                     
                     // Button States
                     buttonStatesSection
                     
-                    Divider().padding(.vertical, TokensSpacing.Spacing2)
+                    Divider().padding(.vertical, TokensCoreLight.Spacing2)
                     
                     // Icons
                     iconsSection
                     
-                    Divider().padding(.vertical, TokensSpacing.Spacing2)
+                    Divider().padding(.vertical, TokensCoreLight.Spacing2)
                     
                     // Interactive Examples
                     interactiveSection
                     
-                    Divider().padding(.vertical, TokensSpacing.Spacing2)
+                    Divider().padding(.vertical, TokensCoreLight.Spacing2)
                     
                     // Usage Examples
                     usageExamplesSection
                     
-                    Divider().padding(.vertical, TokensSpacing.Spacing2)
+                    Divider().padding(.vertical, TokensCoreLight.Spacing2)
                     
                     // Specifications
                     specificationsSection
                 }
-                .padding(TokensSpacing.Spacing4)
+                .padding(TokensCoreLight.Spacing4)
                 .background(
                     RoundedRectangle(cornerRadius: borderRadiusXl)
                         .fill(containerWhite)
                 )
             }
-            .padding(TokensSpacing.Spacing4)
-            .padding(.top, 96) // Extra padding for top navigation
-            .padding(.bottom, 80) // Extra padding for bottom navigation
+            .padding(TokensCoreLight.Spacing4)
+            .padding(.top, TokensCoreLight.Spacing24) // Extra padding for top navigation
+            .padding(.bottom, TokensCoreLight.Spacing20) // Extra padding for bottom navigation
         }
         .background(surfaceGreige)
         .applySoftScrollEdges()
@@ -90,13 +90,13 @@ struct DSButtonView: View {
     // MARK: - Button Styles Section
     
     private var buttonStylesSection: some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing3) {
             sectionHeader(
                 "Button Styles",
                 description: "7 style variants for different contexts"
             )
             
-            VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
+            VStack(alignment: .leading, spacing: TokensCoreLight.Spacing3) {
                 styleExample(
                     "Orange Filled",
                     description: "Primary action button",
@@ -142,16 +142,16 @@ struct DSButtonView: View {
         }
     }
     
-    private func styleExample(_ title: String, description: String, style: DSButton.Style) -> some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
-            VStack(alignment: .leading, spacing: TokensSpacing.Spacing1) {
+    private func styleExample(_ title: String, description: String, style: DSButtonStyle) -> some View {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing2) {
+            VStack(alignment: .leading, spacing: TokensCoreLight.Spacing1) {
                 Text(title)
                     .thdFont(.bodySm)
-                    .foregroundColor(textPrimary)
+                    .foregroundStyle(textPrimary)
                 
                 Text(description)
                     .thdFont(.caption)
-                    .foregroundColor(textTertiary)
+                    .foregroundStyle(textTertiary)
             }
             
             HStack {
@@ -161,7 +161,7 @@ struct DSButtonView: View {
                 Spacer()
             }
         }
-        .padding(TokensSpacing.Spacing3)
+        .padding(TokensCoreLight.Spacing3)
         .background(
             RoundedRectangle(cornerRadius: borderRadiusLg)
                 .fill(containerGreige)
@@ -171,13 +171,13 @@ struct DSButtonView: View {
     // MARK: - Button Sizes Section
     
     private var buttonSizesSection: some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing3) {
             sectionHeader(
                 "Button Sizes",
                 description: "Small (28pt), Medium (36pt), and Large (44pt full-width)"
             )
             
-            VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
+            VStack(alignment: .leading, spacing: TokensCoreLight.Spacing3) {
                 sizeExample(
                     "Small",
                     size: .small,
@@ -199,25 +199,25 @@ struct DSButtonView: View {
         }
     }
     
-    private func sizeExample(_ title: String, size: DSButton.Size, heightLabel: String) -> some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
+    private func sizeExample(_ title: String, size: DSButtonSize, heightLabel: String) -> some View {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing2) {
             HStack {
                 Text(title)
                     .thdFont(.bodySm)
-                    .foregroundColor(textSecondary)
+                    .foregroundStyle(textSecondary)
                 
                 Spacer()
                 
                 Text(heightLabel)
                     .thdFont(.caption)
-                    .foregroundColor(textTertiary)
+                    .foregroundStyle(textTertiary)
             }
             
             DSButton("Button Text", style: .orangeFilled, size: size) {
                 print("\(title) button tapped")
             }
         }
-        .padding(TokensSpacing.Spacing3)
+        .padding(TokensCoreLight.Spacing3)
         .background(
             RoundedRectangle(cornerRadius: borderRadiusLg)
                 .fill(containerGreige)
@@ -227,13 +227,13 @@ struct DSButtonView: View {
     // MARK: - Button States Section
     
     private var buttonStatesSection: some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing3) {
             sectionHeader(
                 "Button States",
                 description: "Default, loading, and disabled states"
             )
             
-            VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
+            VStack(alignment: .leading, spacing: TokensCoreLight.Spacing3) {
                 stateExample(
                     "Default State",
                     description: "Normal interactive state",
@@ -259,18 +259,18 @@ struct DSButtonView: View {
     }
     
     private func stateExample(_ title: String, description: String, isLoading: Bool, isDisabled: Bool) -> some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
-            VStack(alignment: .leading, spacing: TokensSpacing.Spacing1) {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing2) {
+            VStack(alignment: .leading, spacing: TokensCoreLight.Spacing1) {
                 Text(title)
                     .thdFont(.bodySm)
-                    .foregroundColor(textPrimary)
+                    .foregroundStyle(textPrimary)
                 
                 Text(description)
                     .thdFont(.caption)
-                    .foregroundColor(textTertiary)
+                    .foregroundStyle(textTertiary)
             }
             
-            HStack(spacing: TokensSpacing.Spacing2) {
+            HStack(spacing: TokensCoreLight.Spacing2) {
                 DSButton(
                     "Orange",
                     style: .orangeFilled,
@@ -294,7 +294,7 @@ struct DSButtonView: View {
                 Spacer()
             }
         }
-        .padding(TokensSpacing.Spacing3)
+        .padding(TokensCoreLight.Spacing3)
         .background(
             RoundedRectangle(cornerRadius: borderRadiusLg)
                 .fill(containerGreige)
@@ -304,13 +304,13 @@ struct DSButtonView: View {
     // MARK: - Icons Section
     
     private var iconsSection: some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing3) {
             sectionHeader(
                 "Icons",
                 description: "Leading, trailing, or both icons"
             )
             
-            VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
+            VStack(alignment: .leading, spacing: TokensCoreLight.Spacing3) {
                 iconExample(
                     "Leading Icon",
                     description: "Icon before text",
@@ -336,15 +336,15 @@ struct DSButtonView: View {
     }
     
     private func iconExample(_ title: String, description: String, leadingIcon: Image?, trailingIcon: Image?) -> some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
-            VStack(alignment: .leading, spacing: TokensSpacing.Spacing1) {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing2) {
+            VStack(alignment: .leading, spacing: TokensCoreLight.Spacing1) {
                 Text(title)
                     .thdFont(.bodySm)
-                    .foregroundColor(textPrimary)
+                    .foregroundStyle(textPrimary)
                 
                 Text(description)
                     .thdFont(.caption)
-                    .foregroundColor(textTertiary)
+                    .foregroundStyle(textTertiary)
             }
             
             HStack {
@@ -360,7 +360,7 @@ struct DSButtonView: View {
                 Spacer()
             }
         }
-        .padding(TokensSpacing.Spacing3)
+        .padding(TokensCoreLight.Spacing3)
         .background(
             RoundedRectangle(cornerRadius: borderRadiusLg)
                 .fill(containerGreige)
@@ -370,10 +370,10 @@ struct DSButtonView: View {
     // MARK: - Interactive Section
     
     private var interactiveSection: some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing3) {
             sectionHeader("Interactive Examples", description: "Try the buttons")
             
-            VStack(spacing: TokensSpacing.Spacing4) {
+            VStack(spacing: TokensCoreLight.Spacing4) {
                 InteractiveButtonExample(
                     title: "Counter Button",
                     style: .orangeFilled
@@ -383,7 +383,7 @@ struct DSButtonView: View {
                 
                 InteractiveToggleExample()
             }
-            .padding(TokensSpacing.Spacing3)
+            .padding(TokensCoreLight.Spacing3)
             .background(
                 RoundedRectangle(cornerRadius: borderRadiusLg)
                     .fill(containerGreige)
@@ -394,33 +394,33 @@ struct DSButtonView: View {
     // MARK: - Usage Examples Section
     
     private var usageExamplesSection: some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing3) {
             sectionHeader("Usage Examples", description: "Real-world component usage")
             
             Text("Form Actions")
                 .thdFont(.bodySm)
-                .foregroundColor(textSecondary)
+                .foregroundStyle(textSecondary)
             
             formActionsExample
             
             Text("Product Actions")
                 .thdFont(.bodySm)
-                .foregroundColor(textSecondary)
-                .padding(.top, TokensSpacing.Spacing2)
+                .foregroundStyle(textSecondary)
+                .padding(.top, TokensCoreLight.Spacing2)
             
             productActionsExample
             
             Text("Navigation")
                 .thdFont(.bodySm)
-                .foregroundColor(textSecondary)
-                .padding(.top, TokensSpacing.Spacing2)
+                .foregroundStyle(textSecondary)
+                .padding(.top, TokensCoreLight.Spacing2)
             
             navigationExample
         }
     }
     
     private var formActionsExample: some View {
-        VStack(spacing: TokensSpacing.Spacing2) {
+        VStack(spacing: TokensCoreLight.Spacing2) {
             DSButton(
                 "Save Changes",
                 style: .orangeFilled,
@@ -438,7 +438,7 @@ struct DSButtonView: View {
                 print("Cancel tapped")
             }
         }
-        .padding(TokensSpacing.Spacing3)
+        .padding(TokensCoreLight.Spacing3)
         .background(
             RoundedRectangle(cornerRadius: borderRadiusLg)
                 .fill(containerWhite)
@@ -446,7 +446,7 @@ struct DSButtonView: View {
     }
     
     private var productActionsExample: some View {
-        HStack(spacing: TokensSpacing.Spacing2) {
+        HStack(spacing: TokensCoreLight.Spacing2) {
             DSButton(
                 "Add to Cart",
                 style: .orangeFilled,
@@ -467,7 +467,7 @@ struct DSButtonView: View {
             
             Spacer()
         }
-        .padding(TokensSpacing.Spacing3)
+        .padding(TokensCoreLight.Spacing3)
         .background(
             RoundedRectangle(cornerRadius: borderRadiusLg)
                 .fill(containerWhite)
@@ -475,7 +475,7 @@ struct DSButtonView: View {
     }
     
     private var navigationExample: some View {
-        VStack(spacing: TokensSpacing.Spacing2) {
+        VStack(spacing: TokensCoreLight.Spacing2) {
             DSButton(
                 "Continue",
                 style: .orangeFilled,
@@ -494,7 +494,7 @@ struct DSButtonView: View {
                 print("Go back tapped")
             }
         }
-        .padding(TokensSpacing.Spacing3)
+        .padding(TokensCoreLight.Spacing3)
         .background(
             RoundedRectangle(cornerRadius: borderRadiusLg)
                 .fill(containerWhite)
@@ -504,10 +504,10 @@ struct DSButtonView: View {
     // MARK: - Specifications Section
     
     private var specificationsSection: some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing3) {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing3) {
             sectionHeader("Specifications", description: "Component details and dimensions")
             
-            VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
+            VStack(alignment: .leading, spacing: TokensCoreLight.Spacing2) {
                 specRow("Component", value: "DSButton")
                 specRow("Styles", value: "7 variants")
                 specRow("Sizes", value: "Small (28pt), Medium (36pt), Large (44pt)")
@@ -519,7 +519,7 @@ struct DSButtonView: View {
                 specRow("Press Scale", value: "0.97x")
                 specRow("Animation Duration", value: "0.1s")
             }
-            .padding(TokensSpacing.Spacing3)
+            .padding(TokensCoreLight.Spacing3)
             .background(
                 RoundedRectangle(cornerRadius: borderRadiusLg)
                     .fill(containerGreige)
@@ -527,15 +527,15 @@ struct DSButtonView: View {
             
             Text("Style Guide")
                 .thdFont(.bodySm)
-                .foregroundColor(textSecondary)
-                .padding(.top, TokensSpacing.Spacing2)
+                .foregroundStyle(textSecondary)
+                .padding(.top, TokensCoreLight.Spacing2)
             
             styleGuideTable
             
             Text("Code Example")
                 .thdFont(.bodySm)
-                .foregroundColor(textSecondary)
-                .padding(.top, TokensSpacing.Spacing2)
+                .foregroundStyle(textSecondary)
+                .padding(.top, TokensCoreLight.Spacing2)
             
             codeExample("""
 // Basic usage
@@ -566,7 +566,7 @@ DSButton(
     }
     
     private var styleGuideTable: some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing1) {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing1) {
             styleGuideRow("Orange Filled", usage: "Primary actions (Add to Cart, Submit)")
             styleGuideRow("Gradient Filled", usage: "Premium features, CTAs")
             styleGuideRow("Outlined", usage: "Secondary actions (Cancel, Back)")
@@ -575,7 +575,7 @@ DSButton(
             styleGuideRow("Black 10%", usage: "Medium overlay actions")
             styleGuideRow("Ghost", usage: "Tertiary actions, text-like links")
         }
-        .padding(TokensSpacing.Spacing3)
+        .padding(TokensCoreLight.Spacing3)
         .background(
             RoundedRectangle(cornerRadius: borderRadiusLg)
                 .fill(containerGreige)
@@ -586,10 +586,10 @@ DSButton(
         VStack(alignment: .leading, spacing: 2) {
             Text(style)
                 .thdFont(.caption)
-                .foregroundColor(textPrimary)
+                .foregroundStyle(textPrimary)
             Text(usage)
                 .thdFont(.caption)
-                .foregroundColor(textTertiary)
+                .foregroundStyle(textTertiary)
         }
         .padding(.vertical, 4)
     }
@@ -597,13 +597,13 @@ DSButton(
     private func codeExample(_ code: String) -> some View {
         Text(code)
             .thdFont(.caption)
-            .foregroundColor(textSecondary)
+            .foregroundStyle(textSecondary)
             .font(.system(.caption, design: .monospaced))
-            .padding(TokensSpacing.Spacing3)
+            .padding(TokensCoreLight.Spacing3)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(
                 RoundedRectangle(cornerRadius: borderRadiusLg)
-                    .fill(Color.black.opacity(0.05))
+                    .fill(codeBlockBg)
             )
     }
     
@@ -611,27 +611,27 @@ DSButton(
         HStack {
             Text(label)
                 .thdFont(.caption)
-                .foregroundColor(textTertiary)
+                .foregroundStyle(textTertiary)
             
             Spacer()
             
             Text(value)
                 .thdFont(.caption)
-                .foregroundColor(textSecondary)
+                .foregroundStyle(textSecondary)
         }
     }
     
     // MARK: - Helper Methods
     
     private func sectionHeader(_ title: String, description: String) -> some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing1) {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing1) {
             Text(title)
                 .thdFont(.h3)
-                .foregroundColor(textPrimary)
+                .foregroundStyle(textPrimary)
 
             Text(description)
                 .thdFont(.caption)
-                .foregroundColor(textTertiary)
+                .foregroundStyle(textTertiary)
         }
     }
     
@@ -668,7 +668,11 @@ DSButton(
     private var borderRadiusXl: CGFloat {
         tokens.BorderRadiusXl
     }
-    
+
+    private var codeBlockBg: Color {
+        tokens.BackgroundContainerColorTransparent05
+    }
+
     private var tokens: any TokenSemanticProtocol.Type {
         colorScheme == .dark ? TokensSemanticDark.self : TokensSemanticLight.self
     }
@@ -678,25 +682,31 @@ DSButton(
 
 /// Interactive button example with counter
 private struct InteractiveButtonExample: View {
+    @Environment(\.colorScheme) var colorScheme
+
     let title: String
-    let style: DSButton.Style
-    
+    let style: DSButtonStyle
+
     @State private var count = 0
-    
+
+    private var tokens: any TokenSemanticProtocol.Type {
+        colorScheme == .dark ? TokensSemanticDark.self : TokensSemanticLight.self
+    }
+
     var body: some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing2) {
             HStack {
                 Text(title)
                     .thdFont(.bodySm)
-                    .foregroundColor(TokensSemanticLight.TextOnContainerColorSecondary)
-                
+                    .foregroundStyle(tokens.TextOnContainerColorSecondary)
+
                 Spacer()
-                
+
                 Text("Count: \(count)")
                     .thdFont(.bodySm)
-                    .foregroundColor(TokensSemanticLight.TextOnContainerColorPrimary)
+                    .foregroundStyle(tokens.TextOnContainerColorPrimary)
             }
-            
+
             HStack {
                 DSButton(
                     "Increment",
@@ -705,36 +715,42 @@ private struct InteractiveButtonExample: View {
                 ) {
                     count += 1
                 }
-                
+
                 Spacer()
             }
         }
-        .padding(TokensSpacing.Spacing2)
+        .padding(TokensCoreLight.Spacing2)
         .background(
-            RoundedRectangle(cornerRadius: TokensSemanticLight.BorderRadiusSm)
-                .fill(TokensSemanticLight.BackgroundContainerColorWhite)
+            RoundedRectangle(cornerRadius: tokens.BorderRadiusSm)
+                .fill(tokens.BackgroundContainerColorWhite)
         )
     }
 }
 
 /// Interactive loading example
 private struct InteractiveLoadingExample: View {
+    @Environment(\.colorScheme) var colorScheme
+
     @State private var isLoading = false
-    
+
+    private var tokens: any TokenSemanticProtocol.Type {
+        colorScheme == .dark ? TokensSemanticDark.self : TokensSemanticLight.self
+    }
+
     var body: some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing2) {
             HStack {
                 Text("Loading State")
                     .thdFont(.bodySm)
-                    .foregroundColor(TokensSemanticLight.TextOnContainerColorSecondary)
-                
+                    .foregroundStyle(tokens.TextOnContainerColorSecondary)
+
                 Spacer()
-                
+
                 Text(isLoading ? "Loading..." : "Ready")
                     .thdFont(.bodySm)
-                    .foregroundColor(TokensSemanticLight.TextOnContainerColorPrimary)
+                    .foregroundStyle(tokens.TextOnContainerColorPrimary)
             }
-            
+
             HStack {
                 DSButton(
                     "Simulate Loading",
@@ -743,41 +759,48 @@ private struct InteractiveLoadingExample: View {
                     isLoading: isLoading
                 ) {
                     isLoading = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    Task {
+                        try? await Task.sleep(for: .seconds(2))
                         isLoading = false
                     }
                 }
-                
+
                 Spacer()
             }
         }
-        .padding(TokensSpacing.Spacing2)
+        .padding(TokensCoreLight.Spacing2)
         .background(
-            RoundedRectangle(cornerRadius: TokensSemanticLight.BorderRadiusSm)
-                .fill(TokensSemanticLight.BackgroundContainerColorWhite)
+            RoundedRectangle(cornerRadius: tokens.BorderRadiusSm)
+                .fill(tokens.BackgroundContainerColorWhite)
         )
     }
 }
 
 /// Interactive toggle example
 private struct InteractiveToggleExample: View {
+    @Environment(\.colorScheme) var colorScheme
+
     @State private var isDisabled = false
-    
+
+    private var tokens: any TokenSemanticProtocol.Type {
+        colorScheme == .dark ? TokensSemanticDark.self : TokensSemanticLight.self
+    }
+
     var body: some View {
-        VStack(alignment: .leading, spacing: TokensSpacing.Spacing2) {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing2) {
             HStack {
                 Text("Toggle Disabled")
                     .thdFont(.bodySm)
-                    .foregroundColor(TokensSemanticLight.TextOnContainerColorSecondary)
-                
+                    .foregroundStyle(tokens.TextOnContainerColorSecondary)
+
                 Spacer()
-                
+
                 Text(isDisabled ? "Disabled" : "Enabled")
                     .thdFont(.bodySm)
-                    .foregroundColor(TokensSemanticLight.TextOnContainerColorPrimary)
+                    .foregroundStyle(tokens.TextOnContainerColorPrimary)
             }
-            
-            HStack(spacing: TokensSpacing.Spacing2) {
+
+            HStack(spacing: TokensCoreLight.Spacing2) {
                 DSButton(
                     "Target Button",
                     style: .orangeFilled,
@@ -786,7 +809,7 @@ private struct InteractiveToggleExample: View {
                 ) {
                     print("Target tapped")
                 }
-                
+
                 DSButton(
                     isDisabled ? "Enable" : "Disable",
                     style: .ghost,
@@ -794,14 +817,14 @@ private struct InteractiveToggleExample: View {
                 ) {
                     isDisabled.toggle()
                 }
-                
+
                 Spacer()
             }
         }
-        .padding(TokensSpacing.Spacing2)
+        .padding(TokensCoreLight.Spacing2)
         .background(
-            RoundedRectangle(cornerRadius: TokensSemanticLight.BorderRadiusSm)
-                .fill(TokensSemanticLight.BackgroundContainerColorWhite)
+            RoundedRectangle(cornerRadius: tokens.BorderRadiusSm)
+                .fill(tokens.BackgroundContainerColorWhite)
         )
     }
 }
@@ -813,7 +836,9 @@ private protocol TokenSemanticProtocol {
     static var TextOnContainerColorTertiary: Color { get }
     static var BackgroundContainerColorWhite: Color { get }
     static var BackgroundContainerColorGreige: Color { get }
+    static var BackgroundContainerColorTransparent05: Color { get }
     static var BackgroundSurfaceColorGreige: Color { get }
+    static var BorderRadiusSm: CGFloat { get }
     static var BorderRadiusLg: CGFloat { get }
     static var BorderRadiusXl: CGFloat { get }
 }

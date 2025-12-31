@@ -253,7 +253,7 @@ public struct DSButtonLabel: View {
                 }
             }
         }
-        .foregroundColor(foregroundColor)
+        .foregroundStyle(foregroundColor)
     }
 }
 

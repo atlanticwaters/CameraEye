@@ -119,7 +119,7 @@ public struct DSAlert: View {
                 // Status icon
                 statusIcon
                     .frame(width: 16, height: 16)
-                    .foregroundColor(iconColor)
+                    .foregroundStyle(iconColor)
                     .padding(.top, contentTopPadding)
 
                 // Content
@@ -127,12 +127,12 @@ public struct DSAlert: View {
                     if let title {
                         Text(title)
                             .font(DSTypography.font(size: 16, weight: .medium))
-                            .foregroundColor(textColor)
+                            .foregroundStyle(textColor)
                     }
 
                     Text(bodyText)
                         .font(DSTypography.font(size: 16, weight: .medium))
-                        .foregroundColor(textColor)
+                        .foregroundStyle(textColor)
                 }
                 .padding(.top, contentTopPadding)
                 .padding(.bottom, 6)
@@ -186,7 +186,7 @@ public struct DSAlert: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 12, height: 12)
-                .foregroundColor(closeButtonColor)
+                .foregroundStyle(closeButtonColor)
                 .padding(16)
                 .contentShape(Rectangle())
         }

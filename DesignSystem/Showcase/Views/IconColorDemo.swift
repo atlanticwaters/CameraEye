@@ -32,7 +32,7 @@ struct IconColorDemo: View {
             // Name
             Text(name)
                 .font(.system(size: TokensCoreLight.FontSizeBodySm, weight: .medium))
-                .foregroundColor(
+                .foregroundStyle(
                     colorScheme == .dark
                         ? TokensSemanticDark.TextOnSurfaceColorPrimary
                         : TokensSemanticLight.TextOnSurfaceColorPrimary
@@ -41,7 +41,7 @@ struct IconColorDemo: View {
             // Description
             Text(description)
                 .font(.system(size: TokensCoreLight.FontSizeBodyXs))
-                .foregroundColor(
+                .foregroundStyle(
                     colorScheme == .dark
                         ? TokensSemanticDark.TextOnSurfaceColorSecondary
                         : TokensSemanticLight.TextOnSurfaceColorSecondary

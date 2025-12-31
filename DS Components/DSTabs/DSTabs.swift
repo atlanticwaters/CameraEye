@@ -156,12 +156,12 @@ public struct DSTab: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: size.iconSize, height: size.iconSize)
-                            .foregroundColor(textColor)
+                            .foregroundStyle(textColor)
                     }
 
                     Text(item.label)
                         .font(.system(size: size.fontSize, weight: isSelected ? .semibold : .regular))
-                        .foregroundColor(textColor)
+                        .foregroundStyle(textColor)
                 }
                 .padding(.horizontal, size.horizontalPadding)
                 .frame(height: size.height - size.indicatorHeight)

@@ -12,11 +12,11 @@ struct CalloutDemoView: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
             Text(title)
                 .thdFont(.h3)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
             Text(description)
                 .thdFont(.caption)
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
     }
     
@@ -27,11 +27,11 @@ struct CalloutDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Callout")
                         .thdFont(.hero5)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text("Promotional and informational callouts with optional actions.")
                         .thdFont(.bodyMd)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
                 }
                 .padding(DesignSystemGlobal.Spacing4)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -48,7 +48,7 @@ struct CalloutDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Full Featured")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
                         title: "Callout Title",
@@ -61,7 +61,7 @@ struct CalloutDemoView: View {
 
                     Text("Title Only")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
                         title: "Pro Tip",
@@ -71,7 +71,7 @@ struct CalloutDemoView: View {
 
                     Text("Description Only")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
                         description: "Need help? Visit our help center for answers to common questions.",
@@ -82,7 +82,7 @@ struct CalloutDemoView: View {
 
                     Text("Floating (with shadow)")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
                         title: "Floating Callout",
@@ -100,7 +100,7 @@ struct CalloutDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Full Featured")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
                         title: "Exclusive Offer",
@@ -113,7 +113,7 @@ struct CalloutDemoView: View {
 
                     Text("Simple")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
                         description: "Sign up for our newsletter to receive exclusive offers.",
@@ -124,7 +124,7 @@ struct CalloutDemoView: View {
 
                     Text("Floating")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
                         title: "Limited Time",
@@ -142,7 +142,7 @@ struct CalloutDemoView: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing3) {
                     Text("Full Featured")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
                         title: "Special Savings",
@@ -155,7 +155,7 @@ struct CalloutDemoView: View {
 
                     Text("Promotion")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
                         title: "Free Delivery",
@@ -165,7 +165,7 @@ struct CalloutDemoView: View {
 
                     Text("Floating")
                         .thdFont(.bodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     Callout(
                         title: "New Arrivals",

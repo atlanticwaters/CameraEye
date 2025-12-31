@@ -178,11 +178,13 @@ public struct DSPLPFilterSheet: View {
     private var headerSection: some View {
         HStack {
             // Close button
-            Button(action: { onClose?() }) {
-                Image(systemName: "xmark")
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(DSPLPFilterSheetColorHelper.closeButtonColor())
-                    .frame(width: 44, height: 44)
+            DSIconButton(
+                systemName: "xmark",
+                style: .ghost,
+                size: .medium,
+                accessibilityLabel: "Close filter sheet"
+            ) {
+                onClose?()
             }
 
             Spacer()
@@ -190,7 +192,7 @@ public struct DSPLPFilterSheet: View {
             // Title
             Text(data.title)
                 .font(.system(size: 17, weight: .semibold))
-                .foregroundColor(DSPLPFilterSheetColorHelper.titleColor())
+                .foregroundStyle(DSPLPFilterSheetColorHelper.titleColor())
 
             Spacer()
 
@@ -199,7 +201,7 @@ public struct DSPLPFilterSheet: View {
                 Button(action: { onClearAll?() }) {
                     Text("Clear All")
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(DSPLPFilterSheetColorHelper.clearButtonColor())
+                        .foregroundStyle(DSPLPFilterSheetColorHelper.clearButtonColor())
                 }
                 .frame(width: 70, height: 44)
             } else {
@@ -238,19 +240,19 @@ public struct DSPLPFilterSheet: View {
             HStack {
                 Text(category.title)
                     .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(DSPLPFilterSheetColorHelper.categoryTitleColor())
+                    .foregroundStyle(DSPLPFilterSheetColorHelper.categoryTitleColor())
 
                 if category.selectedCount > 0 {
                     Text("(\(category.selectedCount))")
                         .font(.system(size: 14))
-                        .foregroundColor(DSPLPFilterSheetColorHelper.selectedCountColor())
+                        .foregroundStyle(DSPLPFilterSheetColorHelper.selectedCountColor())
                 }
 
                 Spacer()
 
                 Image(systemName: category.isExpanded ? "chevron.up" : "chevron.down")
                     .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(DSPLPFilterSheetColorHelper.chevronColor())
+                    .foregroundStyle(DSPLPFilterSheetColorHelper.chevronColor())
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 14)
@@ -284,7 +286,7 @@ public struct DSPLPFilterSheet: View {
                     if option.isSelected {
                         Image(systemName: "checkmark")
                             .font(.system(size: 12, weight: .bold))
-                            .foregroundColor(DSPLPFilterSheetColorHelper.checkmarkColor())
+                            .foregroundStyle(DSPLPFilterSheetColorHelper.checkmarkColor())
                     }
                 }
 
@@ -311,7 +313,7 @@ public struct DSPLPFilterSheet: View {
                 // Label
                 Text(option.label)
                     .font(.system(size: 14))
-                    .foregroundColor(DSPLPFilterSheetColorHelper.optionLabelColor())
+                    .foregroundStyle(DSPLPFilterSheetColorHelper.optionLabelColor())
 
                 Spacer()
 
@@ -319,7 +321,7 @@ public struct DSPLPFilterSheet: View {
                 if let count = option.count {
                     Text("(\(count))")
                         .font(.system(size: 14))
-                        .foregroundColor(DSPLPFilterSheetColorHelper.optionCountColor())
+                        .foregroundStyle(DSPLPFilterSheetColorHelper.optionCountColor())
                 }
             }
             .padding(.horizontal, 12)
@@ -337,14 +339,12 @@ public struct DSPLPFilterSheet: View {
         VStack(spacing: 0) {
             Divider()
 
-            Button(action: { onViewResults?() }) {
-                Text("View \(data.resultsCount) Results")
-                    .font(.system(size: 16, weight: .semibold))
-                    .foregroundColor(DSPLPFilterSheetColorHelper.viewResultsTextColor())
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-                    .background(DSPLPFilterSheetColorHelper.viewResultsBackgroundColor())
-                    .cornerRadius(8)
+            DSButton(
+                "View \(data.resultsCount) Results",
+                style: .orangeFilled,
+                size: .large
+            ) {
+                onViewResults?()
             }
             .padding(.horizontal, Layout.contentPadding)
             .padding(.vertical, 12)

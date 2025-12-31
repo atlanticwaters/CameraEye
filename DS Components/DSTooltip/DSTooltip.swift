@@ -147,7 +147,7 @@ public struct DSTooltip: View {
         HStack(spacing: 4) {
             Text(text)
                 .font(DSTypography.bodyXs)
-                .foregroundColor(textColor)
+                .foregroundStyle(textColor)
 
             if showsClose {
                 closeButton
@@ -178,7 +178,7 @@ public struct DSTooltip: View {
                 .scaledToFit()
                 .frame(width: 12, height: 12)
                 .font(DSTypography.bodyXsBold)
-                .foregroundColor(textColor)
+                .foregroundStyle(textColor)
                 .padding(8)
                 .contentShape(Rectangle())
         }

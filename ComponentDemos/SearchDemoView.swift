@@ -82,7 +82,7 @@ struct ProductImageView: View {
                 // Fallback placeholder
                 Image(systemName: "photo")
                     .font(.system(size: size * 0.4))
-                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorTertiary.opacity(0.5))
+                    .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorTertiary.opacity(0.5))
             }
         }
         .frame(width: size, height: size)
@@ -331,7 +331,7 @@ struct SearchBarView: View {
             Button(action: onBack) {
                 Image(systemName: "chevron.left")
                     .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
                     .frame(width: 40, height: 40)
                     .background(
                         Circle()
@@ -344,18 +344,18 @@ struct SearchBarView: View {
             // Search Field with glass effect
             HStack(spacing: 8) {
                 Image(systemName: "magnifyingglass")
-                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorTertiary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorTertiary)
                     .font(.system(size: 16))
 
                 TextField("Search", text: $searchText)
                     .focused($isSearchFieldFocused)
                     .font(.system(size: 16))
-                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
 
                 if !searchText.isEmpty {
                     Button(action: onClear) {
                         Image(systemName: "xmark.circle.fill")
-                            .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorTertiary)
+                            .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorTertiary)
                             .font(.system(size: 18))
                     }
                 }
@@ -381,7 +381,7 @@ struct RecentlyViewedSection: View {
         VStack(alignment: .leading, spacing: 12) {
             Text("Recently Viewed")
                 .font(.thdH5)
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
                 .padding(.horizontal, 16)
                 .padding(.top, 20)
 
@@ -411,14 +411,14 @@ struct RecentlyViewedCard: View {
                 // Product Name with bold brand
                 Text("\(Text(product.brandName).fontWeight(.semibold)) \(product.productDescription)")
                     .font(.thdBodySm)
-                    .foregroundColor(.primary)
+                    .foregroundStyle(.primary)
                     .lineLimit(2)
                     .frame(width: 100, alignment: .leading)
 
                 // Price
                 Text(product.formattedPrice)
                     .font(.thdH6)
-                    .foregroundColor(.primary)
+                    .foregroundStyle(.primary)
             }
         }
     }
@@ -438,14 +438,14 @@ struct RecentSearchesSection: View {
             HStack {
                 Text("Recent Searches")
                     .font(.thdH5)
-                    .foregroundColor(.primary)
+                    .foregroundStyle(.primary)
                 
                 Spacer()
                 
                 Button(action: onClearAll) {
                     Text("Clear All")
                         .font(.thdBodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorSecondary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorSecondary)
                         .padding(.horizontal, 12)
                         .padding(.vertical, 6)
                         .background(
@@ -484,19 +484,19 @@ struct RecentSearchRow: View {
             HStack(spacing: 12) {
                 Image(systemName: "clock")
                     .font(.system(size: 16))
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
                     .frame(width: 24)
                 
                 Text(searchText)
                     .font(.thdBodyMd)
-                    .foregroundColor(.primary)
+                    .foregroundStyle(.primary)
                 
                 Spacer()
                 
                 Button(action: onRemove) {
                     Image(systemName: "xmark")
                         .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                         .frame(width: 24, height: 24)
                 }
                 .buttonStyle(PlainButtonStyle())
@@ -560,11 +560,11 @@ struct MatchedProductCard: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text("Purchased September 24, 2025")
                     .font(.thdBodySm)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 Text("\(Text(product.brandName).fontWeight(.semibold)) \(product.productDescription)")
                     .font(.thdBodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
             }
 
             Spacer()
@@ -587,7 +587,7 @@ struct SearchSuggestionRow: View {
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass")
                     .font(.system(size: 14))
-                    .foregroundColor(.gray)
+                    .foregroundStyle(.gray)
                     .frame(width: 24)
 
                 VStack(alignment: .leading, spacing: 2) {
@@ -600,12 +600,12 @@ struct SearchSuggestionRow: View {
                         HStack(spacing: 4) {
                             Image(systemName: "arrow.turn.down.right")
                                 .font(.system(size: 10))
-                                .foregroundColor(.secondary)
+                                .foregroundStyle(.secondary)
 
                             Text("in \(category)")
                                 .font(.thdBodySm)
                                 .underline()
-                                .foregroundColor(.secondary)
+                                .foregroundStyle(.secondary)
                         }
                         .padding(.leading, 4)
                     }
@@ -627,10 +627,10 @@ struct SearchSuggestionRow: View {
 
             Text("\(before)\(match)\(Text(after).fontWeight(.semibold))")
                 .font(.body)
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
         } else {
             Text(text)
-                .foregroundColor(.primary)
+                .foregroundStyle(.primary)
         }
     }
 }

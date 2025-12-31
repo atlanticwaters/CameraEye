@@ -84,14 +84,14 @@ struct ProductCard: View {
                 Text("Exclusive")
                     .font(.thdBodyXs)
                     .fontWeight(.bold)
-                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
             }
             
             if let promo = product.promotionalBadge {
                 Text(promo)
                     .font(.thdBodyXs)
                     .fontWeight(.bold)
-                    .foregroundColor(DesignSystemGlobal.BackgroundFeedbackColorSuccessAccent2)
+                    .foregroundStyle(DesignSystemGlobal.BackgroundFeedbackColorSuccessAccent2)
             }
         }
         .padding(.horizontal, DesignSystemGlobal.Spacing2)
@@ -118,7 +118,7 @@ struct ProductCard: View {
             if product.additionalColorCount > 0 {
                 Text("+\(product.additionalColorCount)")
                     .font(.thdBodyXs)
-                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
                     .frame(width: DesignSystemGlobal.Spacing8, height: DesignSystemGlobal.Spacing8)
             }
         }
@@ -131,7 +131,7 @@ struct ProductCard: View {
             if product.isSponsored {
                 Text("Sponsored")
                     .font(.thdBodyXs)
-                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorSecondary)
                     .padding(.bottom, DesignSystemGlobal.Spacing1)
             }
             
@@ -139,13 +139,13 @@ struct ProductCard: View {
             Text(product.brand)
                 .font(.thdBodyXs)
                 .fontWeight(.bold)
-                .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
                 .lineLimit(1)
             
             // Product Title
             Text(product.name)
                 .font(.thdBodySm)
-                .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
                 .lineLimit(2)
                 .lineSpacing(0)
                 .padding(.top, DesignSystemGlobal.Spacing1)
@@ -180,18 +180,18 @@ struct ProductCard: View {
         VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1px) {
             Text("Model: \(product.modelNumber)")
                 .font(.thdBodyXs)
-                .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorSecondary)
+                .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorSecondary)
             
             if let internetNumber = product.internetNumber {
                 Text("Internet: \(internetNumber)")
                     .font(.thdBodyXs)
-                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorSecondary)
             }
             
             if let storeSKU = product.storeSKU {
                 Text("Store SKU: \(storeSKU)")
                     .font(.thdBodyXs)
-                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorSecondary)
             }
         }
         .padding(.top, DesignSystemGlobal.Spacing1)
@@ -203,18 +203,18 @@ struct ProductCard: View {
             Text("$")
                 .font(.thdH1)
                 .fontWeight(.heavy)
-                .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
             
             Text(formattedPriceDollars(product.currentPrice))
                 .font(.thdH1)
                 .fontWeight(.heavy)
-                .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
             
             if let cents = formattedPriceCents(product.currentPrice) {
                 Text(cents)
                     .font(.thdBodySm)
                     .fontWeight(.bold)
-                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
                     .baselineOffset(DesignSystemGlobal.Spacing1 + DesignSystemGlobal.Spacing1px)
             }
         }
@@ -231,12 +231,12 @@ struct ProductCard: View {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1px) {
                 Text("Was $\(formattedFullPrice(originalPrice))")
                     .font(.thdBodyXs)
-                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorSecondary)
                 
                 Text("Saving $\(formattedFullPrice(savingsAmount)) (\(savingsPercent)%)")
                     .font(.thdBodyXs)
                     .fontWeight(.bold)
-                    .foregroundColor(DesignSystemGlobal.BackgroundFeedbackColorErrorAccent2)
+                    .foregroundStyle(DesignSystemGlobal.BackgroundFeedbackColorErrorAccent2)
             }
             .padding(.top, DesignSystemGlobal.Spacing1px)
         }
@@ -249,7 +249,7 @@ struct ProductCard: View {
             
             Text("(\(String(format: "%.1f", product.rating))/\(formatNumber(product.reviewCount)))")
                 .font(.thdBodyXs)
-                .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
         }
         .padding(.top, DesignSystemGlobal.Spacing1 + DesignSystemGlobal.Spacing1px)
     }
@@ -263,13 +263,13 @@ struct ProductCard: View {
                     Text("Delivery:")
                         .font(.thdBodySm)
                         .fontWeight(.bold)
-                        .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
                     
                     if delivery.primaryValue.lowercased() == "free" {
                         Text("Free")
                             .font(.thdBodySm)
                             .fontWeight(.bold)
-                            .foregroundColor(DesignSystemGlobal.BackgroundFeedbackColorSuccessAccent2)
+                            .foregroundStyle(DesignSystemGlobal.BackgroundFeedbackColorSuccessAccent2)
                     }
                 }
                 
@@ -277,18 +277,18 @@ struct ProductCard: View {
                     if let date = delivery.secondaryValue {
                         Text(date)
                             .font(.thdBodySm)
-                            .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                            .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
                     }
                     
                     // Show pickup availability if present
                     if let pickup = product.pickupInfo {
                         Text("|")
                             .font(.thdBodySm)
-                            .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorSecondary)
+                            .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorSecondary)
                         
                         Text(pickup.primaryValue)
                             .font(.thdBodySm)
-                            .foregroundColor(DesignSystemGlobal.BackgroundFeedbackColorSuccessAccent2)
+                            .foregroundStyle(DesignSystemGlobal.BackgroundFeedbackColorSuccessAccent2)
                     }
                 }
             }
@@ -299,11 +299,11 @@ struct ProductCard: View {
                     Text("Faster Delivery:")
                         .font(.thdBodySm)
                         .fontWeight(.bold)
-                        .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
                     
                     Text(faster.primaryValue)
                         .font(.thdBodySm)
-                        .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
                 }
                 .padding(.top, DesignSystemGlobal.Spacing1)
             }
@@ -320,7 +320,7 @@ struct ProductCard: View {
             } label: {
                 Text("Add to Cart")
                     .font(.system(size: DesignSystemGlobal.FontSizeBodySm, weight: .semibold))
-                    .foregroundColor(DesignSystemGlobal.NeutralsWhite)
+                    .foregroundStyle(DesignSystemGlobal.NeutralsWhite)
                     .frame(maxWidth: .infinity)
                     .frame(height: DesignSystemGlobal.Spacing10)
                     .background(DesignSystemGlobal.BackgroundButtonColorBrandFilledDefault)
@@ -333,7 +333,7 @@ struct ProductCard: View {
             } label: {
                 Text("Add to ...")
                     .font(.system(size: DesignSystemGlobal.FontSizeBodySm, weight: .semibold))
-                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
                     .frame(maxWidth: .infinity)
                     .frame(height: DesignSystemGlobal.Spacing10)
                     .background(DesignSystemGlobal.BackgroundContainerColorWhite)
@@ -387,7 +387,7 @@ struct RatingStars: View {
         HStack(spacing: DesignSystemGlobal.Spacing1px) {
             ForEach(0..<5) { index in
                 starImage(for: index)
-                    .foregroundColor(DesignSystemGlobal.TextOnSurfaceColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnSurfaceColorPrimary)
                     .font(.system(size: DesignSystemGlobal.FontSizeBodyMd))
             }
         }

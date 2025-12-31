@@ -236,7 +236,7 @@ struct MainAppNavigationView: View {
                         Text("View App Guide")
                     }
                     .thdFont(.bodyMd)
-                    .foregroundColor(.white)
+                    .foregroundStyle(.white)
                     .padding(.horizontal, DS.Spacing4)
                     .padding(.vertical, DS.Spacing3)
                     .background(DS.Brand300)

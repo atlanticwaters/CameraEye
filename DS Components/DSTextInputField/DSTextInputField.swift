@@ -193,16 +193,16 @@ public struct DSTextInputField: View {
         HStack(spacing: 4) {
             Text(label)
                 .font(.system(size: DSTextInputFieldLayout.labelFontSize, weight: .regular))
-                .foregroundColor(DSTextInputFieldColorHelper.labelColor(state: effectiveState))
+                .foregroundStyle(DSTextInputFieldColorHelper.labelColor(state: effectiveState))
 
             if isRequired {
                 Text("*")
                     .font(.system(size: DSTextInputFieldLayout.labelFontSize, weight: .regular))
-                    .foregroundColor(DSTextInputFieldColorHelper.labelColor(state: effectiveState))
+                    .foregroundStyle(DSTextInputFieldColorHelper.labelColor(state: effectiveState))
             } else {
                 Text("(optional)")
                     .font(.system(size: DSTextInputFieldLayout.labelFontSize, weight: .regular))
-                    .foregroundColor(DSTextInputFieldColorHelper.optionalLabelColor())
+                    .foregroundStyle(DSTextInputFieldColorHelper.optionalLabelColor())
             }
         }
     }
@@ -243,20 +243,20 @@ public struct DSTextInputField: View {
         if isMultiLine {
             TextEditor(text: $text)
                 .font(.system(size: DSTextInputFieldLayout.fontSize))
-                .foregroundColor(DSTextInputFieldColorHelper.textColor(state: effectiveState))
+                .foregroundStyle(DSTextInputFieldColorHelper.textColor(state: effectiveState))
                 .scrollContentBackground(.hidden)
                 .disabled(isDisabled)
         } else if isSecure {
             SecureField(placeholder, text: $text)
                 .font(.system(size: DSTextInputFieldLayout.fontSize))
-                .foregroundColor(DSTextInputFieldColorHelper.textColor(state: effectiveState))
+                .foregroundStyle(DSTextInputFieldColorHelper.textColor(state: effectiveState))
                 .textContentType(textContentType)
                 .disabled(isDisabled)
                 .onSubmit { onSubmit?() }
         } else {
             TextField(placeholder, text: $text)
                 .font(.system(size: DSTextInputFieldLayout.fontSize))
-                .foregroundColor(DSTextInputFieldColorHelper.textColor(state: effectiveState))
+                .foregroundStyle(DSTextInputFieldColorHelper.textColor(state: effectiveState))
                 .keyboardType(keyboardType)
                 .textContentType(textContentType)
                 .autocapitalization(autocapitalization)
@@ -278,7 +278,7 @@ public struct DSTextInputField: View {
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: DSTextInputFieldLayout.adornmentSize, height: DSTextInputFieldLayout.adornmentSize)
-                            .foregroundColor(DSTextInputFieldColorHelper.adornmentColor(state: effectiveState))
+                            .foregroundStyle(DSTextInputFieldColorHelper.adornmentColor(state: effectiveState))
                     }
                     .buttonStyle(.plain)
                 } else {
@@ -286,12 +286,12 @@ public struct DSTextInputField: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: DSTextInputFieldLayout.adornmentSize, height: DSTextInputFieldLayout.adornmentSize)
-                        .foregroundColor(DSTextInputFieldColorHelper.adornmentColor(state: effectiveState))
+                        .foregroundStyle(DSTextInputFieldColorHelper.adornmentColor(state: effectiveState))
                 }
             case let .text(text):
                 Text(text)
                     .font(.system(size: DSTextInputFieldLayout.fontSize, weight: .medium))
-                    .foregroundColor(DSTextInputFieldColorHelper.adornmentColor(state: effectiveState))
+                    .foregroundStyle(DSTextInputFieldColorHelper.adornmentColor(state: effectiveState))
             }
         }
     }
@@ -306,13 +306,13 @@ public struct DSTextInputField: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 16, height: 16)
-                .foregroundColor(DSTextInputFieldColorHelper.errorColor())
+                .foregroundStyle(DSTextInputFieldColorHelper.errorColor())
         case .success:
             Image(systemName: "checkmark.circle.fill")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 16, height: 16)
-                .foregroundColor(DSTextInputFieldColorHelper.successColor())
+                .foregroundStyle(DSTextInputFieldColorHelper.successColor())
         default:
             EmptyView()
         }
@@ -344,11 +344,11 @@ public struct DSTextInputField: View {
         if case let .error(message) = state, let errorMessage = message {
             Text(errorMessage)
                 .font(.system(size: DSTextInputFieldLayout.helperFontSize, weight: .regular))
-                .foregroundColor(DSTextInputFieldColorHelper.errorColor())
+                .foregroundStyle(DSTextInputFieldColorHelper.errorColor())
         } else if let helperText {
             Text(helperText)
                 .font(.system(size: DSTextInputFieldLayout.helperFontSize, weight: .regular))
-                .foregroundColor(DSTextInputFieldColorHelper.helperTextColor())
+                .foregroundStyle(DSTextInputFieldColorHelper.helperTextColor())
         }
     }
 }

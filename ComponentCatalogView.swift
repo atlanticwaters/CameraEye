@@ -108,13 +108,13 @@ struct ComponentCatalogScrollableContent: View {
                 VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing2) {
                     Text("Component Catalog")
                         .thdFont(.hero5)
-                        .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                        .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                     Text(
                         "A comprehensive component library using DesignSystemGlobal tokens for consistent styling."
                     )
                     .thdFont(.bodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                     HStack(spacing: DesignSystemGlobal.Spacing2) {
                         DSBadge("9 Components", size: .small, variant: .filledSubtle, color: .brand)
@@ -307,12 +307,12 @@ struct ComponentSection<Content: View>: View {
                 Text(title)
                     .thdFont(.h2)
                     .textCase(.uppercase)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
                     .padding(.leading, DesignSystemGlobal.Spacing3)
 
                 Text(description)
                     .thdFont(.caption)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
                     .padding(.leading, DesignSystemGlobal.Spacing3)
             }
 
@@ -344,7 +344,7 @@ struct ComponentRow: View {
             // Icon with glass background
             Image(systemName: icon)
                 .font(.thdBodyLg)
-                .foregroundColor(iconColor)
+                .foregroundStyle(iconColor)
                 .frame(width: 36, height: 36)
                 .background(iconColor.opacity(0.15))
                 .background(Material.ultraThinMaterial)
@@ -354,11 +354,11 @@ struct ComponentRow: View {
             VStack(alignment: .leading, spacing: DesignSystemGlobal.Spacing1) {
                 Text(title)
                     .thdFont(.bodyMd)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorPrimary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorPrimary)
 
                 Text(description)
                     .thdFont(.bodySm)
-                    .foregroundColor(DesignSystemGlobal.TextOnContainerColorSecondary)
+                    .foregroundStyle(DesignSystemGlobal.TextOnContainerColorSecondary)
 
                 // Variant tags
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -366,7 +366,7 @@ struct ComponentRow: View {
                         ForEach(variants, id: \.self) { variant in
                             Text(variant)
                                 .thdFont(.caption)
-                                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 5)
                                 .background(DesignSystemGlobal.Greige050)
@@ -382,7 +382,7 @@ struct ComponentRow: View {
             // Chevron indicator
             Image(systemName: "chevron.right")
                 .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(DesignSystemGlobal.TextOnContainerColorTertiary)
+                .foregroundStyle(DesignSystemGlobal.TextOnContainerColorTertiary)
         }
         .padding(DesignSystemGlobal.Spacing2)
         .background(DesignSystemGlobal.BackgroundContainerColorWhite)
@@ -484,7 +484,7 @@ struct DSCardDemoView: View {
             VStack(spacing: 16) {
                 Text("Card Component").font(.title).padding()
                 Text("Card component examples would go here")
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
             .padding()
         }
@@ -497,7 +497,7 @@ struct DSProductCardDemoView: View {
             VStack(spacing: 16) {
                 Text("Product Card Component").font(.title).padding()
                 Text("Product card examples would go here")
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
             .padding()
         }
@@ -524,7 +524,7 @@ struct DSAlertDemoView: View {
             VStack(spacing: 16) {
                 Text("Alert Component").font(.title).padding()
                 Text("Alert component examples would go here")
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
             .padding()
         }
@@ -572,7 +572,7 @@ struct DSTileDemoView: View {
             VStack(spacing: 16) {
                 Text("Tile Component").font(.title).padding()
                 Text("Tile component examples would go here")
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
             .padding()
         }
@@ -587,7 +587,7 @@ struct DSQuantityPickerDemoView: View {
             VStack(spacing: 16) {
                 Text("Quantity Picker Component").font(.title).padding()
                 Text("Quantity picker examples would go here")
-                    .foregroundColor(.secondary)
+                    .foregroundStyle(.secondary)
             }
             .padding()
         }
