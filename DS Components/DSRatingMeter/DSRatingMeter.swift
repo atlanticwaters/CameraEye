@@ -156,11 +156,10 @@ public struct DSRatingMeter: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: size.starSize, height: size.starSize)
                     .foregroundStyle(filledColor)
-                    .mask(
+                    .mask(alignment: .leading) {
                         Rectangle()
-                            .frame(width: size.starSize * fillAmount)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    )
+                            .frame(width: size.starSize * fillAmount, height: size.starSize)
+                    }
             }
         }
     }

@@ -83,7 +83,7 @@ enum DSButtonColorHelper {
                     dark: DSColor.buttonBackgroundBrandGradientFilledInactive.darkColor
                 )
             } else {
-                return .brandGradientPrimary
+                return .brandGradientButton
             }
         case .orangeFilled:
             let dsColor = isDisabled

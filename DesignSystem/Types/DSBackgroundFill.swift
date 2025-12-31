@@ -93,6 +93,21 @@ public struct DSBackgroundFill: Sendable {
         Self(light: TokensCoreLight.GradientBrandSecondary, dark: TokensCoreDark.GradientBrandSecondary)
     }
 
+    /// Brand gradient for buttons (Brand200 to Brand400, left to right)
+    public static var brandGradientButton: Self {
+        let lightGradient = LinearGradient(
+            gradient: Gradient(colors: [TokensSemanticLight.Brand200, TokensSemanticLight.Brand400]),
+            startPoint: .leading,
+            endPoint: .trailing
+        )
+        let darkGradient = LinearGradient(
+            gradient: Gradient(colors: [TokensSemanticDark.Brand200, TokensSemanticDark.Brand400]),
+            startPoint: .leading,
+            endPoint: .trailing
+        )
+        return Self(light: lightGradient, dark: darkGradient)
+    }
+
     /// Subtle surface gradient for backgrounds
     public static var surfaceGradientSubtle: Self {
         Self(light: TokensCoreLight.GradientSurfaceSubtle, dark: TokensCoreDark.GradientSurfaceSubtle)

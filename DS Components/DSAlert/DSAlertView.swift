@@ -455,6 +455,7 @@ DSAlert(
             variantIconRow("Error", icon: "xmark.circle.fill")
         }
         .padding(TokensCoreLight.Spacing3)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: borderRadiusLg)
                 .fill(containerGreige)

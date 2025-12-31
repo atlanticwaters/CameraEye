@@ -53,8 +53,6 @@
 		10FB01272EEB11A200A65E91 /* SearchDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FB011D2EEB11A200A65E91 /* SearchDemoView.swift */; };
 		AD1E8C9B2EF492B300C3EAA6 /* ComponentCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1E8C9A2EF492B300C3EAA6 /* ComponentCatalogView.swift */; };
 		AD29C4AD2EED0C8400AA5B40 /* PLPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD29C4AC2EED0C8400AA5B40 /* PLPView.swift */; };
-		AD7257282F030F41006F8088 /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = AD7257272F030F41006F8088 /* RiveRuntime */; };
-		AD72572B2F030F70006F8088 /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = AD72572A2F030F70006F8088 /* RiveRuntime */; };
 		AD72573C2F03242D006F8088 /* TokensComponentsDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD72572C2F03242D006F8088 /* TokensComponentsDark.swift */; };
 		AD72573D2F03242D006F8088 /* CoreTokensProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7257352F03242D006F8088 /* CoreTokensProvider.swift */; };
 		AD72573E2F03242D006F8088 /* TokensCoreLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7257312F03242D006F8088 /* TokensCoreLight.swift */; };
@@ -199,8 +197,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD7257282F030F41006F8088 /* RiveRuntime in Frameworks */,
-				AD72572B2F030F70006F8088 /* RiveRuntime in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,8 +395,6 @@
 			);
 			name = CameraEye;
 			packageProductDependencies = (
-				AD7257272F030F41006F8088 /* RiveRuntime */,
-				AD72572A2F030F70006F8088 /* RiveRuntime */,
 			);
 			productName = CameraEye;
 			productReference = 10FB00C62EEA62D700A65E91 /* CameraEye.app */;
@@ -432,6 +426,7 @@
 			mainGroup = A1000050230F0000;
 			packageReferences = (
 				AD7257292F030F70006F8088 /* XCLocalSwiftPackageReference "../rive-ios" */,
+				AD533F862F04B854002B7E4A /* XCLocalSwiftPackageReference "../../../Downloads/rive-ios-main" */,
 			);
 			productRefGroup = A1000056230F0000 /* Products */;
 			projectDirPath = "";
@@ -754,22 +749,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		AD533F862F04B854002B7E4A /* XCLocalSwiftPackageReference "../../../Downloads/rive-ios-main" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = "../../../Downloads/rive-ios-main";
+		};
 		AD7257292F030F70006F8088 /* XCLocalSwiftPackageReference "../rive-ios" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = "../rive-ios";
 		};
 /* End XCLocalSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		AD7257272F030F41006F8088 /* RiveRuntime */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RiveRuntime;
-		};
-		AD72572A2F030F70006F8088 /* RiveRuntime */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RiveRuntime;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A1000080230F0000 /* Project object */;
 }

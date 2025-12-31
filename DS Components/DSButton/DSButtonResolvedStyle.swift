@@ -40,16 +40,32 @@ public struct DSBackgroundFill: Sendable {
             TokensSemanticLight.BackgroundButtonColorBrandGradientFilledDefault,
             TokensSemanticLight.BackgroundButtonColorBrandGradientFilledDefault.opacity(0.85)
         ])
-        
+
         // Dark mode gradient: Orange 500 → Orange 600
         let darkGradient = Gradient(colors: [
             TokensSemanticDark.BackgroundButtonColorBrandGradientFilledDefault,
             TokensSemanticDark.BackgroundButtonColorBrandGradientFilledDefault.opacity(0.85)
         ])
-        
+
         return DSBackgroundFill(
             lightValue: .linearGradient(lightGradient, startPoint: .topLeading, endPoint: .bottomTrailing),
             darkValue: .linearGradient(darkGradient, startPoint: .topLeading, endPoint: .bottomTrailing)
+        )
+    }
+
+    /// Brand gradient for buttons (Brand200 to Brand400, left to right)
+    public static var brandGradientButton: DSBackgroundFill {
+        let lightGradient = Gradient(colors: [
+            TokensSemanticLight.Brand200,
+            TokensSemanticLight.Brand400
+        ])
+        let darkGradient = Gradient(colors: [
+            TokensSemanticDark.Brand200,
+            TokensSemanticDark.Brand400
+        ])
+        return DSBackgroundFill(
+            lightValue: .linearGradient(lightGradient, startPoint: .leading, endPoint: .trailing),
+            darkValue: .linearGradient(darkGradient, startPoint: .leading, endPoint: .trailing)
         )
     }
 }

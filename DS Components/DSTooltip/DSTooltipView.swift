@@ -346,6 +346,7 @@ DSTooltip("Dismissible", showsClose: true, placement: .below) {
             placementRow("Trailing", arrow: "Arrow points right (→)")
         }
         .padding(TokensCoreLight.Spacing3)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: borderRadiusLg)
                 .fill(containerGreige)

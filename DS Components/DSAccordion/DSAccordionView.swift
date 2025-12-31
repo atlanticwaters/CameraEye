@@ -296,6 +296,7 @@ DSAccordionGroup {
             typeIconRow("Product Details", icon: "info.circle")
         }
         .padding(TokensCoreLight.Spacing3)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: borderRadiusLg)
                 .fill(containerGreige)

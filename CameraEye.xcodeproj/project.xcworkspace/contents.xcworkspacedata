@@ -4,4 +4,22 @@
    <FileRef
       location = "self:">
    </FileRef>
+   <FileRef
+      location = "group:RIVE_SETUP_GUIDE.md">
+   </FileRef>
+   <FileRef
+      location = "group:RiveAnimationView.swift">
+   </FileRef>
+   <FileRef
+      location = "group:ContentView+RiveExample.swift">
+   </FileRef>
+   <FileRef
+      location = "group:RIVE_QUICK_START.md">
+   </FileRef>
+   <FileRef
+      location = "group:SplashScreenView+Rive.swift">
+   </FileRef>
+   <FileRef
+      location = "group:RIVE_SETUP_SUMMARY.md">
+   </FileRef>
 </Workspace>

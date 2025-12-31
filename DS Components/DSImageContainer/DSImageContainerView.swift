@@ -12,9 +12,13 @@ import SwiftUI
 /// - Custom placeholders
 /// - Content mode options
 /// - Corner radius variations by size
+/// - Masonry layout for size visualization
 
 struct DSImageContainerView: View {
     @Environment(\.colorScheme) var colorScheme
+
+    /// Maximum width threshold for displaying items at actual size
+    private let maxActualSizeWidth: CGFloat = 120
 
     var body: some View {
         ScrollView {
@@ -55,8 +59,8 @@ struct DSImageContainerView: View {
 
     private var contentCard: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // All Sizes Section
-            allSizesSection
+            // All Sizes Masonry Section
+            allSizesMasonrySection
 
             Divider().padding(.horizontal, TokensCoreLight.Spacing4)
 
@@ -92,37 +96,30 @@ struct DSImageContainerView: View {
         .clipShape(.rect(cornerRadius: TokensCoreLight.Spacing3))
     }
 
-    // MARK: - All Sizes Section
+    // MARK: - All Sizes Masonry Section
 
-    private var allSizesSection: some View {
+    private var allSizesMasonrySection: some View {
         VStack(alignment: .leading, spacing: TokensCoreLight.Spacing4) {
             sectionHeader(
                 title: "All Sizes",
-                description: "10 predefined sizes from pico (22pt) to xxLarge (398pt)."
+                description: "10 predefined sizes from xxLarge (398pt) to pico (22pt). Large sizes shown as scaled thumbnails."
             )
 
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .bottom, spacing: TokensCoreLight.Spacing3) {
-                    ForEach(DSImageContainerSize.allCases, id: \.self) { size in
-                        VStack(spacing: TokensCoreLight.Spacing2) {
-                            DSImageContainer(
-                                image: Image(systemName: "photo"),
-                                size: size
-                            )
-
-                            Text(sizeName(size))
-                                .thdFont(.caption)
-                                .foregroundStyle(textSecondary)
-
-                            Text("\(Int(size.dimension))pt")
-                                .thdFont(.bodySm)
-                                .foregroundStyle(textSecondary)
-                        }
-                    }
+            // All sizes listed vertically
+            VStack(alignment: .leading, spacing: TokensCoreLight.Spacing3) {
+                ForEach(DSImageContainerSize.allCases.reversed(), id: \.self) { size in
+                    sizeRow(size)
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, TokensCoreLight.Spacing6)
         }
         .padding(TokensCoreLight.Spacing4)
+    }
+
+    /// Displays a size row - actual size if it fits, scaled to container width if too large
+    private func sizeRow(_ size: DSImageContainerSize) -> some View {
+        SizeRowView(size: size, borderColor: borderColor, textPrimary: textPrimary, textSecondary: textSecondary, iconWarning: iconWarning, sizeName: sizeName(size))
     }
 
     // MARK: - Size Groups Section
@@ -135,45 +132,53 @@ struct DSImageContainerView: View {
             )
 
             VStack(alignment: .leading, spacing: TokensCoreLight.Spacing3) {
-                Text("Tiny (Icons & Avatars)")
-                    .thdFont(.caption)
-                    .foregroundStyle(textSecondary)
-
-                HStack(spacing: TokensCoreLight.Spacing3) {
-                    sizeWithLabel(.pico)
-                    sizeWithLabel(.nano)
-                    sizeWithLabel(.micro)
+                // Tiny sizes
+                groupHeader("Tiny (Icons & Avatars)")
+                HStack(spacing: TokensCoreLight.Spacing2) {
+                    compactSizeItem(.pico)
+                    compactSizeItem(.nano)
+                    compactSizeItem(.micro)
+                    Spacer()
                 }
 
-                Text("Small (List Items & Thumbnails)")
-                    .thdFont(.caption)
-                    .foregroundStyle(textSecondary)
-
-                HStack(spacing: TokensCoreLight.Spacing3) {
-                    sizeWithLabel(.xxSmall)
-                    sizeWithLabel(.xSmall)
-                    sizeWithLabel(.small)
+                // Small sizes
+                groupHeader("Small (List Items)")
+                HStack(spacing: TokensCoreLight.Spacing2) {
+                    compactSizeItem(.xxSmall)
+                    compactSizeItem(.xSmall)
+                    Spacer()
                 }
 
-                Text("Large (Cards & Featured)")
-                    .thdFont(.caption)
-                    .foregroundStyle(textSecondary)
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: TokensCoreLight.Spacing3) {
-                        sizeWithLabel(.medium)
-                        sizeWithLabel(.large)
-                    }
+                // Medium/Large sizes (shown as list)
+                groupHeader("Large (Cards & Featured)")
+                VStack(alignment: .leading, spacing: TokensCoreLight.Spacing2) {
+                    sizeRow(.small)
+                    sizeRow(.medium)
+                    sizeRow(.large)
+                    sizeRow(.xLarge)
+                    sizeRow(.xxLarge)
                 }
+                .padding(.horizontal, TokensCoreLight.Spacing6)
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
         }
         .padding(TokensCoreLight.Spacing4)
     }
 
     @ViewBuilder
-    private func sizeWithLabel(_ size: DSImageContainerSize) -> some View {
+    private func groupHeader(_ title: String) -> some View {
+        Text(title)
+            .thdFont(.caption)
+            .foregroundStyle(textSecondary)
+    }
+
+    @ViewBuilder
+    private func compactSizeItem(_ size: DSImageContainerSize) -> some View {
         VStack(spacing: 4) {
-            DSImageContainer(size: size)
+            DSImageContainer(
+                image: Image("Acorn"),
+                size: size
+            )
             Text(sizeName(size))
                 .thdFont(.caption)
                 .foregroundStyle(textSecondary)
@@ -192,22 +197,22 @@ struct DSImageContainerView: View {
             HStack(spacing: TokensCoreLight.Spacing3) {
                 VStack(spacing: TokensCoreLight.Spacing2) {
                     DSImageContainer(
-                        image: Image(systemName: "hammer.fill"),
-                        size: .small,
-                        contentMode: .fit
+                        image: Image("Acorn"),
+                        size: .xxSmall,
+                        contentMode: .fill
                     )
-                    Text("System Image")
+                    Text("Photo (Fill)")
                         .thdFont(.caption)
                         .foregroundStyle(textSecondary)
                 }
 
                 VStack(spacing: TokensCoreLight.Spacing2) {
                     DSImageContainer(
-                        image: Image(systemName: "wrench.and.screwdriver.fill"),
-                        size: .small,
+                        image: Image("Acorn"),
+                        size: .xxSmall,
                         contentMode: .fit
                     )
-                    Text("Tool Icon")
+                    Text("Photo (Fit)")
                         .thdFont(.caption)
                         .foregroundStyle(textSecondary)
                 }
@@ -215,13 +220,15 @@ struct DSImageContainerView: View {
                 VStack(spacing: TokensCoreLight.Spacing2) {
                     DSImageContainer(
                         image: Image(systemName: "paintbrush.fill"),
-                        size: .small,
+                        size: .xxSmall,
                         contentMode: .fit
                     )
-                    Text("Paint Icon")
+                    Text("System Icon")
                         .thdFont(.caption)
                         .foregroundStyle(textSecondary)
                 }
+
+                Spacer()
             }
         }
         .padding(TokensCoreLight.Spacing4)
@@ -238,14 +245,14 @@ struct DSImageContainerView: View {
 
             HStack(spacing: TokensCoreLight.Spacing3) {
                 VStack(spacing: TokensCoreLight.Spacing2) {
-                    DSImageContainer(size: .small)
+                    DSImageContainer(size: .xxSmall)
                     Text("Default")
                         .thdFont(.caption)
                         .foregroundStyle(textSecondary)
                 }
 
                 VStack(spacing: TokensCoreLight.Spacing2) {
-                    DSImageContainer(size: .small) {
+                    DSImageContainer(size: .xxSmall) {
                         ProgressView()
                     }
                     Text("Loading")
@@ -254,7 +261,7 @@ struct DSImageContainerView: View {
                 }
 
                 VStack(spacing: TokensCoreLight.Spacing2) {
-                    DSImageContainer(size: .small) {
+                    DSImageContainer(size: .xxSmall) {
                         Image(systemName: "exclamationmark.triangle")
                             .foregroundStyle(iconWarning)
                     }
@@ -264,18 +271,16 @@ struct DSImageContainerView: View {
                 }
 
                 VStack(spacing: TokensCoreLight.Spacing2) {
-                    DSImageContainer(size: .small) {
-                        VStack(spacing: 4) {
-                            Image(systemName: "cart")
-                            Text("No Image")
-                                .font(.caption2)
-                        }
-                        .foregroundStyle(textSecondary)
+                    DSImageContainer(size: .xxSmall) {
+                        Image(systemName: "cart")
+                            .foregroundStyle(textSecondary)
                     }
                     Text("Custom")
                         .thdFont(.caption)
                         .foregroundStyle(textSecondary)
                 }
+
+                Spacer()
             }
         }
         .padding(TokensCoreLight.Spacing4)
@@ -293,8 +298,8 @@ struct DSImageContainerView: View {
             HStack(spacing: TokensCoreLight.Spacing4) {
                 VStack(spacing: TokensCoreLight.Spacing2) {
                     DSImageContainer(
-                        image: Image(systemName: "photo.artframe"),
-                        size: .xSmall,
+                        image: Image("Acorn"),
+                        size: .xxSmall,
                         contentMode: .fill
                     )
                     Text(".fill")
@@ -307,8 +312,8 @@ struct DSImageContainerView: View {
 
                 VStack(spacing: TokensCoreLight.Spacing2) {
                     DSImageContainer(
-                        image: Image(systemName: "photo.artframe"),
-                        size: .xSmall,
+                        image: Image("Acorn"),
+                        size: .xxSmall,
                         contentMode: .fit
                     )
                     Text(".fit")
@@ -318,6 +323,8 @@ struct DSImageContainerView: View {
                         .thdFont(.bodySm)
                         .foregroundStyle(textSecondary)
                 }
+
+                Spacer()
             }
         }
         .padding(TokensCoreLight.Spacing4)
@@ -339,16 +346,16 @@ struct DSImageContainerView: View {
 
                 HStack(spacing: 12) {
                     DSImageContainer(
-                        image: Image(systemName: "hammer.fill"),
+                        image: Image("Acorn"),
                         size: .xxSmall,
-                        contentMode: .fit
+                        contentMode: .fill
                     )
 
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("DEWALT 20V MAX Drill")
+                        Text("Premium Acorn Seeds")
                             .thdFont(.bodySm)
                             .foregroundStyle(textPrimary)
-                        Text("$129.99")
+                        Text("$12.99")
                             .thdFont(.bodySm)
                             .foregroundStyle(textSecondary)
                     }
@@ -382,27 +389,22 @@ struct DSImageContainerView: View {
                     }
                 }
 
-                Text("Avatar Row")
+                Text("Photo Gallery")
                     .thdFont(.caption)
                     .foregroundStyle(textSecondary)
 
-                HStack(spacing: -8) {
-                    ForEach(0..<5, id: \.self) { index in
+                HStack(spacing: TokensCoreLight.Spacing2) {
+                    ForEach(0..<4, id: \.self) { _ in
                         DSImageContainer(
-                            image: Image(systemName: "person.circle.fill"),
-                            size: .nano,
-                            contentMode: .fit
-                        )
-                        .overlay(
-                            Circle()
-                                .stroke(surfaceWhite, lineWidth: 2)
+                            image: Image("Acorn"),
+                            size: .nano
                         )
                     }
 
-                    Text("+12")
+                    Text("+8")
                         .thdFont(.caption)
                         .foregroundStyle(textSecondary)
-                        .padding(.leading, 12)
+                        .padding(.leading, 4)
                 }
             }
         }
@@ -462,6 +464,7 @@ struct DSImageContainerView: View {
                 """)
                 .thdFont(.bodySm)
                 .foregroundStyle(textSecondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(TokensCoreLight.Spacing3)
                 .background(surfaceGreige)
                 .clipShape(.rect(cornerRadius: 8))
@@ -524,6 +527,75 @@ struct DSImageContainerView: View {
     private var textPrimary: Color { tokens.TextOnContainerColorPrimary }
     private var textSecondary: Color { tokens.TextOnContainerColorSecondary }
     private var iconWarning: Color { tokens.Brand400 }
+    private var borderColor: Color { DSImageContainerColorHelper.borderColor() }
+}
+
+// MARK: - Size Row View
+
+/// A separate view struct to properly handle GeometryReader sizing
+private struct SizeRowView: View {
+    let size: DSImageContainerSize
+    let borderColor: Color
+    let textPrimary: Color
+    let textSecondary: Color
+    let iconWarning: Color
+    let sizeName: String
+
+    /// Maximum display size to prevent blowing out the layout
+    private let maxDisplaySize: CGFloat = 200
+
+    private var displaySize: CGFloat {
+        min(size.dimension, maxDisplaySize)
+    }
+
+    private var isScaled: Bool {
+        size.dimension > maxDisplaySize
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: TokensCoreLight.Spacing2) {
+            // Info row
+            HStack(spacing: TokensCoreLight.Spacing2) {
+                Text(sizeName)
+                    .thdFont(.bodySm)
+                    .foregroundStyle(textPrimary)
+
+                Text("\(Int(size.dimension))pt × \(Int(size.dimension))pt")
+                    .thdFont(.caption)
+                    .foregroundStyle(textSecondary)
+
+                if isScaled {
+                    Text("(scaled to \(Int(displaySize))pt)")
+                        .thdFont(.caption)
+                        .foregroundStyle(iconWarning)
+                }
+
+                Spacer()
+            }
+
+            // Image at actual size or capped at max display size
+            Image("Acorn")
+                .resizable()
+                .scaledToFill()
+                .frame(width: displaySize, height: displaySize)
+                .clipShape(.rect(cornerRadius: size.cornerRadius))
+                .overlay(
+                    RoundedRectangle(cornerRadius: size.cornerRadius)
+                        .stroke(borderColor, lineWidth: 1)
+                )
+                .overlay(alignment: .topTrailing) {
+                    if isScaled {
+                        Image(systemName: "arrow.down.right.and.arrow.up.left")
+                            .font(.system(size: 10))
+                            .foregroundStyle(.white)
+                            .padding(4)
+                            .background(Color.black.opacity(0.6))
+                            .clipShape(.rect(cornerRadius: 4))
+                            .padding(6)
+                    }
+                }
+        }
+    }
 }
 
 // MARK: - Token Protocol Helper

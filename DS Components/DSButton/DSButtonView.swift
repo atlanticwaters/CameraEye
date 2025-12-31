@@ -576,12 +576,13 @@ DSButton(
             styleGuideRow("Ghost", usage: "Tertiary actions, text-like links")
         }
         .padding(TokensCoreLight.Spacing3)
+        .frame(maxWidth: .infinity, alignment: .leading)
         .background(
             RoundedRectangle(cornerRadius: borderRadiusLg)
                 .fill(containerGreige)
         )
     }
-    
+
     private func styleGuideRow(_ style: String, usage: String) -> some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(style)

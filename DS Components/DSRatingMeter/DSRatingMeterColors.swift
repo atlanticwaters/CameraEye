@@ -8,12 +8,12 @@ enum DSRatingMeterColorHelper {
 
     /// Returns the filled star color.
     static func filledColor() -> Color {
-        DSColor.iconColorWarning.resolve
+        DSColor.accentBackgroundYellow.resolve
     }
 
     /// Returns the filled star color token name for testing.
     static func filledColorTokenName() -> String {
-        "iconColorWarning"
+        "accentBackgroundYellow"
     }
 
     // MARK: - Empty Star
