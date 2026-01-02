@@ -625,24 +625,11 @@ struct EnhancedPLPView: View {
 
     // MARK: - Product Card Helper
     private func productCard(for product: Product) -> some View {
-        DSProductCard(
-            imageURL: URL(string: product.heroImage),
-            showExclusiveBadge: product.isExclusive,
-            showDeliveryBadge: product.deliveryInfo?.primaryValue == "Free",
-            showSponsoredTag: product.isSponsored,
-            swatches: product.availableColors?.compactMap { Color(hex: $0.colorHex) } ?? [],
-            additionalSwatchCount: product.additionalColorCount,
-            brand: product.brand,
-            title: product.name,
-            modelNumber: product.modelNumber,
-            priceText: formatPrice(product.currentPrice, originalPrice: product.originalPrice),
-            rating: product.rating,
-            ratingCount: product.reviewCount,
-            pickupInfo: product.pickupInfo.map { "\($0.primaryValue) \($0.secondaryValue ?? "")" },
-            deliveryInfo: product.deliveryInfo.map {
-                "\($0.primaryValue) \($0.secondaryValue ?? "")"
+        PLPProductPod(
+            product: product,
+            onTap: {
+                print("Product tapped: \(product.id)")
             },
-            buttonVariant: .b2c,
             onAddToCart: {
                 print("Add to cart: \(product.id)")
             },

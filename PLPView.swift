@@ -1,6 +1,274 @@
 import SwiftUI
 
 // MARK: - =============================================
+// MARK: - ORANGE CATALOG PRODUCT CONVERSION
+// MARK: - =============================================
+
+extension OrangeCatalogProduct {
+    /// Converts an OrangeCatalogProduct to the local Product model for display in PLPView.
+    func toProduct() -> Product {
+        let priceDecimal = Decimal(currentPrice ?? 0)
+        let originalDecimal = originalPrice.map { Decimal($0) }
+
+        // Calculate savings percentage
+        var savings: Int?
+        if let original = originalPrice, let current = currentPrice, original > current {
+            savings = Int(((original - current) / original) * 100)
+        }
+
+        // Build fulfillment info based on availability
+        let pickup: FulfillmentInfo?
+        let delivery: FulfillmentInfo?
+
+        if inStock {
+            pickup = FulfillmentInfo(
+                primaryValue: "Free",
+                secondaryValue: "Pickup Today"
+            )
+            delivery = FulfillmentInfo(
+                primaryValue: "Delivery",
+                secondaryValue: "Available"
+            )
+        } else {
+            pickup = nil
+            delivery = FulfillmentInfo(
+                primaryValue: "Out of Stock",
+                secondaryValue: nil
+            )
+        }
+
+        // Check for exclusive badge
+        let isExclusive = badges?.contains { $0.lowercased() == "exclusive" } ?? false
+
+        // Get promotional badge (first non-exclusive badge)
+        let promoBadge = badges?.first { $0.lowercased() != "exclusive" }
+
+        return Product(
+            id: productId,
+            brand: brand ?? "Unknown Brand",
+            name: title,
+            modelNumber: modelNumber ?? "",
+            heroImage: imageUrl ?? "",
+            thumbnailImages: [],
+            additionalImageCount: 0,
+            currentPrice: priceDecimal,
+            originalPrice: originalDecimal,
+            savingsPercentage: savings,
+            rating: ratingAverage ?? 0,
+            reviewCount: reviewCount,
+            isExclusive: isExclusive,
+            promotionalBadge: promoBadge,
+            pickupInfo: pickup,
+            deliveryInfo: delivery,
+            fasterDeliveryInfo: nil,
+            internetNumber: nil,
+            storeSKU: nil,
+            isSponsored: false,
+            availableColors: nil,
+            additionalColorCount: 0
+        )
+    }
+}
+
+// MARK: - =============================================
+// MARK: - PRODUCT TO DSPLPPOD CONVERSION
+// MARK: - =============================================
+
+extension Product {
+    /// Converts a Product to DSPLPPodData for display in DSPLPPod.
+    func toPLPPodData() -> DSPLPPodData {
+        // Map badges
+        var badges: [DSPLPPodBadge] = []
+        if isExclusive {
+            badges.append(.exclusive())
+        }
+        if let promo = promotionalBadge {
+            badges.append(DSPLPPodBadge(text: promo, color: .info))
+        }
+
+        // Map pricing
+        let dollars = Int(truncating: currentPrice as NSDecimalNumber)
+        let cents = Int(truncating: ((currentPrice - Decimal(dollars)) * 100) as NSDecimalNumber)
+
+        let pricingType: DSPLPPodPricingType
+        if let original = originalPrice, let savings = savingsPercentage {
+            pricingType = .withSavings(
+                dollars: dollars,
+                cents: cents,
+                originalPrice: Double(truncating: original as NSDecimalNumber),
+                savings: "Save \(savings)%",
+                perUnit: "/each"
+            )
+        } else {
+            pricingType = .standard(dollars: dollars, cents: cents, perUnit: "/each")
+        }
+
+        // Map fulfillment info
+        let fulfillment = DSPLPPodFulfillmentInfo(
+            pickup: pickupInfo.map {
+                DSPLPPodFulfillmentInfo.PickupInfo(
+                    primaryText: $0.primaryValue,
+                    locationText: $0.secondaryValue
+                )
+            },
+            delivery: deliveryInfo.map {
+                DSPLPPodFulfillmentInfo.DeliveryInfo(
+                    primaryText: $0.primaryValue,
+                    dateText: $0.secondaryValue,
+                    isUnavailable: $0.primaryValue.lowercased().contains("out of stock")
+                )
+            },
+            fasterDelivery: nil
+        )
+
+        // Map swatches
+        let swatchDisplay: DSPLPPodSwatchDisplay
+        if let colors = availableColors, !colors.isEmpty {
+            let swatches = colors.map { colorInfo in
+                DSPLPPodSwatch(color: colorInfo.color)
+            }
+            if additionalColorCount > 0 {
+                swatchDisplay = .swatchesWithQuantity(swatches: swatches, additionalCount: additionalColorCount)
+            } else {
+                swatchDisplay = .swatchesOnly(swatches: swatches)
+            }
+        } else {
+            swatchDisplay = .none
+        }
+
+        return DSPLPPodData(
+            productImage: nil, // Will use AsyncImage wrapper
+            badges: badges,
+            isSponsored: isSponsored,
+            swatchDisplay: swatchDisplay,
+            productName: name,
+            modelNumber: modelNumber,
+            pricingType: pricingType,
+            showSpecialBuy: false,
+            perItemPriceDetail: nil,
+            ratingInfo: DSPLPPodRatingInfo(rating: rating, reviewCount: reviewCount),
+            fulfillmentInfo: fulfillment
+        )
+    }
+}
+
+// MARK: - =============================================
+// MARK: - PLP PRODUCT POD (ASYNC IMAGE WRAPPER)
+// MARK: - =============================================
+
+/// Wrapper view that combines AsyncImage loading with DSPLPPod display.
+/// Since DSPLPPod accepts Image? directly, this wrapper handles URL-based image loading.
+struct PLPProductPod: View {
+    let product: Product
+    let onTap: () -> Void
+    let onAddToCart: () -> Void
+    let onAddToList: () -> Void
+
+    private typealias DS = DesignSystemGlobal
+
+    var body: some View {
+        Button(action: onTap) {
+            HStack(alignment: .top, spacing: 0) {
+                // Image container with AsyncImage
+                imageContainer
+
+                // Product details section
+                VStack(alignment: .leading, spacing: 12) {
+                    DSPLPPodDetails(
+                        productName: product.name,
+                        modelNumber: product.modelNumber,
+                        pricingType: product.toPLPPodData().pricingType,
+                        showSpecialBuy: false,
+                        perItemPriceDetail: nil,
+                        ratingInfo: DSPLPPodRatingInfo(rating: product.rating, reviewCount: product.reviewCount),
+                        fulfillmentInfo: product.toPLPPodData().fulfillmentInfo,
+                        onRatingsTap: nil,
+                        onProductTap: nil
+                    )
+
+                    // Button set
+                    DSPLPPodButtonSet(
+                        variant: .b2c,
+                        onAddToCart: onAddToCart,
+                        onAddToList: onAddToList
+                    )
+                }
+                .padding(8)
+                .frame(width: 205, alignment: .leading)
+            }
+            .background(DS.BackgroundContainerColorWhite)
+            .clipShape(.rect(cornerRadius: 8))
+        }
+        .buttonStyle(.plain)
+    }
+
+    @ViewBuilder
+    private var imageContainer: some View {
+        ZStack(alignment: .topLeading) {
+            // Product image with AsyncImage
+            AsyncImage(url: URL(string: product.heroImage)) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                case .failure:
+                    Image(systemName: "photo")
+                        .font(.system(size: 40))
+                        .foregroundStyle(DS.IconOnContainerColorInactive)
+                default:
+                    ProgressView()
+                }
+            }
+            .frame(width: 145, height: 145)
+            .background(DS.BackgroundContainerColorGreige)
+
+            // Badges overlay
+            if !product.toPLPPodData().badges.isEmpty {
+                VStack(alignment: .leading, spacing: 4) {
+                    ForEach(product.toPLPPodData().badges) { badge in
+                        Text(badge.text)
+                            .font(.caption2)
+                            .bold()
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(badgeColor(for: badge.color))
+                            .foregroundStyle(.white)
+                            .clipShape(.rect(cornerRadius: 4))
+                    }
+                }
+                .padding(8)
+            }
+
+            // Sponsored tag
+            if product.isSponsored {
+                Text("Sponsored")
+                    .font(.caption2)
+                    .foregroundStyle(DS.TextOnContainerColorSecondary)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(8)
+            }
+        }
+        .frame(width: 145)
+    }
+
+    private func badgeColor(for color: DSPLPPodBadge.BadgeColor) -> Color {
+        switch color {
+        case .info:
+            return DS.Brand500
+        case .success:
+            return DS.IconOnContainerColorSuccess
+        case .warning:
+            return .orange
+        case .error:
+            return DS.IconOnContainerColorError
+        case .neutral:
+            return DS.TextOnContainerColorSecondary
+        }
+    }
+}
+
+// MARK: - =============================================
 // MARK: - PRODUCT LISTING PAGE (PLP) VIEW
 // MARK: - =============================================
 //
@@ -24,14 +292,19 @@ struct PLPView: View {
     // MARK: - State
     @State private var products: [Product] = []
     @State private var pipDatasets: [PIPDataset] = []
-    @State private var categoryData: CategoryPageData? = nil // NEW: Store full category data
+    @State private var categoryData: CategoryPageData? = nil // Store full category data
+    @State private var orangeCatalogProducts: [OrangeCatalogProduct] = [] // Store raw OrangeCatalog products for dynamic pills
     @State private var selectedStylePill: String? = nil
+    @State private var selectedStylePillId: String? = nil // Tracks selected subcategory ID for filtering
     @State private var selectedFilterPills: Set<String> = []
     @State private var selectedSubFilters: Set<String> = []
     @State private var viewMode: PLPViewMode = .list
-    @State private var selectedSortOption: PLPSortOption = .topRated // NEW: For sorting
-    @State private var currentPage: Int = 1 // NEW: For pagination support
-    
+    @State private var selectedSortOption: PLPSortOption = .topRated // For sorting
+    @State private var currentPage: Int = 1 // For pagination support
+    @State private var isLoading: Bool = false  // Loading state for async loading
+    @State private var errorMessage: String?    // Error message for failed loads
+    @State private var navigationPath = NavigationPath() // Navigation state for PIP
+
     // MARK: - Configuration
     let category: PLPCategory
     
@@ -41,68 +314,207 @@ struct PLPView: View {
         categoryData?.pageInfo.categoryName.uppercased() ?? category.title
     }
     
+    /// Dynamically generates style pills from OrangeCatalog subcategories with product images
     private var stylePills: [DSStylePillItem] {
-        category.stylePills
+        // If we have OrangeCatalog products, generate style pills from unique subcategories
+        guard !orangeCatalogProducts.isEmpty else {
+            return category.stylePills // Fallback to static pills while loading
+        }
+
+        // Group products by subcategory
+        var subcategoryGroups: [String: [OrangeCatalogProduct]] = [:]
+        for product in orangeCatalogProducts {
+            let subcategory = product.subcategory ?? "Other"
+            subcategoryGroups[subcategory, default: []].append(product)
+        }
+
+        // Sort by product count (most popular first) and create style pills
+        let sortedSubcategories = subcategoryGroups.sorted { $0.value.count > $1.value.count }
+
+        return sortedSubcategories.prefix(8).map { subcategory, products in
+            // Get thumbnail image from first product in subcategory
+            let imageURL = products.first?.imageUrl
+
+            // Format text with line break for display
+            let formattedText = formatSubcategoryName(subcategory)
+
+            return DSStylePillItem(
+                id: subcategory,
+                text: formattedText,
+                image: nil, // No fallback SF Symbol - use imageURL
+                imageURL: imageURL
+            )
+        }
+    }
+
+    /// Formats subcategory name for style pill display (adds line break)
+    private func formatSubcategoryName(_ name: String) -> String {
+        // Split long names into two lines for better display
+        let words = name.split(separator: " ")
+        if words.count >= 2 {
+            let midpoint = words.count / 2
+            let firstLine = words[0..<midpoint].joined(separator: " ")
+            let secondLine = words[midpoint...].joined(separator: " ")
+            return "\(firstLine)\n\(secondLine)"
+        }
+        return name
     }
     
+    /// Dynamically generates filter pills based on available data
     private var filterPills: [DSFilterPillItem] {
-        // Use JSON filters if available, otherwise use category filter pills
-        if let jsonFilters = categoryData?.filters {
-            return jsonFilters.prefix(5).map { filter in
-                DSFilterPillItem(text: filter.filterGroupName)
+        // Generate dynamic filters from OrangeCatalog products
+        if !orangeCatalogProducts.isEmpty {
+            var pills: [DSFilterPillItem] = [
+                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle"))
+            ]
+
+            // Extract unique brands for Brand filter
+            let uniqueBrands = Set(orangeCatalogProducts.compactMap { $0.brand })
+            if !uniqueBrands.isEmpty {
+                pills.append(DSFilterPillItem(text: "Brand"))
             }
+
+            // Add price filter
+            pills.append(DSFilterPillItem(text: "Price"))
+
+            // Add rating filter if products have ratings
+            let hasRatings = orangeCatalogProducts.contains { $0.ratingAverage != nil }
+            if hasRatings {
+                pills.append(DSFilterPillItem(text: "Rating"))
+            }
+
+            return pills
         }
+
+        // Fallback to static category filter pills
         return category.filterPills
     }
-    
+
+    /// Dynamically generates sub-filter pills based on available data
     private var subFilterPills: [DSFilterPillItem] {
-        // Use JSON quick filters if available, otherwise use category sub-filter pills
-        if let quickFilters = categoryData?.quickFilters {
-            return quickFilters.map { filter in
-                DSFilterPillItem(text: filter.label)
+        // Generate dynamic quick filters from OrangeCatalog products
+        if !orangeCatalogProducts.isEmpty {
+            var pills: [DSFilterPillItem] = []
+
+            // Check for in-stock products
+            let inStockCount = orangeCatalogProducts.filter { $0.inStock }.count
+            if inStockCount > 0 {
+                pills.append(DSFilterPillItem(text: "In Stock (\(inStockCount))"))
             }
+
+            // Check for products on sale
+            let onSaleCount = orangeCatalogProducts.filter { $0.savingsPercentage != nil }.count
+            if onSaleCount > 0 {
+                pills.append(DSFilterPillItem(text: "On Sale (\(onSaleCount))"))
+            }
+
+            // Check for highly rated products
+            let topRatedCount = orangeCatalogProducts.filter { ($0.ratingAverage ?? 0) >= 4.0 }.count
+            if topRatedCount > 0 {
+                pills.append(DSFilterPillItem(text: "Top Rated (\(topRatedCount))"))
+            }
+
+            return pills
         }
+
+        // Fallback to static category sub-filter pills
         return category.subFilterPills
     }
     
+    /// Returns the actual count of displayed products (respects style pill filter)
     private var totalResults: Int {
-        categoryData?.pageInfo.totalResults ?? products.count
+        // Use filtered count when a style pill is selected
+        sortedAndFilteredProducts.count
+    }
+
+    /// Returns the total unfiltered count from OrangeCatalog or products
+    private var totalUnfilteredResults: Int {
+        orangeCatalogProducts.isEmpty ? products.count : orangeCatalogProducts.count
     }
     
     // MARK: - Body
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 0) {
-                // Filter Panel Section
-                DSPlpFilterPanel(
-                    title: categoryTitle,
-                    stylePills: stylePills,
-                    resultsCount: resultsCountText,
-                    filterPills: filterPills,
-                    subFilterPills: subFilterPills,
-                    onStylePillTap: { item in
-                        handleStylePillTap(item)
-                    },
-                    onFilterPillTap: { item in
-                        handleFilterPillTap(item)
-                    },
-                    onSubFilterPillTap: { item in
-                        handleSubFilterTap(item)
-                    }
-                )
-                .padding(.horizontal, DesignSystemGlobal.Spacing4)
-                
-                // Product List/Grid
-                productInventory
+        NavigationStack(path: $navigationPath) {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    // Filter Panel Section
+                    DSPlpFilterPanel(
+                        title: categoryTitle,
+                        stylePills: stylePills,
+                        resultsCount: resultsCountText,
+                        filterPills: filterPills,
+                        subFilterPills: subFilterPills,
+                        onStylePillTap: { item in
+                            handleStylePillTap(item)
+                        },
+                        onFilterPillTap: { item in
+                            handleFilterPillTap(item)
+                        },
+                        onSubFilterPillTap: { item in
+                            handleSubFilterTap(item)
+                        }
+                    )
                     .padding(.horizontal, DesignSystemGlobal.Spacing4)
+
+                    // Content based on loading state
+                    if isLoading {
+                        loadingView
+                            .padding(.horizontal, DesignSystemGlobal.Spacing4)
+                    } else if let error = errorMessage {
+                        errorView(message: error)
+                            .padding(.horizontal, DesignSystemGlobal.Spacing4)
+                    } else {
+                        // Product List/Grid
+                        productInventory
+                            .padding(.horizontal, DesignSystemGlobal.Spacing4)
+                    }
+                }
+                .padding(.top, 16) // Space for top navigation
+                .padding(.bottom, 16) // Space for bottom navigation
             }
-            .padding(.top, 16) // Space for top navigation
-            .padding(.bottom, 16) // Space for bottom navigation
+            .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
+            .task {
+                await loadProducts()
+            }
+            .navigationDestination(for: Product.self) { product in
+                ProductDetailView(product: product)
+            }
         }
-        .background(DesignSystemGlobal.BackgroundSurfaceColorGreige)
-        .onAppear {
-            loadProducts()
+    }
+
+    // MARK: - Loading View
+    private var loadingView: some View {
+        VStack(spacing: DesignSystemGlobal.Spacing4) {
+            ProgressView()
+                .scaleEffect(1.5)
+            Text("Loading products...")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
         }
+        .frame(maxWidth: .infinity, minHeight: 200)
+    }
+
+    // MARK: - Error View
+    private func errorView(message: String) -> some View {
+        VStack(spacing: DesignSystemGlobal.Spacing4) {
+            Image(systemName: "exclamationmark.triangle")
+                .font(.system(size: 48))
+                .foregroundStyle(.orange)
+
+            Text(message)
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+
+            Button("Retry") {
+                Task {
+                    await loadProducts()
+                }
+            }
+            .buttonStyle(.bordered)
+        }
+        .padding()
+        .frame(maxWidth: .infinity, minHeight: 200)
     }
     
     // MARK: - Product Inventory
@@ -120,26 +532,15 @@ struct PLPView: View {
     private var productListView: some View {
         LazyVStack(spacing: DesignSystemGlobal.Spacing4) {
             ForEach(sortedAndFilteredProducts) { product in
-                // Using modern DSProductCard component with modular sub-components:
-                // - DSProductImageContainer: Image with badges, swatches, sponsored tag
-                // - DSPlpPodDetails: Product details (brand, title, model, pricing, ratings)
-                // - DSPodButtonSet: Action buttons (B2C variant)
-                DSProductCard(
-                    imageURL: URL(string: product.heroImage),
-                    showExclusiveBadge: product.isExclusive,
-                    showDeliveryBadge: product.deliveryInfo?.primaryValue == "Free",
-                    showSponsoredTag: product.isSponsored,
-                    swatches: product.availableColors?.compactMap { Color(hex: $0.colorHex) } ?? [],
-                    additionalSwatchCount: product.additionalColorCount,
-                    brand: product.brand,
-                    title: product.name,
-                    modelNumber: product.modelNumber,
-                    priceText: formatPrice(product.currentPrice, originalPrice: product.originalPrice),
-                    rating: product.rating,
-                    ratingCount: product.reviewCount,
-                    pickupInfo: product.pickupInfo.map { "\($0.primaryValue) \($0.secondaryValue ?? "")" },
-                    deliveryInfo: product.deliveryInfo.map { "\($0.primaryValue) \($0.secondaryValue ?? "")" },
-                    buttonVariant: .b2c,
+                // Using PLPProductPod with DSPLPPod components:
+                // - AsyncImage for hero image loading
+                // - DSPLPPodDetails for product info (brand, title, model, pricing, ratings)
+                // - DSPLPPodButtonSet for action buttons
+                PLPProductPod(
+                    product: product,
+                    onTap: {
+                        navigationPath.append(product)
+                    },
                     onAddToCart: {
                         handleAddToCart(product)
                     },
@@ -150,7 +551,7 @@ struct PLPView: View {
             }
         }
     }
-    
+
     // MARK: - Grid View
     private var productGridView: some View {
         LazyVGrid(
@@ -161,24 +562,13 @@ struct PLPView: View {
             spacing: DesignSystemGlobal.Spacing4
         ) {
             ForEach(sortedAndFilteredProducts) { product in
-                // Using modern DSProductCard component (same as list view)
-                // Grid layout is handled by LazyVGrid, component stays the same
-                DSProductCard(
-                    imageURL: URL(string: product.heroImage),
-                    showExclusiveBadge: product.isExclusive,
-                    showDeliveryBadge: product.deliveryInfo?.primaryValue == "Free",
-                    showSponsoredTag: product.isSponsored,
-                    swatches: product.availableColors?.compactMap { Color(hex: $0.colorHex) } ?? [],
-                    additionalSwatchCount: product.additionalColorCount,
-                    brand: product.brand,
-                    title: product.name,
-                    modelNumber: product.modelNumber,
-                    priceText: formatPrice(product.currentPrice, originalPrice: product.originalPrice),
-                    rating: product.rating,
-                    ratingCount: product.reviewCount,
-                    pickupInfo: product.pickupInfo.map { "\($0.primaryValue) \($0.secondaryValue ?? "")" },
-                    deliveryInfo: product.deliveryInfo.map { "\($0.primaryValue) \($0.secondaryValue ?? "")" },
-                    buttonVariant: .b2c,
+                // Using PLPProductPod (same as list view)
+                // Grid layout is handled by LazyVGrid
+                PLPProductPod(
+                    product: product,
+                    onTap: {
+                        navigationPath.append(product)
+                    },
                     onAddToCart: {
                         handleAddToCart(product)
                     },
@@ -201,36 +591,55 @@ struct PLPView: View {
     }
     
     private var sortedAndFilteredProducts: [Product] {
-        let filtered = products
-        
-        // Apply filters here (simplified - in real app would be more complex)
-        if !selectedSubFilters.isEmpty {
-            // Filter logic would go here based on selected filters
+        // If we have OrangeCatalog data and a style pill is selected, filter by subcategory
+        if !orangeCatalogProducts.isEmpty, let selectedId = selectedStylePillId {
+            // Filter OrangeCatalog products by subcategory and convert to Product
+            let filteredOrangeProducts = orangeCatalogProducts.filter { product in
+                let subcategory = product.subcategory ?? "Other"
+                return subcategory == selectedId
+            }
+            print("🔖 Subcategory filter '\(selectedId)' applied: \(orangeCatalogProducts.count) → \(filteredOrangeProducts.count) products")
+            return filteredOrangeProducts.map { $0.toProduct() }
         }
-        
+
+        // Fallback to products array (for non-OrangeCatalog sources)
+        var filtered = products
+
+        // Apply style pill filter using keyword matching for legacy data
+        if let stylePill = selectedStylePill {
+            let styleFilter = stylePill.replacing("\n", with: " ").trimmingCharacters(in: .whitespaces)
+            filtered = filtered.filter { product in
+                let productText = "\(product.name) \(product.brand)".lowercased()
+                let filterWords = styleFilter.lowercased().split(separator: " ")
+                return filterWords.contains { word in
+                    word.count > 3 && productText.contains(word)
+                }
+            }
+            print("🔖 Style filter '\(styleFilter)' applied: \(products.count) → \(filtered.count) products")
+        }
+
+        // Apply sub-filter pills
+        if !selectedSubFilters.isEmpty {
+            // Filter logic for sub-filters (In Stock, Free Delivery, etc.)
+            // These would typically filter by product availability properties
+        }
+
         return filtered
     }
-    
+
     // MARK: - Actions
-    
-    private func formatPrice(_ currentPrice: Decimal, originalPrice: Decimal?) -> String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "USD"
-        
-        if let originalPrice = originalPrice, originalPrice > currentPrice {
-            // Has a sale price
-            let currentFormatted = formatter.string(from: currentPrice as NSDecimalNumber) ?? "$\(currentPrice)"
-            return currentFormatted
-        } else {
-            return formatter.string(from: currentPrice as NSDecimalNumber) ?? "$\(currentPrice)"
-        }
-    }
-    
+
     private func handleStylePillTap(_ item: DSStylePillItem) {
-        selectedStylePill = item.text
-        print("Selected style: \(item.text)")
-        // In a real app, this would filter products by style
+        // Toggle selection - tap again to deselect
+        if selectedStylePillId == item.id {
+            selectedStylePillId = nil
+            selectedStylePill = nil
+            print("🔖 Deselected style pill: \(item.text)")
+        } else {
+            selectedStylePillId = item.id
+            selectedStylePill = item.text
+            print("🔖 Selected style: \(item.text) (ID: \(item.id))")
+        }
     }
     
     private func handleFilterPillTap(_ item: DSFilterPillItem) {
@@ -339,16 +748,23 @@ struct PLPView: View {
         print("=== END DIAGNOSTIC ===\n")
     }
     
-    private func loadProducts() {
-        // 🔍 DIAGNOSTIC: List all images in the bundle
-        debugListBundleImages()
-        
-        // Check if we have a category-specific JSON file
+    private func loadProducts() async {
+        isLoading = true
+        errorMessage = nil
+
+        // Priority 1: Load from OrangeCatalog API if slug is provided
+        if let slug = category.orangeCatalogSlug {
+            await loadFromOrangeCatalog(slug: slug)
+            isLoading = false
+            return
+        }
+
+        // Priority 2: Check if we have a category-specific JSON file
         if let jsonFilename = category.categoryJSONFilename,
            let loadedCategoryData = CategoryDataLoader.shared.loadCategoryData(filename: jsonFilename) {
             // Store the category data for use in views
             categoryData = loadedCategoryData
-            
+
             // Load products from category JSON file
             products = loadedCategoryData.products.map { $0.toProduct() }
             print("📦 Loaded \(products.count) products from \(jsonFilename).json")
@@ -356,40 +772,104 @@ struct PLPView: View {
             print("   🎨 Featured brands: \(loadedCategoryData.featuredBrands.count)")
             print("   🔍 Filters available: \(loadedCategoryData.filters.count)")
             print("   ⚡️ Quick filters: \(loadedCategoryData.quickFilters.count)")
-            
+
             // Debug: Log sample product image URLs
             if let firstProduct = products.first {
                 print("🖼️ Sample product hero image URL: \(firstProduct.heroImage)")
                 print("   Brand: \(firstProduct.brand)")
                 print("   Name: \(firstProduct.name)")
             }
+            isLoading = false
             return
         }
-        
-        // Otherwise, load from pip-datasets.json
+
+        // Priority 3: Load from pip-datasets.json
         pipDatasets = PLPDataLoader.shared.loadPIPDatasets()
-        
+
         // Filter by category breadcrumb
         let filteredDatasets = pipDatasets.filter { dataset in
             dataset.breadcrumbs.contains { breadcrumb in
                 breadcrumb.label.lowercased().contains(category.breadcrumbFilter.lowercased())
             }
         }
-        
+
         // Convert to Product models
         products = filteredDatasets.map { $0.toProduct() }
         print("📦 Loaded \(products.count) products for category: \(category.title)")
         print("   ⚠️ Using fallback pip-datasets.json (no category-specific JSON found)")
-        
+
         // Debug: Log sample product images
         if let firstProduct = filteredDatasets.first {
             print("🖼️ Sample product image: \(firstProduct.media.primaryImage)")
             print("🖼️ Total images: \(firstProduct.media.images.count)")
         }
-        
+
         // Debug: Log first converted product's hero image
         if let firstProduct = products.first {
             print("🖼️ Converted product hero image: \(firstProduct.heroImage)")
+        }
+
+        isLoading = false
+    }
+
+    /// Loads products from the OrangeCatalog remote API.
+    private func loadFromOrangeCatalog(slug: String) async {
+        let apiURL = "https://raw.githubusercontent.com/atlanticwaters/Orange-Catalog/main/production%20data/categories/\(slug).json"
+        print("🍊 Loading products from OrangeCatalog API for slug: \(slug)")
+        print("🌐 Fetching: \(apiURL)")
+
+        do {
+            // Use fetchCategoryFresh to bypass cache and get latest data from GitHub
+            let orangeCategory = try await CatalogService.shared.fetchCategoryFresh(slug: slug)
+            print("🍊 Category loaded: \(orangeCategory.name), hasProducts: \(orangeCategory.hasProductData)")
+
+            if let allOrangeProducts = orangeCategory.products {
+                print("🍊 Raw products from API: \(allOrangeProducts.count)")
+
+                // Debug: Show first product's raw data
+                if let first = allOrangeProducts.first {
+                    print("📦 First product raw:")
+                    print("   - ID: \(first.productId)")
+                    print("   - Title: \(first.title)")
+                    print("   - Subcategory: \(first.subcategory ?? "nil")")
+                    print("   - Image URL: \(first.imageUrl ?? "nil")")
+                }
+
+                // Debug: Show unique subcategories
+                let uniqueSubcats = Set(allOrangeProducts.compactMap { $0.subcategory })
+                print("📂 Subcategories in data (\(uniqueSubcats.count)): \(uniqueSubcats.sorted().joined(separator: ", "))")
+
+                // Store ALL products for dynamic style pill generation
+                orangeCatalogProducts = allOrangeProducts
+                print("🎨 Stored \(orangeCatalogProducts.count) products for dynamic style pills")
+
+                // Apply subcategory filter for initial display if specified
+                var displayProducts = allOrangeProducts
+                if let subcategoryFilter = category.subcategoryFilter {
+                    let originalCount = displayProducts.count
+                    displayProducts = displayProducts.filter { product in
+                        product.subcategory?.localizedStandardContains(subcategoryFilter) ?? false
+                    }
+                    print("🔍 Initial filter by '\(subcategoryFilter)': \(originalCount) → \(displayProducts.count) products")
+                }
+
+                // Convert OrangeCatalogProduct to Product for display
+                products = displayProducts.map { $0.toProduct() }
+                print("🍊 Loaded \(products.count) products for initial display")
+
+                // Debug: Log first 3 product image URLs
+                for product in products.prefix(3) {
+                    print("🖼️ Product: \(product.name)")
+                    print("   Image URL: '\(product.heroImage)'")
+                }
+            } else {
+                print("🍊 No products found in OrangeCatalog category")
+                orangeCatalogProducts = []
+                products = []
+            }
+        } catch {
+            print("❌ Failed to load from OrangeCatalog: \(error.localizedDescription)")
+            errorMessage = "Failed to load products: \(error.localizedDescription)"
         }
     }
 }
@@ -404,15 +884,19 @@ struct PLPCategory {
     let stylePills: [DSStylePillItem]
     let filterPills: [DSFilterPillItem]
     let subFilterPills: [DSFilterPillItem]
-    let categoryJSONFilename: String?  // NEW: Optional category JSON file
-    
+    let categoryJSONFilename: String?  // Optional category JSON file (local)
+    let orangeCatalogSlug: String?     // Optional OrangeCatalog API slug (remote)
+    let subcategoryFilter: String?     // Optional filter for OrangeCatalog subcategory field
+
     init(
         title: String,
         breadcrumbFilter: String,
         stylePills: [DSStylePillItem],
         filterPills: [DSFilterPillItem],
         subFilterPills: [DSFilterPillItem],
-        categoryJSONFilename: String? = nil
+        categoryJSONFilename: String? = nil,
+        orangeCatalogSlug: String? = nil,
+        subcategoryFilter: String? = nil
     ) {
         self.title = title
         self.breadcrumbFilter = breadcrumbFilter
@@ -420,6 +904,42 @@ struct PLPCategory {
         self.filterPills = filterPills
         self.subFilterPills = subFilterPills
         self.categoryJSONFilename = categoryJSONFilename
+        self.orangeCatalogSlug = orangeCatalogSlug
+        self.subcategoryFilter = subcategoryFilter
+    }
+
+    /// Creates a PLPCategory from an OrangeCatalog category summary.
+    /// This allows the PLPView to display products from the remote OrangeCatalog API.
+    static func fromOrangeCatalog(_ summary: CategoriesIndexResponse.CategorySummary) -> PLPCategory {
+        // Convert subcategories to style pills
+        let stylePills: [DSStylePillItem] = summary.subcategories?.map { subcategory in
+            DSStylePillItem(
+                id: subcategory.id,
+                text: subcategory.name,
+                imageURL: subcategory.imageUrl
+            )
+        } ?? []
+
+        // Standard filter pills
+        let filterPills: [DSFilterPillItem] = [
+            DSFilterPillItem(
+                text: "All Filters",
+                icon: Image(systemName: "line.3.horizontal.decrease.circle")
+            ),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Price"),
+            DSFilterPillItem(text: "Rating")
+        ]
+
+        return PLPCategory(
+            title: summary.name.uppercased(),
+            breadcrumbFilter: summary.name,
+            stylePills: stylePills,
+            filterPills: filterPills,
+            subFilterPills: [],
+            categoryJSONFilename: nil,
+            orangeCatalogSlug: summary.slug
+        )
     }
     
     // MARK: - Helper Methods
@@ -478,10 +998,10 @@ struct PLPCategory {
     }
     
     // MARK: - Refrigerators Category
-    /// Now uses french-door-refrigerators.json by default!
+    /// Uses OrangeCatalog API to load refrigerator products
     static let refrigerators: PLPCategory = {
         guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "french-door-refrigerators") else {
-            // Fallback to SF Symbols if JSON not found
+            // Fallback - still use OrangeCatalog API
             return PLPCategory(
                 title: "REFRIGERATORS",
                 breadcrumbFilter: "Refrigerator",
@@ -502,7 +1022,9 @@ struct PLPCategory {
                 subFilterPills: [
                     DSFilterPillItem(text: "In Stock At Store Today"),
                     DSFilterPillItem(text: "Free 1-2 Day Delivery")
-                ]
+                ],
+                orangeCatalogSlug: "appliances",
+                subcategoryFilter: "Refrigerator"
             )
         }
         
@@ -554,15 +1076,17 @@ struct PLPCategory {
                 DSFilterPillItem(text: "Special Buy"),
                 DSFilterPillItem(text: "ENERGY STAR")
             ],
-            categoryJSONFilename: "french-door-refrigerators"
+            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
+            orangeCatalogSlug: "appliances",
+            subcategoryFilter: "Refrigerator"
         )
     }()
-    
+
     // MARK: - Dishwashers Category
     static let dishwashers: PLPCategory = {
         // Try to load from dishwashers.json if it exists
         guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "dishwashers") else {
-            // Fallback to SF Symbols if JSON not found
+            // Fallback - still use OrangeCatalog API
             return PLPCategory(
                 title: "DISHWASHERS",
                 breadcrumbFilter: "Dishwasher",
@@ -588,7 +1112,9 @@ struct PLPCategory {
                     DSFilterPillItem(text: "Get It Fast"),
                     DSFilterPillItem(text: "Special Buy"),
                     DSFilterPillItem(text: "Energy Star")
-                ]
+                ],
+                orangeCatalogSlug: "appliances",
+                subcategoryFilter: "Dishwasher"
             )
         }
         
@@ -629,15 +1155,17 @@ struct PLPCategory {
                 DSFilterPillItem(text: "Special Buy"),
                 DSFilterPillItem(text: "Energy Star")
             ],
-            categoryJSONFilename: "dishwashers"
+            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
+            orangeCatalogSlug: "appliances",
+            subcategoryFilter: "Dishwasher"
         )
     }()
-    
+
     // MARK: - Washing Machines Category
     static let washingMachines: PLPCategory = {
         // Try to load from washing-machines.json if it exists
         guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "washing-machines") else {
-            // Fallback to SF Symbols if JSON not found
+            // Fallback - still use OrangeCatalog API
             return PLPCategory(
                 title: "WASHING MACHINES",
                 breadcrumbFilter: "Washing Machine",
@@ -664,7 +1192,9 @@ struct PLPCategory {
                     DSFilterPillItem(text: "Get It Fast"),
                     DSFilterPillItem(text: "Special Buy"),
                     DSFilterPillItem(text: "Best Seller")
-                ]
+                ],
+                orangeCatalogSlug: "appliances",
+                subcategoryFilter: "Washer"
             )
         }
         
@@ -706,7 +1236,9 @@ struct PLPCategory {
                 DSFilterPillItem(text: "Special Buy"),
                 DSFilterPillItem(text: "Best Seller")
             ],
-            categoryJSONFilename: "washing-machines"
+            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
+            orangeCatalogSlug: "appliances",
+            subcategoryFilter: "Washer"
         )
     }()
     
@@ -714,7 +1246,7 @@ struct PLPCategory {
     static let dryers: PLPCategory = {
         // Try to load from dryers.json if it exists
         guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "dryers") else {
-            // Fallback to SF Symbols if JSON not found
+            // Fallback - still use OrangeCatalog API
             return PLPCategory(
                 title: "DRYERS",
                 breadcrumbFilter: "Dryer",
@@ -739,7 +1271,9 @@ struct PLPCategory {
                     DSFilterPillItem(text: "Free 1-2 Day Delivery"),
                     DSFilterPillItem(text: "Get It Fast"),
                     DSFilterPillItem(text: "Special Buy")
-                ]
+                ],
+                orangeCatalogSlug: "appliances",
+                subcategoryFilter: "Dryer"
             )
         }
         
@@ -779,7 +1313,9 @@ struct PLPCategory {
                 DSFilterPillItem(text: "Get It Fast"),
                 DSFilterPillItem(text: "Special Buy")
             ],
-            categoryJSONFilename: "dryers"
+            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
+            orangeCatalogSlug: "appliances",
+            subcategoryFilter: "Dryer"
         )
     }()
     
@@ -787,7 +1323,7 @@ struct PLPCategory {
     static let ranges: PLPCategory = {
         // Try to load from ranges.json if it exists
         guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "ranges") else {
-            // Fallback to SF Symbols if JSON not found
+            // Fallback - still use OrangeCatalog API
             return PLPCategory(
                 title: "RANGES",
                 breadcrumbFilter: "Range",
@@ -814,7 +1350,9 @@ struct PLPCategory {
                     DSFilterPillItem(text: "Get It Fast"),
                     DSFilterPillItem(text: "Special Buy"),
                     DSFilterPillItem(text: "Best Seller")
-                ]
+                ],
+                orangeCatalogSlug: "appliances",
+                subcategoryFilter: "Range"
             )
         }
         
@@ -856,7 +1394,9 @@ struct PLPCategory {
                 DSFilterPillItem(text: "Special Buy"),
                 DSFilterPillItem(text: "Best Seller")
             ],
-            categoryJSONFilename: "ranges"
+            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
+            orangeCatalogSlug: "appliances",
+            subcategoryFilter: "Range"
         )
     }()
     
@@ -864,7 +1404,7 @@ struct PLPCategory {
     static let powerDrills: PLPCategory = {
         // Try to load from power-drills.json if it exists
         guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "power-drills") else {
-            // Fallback to SF Symbols if JSON not found
+            // Fallback - still use OrangeCatalog API
             return PLPCategory(
                 title: "POWER DRILLS",
                 breadcrumbFilter: "Drill",
@@ -885,7 +1425,9 @@ struct PLPCategory {
                 subFilterPills: [
                     DSFilterPillItem(text: "In Stock At Store Today"),
                     DSFilterPillItem(text: "Free 1-2 Day Delivery")
-                ]
+                ],
+                orangeCatalogSlug: "tools",
+                subcategoryFilter: "Drill"
             )
         }
         
@@ -930,7 +1472,9 @@ struct PLPCategory {
                 DSFilterPillItem(text: "Best Seller"),
                 DSFilterPillItem(text: "Exclusive")
             ],
-            categoryJSONFilename: "power-drills"
+            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
+            orangeCatalogSlug: "tools",
+            subcategoryFilter: "Drill"
         )
     }()
     
@@ -991,7 +1535,9 @@ struct PLPCategory {
                 DSFilterPillItem(text: "Get It Fast"),
                 DSFilterPillItem(text: "Best Seller")
             ],
-            categoryJSONFilename: "power-saws"
+            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
+            orangeCatalogSlug: "tools",
+            subcategoryFilter: "Saw"
         )
     }()
     
@@ -1046,7 +1592,9 @@ struct PLPCategory {
                 DSFilterPillItem(text: "Free 1-2 Day Delivery"),
                 DSFilterPillItem(text: "Best Seller")
             ],
-            categoryJSONFilename: "sanders"
+            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
+            orangeCatalogSlug: "tools",
+            subcategoryFilter: "Sander"
         )
     }()
     
@@ -1091,7 +1639,7 @@ struct PLPCategory {
     // MARK: - Bathroom Vanities Category
     static let bathroomVanities: PLPCategory = {
         guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "bathroom-vanities") else {
-            // Fallback to SF Symbols if JSON not found
+            // Fallback - still use OrangeCatalog API
             return PLPCategory(
                 title: "BATHROOM VANITIES",
                 breadcrumbFilter: "Bathroom Vanity",
@@ -1111,7 +1659,9 @@ struct PLPCategory {
                 subFilterPills: [
                     DSFilterPillItem(text: "In Stock At Store Today"),
                     DSFilterPillItem(text: "Free 1-2 Day Delivery")
-                ]
+                ],
+                orangeCatalogSlug: "furniture",
+                subcategoryFilter: "Vanit"
             )
         }
         
@@ -1155,14 +1705,16 @@ struct PLPCategory {
             ],
             filterPills: filterPills,
             subFilterPills: subFilterPills,
-            categoryJSONFilename: "bathroom-vanities"
+            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
+            orangeCatalogSlug: "furniture",
+            subcategoryFilter: "Vanit"
         )
     }()
     
     // MARK: - Ceiling Fans Category
     static let ceilingFans: PLPCategory = {
         guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "ceiling-fans") else {
-            // Fallback to SF Symbols if JSON not found
+            // Fallback - still use OrangeCatalog API
             return PLPCategory(
                 title: "CEILING FANS",
                 breadcrumbFilter: "Ceiling Fan",
@@ -1182,7 +1734,9 @@ struct PLPCategory {
                 subFilterPills: [
                     DSFilterPillItem(text: "In Stock At Store Today"),
                     DSFilterPillItem(text: "Free 1-2 Day Delivery")
-                ]
+                ],
+                orangeCatalogSlug: "electrical",
+                subcategoryFilter: "Fan"
             )
         }
         
@@ -1226,14 +1780,16 @@ struct PLPCategory {
             ],
             filterPills: filterPills,
             subFilterPills: subFilterPills,
-            categoryJSONFilename: "ceiling-fans"
+            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
+            orangeCatalogSlug: "electrical",
+            subcategoryFilter: "Fan"
         )
     }()
     
     // MARK: - Lawn Mowers Category
     static let lawnMowers: PLPCategory = {
         guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "lawn-mowers") else {
-            // Fallback to SF Symbols if JSON not found
+            // Fallback - still use OrangeCatalog API
             return PLPCategory(
                 title: "LAWN MOWERS",
                 breadcrumbFilter: "Lawn Mower",
@@ -1253,7 +1809,9 @@ struct PLPCategory {
                 subFilterPills: [
                     DSFilterPillItem(text: "In Stock At Store Today"),
                     DSFilterPillItem(text: "Free 1-2 Day Delivery")
-                ]
+                ],
+                orangeCatalogSlug: "tools",
+                subcategoryFilter: "Mower"
             )
         }
         
@@ -1297,14 +1855,16 @@ struct PLPCategory {
             ],
             filterPills: filterPills,
             subFilterPills: subFilterPills,
-            categoryJSONFilename: "lawn-mowers"
+            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
+            orangeCatalogSlug: "tools",
+            subcategoryFilter: "Mower"
         )
     }()
     
     // MARK: - Smart Thermostats Category
     static let smartThermostats: PLPCategory = {
         guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "smart-thermostats") else {
-            // Fallback to SF Symbols if JSON not found
+            // Fallback - still use OrangeCatalog API
             return PLPCategory(
                 title: "SMART THERMOSTATS",
                 breadcrumbFilter: "Smart Thermostat",
@@ -1324,7 +1884,9 @@ struct PLPCategory {
                 subFilterPills: [
                     DSFilterPillItem(text: "In Stock At Store Today"),
                     DSFilterPillItem(text: "Free 1-2 Day Delivery")
-                ]
+                ],
+                orangeCatalogSlug: "electrical",
+                subcategoryFilter: "Thermostat"
             )
         }
         
@@ -1368,14 +1930,16 @@ struct PLPCategory {
             ],
             filterPills: filterPills,
             subFilterPills: subFilterPills,
-            categoryJSONFilename: "smart-thermostats"
+            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
+            orangeCatalogSlug: "electrical",
+            subcategoryFilter: "Thermostat"
         )
     }()
     
     // MARK: - Tool Chests Category
     static let toolChests: PLPCategory = {
         guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "tool-chests") else {
-            // Fallback to SF Symbols if JSON not found
+            // Fallback - still use OrangeCatalog API
             return PLPCategory(
                 title: "TOOL CHESTS",
                 breadcrumbFilter: "Tool Chest",
@@ -1395,7 +1959,9 @@ struct PLPCategory {
                 subFilterPills: [
                     DSFilterPillItem(text: "In Stock At Store Today"),
                     DSFilterPillItem(text: "Free 1-2 Day Delivery")
-                ]
+                ],
+                orangeCatalogSlug: "storage",
+                subcategoryFilter: "Tool"
             )
         }
         
@@ -1439,10 +2005,161 @@ struct PLPCategory {
             ],
             filterPills: filterPills,
             subFilterPills: subFilterPills,
-            categoryJSONFilename: "tool-chests"
+            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
+            orangeCatalogSlug: "storage",
+            subcategoryFilter: "Tool"
         )
     }()
-    
+
+    // MARK: - OrangeCatalog Categories (Remote API)
+
+    /// Tools category loaded from OrangeCatalog remote API
+    static let orangeCatalogTools = PLPCategory(
+        title: "TOOLS",
+        breadcrumbFilter: "Tools",
+        stylePills: [
+            DSStylePillItem(text: "Power\nDrills", image: Image(systemName: "screwdriver")),
+            DSStylePillItem(text: "Power\nSaws", image: Image(systemName: "scissors")),
+            DSStylePillItem(text: "Sanders", image: Image(systemName: "circle.dotted")),
+            DSStylePillItem(text: "Wrenches", image: Image(systemName: "wrench"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Price"),
+            DSFilterPillItem(text: "Rating")
+        ],
+        subFilterPills: [],
+        categoryJSONFilename: nil,
+        orangeCatalogSlug: "tools"
+    )
+
+    /// Appliances category loaded from OrangeCatalog remote API
+    static let orangeCatalogAppliances = PLPCategory(
+        title: "APPLIANCES",
+        breadcrumbFilter: "Appliances",
+        stylePills: [
+            DSStylePillItem(text: "Refrigerators", image: Image(systemName: "refrigerator.fill")),
+            DSStylePillItem(text: "Dishwashers", image: Image(systemName: "dishwasher.fill")),
+            DSStylePillItem(text: "Washers", image: Image(systemName: "washer.fill")),
+            DSStylePillItem(text: "Dryers", image: Image(systemName: "dryer.fill"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Price"),
+            DSFilterPillItem(text: "Rating")
+        ],
+        subFilterPills: [],
+        categoryJSONFilename: nil,
+        orangeCatalogSlug: "appliances"
+    )
+
+    // MARK: - Automotive Category
+    /// Automotive products from OrangeCatalog - 55 products
+    static let automotive = PLPCategory(
+        title: "AUTOMOTIVE",
+        breadcrumbFilter: "Automotive",
+        stylePills: [
+            DSStylePillItem(text: "Car\nCleaning", image: Image(systemName: "car.wash.fill")),
+            DSStylePillItem(text: "Motor\nFluids", image: Image(systemName: "drop.fill")),
+            DSStylePillItem(text: "Jacks &\nLifts", image: Image(systemName: "arrow.up.square.fill")),
+            DSStylePillItem(text: "Battery\nChargers", image: Image(systemName: "battery.100.bolt"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Price"),
+            DSFilterPillItem(text: "Rating")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock"),
+            DSFilterPillItem(text: "Free Delivery")
+        ],
+        categoryJSONFilename: nil,
+        orangeCatalogSlug: "automotive"
+    )
+
+    // MARK: - Garage Category
+    /// Garage products from OrangeCatalog - 167 products
+    static let garage = PLPCategory(
+        title: "GARAGE",
+        breadcrumbFilter: "Garage",
+        stylePills: [
+            DSStylePillItem(text: "Garage\nFlooring", image: Image(systemName: "square.grid.3x3.fill")),
+            DSStylePillItem(text: "Garage\nDoors", image: Image(systemName: "door.garage.closed")),
+            DSStylePillItem(text: "Garage\nStorage", image: Image(systemName: "shippingbox.fill")),
+            DSStylePillItem(text: "Work\nBenches", image: Image(systemName: "tablecells.fill"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Price"),
+            DSFilterPillItem(text: "Type"),
+            DSFilterPillItem(text: "Material")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock"),
+            DSFilterPillItem(text: "Free Delivery"),
+            DSFilterPillItem(text: "Best Seller")
+        ],
+        categoryJSONFilename: nil,
+        orangeCatalogSlug: "garage"
+    )
+
+    // MARK: - Home Decor Category
+    /// Home Decor products from OrangeCatalog - 321 products
+    static let homeDecor = PLPCategory(
+        title: "HOME DECOR",
+        breadcrumbFilter: "Home Decor",
+        stylePills: [
+            DSStylePillItem(text: "Artificial\nPlants", image: Image(systemName: "leaf.fill")),
+            DSStylePillItem(text: "Bedding", image: Image(systemName: "bed.double.fill")),
+            DSStylePillItem(text: "Wall\nArt", image: Image(systemName: "photo.artframe")),
+            DSStylePillItem(text: "Rugs", image: Image(systemName: "square.fill")),
+            DSStylePillItem(text: "Mirrors", image: Image(systemName: "rectangle.portrait.fill"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Price"),
+            DSFilterPillItem(text: "Style"),
+            DSFilterPillItem(text: "Color")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock"),
+            DSFilterPillItem(text: "Free Delivery"),
+            DSFilterPillItem(text: "New Arrivals")
+        ],
+        categoryJSONFilename: nil,
+        orangeCatalogSlug: "home-decor"
+    )
+
+    // MARK: - Other Category
+    /// Miscellaneous products from OrangeCatalog - 619 products
+    static let other = PLPCategory(
+        title: "MORE PRODUCTS",
+        breadcrumbFilter: "Other",
+        stylePills: [
+            DSStylePillItem(text: "All\nProducts", image: Image(systemName: "square.grid.2x2.fill")),
+            DSStylePillItem(text: "Top\nRated", image: Image(systemName: "star.fill")),
+            DSStylePillItem(text: "Best\nSellers", image: Image(systemName: "flame.fill")),
+            DSStylePillItem(text: "On\nSale", image: Image(systemName: "tag.fill"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Price"),
+            DSFilterPillItem(text: "Rating")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock"),
+            DSFilterPillItem(text: "Free Delivery"),
+            DSFilterPillItem(text: "Special Buy")
+        ],
+        categoryJSONFilename: nil,
+        orangeCatalogSlug: "other"
+    )
 }
 
 // MARK: - =============================================
@@ -1522,82 +2239,13 @@ enum PLPViewMode {
     PLPView(category: .toolChests)
 }
 
-// MARK: - DSProductCard Stub (Temporary)
+// MARK: - OrangeCatalog Previews
 
-/// Temporary stub for DSProductCard until the full component is implemented
-struct DSProductCard: View {
-    let imageURL: URL?
-    let showExclusiveBadge: Bool
-    let showDeliveryBadge: Bool
-    let showSponsoredTag: Bool
-    let swatches: [Color]
-    let additionalSwatchCount: Int?
-    let brand: String?
-    let title: String
-    let modelNumber: String?
-    let priceText: String
-    let rating: Double?
-    let ratingCount: Int?
-    let pickupInfo: String?
-    let deliveryInfo: String?
-    let buttonVariant: DSPodButtonSetVariant
-    let onAddToCart: () -> Void
-    let onAddToList: () -> Void
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            // Image placeholder
-            Rectangle()
-                .fill(Color.gray.opacity(0.2))
-                .aspectRatio(1, contentMode: .fit)
-                .overlay(
-                    Text("Product Image")
-                        .foregroundStyle(.secondary)
-                )
-            
-            // Product info
-            VStack(alignment: .leading, spacing: 4) {
-                if let brand = brand {
-                    Text(brand)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-                
-                Text(title)
-                    .font(.subheadline)
-                    .lineLimit(2)
-                
-                Text(priceText)
-                    .font(.headline)
-                    .foregroundStyle(Color.brandPrimary)
-            }
-            
-            // Buttons
-            HStack {
-                Button(action: onAddToCart) {
-                    Text("Add to Cart")
-                        .font(.caption)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(Color.brandPrimary)
-                        .foregroundStyle(.white)
-                        .cornerRadius(4)
-                }
-                
-                Button(action: onAddToList) {
-                    Image(systemName: "heart")
-                        .foregroundStyle(Color.brandPrimary)
-                }
-            }
-        }
-        .padding(8)
-        .background(Color.white)
-        .cornerRadius(8)
-        .shadow(radius: 2)
-    }
+#Preview("PLP - OrangeCatalog Tools") {
+    PLPView(category: .orangeCatalogTools)
 }
 
-enum DSPodButtonSetVariant {
-    case b2c
-    case b2b
+#Preview("PLP - OrangeCatalog Appliances") {
+    PLPView(category: .orangeCatalogAppliances)
 }
+

@@ -153,13 +153,22 @@ struct MainAppNavigationView: View {
                     .zIndex(1)
             }
             
-            // Search View - slides in from right
+            // Search View - slides in from right (now using catalog search)
             if showSearchView {
-                SearchDemoView(onDismiss: {
-                    withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
-                        showSearchView = false
+                CatalogSearchView(
+                    onProductSelected: { product in
+                        // Navigate to product detail
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                            showSearchView = false
+                        }
+                        // Product navigation would be handled here
+                    },
+                    onDismiss: {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.85)) {
+                            showSearchView = false
+                        }
                     }
-                })
+                )
                 .transition(.move(edge: .trailing))
                 .zIndex(1)
             }
@@ -204,7 +213,7 @@ struct MainAppNavigationView: View {
     }
 
     private var catalogTabContent: some View {
-        ComponentCatalogView(showBackButton: $showBackButton)
+        CatalogBrowserView()
     }
 
     private var cartTabContent: some View {

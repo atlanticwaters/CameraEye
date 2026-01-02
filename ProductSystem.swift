@@ -130,6 +130,18 @@ struct Product: Identifiable, Codable {
     }
 }
 
+// MARK: - Hashable Conformance
+
+extension Product: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+    static func == (lhs: Product, rhs: Product) -> Bool {
+        lhs.id == rhs.id
+    }
+}
+
 // MARK: - =============================================
 // MARK: - FULFILLMENT INFO
 // MARK: - =============================================

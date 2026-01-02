@@ -380,10 +380,36 @@ public struct DSPIPZoneA: View {
     @ViewBuilder
     private func imageView(for image: DSGalleryImage) -> some View {
         if let img = image.image {
+            // Local SwiftUI Image
             img
                 .resizable()
                 .aspectRatio(contentMode: .fit)
+        } else if let url = image.url {
+            // URL-based image (from OrangeCatalog API)
+            AsyncImage(url: url) { phase in
+                switch phase {
+                case .success(let loadedImage):
+                    loadedImage
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                case .failure:
+                    DSImageContainer(size: .xxLarge)
+                        .frame(maxWidth: .infinity)
+                        .overlay(
+                            Image(systemName: "photo")
+                                .font(.system(size: 40))
+                                .foregroundStyle(.secondary)
+                        )
+                case .empty:
+                    ProgressView()
+                        .frame(maxWidth: .infinity)
+                @unknown default:
+                    DSImageContainer(size: .xxLarge)
+                        .frame(maxWidth: .infinity)
+                }
+            }
         } else {
+            // No image available
             DSImageContainer(size: .xxLarge)
                 .frame(maxWidth: .infinity)
         }

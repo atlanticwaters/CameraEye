@@ -53,6 +53,20 @@
 		10FB01272EEB11A200A65E91 /* SearchDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FB011D2EEB11A200A65E91 /* SearchDemoView.swift */; };
 		AD1E8C9B2EF492B300C3EAA6 /* ComponentCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1E8C9A2EF492B300C3EAA6 /* ComponentCatalogView.swift */; };
 		AD29C4AD2EED0C8400AA5B40 /* PLPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD29C4AC2EED0C8400AA5B40 /* PLPView.swift */; };
+		AD533F9F2F06DC2F002B7E4A /* CategoryProductsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD533F9C2F06DC2F002B7E4A /* CategoryProductsView.swift */; };
+		AD533FA02F06DC2F002B7E4A /* CatalogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD533F952F06DC2F002B7E4A /* CatalogViewModel.swift */; };
+		AD533FA12F06DC2F002B7E4A /* CatalogBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD533F982F06DC2F002B7E4A /* CatalogBrowserView.swift */; };
+		AD533FA22F06DC2F002B7E4A /* OrangeCatalogModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD533F8F2F06DC2F002B7E4A /* OrangeCatalogModels.swift */; };
+		AD533FA32F06DC2F002B7E4A /* CatalogSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD533F942F06DC2F002B7E4A /* CatalogSearchViewModel.swift */; };
+		AD533FA42F06DC2F002B7E4A /* ProductDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD533F962F06DC2F002B7E4A /* ProductDetailViewModel.swift */; };
+		AD533FA52F06DC2F002B7E4A /* CatalogError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD533F912F06DC2F002B7E4A /* CatalogError.swift */; };
+		AD533FA62F06DC2F002B7E4A /* CatalogProductCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD533F992F06DC2F002B7E4A /* CatalogProductCardView.swift */; };
+		AD533FA72F06DC2F002B7E4A /* CatalogSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD533F9B2F06DC2F002B7E4A /* CatalogSearchView.swift */; };
+		AD533FA82F06DC2F002B7E4A /* CatalogProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD533F9A2F06DC2F002B7E4A /* CatalogProductDetailView.swift */; };
+		AD533FA92F06DC2F002B7E4A /* CatalogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD533F922F06DC2F002B7E4A /* CatalogService.swift */; };
+		AD533FAC2F07292C002B7E4A /* OrangeCatalogPLPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD533FAB2F07292C002B7E4A /* OrangeCatalogPLPView.swift */; };
+		AD533FAD2F07292C002B7E4A /* CatalogBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD533FAA2F07292C002B7E4A /* CatalogBrowserView.swift */; };
+		AD533FAF2F075543002B7E4A /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD533FAE2F075543002B7E4A /* ProductDetailView.swift */; };
 		AD72573C2F03242D006F8088 /* TokensComponentsDark.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD72572C2F03242D006F8088 /* TokensComponentsDark.swift */; };
 		AD72573D2F03242D006F8088 /* CoreTokensProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7257352F03242D006F8088 /* CoreTokensProvider.swift */; };
 		AD72573E2F03242D006F8088 /* TokensCoreLight.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7257312F03242D006F8088 /* TokensCoreLight.swift */; };
@@ -118,6 +132,20 @@
 		AD1E8C9A2EF492B300C3EAA6 /* ComponentCatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentCatalogView.swift; sourceTree = "<group>"; };
 		AD29C4AC2EED0C8400AA5B40 /* PLPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PLPView.swift; sourceTree = "<group>"; };
 		AD3B142B2EE66AD3008CBC4D /* SoftScrollEdgeModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftScrollEdgeModifier.swift; sourceTree = "<group>"; };
+		AD533F8F2F06DC2F002B7E4A /* OrangeCatalogModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrangeCatalogModels.swift; sourceTree = "<group>"; };
+		AD533F912F06DC2F002B7E4A /* CatalogError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogError.swift; sourceTree = "<group>"; };
+		AD533F922F06DC2F002B7E4A /* CatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogService.swift; sourceTree = "<group>"; };
+		AD533F942F06DC2F002B7E4A /* CatalogSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogSearchViewModel.swift; sourceTree = "<group>"; };
+		AD533F952F06DC2F002B7E4A /* CatalogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewModel.swift; sourceTree = "<group>"; };
+		AD533F962F06DC2F002B7E4A /* ProductDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailViewModel.swift; sourceTree = "<group>"; };
+		AD533F982F06DC2F002B7E4A /* CatalogBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogBrowserView.swift; sourceTree = "<group>"; };
+		AD533F992F06DC2F002B7E4A /* CatalogProductCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogProductCardView.swift; sourceTree = "<group>"; };
+		AD533F9A2F06DC2F002B7E4A /* CatalogProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogProductDetailView.swift; sourceTree = "<group>"; };
+		AD533F9B2F06DC2F002B7E4A /* CatalogSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogSearchView.swift; sourceTree = "<group>"; };
+		AD533F9C2F06DC2F002B7E4A /* CategoryProductsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryProductsView.swift; sourceTree = "<group>"; };
+		AD533FAA2F07292C002B7E4A /* CatalogBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogBrowserView.swift; sourceTree = "<group>"; };
+		AD533FAB2F07292C002B7E4A /* OrangeCatalogPLPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrangeCatalogPLPView.swift; sourceTree = "<group>"; };
+		AD533FAE2F075543002B7E4A /* ProductDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
 		AD72572C2F03242D006F8088 /* TokensComponentsDark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensComponentsDark.swift; sourceTree = "<group>"; };
 		AD72572D2F03242D006F8088 /* TokensComponentsLight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensComponentsLight.swift; sourceTree = "<group>"; };
 		AD72572E2F03242D006F8088 /* TokensComponentsTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokensComponentsTheme.swift; sourceTree = "<group>"; };
@@ -225,6 +253,8 @@
 				10A5A6982F00974700DE4535 /* DSTypography.swift */,
 				10A5A69C2F00F75F00DE4535 /* DSShadow.swift */,
 				10A5A69E2F00F86000DE4535 /* DSAnimation.swift */,
+				AD533F9E2F06DC2F002B7E4A /* OrangeCatalog */,
+				AD533FAE2F075543002B7E4A /* ProductDetailView.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -316,6 +346,58 @@
 				10FB00C62EEA62D700A65E91 /* CameraEye.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AD533F902F06DC2F002B7E4A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AD533F8F2F06DC2F002B7E4A /* OrangeCatalogModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AD533F932F06DC2F002B7E4A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AD533F912F06DC2F002B7E4A /* CatalogError.swift */,
+				AD533F922F06DC2F002B7E4A /* CatalogService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AD533F972F06DC2F002B7E4A /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				AD533F942F06DC2F002B7E4A /* CatalogSearchViewModel.swift */,
+				AD533F952F06DC2F002B7E4A /* CatalogViewModel.swift */,
+				AD533F962F06DC2F002B7E4A /* ProductDetailViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		AD533F9D2F06DC2F002B7E4A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AD533F982F06DC2F002B7E4A /* CatalogBrowserView.swift */,
+				AD533F992F06DC2F002B7E4A /* CatalogProductCardView.swift */,
+				AD533F9A2F06DC2F002B7E4A /* CatalogProductDetailView.swift */,
+				AD533F9B2F06DC2F002B7E4A /* CatalogSearchView.swift */,
+				AD533F9C2F06DC2F002B7E4A /* CategoryProductsView.swift */,
+				AD533FAA2F07292C002B7E4A /* CatalogBrowserView.swift */,
+				AD533FAB2F07292C002B7E4A /* OrangeCatalogPLPView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AD533F9E2F06DC2F002B7E4A /* OrangeCatalog */ = {
+			isa = PBXGroup;
+			children = (
+				AD533F902F06DC2F002B7E4A /* Models */,
+				AD533F932F06DC2F002B7E4A /* Services */,
+				AD533F972F06DC2F002B7E4A /* ViewModels */,
+				AD533F9D2F06DC2F002B7E4A /* Views */,
+			);
+			path = OrangeCatalog;
 			sourceTree = "<group>";
 		};
 		AD72572F2F03242D006F8088 /* Components */ = {
@@ -500,6 +582,20 @@
 				10FB00E82EEA690C00A65E91 /* AppBackground.swift in Sources */,
 				10FB01272EEB11A200A65E91 /* SearchDemoView.swift in Sources */,
 				10FB00EA2EEA690C00A65E91 /* ProductCard.swift in Sources */,
+				AD533FAF2F075543002B7E4A /* ProductDetailView.swift in Sources */,
+				AD533F9F2F06DC2F002B7E4A /* CategoryProductsView.swift in Sources */,
+				AD533FA02F06DC2F002B7E4A /* CatalogViewModel.swift in Sources */,
+				AD533FA12F06DC2F002B7E4A /* CatalogBrowserView.swift in Sources */,
+				AD533FA22F06DC2F002B7E4A /* OrangeCatalogModels.swift in Sources */,
+				AD533FA32F06DC2F002B7E4A /* CatalogSearchViewModel.swift in Sources */,
+				AD533FA42F06DC2F002B7E4A /* ProductDetailViewModel.swift in Sources */,
+				AD533FA52F06DC2F002B7E4A /* CatalogError.swift in Sources */,
+				AD533FA62F06DC2F002B7E4A /* CatalogProductCardView.swift in Sources */,
+				AD533FA72F06DC2F002B7E4A /* CatalogSearchView.swift in Sources */,
+				AD533FA82F06DC2F002B7E4A /* CatalogProductDetailView.swift in Sources */,
+				AD533FA92F06DC2F002B7E4A /* CatalogService.swift in Sources */,
+				AD533FAC2F07292C002B7E4A /* OrangeCatalogPLPView.swift in Sources */,
+				AD533FAD2F07292C002B7E4A /* CatalogBrowserView.swift in Sources */,
 				10FB00ED2EEA690C00A65E91 /* Bottom_Nav.swift in Sources */,
 				10FB00EE2EEA690C00A65E91 /* SearchSheet.swift in Sources */,
 				10FB00EF2EEA690C00A65E91 /* BottomTabBar_Standard.swift in Sources */,
