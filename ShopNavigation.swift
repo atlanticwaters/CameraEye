@@ -67,8 +67,7 @@ enum ShopDepartment: String, CaseIterable, Identifiable {
                 ShopSubcategory(
                     name: "Refrigerators", icon: "refrigerator", plpCategory: .refrigerators),
                 ShopSubcategory(name: "Dishwashers", icon: "dishwasher", plpCategory: .dishwashers),
-                ShopSubcategory(name: "Washers", icon: "washer", plpCategory: .washingMachines),
-                ShopSubcategory(name: "Dryers", icon: "dryer", plpCategory: .dryers),
+                ShopSubcategory(name: "Washers & Dryers", icon: "washer", plpCategory: .washersAndDryers),
                 ShopSubcategory(name: "Ranges", icon: "stove", plpCategory: .ranges),
                 ShopSubcategory(name: "Microwaves", icon: "microwave", plpCategory: nil),
                 ShopSubcategory(name: "Freezers", icon: "snowflake", plpCategory: nil),

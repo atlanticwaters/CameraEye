@@ -23,7 +23,7 @@ struct CatalogSearchResult: Identifiable, Hashable {
             title: name,
             subcategory: category,
             rating: rating.map { OrangeCatalogProduct.ProductRating(average: $0, count: nil) },
-            images: imageUrl.map { OrangeCatalogProduct.ProductImages(primary: $0) },
+            images: imageUrl.map { OrangeCatalogProduct.ProductImages(primary: $0, thumbnail: nil, small: nil, medium: nil, large: nil, gallery: nil) },
             badges: nil,
             availability: OrangeCatalogProduct.ProductAvailability(inStock: true),
             price: price.map { OrangeCatalogProduct.ProductPrice(

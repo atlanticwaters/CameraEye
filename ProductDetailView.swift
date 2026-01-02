@@ -67,23 +67,33 @@ struct ProductDetailView: View {
         return nil
     }
 
-    /// Creates gallery images from product image URLs
+    /// Creates gallery images from product image URLs with higher resolution
     private var galleryImages: [DSGalleryImage] {
         var images: [DSGalleryImage] = []
 
-        // Add hero image first
-        if let heroURL = URL(string: product.heroImage) {
+        // Add hero image first (convert to higher res)
+        if let heroURL = highResURL(from: product.heroImage) {
             images.append(DSGalleryImage(id: "hero", url: heroURL))
         }
 
-        // Add thumbnail images
+        // Add thumbnail images (convert to higher res)
         for (index, thumbnailURL) in product.thumbnailImages.enumerated() {
-            if let url = URL(string: thumbnailURL) {
+            if let url = highResURL(from: thumbnailURL) {
                 images.append(DSGalleryImage(id: "thumb-\(index)", url: url))
             }
         }
 
         return images
+    }
+
+    /// Converts image URL string to higher resolution version
+    private func highResURL(from urlString: String) -> URL? {
+        let highResString = urlString
+            .replacing("_100.jpg", with: "_400.jpg")
+            .replacing("_100.png", with: "_400.png")
+            .replacing("_300.jpg", with: "_400.jpg")
+            .replacing("_300.png", with: "_400.png")
+        return URL(string: highResString)
     }
 
     /// Maps Product rating to DSPIPRatingInfo

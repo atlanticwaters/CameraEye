@@ -80,6 +80,7 @@ struct OrangeCatalogCategory: Codable, Identifiable, Sendable, Hashable {
     let version: String?
     let lastUpdated: String?
     let pageInfo: PageInfo?
+    let filterOptions: FilterOptions?
     let featuredBrands: [FeaturedBrand]?
     let products: [OrangeCatalogProduct]?
     // Legacy format fields
@@ -98,16 +99,33 @@ struct OrangeCatalogCategory: Codable, Identifiable, Sendable, Hashable {
         products != nil && !(products?.isEmpty ?? true)
     }
 
+    /// Subcategories from filter options (new _all.json format)
+    var subcategories: [SubcategoryFilter]? {
+        filterOptions?.subcategories
+    }
+
     enum CodingKeys: String, CodingKey {
         case categoryId
         case name, slug, path, version
         case lastUpdated
-        case pageInfo, featuredBrands, products
+        case pageInfo, filterOptions, featuredBrands, products
         case productIds, totalProducts
     }
 
     struct PageInfo: Codable, Sendable, Hashable {
         let totalResults: Int
+    }
+
+    struct FilterOptions: Codable, Sendable, Hashable {
+        let subcategories: [SubcategoryFilter]?
+    }
+
+    struct SubcategoryFilter: Codable, Identifiable, Sendable, Hashable {
+        let slug: String
+        let name: String
+        let productCount: Int
+
+        var id: String { slug }
     }
 
     struct FeaturedBrand: Codable, Sendable, Hashable {
@@ -157,6 +175,28 @@ struct OrangeCatalogProduct: Codable, Identifiable, Sendable, Hashable {
         return URL(string: urlString)
     }
 
+    /// Medium resolution image URL (600px) for detail views
+    var mediumImageURL: URL? {
+        guard let urlString = images?.medium else { return nil }
+        return URL(string: urlString)
+    }
+
+    /// Large resolution image URL (1000px) for pinch-to-zoom
+    var largeImageURL: URL? {
+        guard let urlString = images?.large else { return nil }
+        return URL(string: urlString)
+    }
+
+    /// Gallery image URLs (all 13 angles at 600px)
+    var galleryURLs: [URL] {
+        images?.gallery?.compactMap { URL(string: $0) } ?? []
+    }
+
+    /// Whether product has multiple gallery images
+    var hasGalleryImages: Bool {
+        (images?.gallery?.count ?? 0) > 1
+    }
+
     /// Current price value
     var currentPrice: Double? {
         price?.current
@@ -202,6 +242,11 @@ struct OrangeCatalogProduct: Codable, Identifiable, Sendable, Hashable {
 
     struct ProductImages: Codable, Sendable, Hashable {
         let primary: String?
+        let thumbnail: String?
+        let small: String?
+        let medium: String?
+        let large: String?
+        let gallery: [String]?
     }
 
     struct ProductAvailability: Codable, Sendable, Hashable {

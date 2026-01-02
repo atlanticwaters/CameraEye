@@ -358,7 +358,7 @@ struct EnhancedShopNavigationView: View {
 // MARK: - ENHANCED PLP VIEW WITH NAVIGATION
 // MARK: - =============================================
 
-/// Enhanced PLP View that shows breadcrumb navigation and uses JSON data
+/// Enhanced PLP View that displays products using OrangeCatalog API data
 struct EnhancedPLPView: View {
     // MARK: - State
     @State private var products: [Product] = []
@@ -367,7 +367,6 @@ struct EnhancedPLPView: View {
     @State private var selectedFilterPills: Set<String> = []
     @State private var selectedSubFilters: Set<String> = []
     @State private var viewMode: PLPViewMode = .list
-    @State private var categoryData: CategoryPageData?
 
     // MARK: - Configuration
     let category: PLPCategory
@@ -375,7 +374,7 @@ struct EnhancedPLPView: View {
 
     // Computed properties
     private var categoryTitle: String {
-        categoryData?.pageInfo.categoryName.uppercased() ?? category.title
+        category.title
     }
 
     private var stylePills: [DSStylePillItem] {
@@ -383,60 +382,21 @@ struct EnhancedPLPView: View {
     }
 
     private var filterPills: [DSFilterPillItem] {
-        // Use JSON filters if available
-        if let jsonFilters = categoryData?.filters {
-            return jsonFilters.prefix(4).map { filter in
-                DSFilterPillItem(text: filter.filterGroupName)
-            }
-        }
-        return category.filterPills
+        category.filterPills
     }
 
     private var subFilterPills: [DSFilterPillItem] {
-        // Use JSON quick filters if available
-        if let quickFilters = categoryData?.quickFilters {
-            return quickFilters.map { filter in
-                DSFilterPillItem(text: filter.label)
-            }
-        }
-        return category.subFilterPills
+        category.subFilterPills
     }
 
     private var resultsCountText: String {
-        if let totalResults = categoryData?.pageInfo.totalResults {
-            return "\(totalResults) Results"
-        }
-        return "\(products.count) Results"
-    }
-
-    private var breadcrumbs: [CategoryPageData.PageInfo.Breadcrumb] {
-        categoryData?.pageInfo.breadcrumbs ?? []
+        "\(products.count) Results"
     }
 
     // MARK: - Body
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
-                // Breadcrumb Navigation
-                if !breadcrumbs.isEmpty {
-                    breadcrumbView
-                        .padding(.horizontal, DS.Spacing4)
-                        .padding(.vertical, DS.Spacing3)
-                }
-
-                // Hero Banner (if available)
-                if let heroImage = categoryData?.pageInfo.heroImage {
-                    heroBanner(heroImage)
-                        .padding(.horizontal, DS.Spacing4)
-                        .padding(.bottom, DS.Spacing4)
-                }
-
-                // Featured Brands (if available)
-                if let brands = categoryData?.featuredBrands, !brands.isEmpty {
-                    featuredBrandsView(brands)
-                        .padding(.bottom, DS.Spacing4)
-                }
-
                 // Filter Panel Section
                 DSPlpFilterPanel(
                     title: categoryTitle,
@@ -468,98 +428,7 @@ struct EnhancedPLPView: View {
         .navigationTitle(subcategoryName)
         .navigationBarTitleDisplayMode(.large)
         .onAppear {
-            loadCategoryData()
             loadProducts()
-        }
-    }
-
-    // MARK: - Breadcrumb View
-    private var breadcrumbView: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: DS.Spacing2) {
-                ForEach(Array(breadcrumbs.enumerated()), id: \.offset) { index, breadcrumb in
-                    HStack(spacing: DS.Spacing2) {
-                        Button {
-                            print("Navigate to: \(breadcrumb.url)")
-                        } label: {
-                            Text(breadcrumb.label)
-                                .font(.system(size: DS.FontSizeBodySm))
-                                .foregroundStyle(
-                                    index == breadcrumbs.count - 1
-                                        ? DS.TextOnSurfaceColorPrimary
-                                        : DS.Brand300
-                                )
-                        }
-
-                        if index < breadcrumbs.count - 1 {
-                            Image(systemName: "chevron.right")
-                                .font(.system(size: 10, weight: .medium))
-                                .foregroundStyle(DS.TextOnSurfaceColorSecondary)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    // MARK: - Hero Banner
-    private func heroBanner(_ heroImage: CategoryPageData.PageInfo.HeroImage) -> some View {
-        VStack(alignment: .leading, spacing: DS.Spacing2) {
-            if let promoText = heroImage.promoText {
-                Text(promoText)
-                    .font(.thdH3)
-                    .fontWeight(.bold)
-                    .foregroundStyle(.white)
-                    .padding(DS.Spacing4)
-            }
-        }
-        .frame(maxWidth: .infinity, minHeight: 120)
-        .background(
-            RoundedRectangle(cornerRadius: DS.Spacing3)
-                .fill(
-                    LinearGradient(
-                        colors: [DS.Brand300, DS.Brand300.opacity(0.7)],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-        )
-    }
-
-    // MARK: - Featured Brands View
-    private func featuredBrandsView(_ brands: [CategoryPageData.FeaturedBrand]) -> some View {
-        VStack(alignment: .leading, spacing: DS.Spacing3) {
-            Text("Featured Brands")
-                .font(.thdH4)
-                .fontWeight(.semibold)
-                .foregroundStyle(DS.TextOnSurfaceColorPrimary)
-                .padding(.horizontal, DS.Spacing4)
-
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: DS.Spacing3) {
-                    ForEach(brands, id: \.brandId) { brand in
-                        Button {
-                            print("Filter by brand: \(brand.brandName)")
-                        } label: {
-                            VStack(spacing: DS.Spacing2) {
-                                // Brand logo placeholder
-                                RoundedRectangle(cornerRadius: DS.Spacing2)
-                                    .fill(Color.white)
-                                    .frame(width: 80, height: 80)
-                                    .overlay(
-                                        Text(brand.brandName)
-                                            .font(.system(size: 12, weight: .bold))
-                                            .foregroundStyle(DS.TextOnSurfaceColorPrimary)
-                                            .multilineTextAlignment(.center)
-                                            .padding(DS.Spacing2)
-                                    )
-                            }
-                        }
-                        .buttonStyle(.plain)
-                    }
-                }
-                .padding(.horizontal, DS.Spacing4)
-            }
         }
     }
 
@@ -674,106 +543,52 @@ struct EnhancedPLPView: View {
     }
 
     // MARK: - Data Loading
-    private func loadCategoryData() {
-        // Load category-specific JSON if available
-        if let filename = category.categoryJSONFilename {
-            categoryData = CategoryDataLoader.shared.loadCategoryData(filename: filename)
-
-            if let data = categoryData {
-                print("✅ Loaded category data from \(filename).json")
-                print("   📊 Total products: \(data.pageInfo.totalResults)")
-                print("   🎨 Style pills: \(data.categoryStyles?.count ?? 0)")
-                print("   🔍 Filters: \(data.filters.count)")
-            }
-        }
-    }
-
     private func loadProducts() {
-        // Load products from JSON if available
-        if let data = categoryData {
-            // Convert JSON products to Product model
-            products = data.products.map { jsonProduct in
-                Product(
-                    id: jsonProduct.productId,
-                    brand: jsonProduct.brand,
-                    name: jsonProduct.title,
-                    modelNumber: jsonProduct.modelNumber,
-                    heroImage: jsonProduct.images.primary,
-                    thumbnailImages: jsonProduct.images.alternate.map { [$0] } ?? [],
-                    additionalImageCount: 0,
-                    currentPrice: Decimal(jsonProduct.price.current),
-                    originalPrice: jsonProduct.price.original.map { Decimal($0) },
-                    savingsPercentage: jsonProduct.price.savingsPercent,
-                    rating: jsonProduct.rating.average,
-                    reviewCount: jsonProduct.rating.count,
-                    isExclusive: jsonProduct.badges.contains(where: { $0.type == "exclusive" }),
-                    promotionalBadge: jsonProduct.badges.first(where: { $0.type == "delivery" })?
-                        .label,
-                    pickupInfo: jsonProduct.availability.inStorePickup
-                        ? FulfillmentInfo(primaryValue: "Available") : nil,
-                    deliveryInfo: jsonProduct.availability.delivery
-                        ? FulfillmentInfo(primaryValue: "Available") : nil,
-                    fasterDeliveryInfo: nil,
-                    internetNumber: nil,
-                    storeSKU: jsonProduct.storeSkuNumber,
-                    isSponsored: false,
-                    availableColors: jsonProduct.images.colorSwatches?.map { swatch in
-                        Product.ProductColor(colorHex: swatch.color, borderColorHex: nil)
-                    },
-                    additionalColorCount: max(0, (jsonProduct.images.colorSwatches?.count ?? 0) - 3)
-                )
+        // Load from pip-datasets.json
+        pipDatasets = PLPDataLoader.shared.loadPIPDatasets()
+
+        // Filter by breadcrumb
+        let filtered = pipDatasets.filter { dataset in
+            dataset.breadcrumbs.contains { breadcrumb in
+                breadcrumb.label.localizedCaseInsensitiveContains(category.breadcrumbFilter)
             }
-
-            print(
-                "📦 Loaded \(products.count) products from \(category.categoryJSONFilename ?? "unknown").json"
-            )
-        } else {
-            // Fallback: Load from pip-datasets.json
-            pipDatasets = PLPDataLoader.shared.loadPIPDatasets()
-
-            // Filter by breadcrumb
-            let filtered = pipDatasets.filter { dataset in
-                dataset.breadcrumbs.contains { breadcrumb in
-                    breadcrumb.label.localizedCaseInsensitiveContains(category.breadcrumbFilter)
-                }
-            }
-
-            // Convert to Product model
-            products = filtered.map { dataset in
-                Product(
-                    id: dataset.productId,
-                    brand: dataset.brand.name,
-                    name: dataset.title,
-                    modelNumber: dataset.identifiers.modelNumber,
-                    heroImage: dataset.media.primaryImage,
-                    thumbnailImages: [],
-                    additionalImageCount: 0,
-                    currentPrice: Decimal(dataset.pricing.currentPrice),
-                    originalPrice: dataset.pricing.originalPrice.map { Decimal($0) },
-                    savingsPercentage: dataset.pricing.savingsPercent,
-                    rating: dataset.rating.average,
-                    reviewCount: dataset.rating.count,
-                    isExclusive: dataset.badges.contains(where: { $0.type == "exclusive" }),
-                    promotionalBadge: dataset.badges.first(where: { $0.type == "delivery" })?.label,
-                    pickupInfo: dataset.availability.inStorePickup.available
-                        ? FulfillmentInfo(primaryValue: "Available") : nil,
-                    deliveryInfo: dataset.availability.delivery.available
-                        ? FulfillmentInfo(primaryValue: "Available") : nil,
-                    fasterDeliveryInfo: nil,
-                    internetNumber: nil,
-                    storeSKU: dataset.identifiers.storeSkuNumber,
-                    isSponsored: false,
-                    availableColors: dataset.variants.compactMap { variant in
-                        guard let swatchUrl = variant.swatchUrl else { return nil }
-                        return Product.ProductColor(
-                            colorHex: variant.variantValue, borderColorHex: nil)
-                    },
-                    additionalColorCount: max(0, dataset.variants.count - 3)
-                )
-            }
-
-            print("📦 Loaded \(products.count) products from pip-datasets.json")
         }
+
+        // Convert to Product model
+        products = filtered.map { dataset in
+            Product(
+                id: dataset.productId,
+                brand: dataset.brand.name,
+                name: dataset.title,
+                modelNumber: dataset.identifiers.modelNumber,
+                heroImage: dataset.media.primaryImage,
+                thumbnailImages: [],
+                additionalImageCount: 0,
+                currentPrice: Decimal(dataset.pricing.currentPrice),
+                originalPrice: dataset.pricing.originalPrice.map { Decimal($0) },
+                savingsPercentage: dataset.pricing.savingsPercent,
+                rating: dataset.rating.average,
+                reviewCount: dataset.rating.count,
+                isExclusive: dataset.badges.contains(where: { $0.type == "exclusive" }),
+                promotionalBadge: dataset.badges.first(where: { $0.type == "delivery" })?.label,
+                pickupInfo: dataset.availability.inStorePickup.available
+                    ? FulfillmentInfo(primaryValue: "Available") : nil,
+                deliveryInfo: dataset.availability.delivery.available
+                    ? FulfillmentInfo(primaryValue: "Available") : nil,
+                fasterDeliveryInfo: nil,
+                internetNumber: nil,
+                storeSKU: dataset.identifiers.storeSkuNumber,
+                isSponsored: false,
+                availableColors: dataset.variants.compactMap { variant in
+                    guard let swatchUrl = variant.swatchUrl else { return nil }
+                    return Product.ProductColor(
+                        colorHex: variant.variantValue, borderColorHex: nil)
+                },
+                additionalColorCount: max(0, dataset.variants.count - 3)
+            )
+        }
+
+        print("📦 Loaded \(products.count) products from pip-datasets.json")
     }
 
     // MARK: - Filter Handlers

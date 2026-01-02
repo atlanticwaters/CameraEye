@@ -9,8 +9,14 @@ private typealias DS = DesignSystemGlobal
 /// Full product detail view with images, specs, and features.
 struct CatalogProductDetailView: View {
     let productId: String
+    let product: OrangeCatalogProduct?
 
     @State private var viewModel = ProductDetailViewModel()
+
+    init(productId: String, product: OrangeCatalogProduct? = nil) {
+        self.productId = productId
+        self.product = product
+    }
 
     var body: some View {
         ScrollView {
@@ -63,31 +69,72 @@ struct CatalogProductDetailView: View {
 
     // MARK: - Image Gallery
 
+    /// Gallery URLs from product (13 images at 600px)
+    private var galleryImageURLs: [URL] {
+        product?.galleryURLs ?? []
+    }
+
+    /// Whether we have multiple gallery images to show
+    private var hasGalleryImages: Bool {
+        galleryImageURLs.count > 1
+    }
+
     @ViewBuilder
     private func imageGallery(detail: OrangeCatalogProductDetail) -> some View {
         VStack(spacing: DS.Spacing3) {
-            // Main Image
-            AsyncImage(url: viewModel.currentImageURL) { phase in
-                switch phase {
-                case .success(let image):
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                case .failure:
-                    Image(systemName: "photo")
-                        .font(.system(size: 60))
-                        .foregroundStyle(DS.IconOnContainerColorInactive)
-                default:
-                    ProgressView()
-                        .scaleEffect(1.5)
+            // Swipeable Image Gallery
+            if hasGalleryImages {
+                TabView(selection: Binding(
+                    get: { viewModel.selectedImageIndex },
+                    set: { viewModel.selectImage(at: $0) }
+                )) {
+                    ForEach(galleryImageURLs.enumerated().map { $0 }, id: \.element) { index, url in
+                        AsyncImage(url: url) { phase in
+                            switch phase {
+                            case .success(let image):
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                            case .failure:
+                                Image(systemName: "photo")
+                                    .font(.system(size: 60))
+                                    .foregroundStyle(DS.IconOnContainerColorInactive)
+                            default:
+                                ProgressView()
+                                    .scaleEffect(1.5)
+                            }
+                        }
+                        .tag(index)
+                    }
                 }
+                .tabViewStyle(.page(indexDisplayMode: .automatic))
+                .frame(height: 300)
+                .frame(maxWidth: .infinity)
+                .background(DS.BackgroundContainerColorWhite)
+            } else {
+                // Single Image or fallback to medium resolution
+                AsyncImage(url: product?.mediumImageURL ?? detail.primaryImageURL) { phase in
+                    switch phase {
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                    case .failure:
+                        Image(systemName: "photo")
+                            .font(.system(size: 60))
+                            .foregroundStyle(DS.IconOnContainerColorInactive)
+                    default:
+                        ProgressView()
+                            .scaleEffect(1.5)
+                    }
+                }
+                .frame(height: 300)
+                .frame(maxWidth: .infinity)
+                .background(DS.BackgroundContainerColorWhite)
             }
-            .frame(height: 300)
-            .frame(maxWidth: .infinity)
-            .background(DS.BackgroundContainerColorWhite)
 
             // Thumbnail Strip
-            if viewModel.hasMultipleImages {
+            if hasGalleryImages {
                 thumbnailStrip
             }
         }
@@ -96,7 +143,7 @@ struct CatalogProductDetailView: View {
     private var thumbnailStrip: some View {
         ScrollView(.horizontal) {
             HStack(spacing: DS.Spacing2) {
-                ForEach(viewModel.allImageURLs.enumerated().map { $0 }, id: \.element) { index, url in
+                ForEach(galleryImageURLs.enumerated().map { $0 }, id: \.element) { index, url in
                     Button {
                         viewModel.selectImage(at: index)
                     } label: {

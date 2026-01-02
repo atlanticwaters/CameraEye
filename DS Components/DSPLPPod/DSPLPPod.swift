@@ -158,7 +158,7 @@ public struct DSPLPPod: View {
     // MARK: - Body
 
     public var body: some View {
-        HStack(alignment: .top, spacing: Layout.containerSpacing) {
+        HStack(alignment: .center, spacing: Layout.containerSpacing) {
             // Image Section
             imageSection
 

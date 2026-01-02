@@ -194,7 +194,7 @@ public struct DSPLPPodImageContainer: View {
 
     @ViewBuilder
     private var heroImageSection: some View {
-        VStack(alignment: .leading, spacing: 0) {
+        VStack(alignment: .center, spacing: 0) {
             Button(action: { onImageTap?() }) {
                 if let image = image {
                     image
@@ -216,6 +216,7 @@ public struct DSPLPPodImageContainer: View {
                     .padding(.top, 4)
             }
         }
+        .frame(maxWidth: .infinity) // Center the VStack within parent
     }
 
     // MARK: - Swatches Section

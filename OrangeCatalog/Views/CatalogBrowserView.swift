@@ -47,7 +47,7 @@ struct CatalogBrowserView: View {
                 )
             }
             .navigationDestination(for: OrangeCatalogProduct.self) { product in
-                CatalogProductDetailView(productId: product.productId)
+                CatalogProductDetailView(productId: product.productId, product: product)
             }
             .refreshable {
                 await viewModel.refreshCategories()

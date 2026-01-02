@@ -168,8 +168,8 @@ struct PLPProductPod: View {
 
     var body: some View {
         Button(action: onTap) {
-            HStack(alignment: .top, spacing: 0) {
-                // Image container with AsyncImage
+            HStack(alignment: .center, spacing: 0) {
+                // Image container with AsyncImage - vertically centered
                 imageContainer
 
                 // Product details section
@@ -202,11 +202,21 @@ struct PLPProductPod: View {
         .buttonStyle(.plain)
     }
 
+    /// Converts a THD image URL to use higher resolution (300px instead of 100px)
+    private var highResImageURL: URL? {
+        // THD images use suffixes like _100.jpg, _300.jpg, _400.jpg, _600.jpg
+        // Replace _100 with _300 for better quality at 145x145 display size
+        let urlString = product.heroImage
+            .replacing("_100.jpg", with: "_300.jpg")
+            .replacing("_100.png", with: "_300.png")
+        return URL(string: urlString)
+    }
+
     @ViewBuilder
     private var imageContainer: some View {
-        ZStack(alignment: .topLeading) {
-            // Product image with AsyncImage
-            AsyncImage(url: URL(string: product.heroImage)) { phase in
+        ZStack {
+            // Product image with AsyncImage - centered and using higher resolution
+            AsyncImage(url: highResImageURL) { phase in
                 switch phase {
                 case .success(let image):
                     image
@@ -221,9 +231,8 @@ struct PLPProductPod: View {
                 }
             }
             .frame(width: 145, height: 145)
-            .background(DS.BackgroundContainerColorGreige)
 
-            // Badges overlay
+            // Badges overlay (top-left)
             if !product.toPLPPodData().badges.isEmpty {
                 VStack(alignment: .leading, spacing: 4) {
                     ForEach(product.toPLPPodData().badges) { badge in
@@ -236,20 +245,26 @@ struct PLPProductPod: View {
                             .foregroundStyle(.white)
                             .clipShape(.rect(cornerRadius: 4))
                     }
+                    Spacer()
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .padding(8)
             }
 
-            // Sponsored tag
+            // Sponsored tag (top-right)
             if product.isSponsored {
-                Text("Sponsored")
-                    .font(.caption2)
-                    .foregroundStyle(DS.TextOnContainerColorSecondary)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .padding(8)
+                VStack {
+                    Text("Sponsored")
+                        .font(.caption2)
+                        .foregroundStyle(DS.TextOnContainerColorSecondary)
+                    Spacer()
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                .padding(8)
             }
         }
-        .frame(width: 145)
+        .frame(width: 145, height: 145)
+        .background(DS.BackgroundContainerColorGreige)
     }
 
     private func badgeColor(for color: DSPLPPodBadge.BadgeColor) -> Color {
@@ -292,8 +307,8 @@ struct PLPView: View {
     // MARK: - State
     @State private var products: [Product] = []
     @State private var pipDatasets: [PIPDataset] = []
-    @State private var categoryData: CategoryPageData? = nil // Store full category data
     @State private var orangeCatalogProducts: [OrangeCatalogProduct] = [] // Store raw OrangeCatalog products for dynamic pills
+    @State private var subcategoryFilters: [OrangeCatalogCategory.SubcategoryFilter] = [] // Subcategory filters from filterOptions
     @State private var selectedStylePill: String? = nil
     @State private var selectedStylePillId: String? = nil // Tracks selected subcategory ID for filtering
     @State private var selectedFilterPills: Set<String> = []
@@ -308,22 +323,52 @@ struct PLPView: View {
     // MARK: - Configuration
     let category: PLPCategory
     
-    // Computed properties based on category or JSON data
+    // Computed properties based on category
     private var categoryTitle: String {
-        // Use JSON data if available, otherwise use category title
-        categoryData?.pageInfo.categoryName.uppercased() ?? category.title
+        category.title
     }
     
-    /// Dynamically generates style pills from OrangeCatalog subcategories with product images
+    /// Dynamically generates style pills from filterOptions.subcategories or product subcategories
     private var stylePills: [DSStylePillItem] {
-        // If we have OrangeCatalog products, generate style pills from unique subcategories
-        guard !orangeCatalogProducts.isEmpty else {
+        // Priority 1: Use subcategory filters from filterOptions (new _all.json format)
+        // BUT only if we're at a leaf category (no subcategoryFilter means we're viewing all subcategories)
+        // OR if the subcategory filters are relevant to this category (not parent-level categories)
+        if !subcategoryFilters.isEmpty && category.subcategoryFilter == nil {
+            // No subcategoryFilter means we're viewing a category with its own _all.json
+            // (like appliances/refrigerators, tools/drills) - use the filterOptions
+            print("🎯 Generating style pills from \(subcategoryFilters.count) subcategory filters (leaf category)")
+            return subcategoryFilters.prefix(8).map { filter in
+                // Find a product image for this subcategory
+                let matchingProduct = orangeCatalogProducts.first { product in
+                    product.subcategory?.localizedStandardContains(filter.name) ?? false
+                }
+
+                // Format text with line break and product count
+                let formattedText = formatSubcategoryName(filter.name)
+
+                print("   📍 Filter: \(filter.name) (\(filter.slug)) - Image: \(matchingProduct?.imageUrl ?? "none")")
+
+                return DSStylePillItem(
+                    id: filter.slug,
+                    text: formattedText,
+                    image: nil,
+                    imageURL: matchingProduct?.imageUrl
+                )
+            }
+        }
+
+        // Priority 2: Generate from OrangeCatalog product subcategories (for filtered views)
+        let productsForPills = filteredOrangeCatalogProducts
+        guard !productsForPills.isEmpty else {
+            print("🎯 Using static category.stylePills (subcategoryFilters: \(subcategoryFilters.count), products: \(productsForPills.count))")
             return category.stylePills // Fallback to static pills while loading
         }
 
+        print("🎯 Generating style pills from \(productsForPills.count) products")
+
         // Group products by subcategory
         var subcategoryGroups: [String: [OrangeCatalogProduct]] = [:]
-        for product in orangeCatalogProducts {
+        for product in productsForPills {
             let subcategory = product.subcategory ?? "Other"
             subcategoryGroups[subcategory, default: []].append(product)
         }
@@ -360,16 +405,29 @@ struct PLPView: View {
         return name
     }
     
+    /// Returns the filtered products respecting subcategoryFilter for dynamic pill generation
+    private var filteredOrangeCatalogProducts: [OrangeCatalogProduct] {
+        guard !orangeCatalogProducts.isEmpty else { return [] }
+
+        if let subcategoryFilter = category.subcategoryFilter {
+            return orangeCatalogProducts.filter { product in
+                product.subcategory?.localizedStandardContains(subcategoryFilter) ?? false
+            }
+        }
+        return orangeCatalogProducts
+    }
+
     /// Dynamically generates filter pills based on available data
     private var filterPills: [DSFilterPillItem] {
         // Generate dynamic filters from OrangeCatalog products
-        if !orangeCatalogProducts.isEmpty {
+        let productsForFilters = filteredOrangeCatalogProducts
+        if !productsForFilters.isEmpty {
             var pills: [DSFilterPillItem] = [
                 DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle"))
             ]
 
             // Extract unique brands for Brand filter
-            let uniqueBrands = Set(orangeCatalogProducts.compactMap { $0.brand })
+            let uniqueBrands = Set(productsForFilters.compactMap { $0.brand })
             if !uniqueBrands.isEmpty {
                 pills.append(DSFilterPillItem(text: "Brand"))
             }
@@ -378,7 +436,7 @@ struct PLPView: View {
             pills.append(DSFilterPillItem(text: "Price"))
 
             // Add rating filter if products have ratings
-            let hasRatings = orangeCatalogProducts.contains { $0.ratingAverage != nil }
+            let hasRatings = productsForFilters.contains { $0.ratingAverage != nil }
             if hasRatings {
                 pills.append(DSFilterPillItem(text: "Rating"))
             }
@@ -393,23 +451,24 @@ struct PLPView: View {
     /// Dynamically generates sub-filter pills based on available data
     private var subFilterPills: [DSFilterPillItem] {
         // Generate dynamic quick filters from OrangeCatalog products
-        if !orangeCatalogProducts.isEmpty {
+        let productsForFilters = filteredOrangeCatalogProducts
+        if !productsForFilters.isEmpty {
             var pills: [DSFilterPillItem] = []
 
             // Check for in-stock products
-            let inStockCount = orangeCatalogProducts.filter { $0.inStock }.count
+            let inStockCount = productsForFilters.filter { $0.inStock }.count
             if inStockCount > 0 {
                 pills.append(DSFilterPillItem(text: "In Stock (\(inStockCount))"))
             }
 
             // Check for products on sale
-            let onSaleCount = orangeCatalogProducts.filter { $0.savingsPercentage != nil }.count
+            let onSaleCount = productsForFilters.filter { $0.savingsPercentage != nil }.count
             if onSaleCount > 0 {
                 pills.append(DSFilterPillItem(text: "On Sale (\(onSaleCount))"))
             }
 
             // Check for highly rated products
-            let topRatedCount = orangeCatalogProducts.filter { ($0.ratingAverage ?? 0) >= 4.0 }.count
+            let topRatedCount = productsForFilters.filter { ($0.ratingAverage ?? 0) >= 4.0 }.count
             if topRatedCount > 0 {
                 pills.append(DSFilterPillItem(text: "Top Rated (\(topRatedCount))"))
             }
@@ -593,12 +652,30 @@ struct PLPView: View {
     private var sortedAndFilteredProducts: [Product] {
         // If we have OrangeCatalog data and a style pill is selected, filter by subcategory
         if !orangeCatalogProducts.isEmpty, let selectedId = selectedStylePillId {
-            // Filter OrangeCatalog products by subcategory and convert to Product
-            let filteredOrangeProducts = orangeCatalogProducts.filter { product in
-                let subcategory = product.subcategory ?? "Other"
-                return subcategory == selectedId
+            let filteredOrangeProducts: [OrangeCatalogProduct]
+
+            // Determine filtering strategy based on category type:
+            // - Leaf categories (subcategoryFilter == nil): Pills use slugs from filterOptions
+            // - Filtered categories (subcategoryFilter != nil): Pills use subcategory names from products
+            if category.subcategoryFilter == nil, !subcategoryFilters.isEmpty {
+                // Slug-based filtering for leaf categories with filterOptions
+                if let filter = subcategoryFilters.first(where: { $0.slug == selectedId }) {
+                    filteredOrangeProducts = orangeCatalogProducts.filter { product in
+                        product.subcategory?.localizedStandardContains(filter.name) ?? false
+                    }
+                    print("🔖 Slug filter '\(selectedId)' → '\(filter.name)' applied: \(orangeCatalogProducts.count) → \(filteredOrangeProducts.count) products")
+                } else {
+                    filteredOrangeProducts = orangeCatalogProducts
+                    print("🔖 Unknown slug '\(selectedId)' - showing all products")
+                }
+            } else {
+                // Name-based filtering for filtered categories or product-derived pills
+                filteredOrangeProducts = orangeCatalogProducts.filter { product in
+                    let subcategory = product.subcategory ?? "Other"
+                    return subcategory == selectedId
+                }
+                print("🔖 Subcategory filter '\(selectedId)' applied: \(orangeCatalogProducts.count) → \(filteredOrangeProducts.count) products")
             }
-            print("🔖 Subcategory filter '\(selectedId)' applied: \(orangeCatalogProducts.count) → \(filteredOrangeProducts.count) products")
             return filteredOrangeProducts.map { $0.toProduct() }
         }
 
@@ -759,31 +836,7 @@ struct PLPView: View {
             return
         }
 
-        // Priority 2: Check if we have a category-specific JSON file
-        if let jsonFilename = category.categoryJSONFilename,
-           let loadedCategoryData = CategoryDataLoader.shared.loadCategoryData(filename: jsonFilename) {
-            // Store the category data for use in views
-            categoryData = loadedCategoryData
-
-            // Load products from category JSON file
-            products = loadedCategoryData.products.map { $0.toProduct() }
-            print("📦 Loaded \(products.count) products from \(jsonFilename).json")
-            print("   📊 Total results from JSON: \(loadedCategoryData.pageInfo.totalResults)")
-            print("   🎨 Featured brands: \(loadedCategoryData.featuredBrands.count)")
-            print("   🔍 Filters available: \(loadedCategoryData.filters.count)")
-            print("   ⚡️ Quick filters: \(loadedCategoryData.quickFilters.count)")
-
-            // Debug: Log sample product image URLs
-            if let firstProduct = products.first {
-                print("🖼️ Sample product hero image URL: \(firstProduct.heroImage)")
-                print("   Brand: \(firstProduct.brand)")
-                print("   Name: \(firstProduct.name)")
-            }
-            isLoading = false
-            return
-        }
-
-        // Priority 3: Load from pip-datasets.json
+        // Fallback: Load from pip-datasets.json
         pipDatasets = PLPDataLoader.shared.loadPIPDatasets()
 
         // Filter by category breadcrumb
@@ -812,9 +865,9 @@ struct PLPView: View {
         isLoading = false
     }
 
-    /// Loads products from the OrangeCatalog remote API.
+    /// Loads products from the OrangeCatalog remote API using new _all.json endpoint.
     private func loadFromOrangeCatalog(slug: String) async {
-        let apiURL = "https://raw.githubusercontent.com/atlanticwaters/Orange-Catalog/main/production%20data/categories/\(slug).json"
+        let apiURL = "https://raw.githubusercontent.com/atlanticwaters/Orange-Catalog/main/production%20data/categories/\(slug)/_all.json"
         print("🍊 Loading products from OrangeCatalog API for slug: \(slug)")
         print("🌐 Fetching: \(apiURL)")
 
@@ -822,6 +875,21 @@ struct PLPView: View {
             // Use fetchCategoryFresh to bypass cache and get latest data from GitHub
             let orangeCategory = try await CatalogService.shared.fetchCategoryFresh(slug: slug)
             print("🍊 Category loaded: \(orangeCategory.name), hasProducts: \(orangeCategory.hasProductData)")
+
+            // Store subcategory filters from filterOptions (new _all.json format)
+            if let filters = orangeCategory.subcategories {
+                subcategoryFilters = filters
+                print("📋 Loaded \(filters.count) subcategory filters from filterOptions:")
+                for filter in filters.prefix(5) {
+                    print("   - \(filter.name) (\(filter.slug)): \(filter.productCount) products")
+                }
+                if filters.count > 5 {
+                    print("   ... and \(filters.count - 5) more")
+                }
+            } else {
+                subcategoryFilters = []
+                print("📋 No subcategory filters in filterOptions")
+            }
 
             if let allOrangeProducts = orangeCategory.products {
                 print("🍊 Raw products from API: \(allOrangeProducts.count)")
@@ -835,9 +903,9 @@ struct PLPView: View {
                     print("   - Image URL: \(first.imageUrl ?? "nil")")
                 }
 
-                // Debug: Show unique subcategories
+                // Debug: Show unique subcategories from products
                 let uniqueSubcats = Set(allOrangeProducts.compactMap { $0.subcategory })
-                print("📂 Subcategories in data (\(uniqueSubcats.count)): \(uniqueSubcats.sorted().joined(separator: ", "))")
+                print("📂 Subcategories in products (\(uniqueSubcats.count)): \(uniqueSubcats.sorted().joined(separator: ", "))")
 
                 // Store ALL products for dynamic style pill generation
                 orangeCatalogProducts = allOrangeProducts
@@ -884,7 +952,6 @@ struct PLPCategory {
     let stylePills: [DSStylePillItem]
     let filterPills: [DSFilterPillItem]
     let subFilterPills: [DSFilterPillItem]
-    let categoryJSONFilename: String?  // Optional category JSON file (local)
     let orangeCatalogSlug: String?     // Optional OrangeCatalog API slug (remote)
     let subcategoryFilter: String?     // Optional filter for OrangeCatalog subcategory field
 
@@ -894,7 +961,6 @@ struct PLPCategory {
         stylePills: [DSStylePillItem],
         filterPills: [DSFilterPillItem],
         subFilterPills: [DSFilterPillItem],
-        categoryJSONFilename: String? = nil,
         orangeCatalogSlug: String? = nil,
         subcategoryFilter: String? = nil
     ) {
@@ -903,7 +969,6 @@ struct PLPCategory {
         self.stylePills = stylePills
         self.filterPills = filterPills
         self.subFilterPills = subFilterPills
-        self.categoryJSONFilename = categoryJSONFilename
         self.orangeCatalogSlug = orangeCatalogSlug
         self.subcategoryFilter = subcategoryFilter
     }
@@ -937,7 +1002,6 @@ struct PLPCategory {
             stylePills: stylePills,
             filterPills: filterPills,
             subFilterPills: [],
-            categoryJSONFilename: nil,
             orangeCatalogSlug: summary.slug
         )
     }
@@ -998,1018 +1062,320 @@ struct PLPCategory {
     }
     
     // MARK: - Refrigerators Category
-    /// Uses OrangeCatalog API to load refrigerator products
-    static let refrigerators: PLPCategory = {
-        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "french-door-refrigerators") else {
-            // Fallback - still use OrangeCatalog API
-            return PLPCategory(
-                title: "REFRIGERATORS",
-                breadcrumbFilter: "Refrigerator",
-                stylePills: [
-                    DSStylePillItem(text: "French Door\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
-                    DSStylePillItem(text: "Side by Side\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
-                    DSStylePillItem(text: "Top Freezer\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
-                    DSStylePillItem(text: "Bottom Freezer\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
-                    DSStylePillItem(text: "Counter Depth\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
-                    DSStylePillItem(text: "Mini Fridges", image: Image(systemName: "refrigerator.fill"))
-                ],
-                filterPills: [
-                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                    DSFilterPillItem(text: "Brand"),
-                    DSFilterPillItem(text: "Price"),
-                    DSFilterPillItem(text: "Capacity (cu. ft.)")
-                ],
-                subFilterPills: [
-                    DSFilterPillItem(text: "In Stock At Store Today"),
-                    DSFilterPillItem(text: "Free 1-2 Day Delivery")
-                ],
-                orangeCatalogSlug: "appliances",
-                subcategoryFilter: "Refrigerator"
-            )
-        }
-        
-        // Create style pills from refrigeratorStyles data with real product images!
-        let stylePills: [DSStylePillItem]
-        if let refrigeratorStyles = categoryData.refrigeratorStyles {
-            stylePills = CategoryDataLoader.shared.createStylePills(from: refrigeratorStyles)
-        } else {
-            // Fallback with placeholder images
-            stylePills = [
-                DSStylePillItem(text: "French Door\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
-                DSStylePillItem(text: "Side by Side\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
-                DSStylePillItem(text: "Top Freezer\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
-                DSStylePillItem(text: "Bottom Freezer\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
-                DSStylePillItem(text: "Counter Depth\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
-                DSStylePillItem(text: "Mini Fridges", image: Image(systemName: "refrigerator.fill"))
-            ]
-        }
-        
-        print("🎨 Created \(stylePills.count) style pills from category data")
-        stylePills.forEach { pill in
-            if let imageURL = pill.imageURL {
-                print("   ✅ \(pill.text): \(imageURL)")
-            } else {
-                print("   ⚠️ \(pill.text): No image URL (using fallback)")
-            }
-        }
-        
-        return PLPCategory(
-            title: categoryData.pageInfo.categoryName.uppercased(),
-            breadcrumbFilter: "French Door",
-            stylePills: stylePills,
-            filterPills: [
-                DSFilterPillItem(
-                    text: "All Filters",
-                    icon: Image(systemName: "line.3.horizontal.decrease.circle")
-                ),
-                DSFilterPillItem(text: "Brand"),
-                DSFilterPillItem(text: "Price"),
-                DSFilterPillItem(text: "Capacity (cu. ft.)"),
-                DSFilterPillItem(text: "Number of Doors"),
-                DSFilterPillItem(text: "Features")
-            ],
-            subFilterPills: [
-                DSFilterPillItem(text: "Counter Depth"),
-                DSFilterPillItem(text: "30 Inch Wide"),
-                DSFilterPillItem(text: "Smart Enabled"),
-                DSFilterPillItem(text: "Top Seller"),
-                DSFilterPillItem(text: "Special Buy"),
-                DSFilterPillItem(text: "ENERGY STAR")
-            ],
-            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
-            orangeCatalogSlug: "appliances",
-            subcategoryFilter: "Refrigerator"
-        )
-    }()
+    /// Uses OrangeCatalog API to load refrigerator products from nested path
+    static let refrigerators = PLPCategory(
+        title: "REFRIGERATORS",
+        breadcrumbFilter: "Refrigerators",
+        stylePills: [
+            DSStylePillItem(text: "French Door\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
+            DSStylePillItem(text: "Side by Side\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
+            DSStylePillItem(text: "Top Freezer\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
+            DSStylePillItem(text: "Bottom Freezer\nRefrigerators", image: Image(systemName: "refrigerator.fill")),
+            DSStylePillItem(text: "Freezers", image: Image(systemName: "snowflake"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Price"),
+            DSFilterPillItem(text: "Capacity (cu. ft.)")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock At Store Today"),
+            DSFilterPillItem(text: "Free 1-2 Day Delivery")
+        ],
+        orangeCatalogSlug: "appliances/refrigerators",
+        subcategoryFilter: nil  // Show all products (Refrigerators + Freezers)
+    )
+
+    // MARK: - Washers & Dryers Category
+    /// Uses OrangeCatalog API to load washer and dryer products (combined category)
+    static let washersAndDryers = PLPCategory(
+        title: "WASHERS & DRYERS",
+        breadcrumbFilter: "Washers Dryers",
+        stylePills: [
+            DSStylePillItem(text: "Front Load\nWashers", image: Image(systemName: "washer.fill")),
+            DSStylePillItem(text: "Top Load\nWashers", image: Image(systemName: "washer.fill")),
+            DSStylePillItem(text: "Electric\nDryers", image: Image(systemName: "dryer.fill")),
+            DSStylePillItem(text: "Gas\nDryers", image: Image(systemName: "dryer.fill")),
+            DSStylePillItem(text: "Washer-Dryer\nCombos", image: Image(systemName: "washer.fill"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Price"),
+            DSFilterPillItem(text: "Capacity (cu. ft.)")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock At Store Today"),
+            DSFilterPillItem(text: "Free 1-2 Day Delivery")
+        ],
+        orangeCatalogSlug: "appliances",
+        subcategoryFilter: "Washers Dryers"
+    )
 
     // MARK: - Dishwashers Category
-    static let dishwashers: PLPCategory = {
-        // Try to load from dishwashers.json if it exists
-        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "dishwashers") else {
-            // Fallback - still use OrangeCatalog API
-            return PLPCategory(
-                title: "DISHWASHERS",
-                breadcrumbFilter: "Dishwasher",
-                stylePills: [
-                    DSStylePillItem(text: "Built-In\nDishwashers", image: Image(systemName: "dishwasher.fill")),
-                    DSStylePillItem(text: "Portable\nDishwashers", image: Image(systemName: "dishwasher.fill")),
-                    DSStylePillItem(text: "Drawer\nDishwashers", image: Image(systemName: "dishwasher.fill")),
-                    DSStylePillItem(text: "Panel Ready\nDishwashers", image: Image(systemName: "dishwasher.fill"))
-                ],
-                filterPills: [
-                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                    DSFilterPillItem(text: "Brand"),
-                    DSFilterPillItem(text: "Width"),
-                    DSFilterPillItem(text: "Color/Finish"),
-                    DSFilterPillItem(text: "Tub Material"),
-                    DSFilterPillItem(text: "Noise Level (dBA)"),
-                    DSFilterPillItem(text: "Smart Enabled"),
-                    DSFilterPillItem(text: "Third Rack")
-                ],
-                subFilterPills: [
-                    DSFilterPillItem(text: "In Stock At Store Today"),
-                    DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-                    DSFilterPillItem(text: "Get It Fast"),
-                    DSFilterPillItem(text: "Special Buy"),
-                    DSFilterPillItem(text: "Energy Star")
-                ],
-                orangeCatalogSlug: "appliances",
-                subcategoryFilter: "Dishwasher"
-            )
-        }
-        
-        // Load style pills from JSON
-        let stylePills: [DSStylePillItem]
-        if let categoryStyles = categoryData.categoryStyles {
-            stylePills = CategoryDataLoader.shared.createStylePills(from: categoryStyles, fallbackIcon: "dishwasher.fill")
-        } else {
-            // Fallback with placeholder images
-            stylePills = [
-                DSStylePillItem(text: "Built-In\nDishwashers", image: Image(systemName: "dishwasher.fill")),
-                DSStylePillItem(text: "Portable\nDishwashers", image: Image(systemName: "dishwasher.fill")),
-                DSStylePillItem(text: "Drawer\nDishwashers", image: Image(systemName: "dishwasher.fill")),
-                DSStylePillItem(text: "Panel Ready\nDishwashers", image: Image(systemName: "dishwasher.fill"))
-            ]
-        }
-        
-        print("🎨 Created \(stylePills.count) style pills from dishwashers.json")
-        
-        return PLPCategory(
-            title: categoryData.pageInfo.categoryName.uppercased(),
-            breadcrumbFilter: "Dishwasher",
-            stylePills: stylePills,
-            filterPills: [
-                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                DSFilterPillItem(text: "Brand"),
-                DSFilterPillItem(text: "Width"),
-                DSFilterPillItem(text: "Color/Finish"),
-                DSFilterPillItem(text: "Tub Material"),
-                DSFilterPillItem(text: "Noise Level (dBA)"),
-                DSFilterPillItem(text: "Smart Enabled"),
-                DSFilterPillItem(text: "Third Rack")
-            ],
-            subFilterPills: [
-                DSFilterPillItem(text: "In Stock At Store Today"),
-                DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-                DSFilterPillItem(text: "Get It Fast"),
-                DSFilterPillItem(text: "Special Buy"),
-                DSFilterPillItem(text: "Energy Star")
-            ],
-            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
-            orangeCatalogSlug: "appliances",
-            subcategoryFilter: "Dishwasher"
-        )
-    }()
+    static let dishwashers = PLPCategory(
+        title: "DISHWASHERS",
+        breadcrumbFilter: "Dishwashers",
+        stylePills: [
+            DSStylePillItem(text: "Built-In\nDishwashers", image: Image(systemName: "dishwasher.fill")),
+            DSStylePillItem(text: "Portable\nDishwashers", image: Image(systemName: "dishwasher.fill")),
+            DSStylePillItem(text: "Drawer\nDishwashers", image: Image(systemName: "dishwasher.fill")),
+            DSStylePillItem(text: "Panel Ready\nDishwashers", image: Image(systemName: "dishwasher.fill"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Width"),
+            DSFilterPillItem(text: "Color/Finish"),
+            DSFilterPillItem(text: "Tub Material"),
+            DSFilterPillItem(text: "Noise Level (dBA)"),
+            DSFilterPillItem(text: "Smart Enabled"),
+            DSFilterPillItem(text: "Third Rack")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock At Store Today"),
+            DSFilterPillItem(text: "Free 1-2 Day Delivery"),
+            DSFilterPillItem(text: "Get It Fast"),
+            DSFilterPillItem(text: "Special Buy"),
+            DSFilterPillItem(text: "Energy Star")
+        ],
+        orangeCatalogSlug: "appliances",
+        subcategoryFilter: "Dishwashers"
+    )
 
-    // MARK: - Washing Machines Category
-    static let washingMachines: PLPCategory = {
-        // Try to load from washing-machines.json if it exists
-        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "washing-machines") else {
-            // Fallback - still use OrangeCatalog API
-            return PLPCategory(
-                title: "WASHING MACHINES",
-                breadcrumbFilter: "Washing Machine",
-                stylePills: [
-                    DSStylePillItem(text: "Front Load\nWashers", image: Image(systemName: "washer.fill")),
-                    DSStylePillItem(text: "Top Load\nWashers", image: Image(systemName: "washer.fill")),
-                    DSStylePillItem(text: "High Efficiency\nWashers", image: Image(systemName: "washer.fill")),
-                    DSStylePillItem(text: "Portable\nWashers", image: Image(systemName: "washer.fill")),
-                    DSStylePillItem(text: "Washer-Dryer\nCombos", image: Image(systemName: "washer.fill"))
-                ],
-                filterPills: [
-                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                    DSFilterPillItem(text: "Brand"),
-                    DSFilterPillItem(text: "Capacity (cu. ft.)"),
-                    DSFilterPillItem(text: "Color/Finish"),
-                    DSFilterPillItem(text: "Washer Type"),
-                    DSFilterPillItem(text: "Smart Enabled"),
-                    DSFilterPillItem(text: "Energy Star"),
-                    DSFilterPillItem(text: "Steam Cycle")
-                ],
-                subFilterPills: [
-                    DSFilterPillItem(text: "In Stock At Store Today"),
-                    DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-                    DSFilterPillItem(text: "Get It Fast"),
-                    DSFilterPillItem(text: "Special Buy"),
-                    DSFilterPillItem(text: "Best Seller")
-                ],
-                orangeCatalogSlug: "appliances",
-                subcategoryFilter: "Washer"
-            )
-        }
-        
-        // Load style pills from JSON
-        let stylePills: [DSStylePillItem]
-        if let categoryStyles = categoryData.categoryStyles {
-            stylePills = CategoryDataLoader.shared.createStylePills(from: categoryStyles, fallbackIcon: "washer.fill")
-        } else {
-            // Fallback with placeholder images
-            stylePills = [
-                DSStylePillItem(text: "Front Load\nWashers", image: Image(systemName: "washer.fill")),
-                DSStylePillItem(text: "Top Load\nWashers", image: Image(systemName: "washer.fill")),
-                DSStylePillItem(text: "High Efficiency\nWashers", image: Image(systemName: "washer.fill")),
-                DSStylePillItem(text: "Portable\nWashers", image: Image(systemName: "washer.fill")),
-                DSStylePillItem(text: "Washer-Dryer\nCombos", image: Image(systemName: "washer.fill"))
-            ]
-        }
-        
-        print("🎨 Created \(stylePills.count) style pills from washing-machines.json")
-        
-        return PLPCategory(
-            title: categoryData.pageInfo.categoryName.uppercased(),
-            breadcrumbFilter: "Washing Machine",
-            stylePills: stylePills,
-            filterPills: [
-                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                DSFilterPillItem(text: "Brand"),
-                DSFilterPillItem(text: "Capacity (cu. ft.)"),
-                DSFilterPillItem(text: "Color/Finish"),
-                DSFilterPillItem(text: "Washer Type"),
-                DSFilterPillItem(text: "Smart Enabled"),
-                DSFilterPillItem(text: "Energy Star"),
-                DSFilterPillItem(text: "Steam Cycle")
-            ],
-            subFilterPills: [
-                DSFilterPillItem(text: "In Stock At Store Today"),
-                DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-                DSFilterPillItem(text: "Get It Fast"),
-                DSFilterPillItem(text: "Special Buy"),
-                DSFilterPillItem(text: "Best Seller")
-            ],
-            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
-            orangeCatalogSlug: "appliances",
-            subcategoryFilter: "Washer"
-        )
-    }()
-    
-    // MARK: - Dryers Category
-    static let dryers: PLPCategory = {
-        // Try to load from dryers.json if it exists
-        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "dryers") else {
-            // Fallback - still use OrangeCatalog API
-            return PLPCategory(
-                title: "DRYERS",
-                breadcrumbFilter: "Dryer",
-                stylePills: [
-                    DSStylePillItem(text: "Electric\nDryers", image: Image(systemName: "dryer.fill")),
-                    DSStylePillItem(text: "Gas\nDryers", image: Image(systemName: "dryer.fill")),
-                    DSStylePillItem(text: "Ventless\nDryers", image: Image(systemName: "dryer.fill")),
-                    DSStylePillItem(text: "Portable\nDryers", image: Image(systemName: "dryer.fill"))
-                ],
-                filterPills: [
-                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                    DSFilterPillItem(text: "Brand"),
-                    DSFilterPillItem(text: "Capacity (cu. ft.)"),
-                    DSFilterPillItem(text: "Color/Finish"),
-                    DSFilterPillItem(text: "Fuel Type"),
-                    DSFilterPillItem(text: "Smart Enabled"),
-                    DSFilterPillItem(text: "Energy Star"),
-                    DSFilterPillItem(text: "Steam Cycle")
-                ],
-                subFilterPills: [
-                    DSFilterPillItem(text: "In Stock At Store Today"),
-                    DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-                    DSFilterPillItem(text: "Get It Fast"),
-                    DSFilterPillItem(text: "Special Buy")
-                ],
-                orangeCatalogSlug: "appliances",
-                subcategoryFilter: "Dryer"
-            )
-        }
-        
-        // Load style pills from JSON
-        let stylePills: [DSStylePillItem]
-        if let categoryStyles = categoryData.categoryStyles {
-            stylePills = CategoryDataLoader.shared.createStylePills(from: categoryStyles, fallbackIcon: "dryer.fill")
-        } else {
-            // Fallback with placeholder images
-            stylePills = [
-                DSStylePillItem(text: "Electric\nDryers", image: Image(systemName: "dryer.fill")),
-                DSStylePillItem(text: "Gas\nDryers", image: Image(systemName: "dryer.fill")),
-                DSStylePillItem(text: "Ventless\nDryers", image: Image(systemName: "dryer.fill")),
-                DSStylePillItem(text: "Portable\nDryers", image: Image(systemName: "dryer.fill"))
-            ]
-        }
-        
-        print("🎨 Created \(stylePills.count) style pills from dryers.json")
-        
-        return PLPCategory(
-            title: categoryData.pageInfo.categoryName.uppercased(),
-            breadcrumbFilter: "Dryer",
-            stylePills: stylePills,
-            filterPills: [
-                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                DSFilterPillItem(text: "Brand"),
-                DSFilterPillItem(text: "Capacity (cu. ft.)"),
-                DSFilterPillItem(text: "Color/Finish"),
-                DSFilterPillItem(text: "Fuel Type"),
-                DSFilterPillItem(text: "Smart Enabled"),
-                DSFilterPillItem(text: "Energy Star"),
-                DSFilterPillItem(text: "Steam Cycle")
-            ],
-            subFilterPills: [
-                DSFilterPillItem(text: "In Stock At Store Today"),
-                DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-                DSFilterPillItem(text: "Get It Fast"),
-                DSFilterPillItem(text: "Special Buy")
-            ],
-            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
-            orangeCatalogSlug: "appliances",
-            subcategoryFilter: "Dryer"
-        )
-    }()
-    
+    // NOTE: Washing Machines and Dryers are now combined in the "Washers Dryers" subcategory
+    // Use .washersAndDryers category instead of separate washingMachines/dryers categories
+
     // MARK: - Ranges Category
-    static let ranges: PLPCategory = {
-        // Try to load from ranges.json if it exists
-        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "ranges") else {
-            // Fallback - still use OrangeCatalog API
-            return PLPCategory(
-                title: "RANGES",
-                breadcrumbFilter: "Range",
-                stylePills: [
-                    DSStylePillItem(text: "Gas\nRanges", image: Image(systemName: "flame.fill")),
-                    DSStylePillItem(text: "Electric\nRanges", image: Image(systemName: "bolt.fill")),
-                    DSStylePillItem(text: "Dual Fuel\nRanges", image: Image(systemName: "flame.fill")),
-                    DSStylePillItem(text: "Induction\nRanges", image: Image(systemName: "bolt.circle.fill")),
-                    DSStylePillItem(text: "Slide-In\nRanges", image: Image(systemName: "rectangle.inset.filled"))
-                ],
-                filterPills: [
-                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                    DSFilterPillItem(text: "Brand"),
-                    DSFilterPillItem(text: "Width"),
-                    DSFilterPillItem(text: "Color/Finish"),
-                    DSFilterPillItem(text: "Fuel Type"),
-                    DSFilterPillItem(text: "Oven Type"),
-                    DSFilterPillItem(text: "Smart Enabled"),
-                    DSFilterPillItem(text: "Self-Cleaning")
-                ],
-                subFilterPills: [
-                    DSFilterPillItem(text: "In Stock At Store Today"),
-                    DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-                    DSFilterPillItem(text: "Get It Fast"),
-                    DSFilterPillItem(text: "Special Buy"),
-                    DSFilterPillItem(text: "Best Seller")
-                ],
-                orangeCatalogSlug: "appliances",
-                subcategoryFilter: "Range"
-            )
-        }
-        
-        // Load style pills from JSON
-        let stylePills: [DSStylePillItem]
-        if let categoryStyles = categoryData.categoryStyles {
-            stylePills = CategoryDataLoader.shared.createStylePills(from: categoryStyles, fallbackIcon: "flame.fill")
-        } else {
-            // Fallback with placeholder images
-            stylePills = [
-                DSStylePillItem(text: "Gas\nRanges", image: Image(systemName: "flame.fill")),
-                DSStylePillItem(text: "Electric\nRanges", image: Image(systemName: "bolt.fill")),
-                DSStylePillItem(text: "Dual Fuel\nRanges", image: Image(systemName: "flame.fill")),
-                DSStylePillItem(text: "Induction\nRanges", image: Image(systemName: "bolt.circle.fill")),
-                DSStylePillItem(text: "Slide-In\nRanges", image: Image(systemName: "rectangle.inset.filled"))
-            ]
-        }
-        
-        print("🎨 Created \(stylePills.count) style pills from ranges.json")
-        
-        return PLPCategory(
-            title: categoryData.pageInfo.categoryName.uppercased(),
-            breadcrumbFilter: "Range",
-            stylePills: stylePills,
-            filterPills: [
-                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                DSFilterPillItem(text: "Brand"),
-                DSFilterPillItem(text: "Width"),
-                DSFilterPillItem(text: "Color/Finish"),
-                DSFilterPillItem(text: "Fuel Type"),
-                DSFilterPillItem(text: "Oven Type"),
-                DSFilterPillItem(text: "Smart Enabled"),
-                DSFilterPillItem(text: "Self-Cleaning")
-            ],
-            subFilterPills: [
-                DSFilterPillItem(text: "In Stock At Store Today"),
-                DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-                DSFilterPillItem(text: "Get It Fast"),
-                DSFilterPillItem(text: "Special Buy"),
-                DSFilterPillItem(text: "Best Seller")
-            ],
-            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
-            orangeCatalogSlug: "appliances",
-            subcategoryFilter: "Range"
-        )
-    }()
-    
+    static let ranges = PLPCategory(
+        title: "RANGES",
+        breadcrumbFilter: "Ranges",
+        stylePills: [
+            DSStylePillItem(text: "Gas\nRanges", image: Image(systemName: "flame.fill")),
+            DSStylePillItem(text: "Electric\nRanges", image: Image(systemName: "bolt.fill")),
+            DSStylePillItem(text: "Dual Fuel\nRanges", image: Image(systemName: "flame.fill")),
+            DSStylePillItem(text: "Induction\nRanges", image: Image(systemName: "bolt.circle.fill")),
+            DSStylePillItem(text: "Slide-In\nRanges", image: Image(systemName: "rectangle.inset.filled"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Width"),
+            DSFilterPillItem(text: "Color/Finish"),
+            DSFilterPillItem(text: "Fuel Type"),
+            DSFilterPillItem(text: "Oven Type"),
+            DSFilterPillItem(text: "Smart Enabled"),
+            DSFilterPillItem(text: "Self-Cleaning")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock At Store Today"),
+            DSFilterPillItem(text: "Free 1-2 Day Delivery"),
+            DSFilterPillItem(text: "Get It Fast"),
+            DSFilterPillItem(text: "Special Buy"),
+            DSFilterPillItem(text: "Best Seller")
+        ],
+        orangeCatalogSlug: "appliances",
+        subcategoryFilter: "Ranges"
+    )
+
     // MARK: - Power Drills Category
-    static let powerDrills: PLPCategory = {
-        // Try to load from power-drills.json if it exists
-        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "power-drills") else {
-            // Fallback - still use OrangeCatalog API
-            return PLPCategory(
-                title: "POWER DRILLS",
-                breadcrumbFilter: "Drill",
-                stylePills: [
-                    DSStylePillItem(text: "Cordless\nDrills", image: Image(systemName: "bolt.batteryblock")),
-                    DSStylePillItem(text: "Corded\nDrills", image: Image(systemName: "powerplug")),
-                    DSStylePillItem(text: "Hammer\nDrills", image: Image(systemName: "hammer")),
-                    DSStylePillItem(text: "Impact\nDrivers", image: Image(systemName: "bolt.circle")),
-                    DSStylePillItem(text: "Drill\nCombo Kits", image: Image(systemName: "cube.box"))
-                ],
-                filterPills: [
-                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                    DSFilterPillItem(text: "Brand"),
-                    DSFilterPillItem(text: "Power Source"),
-                    DSFilterPillItem(text: "Voltage"),
-                    DSFilterPillItem(text: "Chuck Size")
-                ],
-                subFilterPills: [
-                    DSFilterPillItem(text: "In Stock At Store Today"),
-                    DSFilterPillItem(text: "Free 1-2 Day Delivery")
-                ],
-                orangeCatalogSlug: "tools",
-                subcategoryFilter: "Drill"
-            )
-        }
-        
-        // Load style pills from JSON (use categoryStyles if available)
-        let stylePills: [DSStylePillItem]
-        if let categoryStyles = categoryData.categoryStyles {
-            stylePills = CategoryDataLoader.shared.createStylePills(from: categoryStyles, fallbackIcon: "wrench.and.screwdriver")
-        } else if let refrigeratorStyles = categoryData.refrigeratorStyles {
-            // Fallback for backwards compatibility
-            stylePills = CategoryDataLoader.shared.createStylePills(from: refrigeratorStyles)
-        } else {
-            // Fallback with placeholder images
-            stylePills = [
-                DSStylePillItem(text: "Cordless\nDrills", image: Image(systemName: "bolt.batteryblock")),
-                DSStylePillItem(text: "Corded\nDrills", image: Image(systemName: "powerplug")),
-                DSStylePillItem(text: "Hammer\nDrills", image: Image(systemName: "hammer")),
-                DSStylePillItem(text: "Impact\nDrivers", image: Image(systemName: "bolt.circle")),
-                DSStylePillItem(text: "Drill\nCombo Kits", image: Image(systemName: "cube.box"))
-            ]
-        }
-        
-        print("🎨 Created \(stylePills.count) style pills from power-drills.json")
-        
-        return PLPCategory(
-            title: categoryData.pageInfo.categoryName.uppercased(),
-            breadcrumbFilter: "Drill",
-            stylePills: stylePills,
-            filterPills: [
-                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                DSFilterPillItem(text: "Brand"),
-                DSFilterPillItem(text: "Power Source"),
-                DSFilterPillItem(text: "Voltage"),
-                DSFilterPillItem(text: "Chuck Size"),
-                DSFilterPillItem(text: "Speed Settings"),
-                DSFilterPillItem(text: "Brushless Motor")
-            ],
-            subFilterPills: [
-                DSFilterPillItem(text: "In Stock At Store Today"),
-                DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-                DSFilterPillItem(text: "Get It Fast"),
-                DSFilterPillItem(text: "Special Buy"),
-                DSFilterPillItem(text: "Best Seller"),
-                DSFilterPillItem(text: "Exclusive")
-            ],
-            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
-            orangeCatalogSlug: "tools",
-            subcategoryFilter: "Drill"
-        )
-    }()
-    
+    /// Uses OrangeCatalog API to load drill products from nested path tools/drills
+    static let powerDrills = PLPCategory(
+        title: "POWER DRILLS",
+        breadcrumbFilter: "Drills",
+        stylePills: [
+            DSStylePillItem(text: "Cordless\nDrills", image: Image(systemName: "bolt.batteryblock")),
+            DSStylePillItem(text: "Corded\nDrills", image: Image(systemName: "powerplug")),
+            DSStylePillItem(text: "Hammer\nDrills", image: Image(systemName: "hammer")),
+            DSStylePillItem(text: "Impact\nDrivers", image: Image(systemName: "bolt.circle")),
+            DSStylePillItem(text: "Drill\nCombo Kits", image: Image(systemName: "cube.box"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Power Source"),
+            DSFilterPillItem(text: "Voltage"),
+            DSFilterPillItem(text: "Chuck Size")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock At Store Today"),
+            DSFilterPillItem(text: "Free 1-2 Day Delivery")
+        ],
+        orangeCatalogSlug: "tools/drills",
+        subcategoryFilter: nil  // Show all drill types from nested _all.json
+    )
+
     // MARK: - Power Saws Category
-    static let powerSaws: PLPCategory = {
-        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "power-saws") else {
-            // Fallback to SF Symbols
-            return PLPCategory(
-                title: "POWER SAWS",
-                breadcrumbFilter: "Saw",
-                stylePills: [
-                    DSStylePillItem(text: "Circular\nSaws", image: Image(systemName: "circle.grid.cross")),
-                    DSStylePillItem(text: "Miter\nSaws", image: Image(systemName: "triangle")),
-                    DSStylePillItem(text: "Table\nSaws", image: Image(systemName: "rectangle.grid.1x2")),
-                    DSStylePillItem(text: "Jig\nSaws", image: Image(systemName: "waveform")),
-                    DSStylePillItem(text: "Reciprocating\nSaws", image: Image(systemName: "scissors"))
-                ],
-                filterPills: [
-                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                    DSFilterPillItem(text: "Brand"),
-                    DSFilterPillItem(text: "Power Source")
-                ],
-                subFilterPills: [
-                    DSFilterPillItem(text: "In Stock At Store Today")
-                ]
-            )
-        }
-        
-        let stylePills: [DSStylePillItem]
-        if let categoryStyles = categoryData.categoryStyles {
-            stylePills = CategoryDataLoader.shared.createStylePills(from: categoryStyles, fallbackIcon: "triangle")
-        } else {
-            // Fallback with placeholder images
-            stylePills = [
-                DSStylePillItem(text: "Circular\nSaws", image: Image(systemName: "circle.grid.cross")),
-                DSStylePillItem(text: "Miter\nSaws", image: Image(systemName: "triangle")),
-                DSStylePillItem(text: "Table\nSaws", image: Image(systemName: "rectangle.grid.1x2")),
-                DSStylePillItem(text: "Jig\nSaws", image: Image(systemName: "waveform")),
-                DSStylePillItem(text: "Reciprocating\nSaws", image: Image(systemName: "scissors"))
-            ]
-        }
-        
-        return PLPCategory(
-            title: categoryData.pageInfo.categoryName.uppercased(),
-            breadcrumbFilter: "Saw",
-            stylePills: stylePills,
-            filterPills: [
-                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                DSFilterPillItem(text: "Brand"),
-                DSFilterPillItem(text: "Power Source"),
-                DSFilterPillItem(text: "Blade Size"),
-                DSFilterPillItem(text: "Voltage"),
-                DSFilterPillItem(text: "Bevel Capacity")
-            ],
-            subFilterPills: [
-                DSFilterPillItem(text: "In Stock At Store Today"),
-                DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-                DSFilterPillItem(text: "Get It Fast"),
-                DSFilterPillItem(text: "Best Seller")
-            ],
-            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
-            orangeCatalogSlug: "tools",
-            subcategoryFilter: "Saw"
-        )
-    }()
-    
+    /// Uses OrangeCatalog API to load saw products from nested path tools/saws
+    static let powerSaws = PLPCategory(
+        title: "POWER SAWS",
+        breadcrumbFilter: "Saws",
+        stylePills: [
+            DSStylePillItem(text: "Circular\nSaws", image: Image(systemName: "circle.grid.cross")),
+            DSStylePillItem(text: "Miter\nSaws", image: Image(systemName: "triangle")),
+            DSStylePillItem(text: "Table\nSaws", image: Image(systemName: "rectangle.grid.1x2")),
+            DSStylePillItem(text: "Jig\nSaws", image: Image(systemName: "waveform")),
+            DSStylePillItem(text: "Reciprocating\nSaws", image: Image(systemName: "scissors"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Power Source")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock At Store Today")
+        ],
+        orangeCatalogSlug: "tools/saws",
+        subcategoryFilter: nil  // Show all saw types from nested _all.json
+    )
+
     // MARK: - Sanders Category
-    static let sanders: PLPCategory = {
-        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "sanders") else {
-            // Fallback to SF Symbols
-            return PLPCategory(
-                title: "SANDERS",
-                breadcrumbFilter: "Sander",
-                stylePills: [
-                    DSStylePillItem(text: "Random Orbit\nSanders", image: Image(systemName: "circle.dotted")),
-                    DSStylePillItem(text: "Belt\nSanders", image: Image(systemName: "arrow.forward")),
-                    DSStylePillItem(text: "Detail\nSanders", image: Image(systemName: "hand.point.up")),
-                    DSStylePillItem(text: "Sheet\nSanders", image: Image(systemName: "rectangle"))
-                ],
-                filterPills: [
-                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                    DSFilterPillItem(text: "Brand")
-                ],
-                subFilterPills: []
-            )
-        }
-        
-        let stylePills: [DSStylePillItem]
-        if let categoryStyles = categoryData.categoryStyles {
-            stylePills = CategoryDataLoader.shared.createStylePills(from: categoryStyles, fallbackIcon: "circle.dotted")
-        } else {
-            // Fallback with placeholder images
-            stylePills = [
-                DSStylePillItem(text: "Random Orbit\nSanders", image: Image(systemName: "circle.dotted")),
-                DSStylePillItem(text: "Belt\nSanders", image: Image(systemName: "arrow.forward")),
-                DSStylePillItem(text: "Detail\nSanders", image: Image(systemName: "hand.point.up")),
-                DSStylePillItem(text: "Sheet\nSanders", image: Image(systemName: "rectangle"))
-            ]
-        }
-        
-        return PLPCategory(
-            title: categoryData.pageInfo.categoryName.uppercased(),
-            breadcrumbFilter: "Sander",
-            stylePills: stylePills,
-            filterPills: [
-                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                DSFilterPillItem(text: "Brand"),
-                DSFilterPillItem(text: "Power Source"),
-                DSFilterPillItem(text: "Pad Size"),
-                DSFilterPillItem(text: "Variable Speed"),
-                DSFilterPillItem(text: "Dust Collection")
-            ],
-            subFilterPills: [
-                DSFilterPillItem(text: "In Stock At Store Today"),
-                DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-                DSFilterPillItem(text: "Best Seller")
-            ],
-            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
-            orangeCatalogSlug: "tools",
-            subcategoryFilter: "Sander"
-        )
-    }()
+    /// Uses OrangeCatalog API to load sander products from nested path tools/sanders
+    static let sanders = PLPCategory(
+        title: "SANDERS",
+        breadcrumbFilter: "Sanders",
+        stylePills: [
+            DSStylePillItem(text: "Random Orbit\nSanders", image: Image(systemName: "circle.dotted")),
+            DSStylePillItem(text: "Belt\nSanders", image: Image(systemName: "arrow.forward")),
+            DSStylePillItem(text: "Detail\nSanders", image: Image(systemName: "hand.point.up")),
+            DSStylePillItem(text: "Sheet\nSanders", image: Image(systemName: "rectangle"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand")
+        ],
+        subFilterPills: [],
+        orangeCatalogSlug: "tools/sanders",
+        subcategoryFilter: nil  // Show all sander types from nested _all.json
+    )
     
-    // MARK: - Refrigerators with Real Product Images
-    /// Example using real product images from pip-datasets.json
-    static let refrigeratorsWithImages: PLPCategory = {
-        PLPCategory.withProductImages(
-            title: "REFRIGERATORS",
-            breadcrumbFilter: "Refrigerator",
-            stylePillConfigs: [
-                ("French Door\nRefrigerators", "French Door", "refrigerator.fill"),
-                ("Side by Side\nRefrigerators", "Side by Side", "refrigerator.fill"),
-                ("Top Freezer\nRefrigerators", "Top Freezer", "refrigerator.fill"),
-                ("Bottom Freezer\nRefrigerators", "Bottom Freezer", "refrigerator.fill"),
-                ("Counter Depth\nRefrigerators", "Counter Depth", "refrigerator.fill"),
-                ("Mini Fridges", "Mini", "refrigerator.fill")
-            ],
-            filterPills: [
-                DSFilterPillItem(
-                    text: "All Filters",
-                    icon: Image(systemName: "line.3.horizontal.decrease.circle")
-                ),
-                DSFilterPillItem(text: "Brand"),
-                DSFilterPillItem(text: "Refrigerator Width"),
-                DSFilterPillItem(text: "Capacity (cu. ft.)"),
-                DSFilterPillItem(text: "Color/Finish"),
-                DSFilterPillItem(text: "Ice & Water Dispenser"),
-                DSFilterPillItem(text: "Smart Enabled"),
-                DSFilterPillItem(text: "Energy Star")
-            ],
-            subFilterPills: [
-                DSFilterPillItem(text: "In Stock At Store Today"),
-                DSFilterPillItem(text: "Free 1-2 Day Delivery"),
-                DSFilterPillItem(text: "Get It Fast"),
-                DSFilterPillItem(text: "Special Buy"),
-                DSFilterPillItem(text: "Exclusive"),
-                DSFilterPillItem(text: "Best Seller")
-            ]
-        )
-    }()
+    // MARK: - Bedroom Furniture Category
+    static let bedroomFurniture = PLPCategory(
+        title: "BEDROOM FURNITURE",
+        breadcrumbFilter: "Bedroom",
+        stylePills: [
+            DSStylePillItem(text: "Beds &\nHeadboards", image: Image(systemName: "bed.double.fill")),
+            DSStylePillItem(text: "Dressers &\nChests", image: Image(systemName: "cabinet.fill")),
+            DSStylePillItem(text: "Nightstands", image: Image(systemName: "tablecells.fill")),
+            DSStylePillItem(text: "Bedroom\nSets", image: Image(systemName: "square.stack.3d.up.fill"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Size"),
+            DSFilterPillItem(text: "Material"),
+            DSFilterPillItem(text: "Color/Finish")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock At Store Today"),
+            DSFilterPillItem(text: "Free 1-2 Day Delivery")
+        ],
+        orangeCatalogSlug: "furniture",
+        subcategoryFilter: "Bedroom"
+    )
+
+    // MARK: - Lighting Category
+    static let lighting = PLPCategory(
+        title: "LIGHTING",
+        breadcrumbFilter: "Lighting",
+        stylePills: [
+            DSStylePillItem(text: "Ceiling\nLights", image: Image(systemName: "lightbulb.fill")),
+            DSStylePillItem(text: "Pendant\nLights", image: Image(systemName: "light.max")),
+            DSStylePillItem(text: "Track\nLighting", image: Image(systemName: "light.panel")),
+            DSStylePillItem(text: "Outdoor\nLighting", image: Image(systemName: "sun.max.fill"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Style"),
+            DSFilterPillItem(text: "Finish"),
+            DSFilterPillItem(text: "Bulb Type")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock At Store Today"),
+            DSFilterPillItem(text: "Free 1-2 Day Delivery")
+        ],
+        orangeCatalogSlug: "electrical",
+        subcategoryFilter: "Lighting"
+    )
     
-    // MARK: - Bathroom Vanities Category
-    static let bathroomVanities: PLPCategory = {
-        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "bathroom-vanities") else {
-            // Fallback - still use OrangeCatalog API
-            return PLPCategory(
-                title: "BATHROOM VANITIES",
-                breadcrumbFilter: "Bathroom Vanity",
-                stylePills: [
-                    DSStylePillItem(text: "Single Sink\nVanities", image: Image(systemName: "sink.fill")),
-                    DSStylePillItem(text: "Double Sink\nVanities", image: Image(systemName: "sink.fill")),
-                    DSStylePillItem(text: "Floating\nVanities", image: Image(systemName: "rectangle.fill")),
-                    DSStylePillItem(text: "Vanities\nwith Top", image: Image(systemName: "square.stack.fill"))
-                ],
-                filterPills: [
-                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                    DSFilterPillItem(text: "Brand"),
-                    DSFilterPillItem(text: "Vanity Width"),
-                    DSFilterPillItem(text: "Sink Type"),
-                    DSFilterPillItem(text: "Color/Finish")
-                ],
-                subFilterPills: [
-                    DSFilterPillItem(text: "In Stock At Store Today"),
-                    DSFilterPillItem(text: "Free 1-2 Day Delivery")
-                ],
-                orangeCatalogSlug: "furniture",
-                subcategoryFilter: "Vanit"
-            )
-        }
-        
-        // Extract quick filters if available
-        let subFilterPills: [DSFilterPillItem]
-        if !categoryData.quickFilters.isEmpty {
-            subFilterPills = categoryData.quickFilters.map { DSFilterPillItem(text: $0.label) }
-        } else {
-            subFilterPills = [
-                DSFilterPillItem(text: "In Stock At Store Today"),
-                DSFilterPillItem(text: "Free 1-2 Day Delivery")
-            ]
-        }
-        
-        // Extract main filters
-        let filterPills: [DSFilterPillItem]
-        if !categoryData.filters.isEmpty {
-            var pills = [DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle"))]
-            pills.append(contentsOf: categoryData.filters.prefix(6).map { DSFilterPillItem(text: $0.filterGroupName) })
-            filterPills = pills
-        } else {
-            filterPills = [
-                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                DSFilterPillItem(text: "Brand"),
-                DSFilterPillItem(text: "Vanity Width"),
-                DSFilterPillItem(text: "Sink Type"),
-                DSFilterPillItem(text: "Color/Finish")
-            ]
-        }
-        
-        print("🎨 Created Bathroom Vanities category from JSON")
-        
-        return PLPCategory(
-            title: categoryData.pageInfo.categoryName.uppercased(),
-            breadcrumbFilter: "Bathroom Vanity",
-            stylePills: [
-                DSStylePillItem(text: "Single Sink\nVanities", image: Image(systemName: "sink.fill")),
-                DSStylePillItem(text: "Double Sink\nVanities", image: Image(systemName: "sink.fill")),
-                DSStylePillItem(text: "Floating\nVanities", image: Image(systemName: "rectangle.fill")),
-                DSStylePillItem(text: "Vanities\nwith Top", image: Image(systemName: "square.stack.fill"))
-            ],
-            filterPills: filterPills,
-            subFilterPills: subFilterPills,
-            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
-            orangeCatalogSlug: "furniture",
-            subcategoryFilter: "Vanit"
-        )
-    }()
-    
-    // MARK: - Ceiling Fans Category
-    static let ceilingFans: PLPCategory = {
-        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "ceiling-fans") else {
-            // Fallback - still use OrangeCatalog API
-            return PLPCategory(
-                title: "CEILING FANS",
-                breadcrumbFilter: "Ceiling Fan",
-                stylePills: [
-                    DSStylePillItem(text: "Indoor\nCeiling Fans", image: Image(systemName: "fan.fill")),
-                    DSStylePillItem(text: "Outdoor\nCeiling Fans", image: Image(systemName: "fan.fill")),
-                    DSStylePillItem(text: "Fans with\nLight", image: Image(systemName: "lightbulb.fill")),
-                    DSStylePillItem(text: "Smart\nCeiling Fans", image: Image(systemName: "antenna.radiowaves.left.and.right"))
-                ],
-                filterPills: [
-                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                    DSFilterPillItem(text: "Brand"),
-                    DSFilterPillItem(text: "Blade Span"),
-                    DSFilterPillItem(text: "Light Kit"),
-                    DSFilterPillItem(text: "Style")
-                ],
-                subFilterPills: [
-                    DSFilterPillItem(text: "In Stock At Store Today"),
-                    DSFilterPillItem(text: "Free 1-2 Day Delivery")
-                ],
-                orangeCatalogSlug: "electrical",
-                subcategoryFilter: "Fan"
-            )
-        }
-        
-        // Extract quick filters if available
-        let subFilterPills: [DSFilterPillItem]
-        if !categoryData.quickFilters.isEmpty {
-            subFilterPills = categoryData.quickFilters.map { DSFilterPillItem(text: $0.label) }
-        } else {
-            subFilterPills = [
-                DSFilterPillItem(text: "In Stock At Store Today"),
-                DSFilterPillItem(text: "Free 1-2 Day Delivery")
-            ]
-        }
-        
-        // Extract main filters
-        let filterPills: [DSFilterPillItem]
-        if !categoryData.filters.isEmpty {
-            var pills = [DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle"))]
-            pills.append(contentsOf: categoryData.filters.prefix(6).map { DSFilterPillItem(text: $0.filterGroupName) })
-            filterPills = pills
-        } else {
-            filterPills = [
-                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                DSFilterPillItem(text: "Brand"),
-                DSFilterPillItem(text: "Blade Span"),
-                DSFilterPillItem(text: "Light Kit"),
-                DSFilterPillItem(text: "Style")
-            ]
-        }
-        
-        print("🎨 Created Ceiling Fans category from JSON")
-        
-        return PLPCategory(
-            title: categoryData.pageInfo.categoryName.uppercased(),
-            breadcrumbFilter: "Ceiling Fan",
-            stylePills: [
-                DSStylePillItem(text: "Indoor\nCeiling Fans", image: Image(systemName: "fan.fill")),
-                DSStylePillItem(text: "Outdoor\nCeiling Fans", image: Image(systemName: "fan.fill")),
-                DSStylePillItem(text: "Fans with\nLight", image: Image(systemName: "lightbulb.fill")),
-                DSStylePillItem(text: "Smart\nCeiling Fans", image: Image(systemName: "antenna.radiowaves.left.and.right"))
-            ],
-            filterPills: filterPills,
-            subFilterPills: subFilterPills,
-            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
-            orangeCatalogSlug: "electrical",
-            subcategoryFilter: "Fan"
-        )
-    }()
-    
-    // MARK: - Lawn Mowers Category
-    static let lawnMowers: PLPCategory = {
-        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "lawn-mowers") else {
-            // Fallback - still use OrangeCatalog API
-            return PLPCategory(
-                title: "LAWN MOWERS",
-                breadcrumbFilter: "Lawn Mower",
-                stylePills: [
-                    DSStylePillItem(text: "Push\nMowers", image: Image(systemName: "figure.walk")),
-                    DSStylePillItem(text: "Self-Propelled\nMowers", image: Image(systemName: "gear")),
-                    DSStylePillItem(text: "Riding\nMowers", image: Image(systemName: "figure.seated.side")),
-                    DSStylePillItem(text: "Robotic\nMowers", image: Image(systemName: "robot.fill"))
-                ],
-                filterPills: [
-                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                    DSFilterPillItem(text: "Brand"),
-                    DSFilterPillItem(text: "Power Type"),
-                    DSFilterPillItem(text: "Cutting Width"),
-                    DSFilterPillItem(text: "Drive Type")
-                ],
-                subFilterPills: [
-                    DSFilterPillItem(text: "In Stock At Store Today"),
-                    DSFilterPillItem(text: "Free 1-2 Day Delivery")
-                ],
-                orangeCatalogSlug: "tools",
-                subcategoryFilter: "Mower"
-            )
-        }
-        
-        // Extract quick filters if available
-        let subFilterPills: [DSFilterPillItem]
-        if !categoryData.quickFilters.isEmpty {
-            subFilterPills = categoryData.quickFilters.map { DSFilterPillItem(text: $0.label) }
-        } else {
-            subFilterPills = [
-                DSFilterPillItem(text: "In Stock At Store Today"),
-                DSFilterPillItem(text: "Free 1-2 Day Delivery")
-            ]
-        }
-        
-        // Extract main filters
-        let filterPills: [DSFilterPillItem]
-        if !categoryData.filters.isEmpty {
-            var pills = [DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle"))]
-            pills.append(contentsOf: categoryData.filters.prefix(6).map { DSFilterPillItem(text: $0.filterGroupName) })
-            filterPills = pills
-        } else {
-            filterPills = [
-                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                DSFilterPillItem(text: "Brand"),
-                DSFilterPillItem(text: "Power Type"),
-                DSFilterPillItem(text: "Cutting Width"),
-                DSFilterPillItem(text: "Drive Type")
-            ]
-        }
-        
-        print("🎨 Created Lawn Mowers category from JSON")
-        
-        return PLPCategory(
-            title: categoryData.pageInfo.categoryName.uppercased(),
-            breadcrumbFilter: "Lawn Mower",
-            stylePills: [
-                DSStylePillItem(text: "Push\nMowers", image: Image(systemName: "figure.walk")),
-                DSStylePillItem(text: "Self-Propelled\nMowers", image: Image(systemName: "gear")),
-                DSStylePillItem(text: "Riding\nMowers", image: Image(systemName: "figure.seated.side")),
-                DSStylePillItem(text: "Robotic\nMowers", image: Image(systemName: "robot.fill"))
-            ],
-            filterPills: filterPills,
-            subFilterPills: subFilterPills,
-            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
-            orangeCatalogSlug: "tools",
-            subcategoryFilter: "Mower"
-        )
-    }()
-    
-    // MARK: - Smart Thermostats Category
-    static let smartThermostats: PLPCategory = {
-        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "smart-thermostats") else {
-            // Fallback - still use OrangeCatalog API
-            return PLPCategory(
-                title: "SMART THERMOSTATS",
-                breadcrumbFilter: "Smart Thermostat",
-                stylePills: [
-                    DSStylePillItem(text: "WiFi\nThermostats", image: Image(systemName: "wifi")),
-                    DSStylePillItem(text: "Learning\nThermostats", image: Image(systemName: "brain.head.profile")),
-                    DSStylePillItem(text: "Programmable\nThermostats", image: Image(systemName: "calendar")),
-                    DSStylePillItem(text: "Voice Control\nThermostats", image: Image(systemName: "mic.fill"))
-                ],
-                filterPills: [
-                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                    DSFilterPillItem(text: "Brand"),
-                    DSFilterPillItem(text: "System Type"),
-                    DSFilterPillItem(text: "Voice Assistant"),
-                    DSFilterPillItem(text: "Display Type")
-                ],
-                subFilterPills: [
-                    DSFilterPillItem(text: "In Stock At Store Today"),
-                    DSFilterPillItem(text: "Free 1-2 Day Delivery")
-                ],
-                orangeCatalogSlug: "electrical",
-                subcategoryFilter: "Thermostat"
-            )
-        }
-        
-        // Extract quick filters if available
-        let subFilterPills: [DSFilterPillItem]
-        if !categoryData.quickFilters.isEmpty {
-            subFilterPills = categoryData.quickFilters.map { DSFilterPillItem(text: $0.label) }
-        } else {
-            subFilterPills = [
-                DSFilterPillItem(text: "In Stock At Store Today"),
-                DSFilterPillItem(text: "Free 1-2 Day Delivery")
-            ]
-        }
-        
-        // Extract main filters
-        let filterPills: [DSFilterPillItem]
-        if !categoryData.filters.isEmpty {
-            var pills = [DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle"))]
-            pills.append(contentsOf: categoryData.filters.prefix(6).map { DSFilterPillItem(text: $0.filterGroupName) })
-            filterPills = pills
-        } else {
-            filterPills = [
-                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                DSFilterPillItem(text: "Brand"),
-                DSFilterPillItem(text: "System Type"),
-                DSFilterPillItem(text: "Voice Assistant"),
-                DSFilterPillItem(text: "Display Type")
-            ]
-        }
-        
-        print("🎨 Created Smart Thermostats category from JSON")
-        
-        return PLPCategory(
-            title: categoryData.pageInfo.categoryName.uppercased(),
-            breadcrumbFilter: "Smart Thermostat",
-            stylePills: [
-                DSStylePillItem(text: "WiFi\nThermostats", image: Image(systemName: "wifi")),
-                DSStylePillItem(text: "Learning\nThermostats", image: Image(systemName: "brain.head.profile")),
-                DSStylePillItem(text: "Programmable\nThermostats", image: Image(systemName: "calendar")),
-                DSStylePillItem(text: "Voice Control\nThermostats", image: Image(systemName: "mic.fill"))
-            ],
-            filterPills: filterPills,
-            subFilterPills: subFilterPills,
-            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
-            orangeCatalogSlug: "electrical",
-            subcategoryFilter: "Thermostat"
-        )
-    }()
-    
-    // MARK: - Tool Chests Category
-    static let toolChests: PLPCategory = {
-        guard let categoryData = CategoryDataLoader.shared.loadCategoryData(filename: "tool-chests") else {
-            // Fallback - still use OrangeCatalog API
-            return PLPCategory(
-                title: "TOOL CHESTS",
-                breadcrumbFilter: "Tool Chest",
-                stylePills: [
-                    DSStylePillItem(text: "Rolling\nTool Cabinets", image: Image(systemName: "shippingbox.fill")),
-                    DSStylePillItem(text: "Top\nChests", image: Image(systemName: "square.stack.fill")),
-                    DSStylePillItem(text: "Combo\nSets", image: Image(systemName: "square.stack.3d.up.fill")),
-                    DSStylePillItem(text: "Mobile\nWorkbenches", image: Image(systemName: "wrench.and.screwdriver.fill"))
-                ],
-                filterPills: [
-                    DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                    DSFilterPillItem(text: "Brand"),
-                    DSFilterPillItem(text: "Width"),
-                    DSFilterPillItem(text: "Number of Drawers"),
-                    DSFilterPillItem(text: "Material")
-                ],
-                subFilterPills: [
-                    DSFilterPillItem(text: "In Stock At Store Today"),
-                    DSFilterPillItem(text: "Free 1-2 Day Delivery")
-                ],
-                orangeCatalogSlug: "storage",
-                subcategoryFilter: "Tool"
-            )
-        }
-        
-        // Extract quick filters if available
-        let subFilterPills: [DSFilterPillItem]
-        if !categoryData.quickFilters.isEmpty {
-            subFilterPills = categoryData.quickFilters.map { DSFilterPillItem(text: $0.label) }
-        } else {
-            subFilterPills = [
-                DSFilterPillItem(text: "In Stock At Store Today"),
-                DSFilterPillItem(text: "Free 1-2 Day Delivery")
-            ]
-        }
-        
-        // Extract main filters
-        let filterPills: [DSFilterPillItem]
-        if !categoryData.filters.isEmpty {
-            var pills = [DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle"))]
-            pills.append(contentsOf: categoryData.filters.prefix(6).map { DSFilterPillItem(text: $0.filterGroupName) })
-            filterPills = pills
-        } else {
-            filterPills = [
-                DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
-                DSFilterPillItem(text: "Brand"),
-                DSFilterPillItem(text: "Width"),
-                DSFilterPillItem(text: "Number of Drawers"),
-                DSFilterPillItem(text: "Material")
-            ]
-        }
-        
-        print("🎨 Created Tool Chests category from JSON")
-        
-        return PLPCategory(
-            title: categoryData.pageInfo.categoryName.uppercased(),
-            breadcrumbFilter: "Tool Chest",
-            stylePills: [
-                DSStylePillItem(text: "Rolling\nTool Cabinets", image: Image(systemName: "shippingbox.fill")),
-                DSStylePillItem(text: "Top\nChests", image: Image(systemName: "square.stack.fill")),
-                DSStylePillItem(text: "Combo\nSets", image: Image(systemName: "square.stack.3d.up.fill")),
-                DSStylePillItem(text: "Mobile\nWorkbenches", image: Image(systemName: "wrench.and.screwdriver.fill"))
-            ],
-            filterPills: filterPills,
-            subFilterPills: subFilterPills,
-            categoryJSONFilename: nil,  // Disabled - using OrangeCatalog instead
-            orangeCatalogSlug: "storage",
-            subcategoryFilter: "Tool"
-        )
-    }()
+    // MARK: - Grinders Category
+    /// Uses OrangeCatalog API to load grinder products from nested path tools/grinders
+    static let grinders = PLPCategory(
+        title: "GRINDERS",
+        breadcrumbFilter: "Grinders",
+        stylePills: [
+            DSStylePillItem(text: "Angle\nGrinders", image: Image(systemName: "circle.grid.cross")),
+            DSStylePillItem(text: "Bench\nGrinders", image: Image(systemName: "rectangle.on.rectangle")),
+            DSStylePillItem(text: "Die\nGrinders", image: Image(systemName: "cylinder")),
+            DSStylePillItem(text: "Grinding\nWheels", image: Image(systemName: "circle.dotted"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Power Source"),
+            DSFilterPillItem(text: "Disc Size"),
+            DSFilterPillItem(text: "Amps")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock At Store Today"),
+            DSFilterPillItem(text: "Free 1-2 Day Delivery")
+        ],
+        orangeCatalogSlug: "tools/grinders",
+        subcategoryFilter: nil  // Show all grinder types from nested _all.json
+    )
+
+    // MARK: - Smart Home Category
+    static let smartHome = PLPCategory(
+        title: "SMART HOME",
+        breadcrumbFilter: "Smart Home",
+        stylePills: [
+            DSStylePillItem(text: "Smart\nThermostats", image: Image(systemName: "thermometer")),
+            DSStylePillItem(text: "Smart\nSpeakers", image: Image(systemName: "homepod.fill")),
+            DSStylePillItem(text: "Smart\nLocks", image: Image(systemName: "lock.fill")),
+            DSStylePillItem(text: "Smart\nCameras", image: Image(systemName: "video.fill"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Voice Assistant"),
+            DSFilterPillItem(text: "Connectivity"),
+            DSFilterPillItem(text: "Power Source")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock At Store Today"),
+            DSFilterPillItem(text: "Free 1-2 Day Delivery")
+        ],
+        orangeCatalogSlug: "electrical",
+        subcategoryFilter: "Smart Home"
+    )
+
+    // MARK: - Tool Storage Category
+    /// Uses OrangeCatalog API to load tool storage products from nested path tools/tool-storage
+    static let toolStorage = PLPCategory(
+        title: "TOOL STORAGE",
+        breadcrumbFilter: "Tool Storage",
+        stylePills: [
+            DSStylePillItem(text: "Rolling\nTool Cabinets", image: Image(systemName: "shippingbox.fill")),
+            DSStylePillItem(text: "Top\nChests", image: Image(systemName: "square.stack.fill")),
+            DSStylePillItem(text: "Combo\nSets", image: Image(systemName: "square.stack.3d.up.fill")),
+            DSStylePillItem(text: "Mobile\nWorkbenches", image: Image(systemName: "wrench.and.screwdriver.fill"))
+        ],
+        filterPills: [
+            DSFilterPillItem(text: "All Filters", icon: Image(systemName: "line.3.horizontal.decrease.circle")),
+            DSFilterPillItem(text: "Brand"),
+            DSFilterPillItem(text: "Width"),
+            DSFilterPillItem(text: "Number of Drawers"),
+            DSFilterPillItem(text: "Material")
+        ],
+        subFilterPills: [
+            DSFilterPillItem(text: "In Stock At Store Today"),
+            DSFilterPillItem(text: "Free 1-2 Day Delivery")
+        ],
+        orangeCatalogSlug: "tools/tool-storage",
+        subcategoryFilter: nil  // Show all tool storage types from nested _all.json
+    )
 
     // MARK: - OrangeCatalog Categories (Remote API)
 
@@ -2030,7 +1396,6 @@ struct PLPCategory {
             DSFilterPillItem(text: "Rating")
         ],
         subFilterPills: [],
-        categoryJSONFilename: nil,
         orangeCatalogSlug: "tools"
     )
 
@@ -2051,7 +1416,6 @@ struct PLPCategory {
             DSFilterPillItem(text: "Rating")
         ],
         subFilterPills: [],
-        categoryJSONFilename: nil,
         orangeCatalogSlug: "appliances"
     )
 
@@ -2076,7 +1440,6 @@ struct PLPCategory {
             DSFilterPillItem(text: "In Stock"),
             DSFilterPillItem(text: "Free Delivery")
         ],
-        categoryJSONFilename: nil,
         orangeCatalogSlug: "automotive"
     )
 
@@ -2103,7 +1466,6 @@ struct PLPCategory {
             DSFilterPillItem(text: "Free Delivery"),
             DSFilterPillItem(text: "Best Seller")
         ],
-        categoryJSONFilename: nil,
         orangeCatalogSlug: "garage"
     )
 
@@ -2131,7 +1493,6 @@ struct PLPCategory {
             DSFilterPillItem(text: "Free Delivery"),
             DSFilterPillItem(text: "New Arrivals")
         ],
-        categoryJSONFilename: nil,
         orangeCatalogSlug: "home-decor"
     )
 
@@ -2157,7 +1518,6 @@ struct PLPCategory {
             DSFilterPillItem(text: "Free Delivery"),
             DSFilterPillItem(text: "Special Buy")
         ],
-        categoryJSONFilename: nil,
         orangeCatalogSlug: "other"
     )
 }
@@ -2191,16 +1551,12 @@ enum PLPViewMode {
     PLPView(category: .refrigerators)
 }
 
+#Preview("PLP - Washers & Dryers") {
+    PLPView(category: .washersAndDryers)
+}
+
 #Preview("PLP - Dishwashers") {
     PLPView(category: .dishwashers)
-}
-
-#Preview("PLP - Washing Machines") {
-    PLPView(category: .washingMachines)
-}
-
-#Preview("PLP - Dryers") {
-    PLPView(category: .dryers)
 }
 
 #Preview("PLP - Ranges") {
@@ -2219,24 +1575,24 @@ enum PLPViewMode {
     PLPView(category: .sanders)
 }
 
-#Preview("PLP - Bathroom Vanities") {
-    PLPView(category: .bathroomVanities)
+#Preview("PLP - Grinders") {
+    PLPView(category: .grinders)
 }
 
-#Preview("PLP - Ceiling Fans") {
-    PLPView(category: .ceilingFans)
+#Preview("PLP - Tool Storage") {
+    PLPView(category: .toolStorage)
 }
 
-#Preview("PLP - Lawn Mowers") {
-    PLPView(category: .lawnMowers)
+#Preview("PLP - Bedroom Furniture") {
+    PLPView(category: .bedroomFurniture)
 }
 
-#Preview("PLP - Smart Thermostats") {
-    PLPView(category: .smartThermostats)
+#Preview("PLP - Lighting") {
+    PLPView(category: .lighting)
 }
 
-#Preview("PLP - Tool Chests") {
-    PLPView(category: .toolChests)
+#Preview("PLP - Smart Home") {
+    PLPView(category: .smartHome)
 }
 
 // MARK: - OrangeCatalog Previews

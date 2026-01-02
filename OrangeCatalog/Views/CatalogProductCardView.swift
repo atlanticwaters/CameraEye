@@ -206,7 +206,7 @@ struct CatalogProductGridCardView: View {
         title: "M18 FUEL 18V Lithium-Ion Brushless Cordless Hammer Drill",
         subcategory: "Hammer Drills",
         rating: OrangeCatalogProduct.ProductRating(average: 4.7, count: 1234),
-        images: OrangeCatalogProduct.ProductImages(primary: "https://images.thdstatic.com/productImages/sample.jpg"),
+        images: OrangeCatalogProduct.ProductImages(primary: "https://images.thdstatic.com/productImages/sample.jpg", thumbnail: nil, small: nil, medium: nil, large: nil, gallery: nil),
         badges: nil,
         availability: OrangeCatalogProduct.ProductAvailability(inStock: true),
         price: OrangeCatalogProduct.ProductPrice(

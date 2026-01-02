@@ -61,17 +61,17 @@ actor CatalogService {
         return response.categories
     }
 
-    /// Fetch a full category with its products.
-    /// - Parameter slug: The category slug (e.g., "tools", "appliances")
+    /// Fetch a full category with its products using the new _all.json endpoint.
+    /// - Parameter slug: The category slug (e.g., "tools", "appliances", "appliances/refrigerators")
     func fetchCategory(slug: String) async throws -> OrangeCatalogCategory {
-        let url = try buildURL(path: "categories/\(slug).json")
+        let url = try buildURL(path: "categories/\(slug)/_all.json")
         return try await fetch(url: url)
     }
 
-    /// Fetch a category ignoring cache, forcing a fresh network request.
-    /// - Parameter slug: The category slug (e.g., "tools", "appliances")
+    /// Fetch a category ignoring cache, forcing a fresh network request using the new _all.json endpoint.
+    /// - Parameter slug: The category slug (e.g., "tools", "appliances", "appliances/refrigerators")
     func fetchCategoryFresh(slug: String) async throws -> OrangeCatalogCategory {
-        let url = try buildURL(path: "categories/\(slug).json")
+        let url = try buildURL(path: "categories/\(slug)/_all.json")
         var request = URLRequest(url: url)
         request.cachePolicy = .reloadIgnoringLocalAndRemoteCacheData
 
